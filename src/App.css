@@ -138,6 +138,107 @@ main {
   z-index: 10;
 }
 
+.milestone {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.milestone-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -8vh;
+  font-size: 28px;
+  line-height: 1;
+  will-change: transform, opacity;
+  animation-name: confetti-fall;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate(0, -10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--drift, 0), 110vh) rotate(var(--rotate, 360deg));
+    opacity: 0.9;
+  }
+}
+
+.milestone-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 44px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #eee;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  animation: milestone-pop 2600ms ease forwards;
+}
+
+.milestone-count {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff8a3d 0%, #ff3d8a 50%, #6a3dff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.milestone-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+  color: #555;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@keyframes milestone-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotate(-4deg);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  30% {
+    transform: scale(0.98) rotate(-1deg);
+  }
+  45% {
+    transform: scale(1.02) rotate(0.5deg);
+  }
+  60% {
+    transform: scale(1) rotate(0);
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.92) rotate(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .train-emoji:hover { animation: none; }
   .steam { display: none; }
@@ -157,4 +258,17 @@ main {
   }
 
   .hero { transition: none; }
+
+  .confetti { display: none; }
+
+  .milestone-card {
+    animation: milestone-fade 2600ms ease forwards;
+  }
+
+  @keyframes milestone-fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { opacity: 0; }
+  }
 }
