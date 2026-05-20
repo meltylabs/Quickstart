@@ -138,7 +138,97 @@ main {
   z-index: 10;
 }
 
+.night-toggle {
+  position: fixed;
+  top: 16px;
+  right: 60px;
+  background: transparent;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+  z-index: 10;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.night-toggle:hover {
+  border-color: #ccc;
+  transform: scale(1.05);
+}
+
+.night-toggle:focus-visible {
+  outline: 2px solid #888;
+  outline-offset: 2px;
+}
+
+.night-sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.moon {
+  position: absolute;
+  top: 6vh;
+  right: 8vw;
+  font-size: 56px;
+  line-height: 1;
+  filter: drop-shadow(0 0 16px rgba(220, 220, 255, 0.35));
+  animation: moon-glow 4s ease-in-out infinite;
+}
+
+.star {
+  position: absolute;
+  color: #f4f6ff;
+  font-size: 14px;
+  opacity: 0.85;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.star:nth-child(2n) { animation-delay: 0.6s; font-size: 10px; }
+.star:nth-child(3n) { animation-delay: 1.2s; font-size: 18px; }
+.star:nth-child(4n) { animation-delay: 1.8s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.9); }
+  50%      { opacity: 1;    transform: scale(1.1); }
+}
+
+@keyframes moon-glow {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(220, 220, 255, 0.25)); }
+  50%      { filter: drop-shadow(0 0 22px rgba(220, 220, 255, 0.55)); }
+}
+
+body.night .tagline { color: #8892c4; }
+body.night .counter { color: #6c75a6; }
+body.night .steam   { color: #5b6390; }
+
+body.night .mute-toggle,
+body.night .night-toggle {
+  border-color: #2a3260;
+  color: #b8c0e8;
+}
+
+body.night .mute-toggle:hover,
+body.night .night-toggle:hover {
+  border-color: #4a5494;
+}
+
+body.night .mute-toggle:focus-visible,
+body.night .night-toggle:focus-visible {
+  outline-color: #b8c0e8;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .star, .moon { animation: none; }
+
   .train-emoji:hover { animation: none; }
   .steam { display: none; }
 
