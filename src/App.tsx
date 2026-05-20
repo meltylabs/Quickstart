@@ -19,13 +19,27 @@ type Puff = {
   char: string
 }
 
+type Confetti = {
+  id: number
+  left: number
+  delayMs: number
+  durationMs: number
+  drift: number
+  rotate: number
+  char: string
+}
+
 const TRAIN_EMOJIS = ['🚂', '🚃', '🚅', '🚋', '🚄']
 const PUFF_CHARS = ['·', '°', '・', '∘']
+const CONFETTI_CHARS = ['🎉', '🎊', '✨', '🚂', '🎈', '⭐']
 const LANE_COUNT = 5
 const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const MILESTONE_EVERY = 10
+const MILESTONE_DURATION_MS = 2600
+const CONFETTI_COUNT = 28
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -40,8 +54,11 @@ function App() {
     return localStorage.getItem('wtc:muted') === '1'
   })
   const [hasDispatched, setHasDispatched] = useState(false)
+  const [milestone, setMilestone] = useState<{ count: number; confetti: Confetti[] } | null>(null)
 
   const nextIdRef = useRef(1)
+  const countRef = useRef(0)
+  const milestoneTimerRef = useRef<number | null>(null)
   const lastDispatchRef = useRef(0)
   const lastLaneRef = useRef(-1)
   const lastDirRef = useRef<Direction>('rtl')
@@ -52,6 +69,14 @@ function App() {
     mutedRef.current = muted
     localStorage.setItem('wtc:muted', muted ? '1' : '0')
   }, [muted])
+
+  useEffect(() => {
+    return () => {
+      if (milestoneTimerRef.current !== null) {
+        window.clearTimeout(milestoneTimerRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (chooRef.current) return
@@ -107,7 +132,28 @@ function App() {
     }
 
     setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
+    const nextCount = countRef.current + 1
+    countRef.current = nextCount
+    setCount(nextCount)
+    if (nextCount % MILESTONE_EVERY === 0) {
+      const confetti: Confetti[] = Array.from({ length: CONFETTI_COUNT }, () => ({
+        id: nextIdRef.current++,
+        left: Math.random() * 100,
+        delayMs: Math.random() * 400,
+        durationMs: 1600 + Math.random() * 1200,
+        drift: (Math.random() - 0.5) * 30,
+        rotate: (Math.random() - 0.5) * 720,
+        char: pick(CONFETTI_CHARS),
+      }))
+      setMilestone({ count: nextCount, confetti })
+      if (milestoneTimerRef.current !== null) {
+        window.clearTimeout(milestoneTimerRef.current)
+      }
+      milestoneTimerRef.current = window.setTimeout(() => {
+        setMilestone(null)
+        milestoneTimerRef.current = null
+      }, MILESTONE_DURATION_MS)
+    }
     setHasDispatched(true)
     playChoo()
 
@@ -183,6 +229,32 @@ function App() {
       >
         {muted ? '🔇' : '🔊'}
       </button>
+
+      {milestone && (
+        <div className="milestone" role="status" aria-live="assertive">
+          <div className="milestone-confetti" aria-hidden="true">
+            {milestone.confetti.map((c) => (
+              <span
+                key={c.id}
+                className="confetti"
+                style={{
+                  left: `${c.left}vw`,
+                  animationDelay: `${c.delayMs}ms`,
+                  animationDuration: `${c.durationMs}ms`,
+                  ['--drift' as string]: `${c.drift}vw`,
+                  ['--rotate' as string]: `${c.rotate}deg`,
+                }}
+              >
+                {c.char}
+              </span>
+            ))}
+          </div>
+          <div className="milestone-card">
+            <div className="milestone-count">{milestone.count}</div>
+            <div className="milestone-label">trains dispatched!</div>
+          </div>
+        </div>
+      )}
 
       <div className="counter" aria-live="polite">
         {count} {count === 1 ? 'train' : 'trains'} dispatched
