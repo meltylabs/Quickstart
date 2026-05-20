@@ -19,13 +19,27 @@ type Puff = {
   char: string
 }
 
+type Confetti = {
+  id: number
+  emoji: string
+  left: number
+  delay: number
+  duration: number
+  drift: number
+  rotate: number
+}
+
 const TRAIN_EMOJIS = ['🚂', '🚃', '🚅', '🚋', '🚄']
 const PUFF_CHARS = ['·', '°', '・', '∘']
+const CONFETTI_EMOJIS = ['🎉', '🎊', '✨', '🚂', '⭐', '🎈', '💫']
 const LANE_COUNT = 5
 const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const MILESTONE_INTERVAL = 10
+const MILESTONE_DURATION_MS = 2800
+const CONFETTI_COUNT = 28
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -40,6 +54,7 @@ function App() {
     return localStorage.getItem('wtc:muted') === '1'
   })
   const [hasDispatched, setHasDispatched] = useState(false)
+  const [milestone, setMilestone] = useState<{ count: number; confetti: Confetti[] } | null>(null)
 
   const nextIdRef = useRef(1)
   const lastDispatchRef = useRef(0)
@@ -107,7 +122,23 @@ function App() {
     }
 
     setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
+    setCount((c) => {
+      const next = c + 1
+      if (next % MILESTONE_INTERVAL === 0) {
+        const confetti: Confetti[] = Array.from({ length: CONFETTI_COUNT }, () => ({
+          id: nextIdRef.current++,
+          emoji: pick(CONFETTI_EMOJIS),
+          left: Math.random() * 100,
+          delay: Math.random() * 400,
+          duration: 1600 + Math.random() * 1000,
+          drift: (Math.random() - 0.5) * 30,
+          rotate: (Math.random() - 0.5) * 720,
+        }))
+        setMilestone({ count: next, confetti })
+        window.setTimeout(() => setMilestone(null), MILESTONE_DURATION_MS)
+      }
+      return next
+    })
     setHasDispatched(true)
     playChoo()
 
@@ -187,6 +218,31 @@ function App() {
       <div className="counter" aria-live="polite">
         {count} {count === 1 ? 'train' : 'trains'} dispatched
       </div>
+
+      {milestone && (
+        <div className="milestone" role="status" aria-live="polite">
+          <div className="milestone-banner">
+            <div className="milestone-emoji">🎉</div>
+            <div className="milestone-count">{milestone.count}</div>
+            <div className="milestone-label">trains dispatched!</div>
+          </div>
+          {milestone.confetti.map((c) => (
+            <span
+              key={c.id}
+              className="confetti"
+              style={{
+                left: `${c.left}vw`,
+                animationDelay: `${c.delay}ms`,
+                animationDuration: `${c.duration}ms`,
+                ['--drift' as string]: `${c.drift}vw`,
+                ['--rotate' as string]: `${c.rotate}deg`,
+              }}
+            >
+              {c.emoji}
+            </span>
+          ))}
+        </div>
+      )}
     </main>
   )
 }
