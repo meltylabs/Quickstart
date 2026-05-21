@@ -27,6 +27,15 @@ const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
 
+// Stars generated once at module load — fixed positions, no re-render flicker
+const STARS = Array.from({ length: 55 }, (_, i) => ({
+  id: i,
+  x: Math.random() * 100,
+  y: Math.random() * 80,
+  delay: Math.random() * 4,
+  large: Math.random() < 0.25,
+}))
+
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
@@ -40,6 +49,10 @@ function App() {
     return localStorage.getItem('wtc:muted') === '1'
   })
   const [hasDispatched, setHasDispatched] = useState(false)
+  const [nightMode, setNightMode] = useState<boolean>(() => {
+    if (typeof localStorage === 'undefined') return false
+    return localStorage.getItem('wtc:night') === '1'
+  })
 
   const nextIdRef = useRef(1)
   const lastDispatchRef = useRef(0)
@@ -52,6 +65,11 @@ function App() {
     mutedRef.current = muted
     localStorage.setItem('wtc:muted', muted ? '1' : '0')
   }, [muted])
+
+  useEffect(() => {
+    localStorage.setItem('wtc:night', nightMode ? '1' : '0')
+    document.body.classList.toggle('night-mode', nightMode)
+  }, [nightMode])
 
   useEffect(() => {
     if (chooRef.current) return
@@ -134,6 +152,8 @@ function App() {
         dispatch()
       } else if (e.key === 'm' || e.key === 'M') {
         setMuted((m) => !m)
+      } else if (e.key === 'n' || e.key === 'N') {
+        setNightMode((n) => !n)
       }
     }
     window.addEventListener('keydown', onKey)
@@ -141,7 +161,25 @@ function App() {
   }, [dispatch])
 
   return (
-    <main onClick={dispatch}>
+    <main onClick={dispatch} className={nightMode ? 'night' : undefined}>
+      {nightMode && (
+        <>
+          <div className="moon" aria-hidden="true" />
+          {STARS.map((s) => (
+            <span
+              key={s.id}
+              className={`star${s.large ? ' star-lg' : ''}`}
+              style={{
+                left: `${s.x}vw`,
+                top: `${s.y}vh`,
+                animationDelay: `${s.delay}s`,
+              }}
+              aria-hidden="true"
+            />
+          ))}
+        </>
+      )}
+
       <div className={`hero${hasDispatched ? ' dispatched' : ''}`} aria-hidden={hasDispatched}>
         <span className="train-emoji" role="img" aria-label="train">🚂</span>
         <span className="tagline">click anywhere to dispatch a train</span>
@@ -171,6 +209,18 @@ function App() {
           {p.char}
         </span>
       ))}
+
+      <button
+        className="night-toggle"
+        onClick={(e) => {
+          e.stopPropagation()
+          setNightMode((n) => !n)
+        }}
+        aria-label={nightMode ? 'Switch to day mode' : 'Switch to night mode'}
+        aria-pressed={nightMode}
+      >
+        {nightMode ? '☀️' : '🌙'}
+      </button>
 
       <button
         className="mute-toggle"

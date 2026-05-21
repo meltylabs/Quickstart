@@ -157,4 +157,120 @@ main {
   }
 
   .hero { transition: none; }
+  .star { animation: none; }
+}
+
+/* ── Night mode ──────────────────────────────────────────────────── */
+
+.night {
+  background: #080b1a;
+}
+
+.night .tagline {
+  color: #4a5680;
+}
+
+.night .steam {
+  color: #5a6898;
+}
+
+.night .counter {
+  color: #4a5680;
+}
+
+.night .mute-toggle {
+  border-color: #252c50;
+  color: #4a5a8a;
+}
+
+.night .mute-toggle:hover {
+  border-color: #3a4570;
+}
+
+/* Moon */
+.moon {
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f5e060;
+  box-shadow: 0 0 30px rgba(245, 224, 96, 0.3);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #080b1a;
+}
+
+/* Stars */
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 0;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.star-lg {
+  width: 3px;
+  height: 3px;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.9; }
+  50%       { opacity: 0.2; }
+}
+
+/* Night mode toggle button */
+.night-toggle {
+  position: fixed;
+  top: 16px;
+  right: 60px;
+  background: transparent;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+  z-index: 10;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.night-toggle:hover {
+  border-color: #ccc;
+  transform: scale(1.05);
+}
+
+.night-toggle:focus-visible {
+  outline: 2px solid #888;
+  outline-offset: 2px;
+}
+
+.night .night-toggle {
+  border-color: #252c50;
+  color: #4a5a8a;
+}
+
+.night .night-toggle:hover {
+  border-color: #3a4570;
 }

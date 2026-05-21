@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "setup": "npm install",
+    "setup": "npm install --ignore-engines",
     "run": "npm run dev"
   }
 }
