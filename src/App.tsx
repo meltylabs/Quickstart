@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 type Direction = 'ltr' | 'rtl'
+type Theme = 'day' | 'night'
 
 type Train = {
   id: number
@@ -26,6 +27,7 @@ const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const THEME_STORAGE_KEY = 'wtc:theme:v2'
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -35,6 +37,11 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof localStorage === 'undefined') return 'night'
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+    return savedTheme === 'day' || savedTheme === 'night' ? savedTheme : 'night'
+  })
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -47,6 +54,13 @@ function App() {
   const lastDirRef = useRef<Direction>('rtl')
   const chooRef = useRef<HTMLAudioElement | null>(null)
   const mutedRef = useRef(muted)
+
+  useEffect(() => {
+    localStorage.setItem(THEME_STORAGE_KEY, theme)
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'night' ? '#070914' : '#ffffff')
+  }, [theme])
 
   useEffect(() => {
     mutedRef.current = muted
@@ -134,6 +148,8 @@ function App() {
         dispatch()
       } else if (e.key === 'm' || e.key === 'M') {
         setMuted((m) => !m)
+      } else if (e.key === 't' || e.key === 'T') {
+        setTheme((current) => (current === 'night' ? 'day' : 'night'))
       }
     }
     window.addEventListener('keydown', onKey)
@@ -141,7 +157,21 @@ function App() {
   }, [dispatch])
 
   return (
-    <main onClick={dispatch}>
+    <main className={theme} onClick={dispatch}>
+      <div className="night-sky" aria-hidden="true">
+        <span className="moon" />
+        <span className="star star-one" />
+        <span className="star star-two" />
+        <span className="star star-three" />
+        <span className="star star-four" />
+      </div>
+
+      <div className="track-lines" aria-hidden="true">
+        {Array.from({ length: LANE_COUNT }, (_, lane) => (
+          <span key={lane} style={{ top: `${12 + lane * 16}vh` }} />
+        ))}
+      </div>
+
       <div className={`hero${hasDispatched ? ' dispatched' : ''}`} aria-hidden={hasDispatched}>
         <span className="train-emoji" role="img" aria-label="train">🚂</span>
         <span className="tagline">click anywhere to dispatch a train</span>
@@ -171,6 +201,19 @@ function App() {
           {p.char}
         </span>
       ))}
+
+      <button
+        className="theme-toggle"
+        onClick={(e) => {
+          e.stopPropagation()
+          setTheme((current) => (current === 'night' ? 'day' : 'night'))
+        }}
+        aria-label={theme === 'night' ? 'Switch to day mode' : 'Switch to night mode'}
+        aria-pressed={theme === 'night'}
+        title={theme === 'night' ? 'Switch to day mode' : 'Switch to night mode'}
+      >
+        {theme === 'night' ? '☀️' : '🌙'}
+      </button>
 
       <button
         className="mute-toggle"
