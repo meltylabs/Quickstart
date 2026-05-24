@@ -1,6 +1,12 @@
 body {
   margin: 0;
   background: #fff;
+  transition: background 500ms ease, color 500ms ease;
+}
+
+body.night {
+  background: radial-gradient(ellipse at 50% 30%, #1b2545 0%, #0a0f24 70%, #05071a 100%);
+  color: #e6ecff;
 }
 
 #root {
