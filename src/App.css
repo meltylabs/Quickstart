@@ -138,6 +138,61 @@ main {
   z-index: 10;
 }
 
+.milestone-banner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.milestone-badge {
+  background: #fff;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 18px;
+  padding: 24px 40px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  animation: milestone-pop 2400ms ease forwards;
+  will-change: transform, opacity;
+}
+
+.milestone-icon {
+  font-size: 36px;
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.milestone-count {
+  font-size: 52px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1;
+  display: block;
+}
+
+.milestone-label {
+  font-size: 13px;
+  color: #999;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-top: 6px;
+}
+
+@keyframes milestone-pop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  18%  { opacity: 1; transform: scale(1.12); }
+  28%  { transform: scale(0.96); }
+  36%  { transform: scale(1.04); }
+  44%  { transform: scale(1); }
+  75%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9) translateY(-24px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .train-emoji:hover { animation: none; }
   .steam { display: none; }
@@ -157,4 +212,15 @@ main {
   }
 
   .hero { transition: none; }
+
+  .milestone-badge {
+    animation: milestone-fade 2400ms ease forwards;
+  }
+
+  @keyframes milestone-fade {
+    0%   { opacity: 0; }
+    15%  { opacity: 1; }
+    75%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
 }

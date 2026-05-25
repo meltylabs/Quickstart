@@ -35,6 +35,7 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [milestone, setMilestone] = useState<number | null>(null)
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -44,6 +45,7 @@ function App() {
   const nextIdRef = useRef(1)
   const lastDispatchRef = useRef(0)
   const lastLaneRef = useRef(-1)
+  const dispatchCountRef = useRef(0)
   const lastDirRef = useRef<Direction>('rtl')
   const chooRef = useRef<HTMLAudioElement | null>(null)
   const mutedRef = useRef(muted)
@@ -107,7 +109,10 @@ function App() {
     }
 
     setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
+    dispatchCountRef.current += 1
+    const newCount = dispatchCountRef.current
+    setCount(newCount)
+    if (newCount % 3 === 0) setMilestone(newCount)
     setHasDispatched(true)
     playChoo()
 
@@ -187,6 +192,20 @@ function App() {
       <div className="counter" aria-live="polite">
         {count} {count === 1 ? 'train' : 'trains'} dispatched
       </div>
+
+      {milestone !== null && (
+        <div className="milestone-banner">
+          <div
+            key={milestone}
+            className="milestone-badge"
+            onAnimationEnd={() => setMilestone(null)}
+          >
+            <span className="milestone-icon">🚂</span>
+            <span className="milestone-count">{milestone}</span>
+            <span className="milestone-label">trains dispatched!</span>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
