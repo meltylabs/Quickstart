@@ -35,6 +35,10 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [theme, setTheme] = useState<'day' | 'night'>(() => {
+    if (typeof localStorage === 'undefined') return 'day'
+    return localStorage.getItem('wtc:theme') === 'night' ? 'night' : 'day'
+  })
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -52,6 +56,10 @@ function App() {
     mutedRef.current = muted
     localStorage.setItem('wtc:muted', muted ? '1' : '0')
   }, [muted])
+
+  useEffect(() => {
+    localStorage.setItem('wtc:theme', theme)
+  }, [theme])
 
   useEffect(() => {
     if (chooRef.current) return
@@ -134,6 +142,8 @@ function App() {
         dispatch()
       } else if (e.key === 'm' || e.key === 'M') {
         setMuted((m) => !m)
+      } else if (e.key === 't' || e.key === 'T') {
+        setTheme((t) => (t === 'day' ? 'night' : 'day'))
       }
     }
     window.addEventListener('keydown', onKey)
@@ -141,7 +151,14 @@ function App() {
   }, [dispatch])
 
   return (
-    <main onClick={dispatch}>
+    <main className={theme} onClick={dispatch}>
+      {theme === 'night' ? (
+        <div className="night-details" aria-hidden>
+          <span className="stars" />
+          <span className="moon" />
+        </div>
+      ) : null}
+
       <div className={`hero${hasDispatched ? ' dispatched' : ''}`} aria-hidden={hasDispatched}>
         <span className="train-emoji" role="img" aria-label="train">🚂</span>
         <span className="tagline">click anywhere to dispatch a train</span>
@@ -171,6 +188,18 @@ function App() {
           {p.char}
         </span>
       ))}
+
+      <button
+        className="theme-toggle"
+        onClick={(e) => {
+          e.stopPropagation()
+          setTheme((t) => (t === 'day' ? 'night' : 'day'))
+        }}
+        aria-label={theme === 'night' ? 'Switch to day mode' : 'Switch to night mode'}
+        aria-pressed={theme === 'night'}
+      >
+        {theme === 'night' ? '🌙' : '☀️'}
+      </button>
 
       <button
         className="mute-toggle"

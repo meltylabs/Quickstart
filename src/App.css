@@ -1,12 +1,65 @@
 main {
+  --bg: #fff;
+  --text: #1f1f1f;
+  --muted-text: #999;
+  --steam: #c4c4c4;
+  --control-border: #eee;
+  --control-border-hover: #ccc;
+  --control-color: #888;
+  --control-focus: #888;
+  --counter-color: #aaa;
   position: relative;
   display: block;
   min-height: 100svh;
   width: 100vw;
+  background: var(--bg);
+  color: var(--text);
   overflow: hidden;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+main.night {
+  --bg: radial-gradient(circle at 50% -30%, #223764 0%, #152446 45%, #0b1226 100%);
+  --text: #dde7ff;
+  --muted-text: #b7c5ea;
+  --steam: #aebee7;
+  --control-border: #3f4f7a;
+  --control-border-hover: #6278ab;
+  --control-color: #c6d6ff;
+  --control-focus: #95b3ff;
+  --counter-color: #b2c3ea;
+}
+
+.night-details {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.85) 1px, transparent 2px),
+    radial-gradient(circle at 23% 68%, rgba(255, 255, 255, 0.7) 1px, transparent 2px),
+    radial-gradient(circle at 38% 34%, rgba(255, 255, 255, 0.9) 1.2px, transparent 2px),
+    radial-gradient(circle at 64% 22%, rgba(255, 255, 255, 0.8) 1px, transparent 2px),
+    radial-gradient(circle at 77% 58%, rgba(255, 255, 255, 0.7) 1px, transparent 2px),
+    radial-gradient(circle at 89% 30%, rgba(255, 255, 255, 0.85) 1.2px, transparent 2px);
+}
+
+.moon {
+  position: absolute;
+  top: 44px;
+  right: 42px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff5d0 0%, #f7e5ab 55%, #e3cb8b 100%);
+  box-shadow: 0 0 28px rgba(245, 226, 168, 0.5);
 }
 
 .hero {
@@ -19,6 +72,7 @@ main {
   justify-content: center;
   transition: opacity 600ms ease;
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero.dispatched {
@@ -46,7 +100,7 @@ main {
 .tagline {
   font-size: 13px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: #999;
+  color: var(--muted-text);
   letter-spacing: 0.04em;
 }
 
@@ -58,7 +112,7 @@ main {
   will-change: transform;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  z-index: 1;
+  z-index: 3;
 }
 
 .train.ltr {
@@ -85,11 +139,11 @@ main {
 .steam {
   position: fixed;
   font-size: 22px;
-  color: #c4c4c4;
+  color: var(--steam);
   pointer-events: none;
   will-change: transform, opacity;
   animation: puff 1400ms ease-out forwards;
-  z-index: 0;
+  z-index: 2;
 }
 
 @keyframes puff {
@@ -97,12 +151,12 @@ main {
   100% { opacity: 0;   transform: translate(0, -40px) scale(1.4); }
 }
 
+.theme-toggle,
 .mute-toggle {
   position: fixed;
   top: 16px;
-  right: 16px;
   background: transparent;
-  border: 1px solid #eee;
+  border: 1px solid var(--control-border);
   border-radius: 999px;
   width: 36px;
   height: 36px;
@@ -111,18 +165,28 @@ main {
   justify-content: center;
   font-size: 16px;
   cursor: pointer;
-  color: #888;
+  color: var(--control-color);
   z-index: 10;
   transition: border-color 150ms ease, transform 150ms ease;
 }
 
+.theme-toggle {
+  right: 58px;
+}
+
+.mute-toggle {
+  right: 16px;
+}
+
+.theme-toggle:hover,
 .mute-toggle:hover {
-  border-color: #ccc;
+  border-color: var(--control-border-hover);
   transform: scale(1.05);
 }
 
+.theme-toggle:focus-visible,
 .mute-toggle:focus-visible {
-  outline: 2px solid #888;
+  outline: 2px solid var(--control-focus);
   outline-offset: 2px;
 }
 
@@ -132,7 +196,7 @@ main {
   left: 16px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12px;
-  color: #aaa;
+  color: var(--counter-color);
   letter-spacing: 0.02em;
   pointer-events: none;
   z-index: 10;
