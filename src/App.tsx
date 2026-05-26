@@ -1,194 +1,169 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import type { GenerationResult, AppStep } from './types';
+import { IntroScreen } from './components/IntroScreen';
+import { PhotoCapture } from './components/PhotoCapture';
+import { GarmentUpload } from './components/GarmentUpload';
+import { LoadingState } from './components/LoadingState';
+import { TryOnResult } from './components/TryOnResult';
 
-type Direction = 'ltr' | 'rtl'
-
-type Train = {
-  id: number
-  emoji: string
-  lane: number
-  direction: Direction
-  durationMs: number
-  startedAt: number
+function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
 }
 
-type Puff = {
-  id: number
-  x: number
-  y: number
-  char: string
-}
-
-const TRAIN_EMOJIS = ['🚂', '🚃', '🚅', '🚋', '🚄']
-const PUFF_CHARS = ['·', '°', '・', '∘']
-const LANE_COUNT = 5
-const DISPATCH_THROTTLE_MS = 120
-const PUFF_COUNT = 4
-const MIN_DURATION_MS = 4500
-const MAX_DURATION_MS = 7500
-
-function pick<T>(arr: readonly T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
+function ProgressDots({ active }: { active: number }) {
+  return (
+    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', margin: '0 0 24px' }}>
+      {[0, 1, 2].map(i => (
+        <div
+          key={i}
+          style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            background: i <= active ? 'var(--color-accent)' : 'var(--color-border)',
+            transition: 'background 300ms',
+          }}
+        />
+      ))}
+    </div>
+  );
 }
 
 function App() {
-  const [trains, setTrains] = useState<Train[]>([])
-  const [puffs, setPuffs] = useState<Puff[]>([])
-  const [count, setCount] = useState(0)
-  const [muted, setMuted] = useState<boolean>(() => {
-    if (typeof localStorage === 'undefined') return false
-    return localStorage.getItem('wtc:muted') === '1'
-  })
-  const [hasDispatched, setHasDispatched] = useState(false)
+  const [step, setStep] = useState<AppStep>(() => {
+    try {
+      if (sessionStorage.getItem('fitdrop:result')) return 'result';
+      if (sessionStorage.getItem('fitdrop:intro-seen')) return 'person';
+    } catch { /* private browsing */ }
+    return 'intro';
+  });
 
-  const nextIdRef = useRef(1)
-  const lastDispatchRef = useRef(0)
-  const lastLaneRef = useRef(-1)
-  const lastDirRef = useRef<Direction>('rtl')
-  const chooRef = useRef<HTMLAudioElement | null>(null)
-  const mutedRef = useRef(muted)
+  const [personBlob, setPersonBlob] = useState<Blob | null>(null);
+  const [itemNameForLoading, setItemNameForLoading] = useState('');
+  const [result, setResult] = useState<GenerationResult | null>(() => {
+    try {
+      const saved = sessionStorage.getItem('fitdrop:result');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    mutedRef.current = muted
-    localStorage.setItem('wtc:muted', muted ? '1' : '0')
-  }, [muted])
+  const handleIntroDismiss = () => {
+    try { sessionStorage.setItem('fitdrop:intro-seen', '1'); } catch { /* ignore */ }
+    setStep('person');
+  };
 
-  useEffect(() => {
-    if (chooRef.current) return
-    const choo = new Audio('/choo-choo.mp3')
-    choo.preload = 'auto'
-    chooRef.current = choo
-  }, [])
+  const handlePersonCapture = (blob: Blob) => {
+    setPersonBlob(blob);
+    setStep('garment');
+  };
 
-  useEffect(() => {
-    document.title =
-      count === 0
-        ? 'welcome to conductor'
-        : `welcome to conductor (${count})`
-  }, [count])
+  const handleGarmentReady = async (garmentBlob: Blob, itemName: string) => {
+    setItemNameForLoading(itemName);
+    setError(null);
+    setStep('generating');
 
-  const playChoo = useCallback(() => {
-    if (mutedRef.current) return
-    const choo = chooRef.current
-    if (!choo) return
-    const node = choo.cloneNode(true) as HTMLAudioElement
-    node.volume = 0.28
-    node.play().catch(() => {})
-  }, [])
+    try {
+      const [personBase64, garmentBase64] = await Promise.all([
+        blobToBase64(personBlob!),
+        blobToBase64(garmentBlob),
+      ]);
 
-  const removeTrain = useCallback((id: number) => {
-    setTrains((prev) => prev.filter((t) => t.id !== id))
-  }, [])
+      const res = await fetch('/api/try-on', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ personBase64, garmentBase64, itemName }),
+      });
 
-  const removePuff = useCallback((id: number) => {
-    setPuffs((prev) => prev.filter((p) => p.id !== id))
-  }, [])
-
-  const dispatch = useCallback(() => {
-    const now = performance.now()
-    if (now - lastDispatchRef.current < DISPATCH_THROTTLE_MS) return
-    lastDispatchRef.current = now
-
-    let lane = Math.floor(Math.random() * LANE_COUNT)
-    if (lane === lastLaneRef.current) lane = (lane + 1) % LANE_COUNT
-    lastLaneRef.current = lane
-
-    const direction: Direction = lastDirRef.current === 'ltr' ? 'rtl' : 'ltr'
-    lastDirRef.current = direction
-
-    const durationMs = MIN_DURATION_MS + Math.random() * (MAX_DURATION_MS - MIN_DURATION_MS)
-    const train: Train = {
-      id: nextIdRef.current++,
-      emoji: pick(TRAIN_EMOJIS),
-      lane,
-      direction,
-      durationMs,
-      startedAt: now,
-    }
-
-    setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
-    setHasDispatched(true)
-    playChoo()
-
-    const y = 10 + train.lane * 16
-    for (let i = 0; i < PUFF_COUNT; i++) {
-      const t = (train.durationMs / (PUFF_COUNT + 1)) * (i + 1)
-      setTimeout(() => {
-        const elapsed = performance.now() - train.startedAt
-        const progress = Math.min(elapsed / train.durationMs, 1)
-        const x =
-          train.direction === 'ltr' ? -15 + 130 * progress : 115 - 130 * progress
-        setPuffs((prev) => [
-          ...prev,
-          { id: nextIdRef.current++, x, y, char: pick(PUFF_CHARS) },
-        ])
-      }, t)
-    }
-  }, [playChoo])
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.code === 'Space' || e.code === 'Enter') {
-        e.preventDefault()
-        dispatch()
-      } else if (e.key === 'm' || e.key === 'M') {
-        setMuted((m) => !m)
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error((body as { error?: string }).error || `Request failed (${res.status})`);
       }
+
+      const genResult: GenerationResult = await res.json();
+      setResult(genResult);
+      try { sessionStorage.setItem('fitdrop:result', JSON.stringify(genResult)); } catch { /* ignore */ }
+      setStep('result');
+    } catch (e) {
+      setError((e as Error).message || 'Something went wrong. Try again.');
+      setStep('garment');
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [dispatch])
+  };
+
+  const handleReset = () => {
+    try { sessionStorage.removeItem('fitdrop:result'); } catch { /* ignore */ }
+    setPersonBlob(null);
+    setResult(null);
+    setError(null);
+    setStep('person');
+  };
+
+  const showDots = step === 'person' || step === 'garment';
+  const dotActive = step === 'garment' ? 1 : 0;
 
   return (
-    <main onClick={dispatch}>
-      <div className={`hero${hasDispatched ? ' dispatched' : ''}`} aria-hidden={hasDispatched}>
-        <span className="train-emoji" role="img" aria-label="train">🚂</span>
-        <span className="tagline">click anywhere to dispatch a train</span>
-      </div>
+    <>
+      {step === 'intro' && <IntroScreen onDismiss={handleIntroDismiss} />}
 
-      {trains.map((t) => (
-        <span
-          key={t.id}
-          className={`train ${t.direction}`}
-          style={{
-            top: `${10 + t.lane * 16}vh`,
-            animationDuration: `${t.durationMs}ms`,
-          }}
-          onAnimationEnd={() => removeTrain(t.id)}
-        >
-          {t.emoji}
-        </span>
-      ))}
+      {step === 'generating' && <LoadingState itemName={itemNameForLoading} />}
 
-      {puffs.map((p) => (
-        <span
-          key={p.id}
-          className="steam"
-          style={{ left: `${p.x}vw`, top: `${p.y}vh` }}
-          onAnimationEnd={() => removePuff(p.id)}
-        >
-          {p.char}
-        </span>
-      ))}
+      {step !== 'intro' && step !== 'generating' && (
+        <div style={{
+          maxWidth: '480px',
+          margin: '0 auto',
+          padding: '20px 20px 40px',
+          minHeight: '100dvh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          {/* Header */}
+          <div style={{ marginBottom: showDots ? '20px' : '28px' }}>
+            <span style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: '28px',
+              color: 'var(--color-accent)',
+              letterSpacing: '0.06em',
+            }}>
+              FITDROP
+            </span>
+          </div>
 
-      <button
-        className="mute-toggle"
-        onClick={(e) => {
-          e.stopPropagation()
-          setMuted((m) => !m)
-        }}
-        aria-label={muted ? 'Unmute' : 'Mute'}
-        aria-pressed={muted}
-      >
-        {muted ? '🔇' : '🔊'}
-      </button>
+          {showDots && <ProgressDots active={dotActive} />}
 
-      <div className="counter" aria-live="polite">
-        {count} {count === 1 ? 'train' : 'trains'} dispatched
-      </div>
-    </main>
-  )
+          {error && (
+            <div style={{
+              background: 'rgba(220, 38, 38, 0.1)',
+              border: '1px solid var(--color-drop)',
+              padding: '12px 14px',
+              marginBottom: '16px',
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '13px',
+              color: 'var(--color-drop)',
+            }}>
+              {error}
+            </div>
+          )}
+
+          <div style={{ flex: 1 }}>
+            {step === 'person' && (
+              <PhotoCapture onCapture={handlePersonCapture} />
+            )}
+            {step === 'garment' && (
+              <GarmentUpload onReady={handleGarmentReady} />
+            )}
+            {step === 'result' && result && (
+              <TryOnResult result={result} onReset={handleReset} />
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
-export default App
+export default App;
