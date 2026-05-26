@@ -19,13 +19,21 @@ type Puff = {
   char: string
 }
 
+type Milestone = {
+  id: number
+  count: number
+}
+
 const TRAIN_EMOJIS = ['🚂', '🚃', '🚅', '🚋', '🚄']
 const PUFF_CHARS = ['·', '°', '・', '∘']
+const CELEBRATION_EMOJIS = ['🚂', '✨', '🎉', '🚋', '⭐']
 const LANE_COUNT = 5
 const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const MILESTONE_INTERVAL = 10
+const MILESTONE_DURATION_MS = 2200
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -35,6 +43,7 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [milestone, setMilestone] = useState<Milestone | null>(null)
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -47,6 +56,7 @@ function App() {
   const lastDirRef = useRef<Direction>('rtl')
   const chooRef = useRef<HTMLAudioElement | null>(null)
   const mutedRef = useRef(muted)
+  const milestoneTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     mutedRef.current = muted
@@ -61,10 +71,39 @@ function App() {
   }, [])
 
   useEffect(() => {
+    return () => {
+      if (milestoneTimeoutRef.current !== null) {
+        window.clearTimeout(milestoneTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     document.title =
       count === 0
         ? 'welcome to conductor'
         : `welcome to conductor (${count})`
+  }, [count])
+
+  useEffect(() => {
+    if (count === 0 || count % MILESTONE_INTERVAL !== 0) return
+
+    const nextMilestone = {
+      id: nextIdRef.current++,
+      count,
+    }
+
+    setMilestone(nextMilestone)
+
+    if (milestoneTimeoutRef.current !== null) {
+      window.clearTimeout(milestoneTimeoutRef.current)
+    }
+
+    milestoneTimeoutRef.current = window.setTimeout(() => {
+      setMilestone((current) =>
+        current?.id === nextMilestone.id ? null : current,
+      )
+    }, MILESTONE_DURATION_MS)
   }, [count])
 
   const playChoo = useCallback(() => {
@@ -146,6 +185,26 @@ function App() {
         <span className="train-emoji" role="img" aria-label="train">🚂</span>
         <span className="tagline">click anywhere to dispatch a train</span>
       </div>
+
+      {milestone ? (
+        <div className="milestone" aria-live="polite" aria-atomic="true">
+          <div className="milestone-burst" aria-hidden="true">
+            {CELEBRATION_EMOJIS.map((emoji, index) => (
+              <span
+                key={`${milestone.id}-${emoji}-${index}`}
+                className={`burst burst-${index + 1}`}
+              >
+                {emoji}
+              </span>
+            ))}
+          </div>
+          <div className="milestone-card">
+            <span className="milestone-label">Dispatch milestone</span>
+            <strong className="milestone-count">{milestone.count}</strong>
+            <span className="milestone-copy">trains dispatched</span>
+          </div>
+        </div>
+      ) : null}
 
       {trains.map((t) => (
         <span
