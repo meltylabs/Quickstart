@@ -28,11 +28,11 @@ export function VotePage({ shareId }: Props) {
         cop: Number(raw.cop ?? 0),
         drop: Number(raw.drop ?? 0),
       });
-      if (pageState === 'loading') setPageState('ready');
+      setPageState(prev => prev === 'loading' ? 'ready' : prev);
     } catch {
       setPageState('error');
     }
-  }, [shareId, pageState]);
+  }, [shareId]);
 
   useEffect(() => {
     fetchData();

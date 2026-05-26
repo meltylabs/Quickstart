@@ -52,6 +52,10 @@ export default async function handler(req: any, res: any) {
   }
 
   const { id } = await runRes.json() as { id: string };
+  if (!id || typeof id !== 'string') {
+    res.status(502).json({ error: 'Invalid response from Fashn API' });
+    return;
+  }
 
   // Poll for completion (max 60s: 30 × 2s)
   let outputUrl: string | null = null;
@@ -61,6 +65,7 @@ export default async function handler(req: any, res: any) {
     const statusRes = await fetch(`${FASHN_BASE}/status/${id}`, {
       headers: { 'Authorization': `Bearer ${apiKey}` },
     });
+    if (!statusRes.ok) continue;
     const status = await statusRes.json() as {
       status: string;
       output?: string[];
@@ -91,7 +96,7 @@ export default async function handler(req: any, res: any) {
   const imgBuffer = await imgRes.arrayBuffer();
   const imageDataUrl = `data:image/jpeg;base64,${Buffer.from(imgBuffer).toString('base64')}`;
 
-  // Persist in KV for vote page
+  // Persist in KV for vote page (7-day TTL to prevent storage exhaustion)
   const shareId = nanoid(10);
   await kv.hset(`vote:${shareId}`, {
     imageDataUrl,
@@ -99,6 +104,7 @@ export default async function handler(req: any, res: any) {
     cop: 0,
     drop: 0,
   });
+  await kv.expire(`vote:${shareId}`, 7 * 24 * 60 * 60);
 
   res.status(200).json({ imageDataUrl, shareId, itemName: itemName.trim() });
 }

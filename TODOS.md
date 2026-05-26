@@ -11,7 +11,7 @@ Items explicitly deferred from the hackathon build. Review after the demo.
 
 ## Infrastructure
 
-- **KV TTL** — add 7-day TTL on `vote:{shareId}` keys before any real traffic. Currently none (free tier: clean up manually).
+- ~~**KV TTL** — add 7-day TTL on `vote:{shareId}` keys before any real traffic.~~ **Completed: v0.0.1.0 (2026-05-26)**
 - **`votes-by-item:{itemId}` aggregation key** — aggregate vote data by item (not card) to survive TTL rotation and enable trend queries.
 - **Structured item identifier** — replace free-text `itemName` with SKU or StockX/GOAT product link. Required to make vote data actionable for brands.
 - **Neon Postgres** — replace Vercel KV once query complexity exceeds simple counters.

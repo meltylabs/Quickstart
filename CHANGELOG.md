@@ -4,9 +4,15 @@ All notable changes to FitDrop Card are documented here.
 
 Format: [Semantic Versioning](https://semver.org/)
 
-## [0.0.1.0] - 2026-05-22
+## [0.0.1.0] - 2026-05-26
 
 ### Added
-- **Design system** (`DESIGN.md`) — complete visual spec for FitDrop Card: typography (Bebas Neue display + Inter body), color tokens (dark palette with amber accent, green COP, red DROP), layout dimensions (FitDropCard 1080×1920 canvas, VotePage 56px touch targets, 3-step upload progress dots), animation table with `prefers-reduced-motion` fallbacks, and forbidden patterns to prevent AI-slop defaults.
-- **TODOS.md** — post-hackathon backlog organized by area: V2 features (card templates, Drop Calendar, auto-segmentation, creator profiles), infrastructure (KV TTL, aggregation keys, Postgres migration), testing (Playwright E2E, client-side polling resilience), and product roadmap (leaderboard, brand API, second try-on provider).
-- **Skill routing** (`CLAUDE.md`) — gstack skill routing rules for automated review, QA, ship, and design workflows.
+- **Virtual try-on** — upload a person photo + garment image, generate an AI try-on result via Fashn.ai API with up to 60-second generation window.
+- **FitDrop Card** — shareable 1080×1920 story card with item name, outfit image, Bebas Neue typography, and QR code linking to the vote page.
+- **Cop or Drop voting** — dedicated `/v/:shareId` vote page with live COP/DROP counts, animated percentage bar, 10-minute per-IP rate limit (atomic SET NX, `x-real-ip` for spoofing prevention), and 7-day KV TTL.
+- **Share flow** — Web Share API with file sharing when available; clipboard fallback; `window.prompt` last resort. FitDropCard rendered with html2canvas for native share.
+- **Vote share badge** — post-vote badge showing result, cop/drop bar, and re-share button.
+- **Image compression** — client-side JPEG compression with binary-search quality targeting 200 KB before upload.
+- **Design system** (`DESIGN.md`) — typography (Bebas Neue + Inter), dark color palette, amber accent, green COP, red DROP, animation tokens.
+- **Post-hackathon backlog** (`TODOS.md`) — V2 features, infrastructure, testing, and product roadmap.
+- **Skill routing** (`CLAUDE.md`) — gstack skill routing rules for automated review, QA, and ship workflows.

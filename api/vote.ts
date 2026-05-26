@@ -34,9 +34,10 @@ export default async function handler(req: any, res: any) {
     }
 
     // Rate limit: one vote per IP per share, 10-minute window
-    const ip = ((req.headers['x-forwarded-for'] as string) ?? '')
-      .split(',')[0]
-      .trim() || req.socket?.remoteAddress || 'unknown';
+    // x-real-ip is set by Vercel's edge and cannot be spoofed by clients
+    const ip = (req.headers['x-real-ip'] as string)?.trim()
+      || req.socket?.remoteAddress
+      || 'unknown';
 
     const lockKey = `vote-lock:${ip}:${shareId}`;
     const acquired = await kv.set(lockKey, 1, { ex: 600, nx: true });
