@@ -1,4 +1,13 @@
 main {
+  --background: #ffffff;
+  --tagline: #999999;
+  --counter: #aaaaaa;
+  --control-border: #eeeeee;
+  --control-border-hover: #cccccc;
+  --control-color: #888888;
+  --focus: #888888;
+  --steam: #c4c4c4;
+
   position: relative;
   display: block;
   min-height: 100svh;
@@ -7,6 +16,23 @@ main {
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  background: var(--background);
+  color: var(--counter);
+  transition: background-color 320ms ease, color 320ms ease;
+}
+
+main.theme-night {
+  --background: #07111f;
+  --tagline: #aebbd1;
+  --counter: #7f91ad;
+  --control-border: #2d3f5e;
+  --control-border-hover: #7895c3;
+  --control-color: #d8e5ff;
+  --focus: #b7d0ff;
+  --steam: #9eb2ce;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(255, 241, 190, 0.12), transparent 18%),
+    linear-gradient(180deg, #07111f 0%, #0d1b2e 62%, #0f1f2d 100%);
 }
 
 .hero {
@@ -46,8 +72,8 @@ main {
 .tagline {
   font-size: 13px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: #999;
-  letter-spacing: 0.04em;
+  color: var(--tagline);
+  letter-spacing: 0;
 }
 
 .train {
@@ -85,7 +111,7 @@ main {
 .steam {
   position: fixed;
   font-size: 22px;
-  color: #c4c4c4;
+  color: var(--steam);
   pointer-events: none;
   will-change: transform, opacity;
   animation: puff 1400ms ease-out forwards;
@@ -97,12 +123,131 @@ main {
   100% { opacity: 0;   transform: translate(0, -40px) scale(1.4); }
 }
 
-.mute-toggle {
+.night-details {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+  z-index: 0;
+}
+
+.theme-night .night-details {
+  opacity: 1;
+}
+
+.moon {
+  position: absolute;
+  top: 10vh;
+  right: 14vw;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #f7e9ad;
+  box-shadow: 0 0 28px rgba(247, 233, 173, 0.35);
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  width: 52px;
+  height: 52px;
+  border-radius: inherit;
+  background: #07111f;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #e9f0ff;
+  box-shadow:
+    28px 18px 0 #e9f0ff,
+    -38px 42px 0 #b8c9e8,
+    76px 68px 0 #ffffff,
+    116px 28px 0 #c8d6f0;
+  animation: twinkle 2200ms ease-in-out infinite alternate;
+}
+
+.star-a {
+  top: 15vh;
+  left: 14vw;
+}
+
+.star-b {
+  top: 34vh;
+  left: 62vw;
+  animation-delay: 700ms;
+}
+
+.star-c {
+  top: 58vh;
+  left: 28vw;
+  animation-delay: 1200ms;
+}
+
+.station-light {
+  position: absolute;
+  bottom: 12vh;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd87a;
+  box-shadow: 0 0 22px rgba(255, 216, 122, 0.7);
+}
+
+.station-light::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 7px;
+  width: 1px;
+  height: 44px;
+  background: rgba(216, 228, 246, 0.22);
+}
+
+.light-a {
+  left: 18vw;
+}
+
+.light-b {
+  right: 22vw;
+}
+
+.rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8vh;
+  height: 1px;
+  background: rgba(183, 201, 229, 0.2);
+}
+
+.rail-b {
+  bottom: 6.5vh;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.45; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.controls {
   position: fixed;
   top: 16px;
   right: 16px;
-  background: transparent;
-  border: 1px solid #eee;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.icon-toggle {
+  background: color-mix(in srgb, var(--background) 78%, transparent);
+  border: 1px solid var(--control-border);
   border-radius: 999px;
   width: 36px;
   height: 36px;
@@ -111,18 +256,17 @@ main {
   justify-content: center;
   font-size: 16px;
   cursor: pointer;
-  color: #888;
-  z-index: 10;
-  transition: border-color 150ms ease, transform 150ms ease;
+  color: var(--control-color);
+  transition: border-color 150ms ease, transform 150ms ease, background-color 150ms ease;
 }
 
-.mute-toggle:hover {
-  border-color: #ccc;
+.icon-toggle:hover {
+  border-color: var(--control-border-hover);
   transform: scale(1.05);
 }
 
-.mute-toggle:focus-visible {
-  outline: 2px solid #888;
+.icon-toggle:focus-visible {
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -132,8 +276,8 @@ main {
   left: 16px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 12px;
-  color: #aaa;
-  letter-spacing: 0.02em;
+  color: var(--counter);
+  letter-spacing: 0;
   pointer-events: none;
   z-index: 10;
 }
@@ -141,6 +285,7 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .train-emoji:hover { animation: none; }
   .steam { display: none; }
+  .star { animation: none; }
 
   .train.ltr,
   .train.rtl {
@@ -157,4 +302,8 @@ main {
   }
 
   .hero { transition: none; }
+  main,
+  .night-details {
+    transition: none;
+  }
 }
