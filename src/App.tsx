@@ -19,13 +19,22 @@ type Puff = {
   char: string
 }
 
+type Celebration = {
+  id: number
+  count: number
+}
+
 const TRAIN_EMOJIS = ['🚂', '🚃', '🚅', '🚋', '🚄']
 const PUFF_CHARS = ['·', '°', '・', '∘']
+const CONFETTI_CHARS = ['🎉', '🎊', '✨', '🎈', '🚂', '⭐️']
 const LANE_COUNT = 5
 const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const MILESTONE_EVERY = 5
+const CONFETTI_COUNT = 18
+const CELEBRATION_MS = 2000
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -35,6 +44,7 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [celebration, setCelebration] = useState<Celebration | null>(null)
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -47,6 +57,8 @@ function App() {
   const lastDirRef = useRef<Direction>('rtl')
   const chooRef = useRef<HTMLAudioElement | null>(null)
   const mutedRef = useRef(muted)
+  const countRef = useRef(0)
+  const celebrationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     mutedRef.current = muted
@@ -84,6 +96,21 @@ function App() {
     setPuffs((prev) => prev.filter((p) => p.id !== id))
   }, [])
 
+  const celebrate = useCallback((total: number) => {
+    setCelebration({ id: nextIdRef.current++, count: total })
+    if (celebrationTimerRef.current) clearTimeout(celebrationTimerRef.current)
+    celebrationTimerRef.current = setTimeout(() => {
+      setCelebration(null)
+      celebrationTimerRef.current = null
+    }, CELEBRATION_MS)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (celebrationTimerRef.current) clearTimeout(celebrationTimerRef.current)
+    }
+  }, [])
+
   const dispatch = useCallback(() => {
     const now = performance.now()
     if (now - lastDispatchRef.current < DISPATCH_THROTTLE_MS) return
@@ -106,10 +133,15 @@ function App() {
       startedAt: now,
     }
 
+    const total = countRef.current + 1
+    countRef.current = total
+
     setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
+    setCount(total)
     setHasDispatched(true)
     playChoo()
+
+    if (total % MILESTONE_EVERY === 0) celebrate(total)
 
     const y = 10 + train.lane * 16
     for (let i = 0; i < PUFF_COUNT; i++) {
@@ -125,7 +157,7 @@ function App() {
         ])
       }, t)
     }
-  }, [playChoo])
+  }, [playChoo, celebrate])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -171,6 +203,27 @@ function App() {
           {p.char}
         </span>
       ))}
+
+      {celebration && (
+        <div className="celebration" key={celebration.id} role="status" aria-live="assertive">
+          {Array.from({ length: CONFETTI_COUNT }).map((_, i) => (
+            <span
+              key={i}
+              className="confetti"
+              style={{
+                left: `${50 + (i % 2 === 0 ? -1 : 1) * (4 + (i * 37) % 42)}%`,
+                animationDelay: `${(i * 53) % 260}ms`,
+              }}
+            >
+              {CONFETTI_CHARS[i % CONFETTI_CHARS.length]}
+            </span>
+          ))}
+          <div className="celebration-card">
+            <span className="celebration-number">{celebration.count}</span>
+            <span className="celebration-label">trains dispatched! 🎉</span>
+          </div>
+        </div>
+      )}
 
       <button
         className="mute-toggle"
