@@ -26,6 +26,12 @@ const DISPATCH_THROTTLE_MS = 120
 const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
+const CELEBRATION_INTERVAL = 5
+
+type Celebration = {
+  id: number
+  count: number
+}
 
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -35,6 +41,7 @@ function App() {
   const [trains, setTrains] = useState<Train[]>([])
   const [puffs, setPuffs] = useState<Puff[]>([])
   const [count, setCount] = useState(0)
+  const [celebration, setCelebration] = useState<Celebration | null>(null)
   const [muted, setMuted] = useState<boolean>(() => {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
@@ -42,6 +49,7 @@ function App() {
   const [hasDispatched, setHasDispatched] = useState(false)
 
   const nextIdRef = useRef(1)
+  const countRef = useRef(0)
   const lastDispatchRef = useRef(0)
   const lastLaneRef = useRef(-1)
   const lastDirRef = useRef<Direction>('rtl')
@@ -84,6 +92,10 @@ function App() {
     setPuffs((prev) => prev.filter((p) => p.id !== id))
   }, [])
 
+  const clearCelebration = useCallback((id: number) => {
+    setCelebration((current) => (current?.id === id ? null : current))
+  }, [])
+
   const dispatch = useCallback(() => {
     const now = performance.now()
     if (now - lastDispatchRef.current < DISPATCH_THROTTLE_MS) return
@@ -106,8 +118,14 @@ function App() {
       startedAt: now,
     }
 
+    const nextCount = countRef.current + 1
+    countRef.current = nextCount
+
     setTrains((prev) => [...prev, train])
-    setCount((c) => c + 1)
+    setCount(nextCount)
+    if (nextCount % CELEBRATION_INTERVAL === 0) {
+      setCelebration({ id: nextIdRef.current++, count: nextCount })
+    }
     setHasDispatched(true)
     playChoo()
 
@@ -171,6 +189,23 @@ function App() {
           {p.char}
         </span>
       ))}
+
+      {celebration && (
+        <div
+          key={celebration.id}
+          className="dispatch-celebration"
+          role="status"
+          aria-live="polite"
+          onAnimationEnd={() => clearCelebration(celebration.id)}
+        >
+          <span className="celebration-burst" aria-hidden="true">
+            🚂 ✨ 🚃
+          </span>
+          <span className="celebration-count">
+            {celebration.count} trains dispatched
+          </span>
+        </div>
+      )}
 
       <button
         className="mute-toggle"

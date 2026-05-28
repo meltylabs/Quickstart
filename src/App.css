@@ -97,6 +97,64 @@ main {
   100% { opacity: 0;   transform: translate(0, -40px) scale(1.4); }
 }
 
+.dispatch-celebration {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  transform: translate(-50%, -50%) scale(0.9);
+  pointer-events: none;
+  z-index: 20;
+  animation: dispatch-party 1800ms ease-out forwards;
+}
+
+.celebration-burst {
+  font-size: clamp(42px, 9vw, 88px);
+  line-height: 1;
+  text-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  animation: celebration-pop 700ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+.celebration-count {
+  padding: 8px 12px;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.86);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.12);
+  color: #343434;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(14px, 2.5vw, 18px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@keyframes dispatch-party {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -44%) scale(0.82) rotate(-3deg);
+  }
+  14% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(2deg);
+  }
+  76% {
+    opacity: 1;
+    transform: translate(-50%, -53%) scale(1) rotate(-1deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.96) rotate(0);
+  }
+}
+
+@keyframes celebration-pop {
+  0% { transform: scale(0.55) rotate(-10deg); }
+  55% { transform: scale(1.16) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
 .mute-toggle {
   position: fixed;
   top: 16px;
@@ -141,6 +199,10 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .train-emoji:hover { animation: none; }
   .steam { display: none; }
+  .dispatch-celebration,
+  .celebration-burst {
+    animation: none;
+  }
 
   .train.ltr,
   .train.rtl {
