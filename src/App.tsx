@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 type Direction = 'ltr' | 'rtl'
+type Theme = 'day' | 'night'
 
 type Train = {
   id: number
@@ -27,6 +28,13 @@ const PUFF_COUNT = 4
 const MIN_DURATION_MS = 4500
 const MAX_DURATION_MS = 7500
 
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'day'
+  const storedTheme = window.localStorage.getItem('wtc:theme')
+  if (storedTheme === 'day' || storedTheme === 'night') return storedTheme
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
+}
+
 function pick<T>(arr: readonly T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
 }
@@ -39,6 +47,7 @@ function App() {
     if (typeof localStorage === 'undefined') return false
     return localStorage.getItem('wtc:muted') === '1'
   })
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
   const [hasDispatched, setHasDispatched] = useState(false)
 
   const nextIdRef = useRef(1)
@@ -52,6 +61,10 @@ function App() {
     mutedRef.current = muted
     localStorage.setItem('wtc:muted', muted ? '1' : '0')
   }, [muted])
+
+  useEffect(() => {
+    localStorage.setItem('wtc:theme', theme)
+  }, [theme])
 
   useEffect(() => {
     if (chooRef.current) return
@@ -141,7 +154,17 @@ function App() {
   }, [dispatch])
 
   return (
-    <main onClick={dispatch}>
+    <main className={`theme-${theme}`} onClick={dispatch}>
+      <div className="night-details" aria-hidden="true">
+        <span className="moon" />
+        <span className="star star-1" />
+        <span className="star star-2" />
+        <span className="star star-3" />
+        <span className="star star-4" />
+        <span className="star star-5" />
+        <span className="star star-6" />
+      </div>
+
       <div className={`hero${hasDispatched ? ' dispatched' : ''}`} aria-hidden={hasDispatched}>
         <span className="train-emoji" role="img" aria-label="train">🚂</span>
         <span className="tagline">click anywhere to dispatch a train</span>
@@ -182,6 +205,18 @@ function App() {
         aria-pressed={muted}
       >
         {muted ? '🔇' : '🔊'}
+      </button>
+
+      <button
+        className="theme-toggle"
+        onClick={(e) => {
+          e.stopPropagation()
+          setTheme((currentTheme) => currentTheme === 'day' ? 'night' : 'day')
+        }}
+        aria-label={theme === 'day' ? 'Switch to night mode' : 'Switch to day mode'}
+        aria-pressed={theme === 'night'}
+      >
+        {theme === 'day' ? '🌙' : '☀️'}
       </button>
 
       <div className="counter" aria-live="polite">
