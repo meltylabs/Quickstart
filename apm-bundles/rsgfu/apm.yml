@@ -1,0 +1,26 @@
+name: rsgfu
+version: 1.0.0
+description: FileUploadGroup overlay bundle — adds impact analysis, convergence point awareness, and cross-service blast radius sections to SDD templates
+
+dependencies:
+  apm:
+    - philips-internal/HSP_GenAI_Framework/Resources/apm-bundles/java
+  mcp: []
+
+instructions:
+  # SDD process instructions
+  - rsgfu-impact-analysis.instructions.md
+  - rsgfu-sdd-workflow.instructions.md
+  # Team coding standard overrides (replace base bundle's generic instructions)
+  - rsgfu-java.instructions.md
+  - rsgfu-build-and-test.instructions.md
+  - rsgfu-unit-test.instructions.md
+  - rsgfu-service-test.instructions.md
+  - rsgfu-code-reuse.instructions.md
+
+prompts:
+  - requirements-template.prompt.md
+  - design-template.prompt.md
+  - tasks-template.prompt.md
+
+scripts: {}
