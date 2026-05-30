@@ -291,6 +291,64 @@
         }
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        animation: milestone-in 2400ms ease forwards;
+      }
+
+      .milestone-inner {
+        display: grid;
+        place-items: center;
+        gap: 8px;
+        background: var(--panel);
+        border: 1px solid var(--faint);
+        border-radius: 24px;
+        padding: 28px 40px;
+        backdrop-filter: blur(18px);
+        animation: milestone-pop 2400ms ease forwards;
+      }
+
+      .milestone-emoji {
+        font-size: clamp(40px, 8vw, 72px);
+        line-height: 1;
+      }
+
+      .milestone-label {
+        font-size: clamp(13px, 2vw, 16px);
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+      }
+
+      .milestone-count {
+        font-size: clamp(48px, 10vw, 88px);
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+
+      @keyframes milestone-in {
+        0%   { opacity: 0; }
+        12%  { opacity: 1; }
+        70%  { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      @keyframes milestone-pop {
+        0%   { transform: scale(0.6); }
+        14%  { transform: scale(1.06); }
+        22%  { transform: scale(0.97); }
+        30%  { transform: scale(1); }
+        70%  { transform: scale(1); }
+        100% { transform: scale(0.88); }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -446,8 +504,35 @@
         node.play().catch(() => {});
       }
 
+      const MILESTONE_EMOJIS = ["🎉", "🚀", "🏆", "⚡", "🌟", "🎊", "🔥", "💫"];
+
       function removeNode(event) {
         event.currentTarget.remove();
+      }
+
+      function showMilestone(totalCount) {
+        const banner = document.createElement("div");
+        banner.className = "milestone";
+
+        const inner = document.createElement("div");
+        inner.className = "milestone-inner";
+
+        const emoji = document.createElement("div");
+        emoji.className = "milestone-emoji";
+        emoji.textContent = MILESTONE_EMOJIS[(totalCount / 10 - 1) % MILESTONE_EMOJIS.length];
+
+        const label = document.createElement("div");
+        label.className = "milestone-label";
+        label.textContent = "trains dispatched";
+
+        const countDisplay = document.createElement("div");
+        countDisplay.className = "milestone-count";
+        countDisplay.textContent = totalCount;
+
+        inner.append(emoji, countDisplay, label);
+        banner.append(inner);
+        banner.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(banner);
       }
 
       function createSteam(train, delay) {
@@ -503,6 +588,8 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+
+        if (count % 10 === 0) showMilestone(count);
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
