@@ -24,6 +24,16 @@
         --accent: #111;
       }
 
+      [data-theme="night"] {
+        color-scheme: dark;
+        --ink: #dde0f5;
+        --muted: #7878a0;
+        --faint: #1e1e30;
+        --paper: #0b0b1a;
+        --panel: rgba(14, 14, 28, 0.85);
+        --accent: #9aacff;
+      }
+
       * {
         box-sizing: border-box;
       }
@@ -163,9 +173,63 @@
         transform: translateY(-1px);
       }
 
+      [data-theme="night"] .mute-toggle:hover,
+      [data-theme="night"] .night-toggle:hover {
+        background: rgba(30, 30, 50, 0.95);
+        border-color: #44446a;
+        transform: translateY(-1px);
+      }
+
       .mute-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+
+      .night-toggle {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 10;
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 16px;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .night-toggle:hover {
+        background: #fff;
+        border-color: #b8b8b8;
+        transform: translateY(-1px);
+      }
+
+      .night-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      #stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #stars span {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
       }
 
       .counter {
@@ -274,6 +338,16 @@
       </div>
 
       <button
+        class="night-toggle"
+        id="night"
+        type="button"
+        aria-label="Night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -298,6 +372,7 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const nightButton = document.querySelector("#night");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -308,6 +383,43 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+
+      const storedNight = localStorage.getItem("wtc:night");
+      let nightMode =
+        storedNight !== null
+          ? storedNight === "1"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      function createStars() {
+        const layer = document.createElement("div");
+        layer.id = "stars";
+        for (let starIndex = 0; starIndex < 90; starIndex += 1) {
+          const starEl = document.createElement("span");
+          const sizePx = Math.random() < 0.75 ? 1 : 2;
+          const xPct = (Math.random() * 100).toFixed(1);
+          const yPct = (Math.random() * 100).toFixed(1);
+          const opacity = (0.35 + Math.random() * 0.65).toFixed(2);
+          starEl.style.cssText = `left:${xPct}%;top:${yPct}%;width:${sizePx}px;height:${sizePx}px;opacity:${opacity};`;
+          layer.append(starEl);
+        }
+        return layer;
+      }
+
+      function applyNightMode() {
+        if (nightMode) {
+          document.documentElement.setAttribute("data-theme", "night");
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+        }
+        nightButton.textContent = nightMode ? "☀️" : "🌙";
+        nightButton.setAttribute("aria-label", nightMode ? "Day mode" : "Night mode");
+        nightButton.setAttribute("aria-pressed", String(nightMode));
+        localStorage.setItem("wtc:night", nightMode ? "1" : "0");
+
+        const existingStars = document.getElementById("stars");
+        if (existingStars) existingStars.remove();
+        if (nightMode) dispatcher.prepend(createStars());
+      }
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -404,6 +516,12 @@
         syncMuteButton();
       });
 
+      nightButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        applyNightMode();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -414,6 +532,7 @@
         }
       });
 
+      applyNightMode();
       syncMuteButton();
       updateCounter();
     </script>
