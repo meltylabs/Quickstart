@@ -22,6 +22,24 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --sky: #fbfbfa;
+        --skyline: rgba(42, 42, 42, 0.08);
+        --window-light: rgba(255, 201, 92, 0);
+      }
+
+      :root[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f4f0de;
+        --muted: #b9b0a2;
+        --faint: rgba(255, 255, 255, 0.18);
+        --paper: #0c1020;
+        --panel: rgba(17, 21, 37, 0.76);
+        --accent: #ffd36f;
+        --steam: #8991a8;
+        --sky: linear-gradient(180deg, #090d1a 0%, #151d35 58%, #20283c 100%);
+        --skyline: rgba(5, 8, 15, 0.62);
+        --window-light: rgba(255, 207, 109, 0.72);
       }
 
       * {
@@ -36,7 +54,7 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background: var(--sky);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -59,6 +77,49 @@
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+      }
+
+      main::before,
+      main::after {
+        position: fixed;
+        inset: 0;
+        display: block;
+        content: "";
+        pointer-events: none;
+        transition: opacity 350ms ease;
+      }
+
+      main::before {
+        opacity: 0;
+        background-image:
+          radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.86) 0 1px, transparent 2px),
+          radial-gradient(circle at 42% 12%, rgba(255, 255, 255, 0.72) 0 1px, transparent 2px),
+          radial-gradient(circle at 68% 22%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+          radial-gradient(circle at 82% 15%, rgba(255, 255, 255, 0.62) 0 1px, transparent 2px),
+          radial-gradient(circle at 74% 38%, rgba(255, 255, 255, 0.58) 0 1px, transparent 2px),
+          radial-gradient(circle at 28% 34%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px);
+      }
+
+      main::after {
+        top: auto;
+        height: 25vh;
+        opacity: 0.24;
+        background:
+          linear-gradient(to top, var(--skyline), transparent 86%),
+          linear-gradient(90deg, transparent 0 6%, var(--skyline) 6% 12%, transparent 12% 18%, var(--skyline) 18% 28%, transparent 28% 35%, var(--skyline) 35% 43%, transparent 43% 54%, var(--skyline) 54% 63%, transparent 63% 70%, var(--skyline) 70% 84%, transparent 84%),
+          radial-gradient(circle at 9% 58%, var(--window-light) 0 2px, transparent 3px),
+          radial-gradient(circle at 23% 50%, var(--window-light) 0 2px, transparent 3px),
+          radial-gradient(circle at 39% 62%, var(--window-light) 0 2px, transparent 3px),
+          radial-gradient(circle at 59% 48%, var(--window-light) 0 2px, transparent 3px),
+          radial-gradient(circle at 78% 58%, var(--window-light) 0 2px, transparent 3px);
+      }
+
+      :root[data-theme="night"] main::before {
+        opacity: 1;
+      }
+
+      :root[data-theme="night"] main::after {
+        opacity: 1;
       }
 
       .hero {
@@ -127,7 +188,7 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -163,9 +224,18 @@
         transform: translateY(-1px);
       }
 
+      :root[data-theme="night"] .mute-toggle:hover {
+        background: rgba(30, 36, 58, 0.94);
+        border-color: rgba(255, 255, 255, 0.34);
+      }
+
       .mute-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+
+      .theme-toggle {
+        right: 62px;
       }
 
       .counter {
@@ -274,6 +344,16 @@
       </div>
 
       <button
+        class="mute-toggle theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -294,11 +374,15 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const THEME_STORAGE_KEY = "wtc:theme";
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +392,8 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+      let theme = storedTheme || (systemTheme.matches ? "night" : "day");
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +404,31 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncTheme() {
+        const isNight = theme === "night";
+        document.documentElement.dataset.theme = theme;
+        themeButton.textContent = isNight ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          isNight ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(isNight));
+        themeColor.setAttribute("content", isNight ? "#0c1020" : "#ffffff");
+      }
+
+      function setTheme(nextTheme, persist = true) {
+        theme = nextTheme;
+        if (persist) {
+          storedTheme = nextTheme;
+          localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+        }
+        syncTheme();
+      }
+
+      function toggleTheme() {
+        setTheme(theme === "night" ? "day" : "night");
       }
 
       function updateCounter() {
@@ -403,6 +514,10 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleTheme();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -411,9 +526,17 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          toggleTheme();
         }
       });
 
+      systemTheme.addEventListener("change", (event) => {
+        if (storedTheme) return;
+        setTheme(event.matches ? "night" : "day", false);
+      });
+
+      syncTheme();
       syncMuteButton();
       updateCounter();
     </script>
