@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
+      content="A tiny rocket launcher. Click anywhere to send a rocket soaring across the screen."
     />
     <meta property="og:title" content="welcome to conductor" />
-    <meta property="og:description" content="Click anywhere to dispatch a train." />
+    <meta property="og:description" content="Click anywhere to launch a rocket." />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="./public/favicon.png" />
     <title>welcome to conductor</title>
@@ -268,8 +268,8 @@
     <main id="dispatcher">
       <div class="hero" id="hero">
         <div class="hero-inner">
-          <span class="train-emoji" role="img" aria-label="train">🚂</span>
-          <span class="tagline">Click anywhere to dispatch a train.</span>
+          <span class="train-emoji" role="img" aria-label="rocket">🚀</span>
+          <span class="tagline">Click anywhere to launch a rocket.</span>
         </div>
       </div>
 
@@ -283,11 +283,11 @@
         🔊
       </button>
 
-      <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+      <div class="counter" id="counter" aria-live="polite">0 rockets launched</div>
     </main>
 
     <script>
-      const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
+      const TRAIN_EMOJIS = ["🚀", "🛸", "🛰️", "☄️", "🚀"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
@@ -321,8 +321,8 @@
       }
 
       function updateCounter() {
-        const noun = count === 1 ? "train" : "trains";
-        counter.textContent = `${count} ${noun} dispatched`;
+        const noun = count === 1 ? "rocket" : "rockets";
+        counter.textContent = `${count} ${noun} launched`;
         document.title =
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
       }
