@@ -13,6 +13,19 @@
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="./public/favicon.png" />
     <title>welcome to conductor</title>
+    <script>
+      // Apply the saved/preferred theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var stored = localStorage.getItem("wtc:theme");
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = stored || (prefersDark ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
     <style>
       :root {
         color-scheme: light;
@@ -21,7 +34,23 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
+        --panel-border-hover: #b8b8b8;
+        --steam: #c9c9c7;
         --accent: #111;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --ink: #ececec;
+        --muted: #8c8c8c;
+        --faint: #2c2c2c;
+        --paper: #0e0e0f;
+        --panel: rgba(28, 28, 30, 0.72);
+        --panel-hover: #242426;
+        --panel-border-hover: #3d3d40;
+        --steam: #4a4a4c;
+        --accent: #ececec;
       }
 
       * {
@@ -127,17 +156,16 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .icon-toggle {
         position: fixed;
         top: 16px;
-        right: 16px;
         z-index: 10;
         display: inline-flex;
         width: 38px;
@@ -157,13 +185,21 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+      .mute-toggle {
+        right: 16px;
+      }
+
+      .theme-toggle {
+        right: 62px;
+      }
+
+      .icon-toggle:hover {
+        background: var(--panel-hover);
+        border-color: var(--panel-border-hover);
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -274,7 +310,17 @@
       </div>
 
       <button
-        class="mute-toggle"
+        class="icon-toggle theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to dark theme"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
+        class="icon-toggle mute-toggle"
         id="mute"
         type="button"
         aria-label="Mute"
@@ -298,6 +344,8 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeButton = document.querySelector("#theme");
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -309,8 +357,29 @@
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
 
+      const prefersDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const storedTheme = localStorage.getItem("wtc:theme");
+      let theme = storedTheme || (prefersDark ? "dark" : "light");
+
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function syncTheme() {
+        const isDark = theme === "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        themeButton.textContent = isDark ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          isDark ? "Switch to light theme" : "Switch to dark theme",
+        );
+        themeButton.setAttribute("aria-pressed", String(isDark));
+        if (themeColorMeta) {
+          themeColorMeta.setAttribute("content", isDark ? "#0e0e0f" : "#ffffff");
+        }
+        localStorage.setItem("wtc:theme", theme);
       }
 
       function syncMuteButton() {
@@ -403,6 +472,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        theme = theme === "dark" ? "light" : "dark";
+        syncTheme();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -411,10 +485,24 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "t" || event.key === "T") {
+          theme = theme === "dark" ? "light" : "dark";
+          syncTheme();
         }
       });
 
+      if (window.matchMedia) {
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (event) => {
+            if (localStorage.getItem("wtc:theme")) return;
+            theme = event.matches ? "dark" : "light";
+            syncTheme();
+          });
+      }
+
       syncMuteButton();
+      syncTheme();
       updateCounter();
     </script>
   </body>
