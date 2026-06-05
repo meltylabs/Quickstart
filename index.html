@@ -21,7 +21,10 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
         --accent: #111;
+        --steam: #c9c9c7;
+        --star: #f7e8a6;
       }
 
       * {
@@ -50,6 +53,19 @@
         font-feature-settings: "kern";
       }
 
+      body.night {
+        color-scheme: dark;
+        --ink: #f4f1e8;
+        --muted: #aab6c9;
+        --faint: rgba(202, 215, 238, 0.24);
+        --paper: #07111f;
+        --panel: rgba(12, 24, 42, 0.76);
+        --panel-hover: rgba(22, 40, 66, 0.92);
+        --accent: #f7e8a6;
+        --steam: rgba(206, 221, 239, 0.68);
+        --star: #f9e7a1;
+      }
+
       main {
         position: relative;
         display: block;
@@ -59,6 +75,156 @@
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+      }
+
+      main::after {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 30vh;
+        background:
+          linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(2, 7, 13, 0.18) 68%,
+            rgba(2, 7, 13, 0.36) 100%
+          );
+        content: "";
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 240ms ease;
+      }
+
+      body.night main::after {
+        opacity: 1;
+      }
+
+      .night-sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      body.night .night-sky {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(46px, 10vh, 88px);
+        left: clamp(28px, 8vw, 96px);
+        width: clamp(46px, 8vw, 72px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f3df8e;
+        box-shadow:
+          0 0 0 1px rgba(255, 243, 184, 0.24),
+          0 0 34px rgba(247, 232, 166, 0.34);
+      }
+
+      .moon::after {
+        position: absolute;
+        top: -5px;
+        right: -8px;
+        width: 78%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--paper);
+        content: "";
+      }
+
+      .star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--star);
+        box-shadow: 0 0 10px rgba(249, 231, 161, 0.72);
+      }
+
+      .star:nth-child(2) {
+        top: 13vh;
+        left: 37vw;
+      }
+
+      .star:nth-child(3) {
+        top: 21vh;
+        left: 72vw;
+        width: 3px;
+        height: 3px;
+      }
+
+      .star:nth-child(4) {
+        top: 35vh;
+        left: 18vw;
+        width: 3px;
+        height: 3px;
+      }
+
+      .star:nth-child(5) {
+        top: 46vh;
+        left: 83vw;
+      }
+
+      .star:nth-child(6) {
+        top: 9vh;
+        left: 58vw;
+        width: 2px;
+        height: 2px;
+      }
+
+      .skyline-lights {
+        position: fixed;
+        right: 8vw;
+        bottom: 8vh;
+        left: 8vw;
+        z-index: 0;
+        height: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      body.night .skyline-lights {
+        opacity: 1;
+      }
+
+      .skyline-lights span {
+        position: absolute;
+        bottom: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(248, 215, 121, 0.82);
+        box-shadow: 0 0 12px rgba(248, 215, 121, 0.5);
+      }
+
+      .skyline-lights span:nth-child(1) {
+        left: 4%;
+      }
+
+      .skyline-lights span:nth-child(2) {
+        left: 18%;
+        bottom: 9px;
+      }
+
+      .skyline-lights span:nth-child(3) {
+        left: 43%;
+        width: 4px;
+        height: 4px;
+      }
+
+      .skyline-lights span:nth-child(4) {
+        left: 67%;
+        bottom: 13px;
+      }
+
+      .skyline-lights span:nth-child(5) {
+        left: 91%;
       }
 
       .hero {
@@ -127,18 +293,23 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .control-cluster {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +328,17 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .icon-toggle:hover {
+        background: var(--panel-hover);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body.night .icon-toggle:hover {
+        border-color: rgba(247, 232, 166, 0.46);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -238,6 +413,14 @@
           display: none;
         }
 
+        .night-sky {
+          transition: none;
+        }
+
+        .skyline-lights {
+          transition: none;
+        }
+
         .train.ltr,
         .train.rtl {
           left: 50%;
@@ -266,6 +449,23 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-sky" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+      </div>
+
+      <div class="skyline-lights" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +473,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="control-cluster">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,6 +509,7 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
@@ -308,6 +521,10 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      const storedTheme = localStorage.getItem("wtc:theme");
+      let nightMode =
+        storedTheme === "night" ||
+        (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +535,20 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", nightMode);
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", nightMode ? "#07111f" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -403,6 +634,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -411,9 +647,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
