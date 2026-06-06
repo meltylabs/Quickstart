@@ -180,6 +180,56 @@
         pointer-events: none;
       }
 
+      .celebration {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+      }
+
+      .celebration-badge {
+        display: grid;
+        gap: 6px;
+        place-items: center;
+        padding: 28px 44px;
+        border: 1px solid var(--faint);
+        border-radius: 22px;
+        background: var(--panel);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+        animation: badge-pop 1900ms cubic-bezier(0.2, 0.85, 0.2, 1) forwards;
+      }
+
+      .celebration-number {
+        font-size: clamp(52px, 13vw, 128px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .celebration-label {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .confetti {
+        position: fixed;
+        top: -12vh;
+        z-index: 19;
+        font-size: clamp(20px, 3vw, 34px);
+        line-height: 1;
+        pointer-events: none;
+        animation-name: confetti-fall;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        will-change: transform, opacity;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,6 +277,44 @@
         }
       }
 
+      @keyframes badge-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+
+        14% {
+          opacity: 1;
+          transform: scale(1.08);
+        }
+
+        26% {
+          transform: scale(1);
+        }
+
+        80% {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        100% {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) rotate(0);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(var(--drift, 0), 122vh) rotate(var(--spin, 360deg));
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -236,6 +324,22 @@
 
         .steam {
           display: none;
+        }
+
+        .celebration-badge {
+          animation: badge-fade 1900ms ease both;
+        }
+
+        @keyframes badge-fade {
+          0%,
+          100% {
+            opacity: 0;
+          }
+
+          15%,
+          80% {
+            opacity: 1;
+          }
         }
 
         .train.ltr,
@@ -289,11 +393,17 @@
     <script>
       const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
+      const CONFETTI_CHARS = ["🎉", "🎊", "✨", "🚂", "🎈"];
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const MILESTONE_EVERY = 10;
+      const CONFETTI_COUNT = 24;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
@@ -357,6 +467,44 @@
         }, delay);
       }
 
+      function celebrate(total) {
+        const layer = document.createElement("div");
+        layer.className = "celebration";
+
+        const badge = document.createElement("div");
+        badge.className = "celebration-badge";
+
+        const number = document.createElement("span");
+        number.className = "celebration-number";
+        number.textContent = total;
+
+        const label = document.createElement("span");
+        label.className = "celebration-label";
+        label.textContent = "trains dispatched";
+
+        badge.append(number, label);
+        badge.addEventListener("animationend", () => layer.remove(), {
+          once: true,
+        });
+        layer.append(badge);
+        dispatcher.append(layer);
+
+        if (reducedMotion) return;
+
+        for (let i = 0; i < CONFETTI_COUNT; i += 1) {
+          const piece = document.createElement("span");
+          piece.className = "confetti";
+          piece.textContent = pick(CONFETTI_CHARS);
+          piece.style.left = `${Math.random() * 100}vw`;
+          piece.style.animationDuration = `${1600 + Math.random() * 1200}ms`;
+          piece.style.animationDelay = `${Math.random() * 300}ms`;
+          piece.style.setProperty("--drift", `${(Math.random() - 0.5) * 30}vw`);
+          piece.style.setProperty("--spin", `${(Math.random() - 0.5) * 720}deg`);
+          piece.addEventListener("animationend", removeNode, { once: true });
+          dispatcher.append(piece);
+        }
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -391,6 +539,8 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+
+        if (count % MILESTONE_EVERY === 0) celebrate(count);
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
