@@ -15,13 +15,38 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --sky-detail: rgba(21, 21, 21, 0.08);
+        --rail: rgba(21, 21, 21, 0.12);
+        --rail-glow: rgba(21, 21, 21, 0.16);
+        --window-light: rgba(21, 21, 21, 0.12);
+        --steam: #c9c9c7;
+        --moon-haze: rgba(246, 211, 111, 0);
+        --ground-shadow: rgba(0, 0, 0, 0);
+        --night-opacity: 0;
+      }
+
+      body[data-theme="night"] {
+        --ink: #f4f0dc;
+        --muted: #bdb8a3;
+        --faint: rgba(244, 240, 220, 0.2);
+        --paper: #101724;
+        --panel: rgba(18, 27, 43, 0.74);
+        --accent: #f6d36f;
+        --sky-detail: rgba(246, 211, 111, 0.64);
+        --rail: rgba(246, 211, 111, 0.18);
+        --rail-glow: rgba(100, 171, 214, 0.3);
+        --window-light: rgba(246, 211, 111, 0.72);
+        --steam: #64758b;
+        --moon-haze: rgba(246, 211, 111, 0.2);
+        --ground-shadow: rgba(0, 0, 0, 0.24);
+        --night-opacity: 1;
       }
 
       * {
@@ -36,7 +61,17 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background:
+          radial-gradient(
+            circle at 78% 18%,
+            var(--moon-haze),
+            transparent 9rem
+          ),
+          linear-gradient(
+            180deg,
+            var(--paper),
+            color-mix(in srgb, var(--paper) 88%, #6b93b9 12%)
+          );
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -50,8 +85,39 @@
         font-feature-settings: "kern";
       }
 
+      body::before,
+      body::after {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        opacity: var(--night-opacity);
+        transition: opacity 450ms ease;
+      }
+
+      body::before {
+        z-index: 0;
+        background-image:
+          radial-gradient(circle at 12% 18%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 24% 36%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 36% 12%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 54% 28%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 68% 11%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 84% 34%, var(--sky-detail) 0 1px, transparent 2px),
+          radial-gradient(circle at 92% 18%, var(--sky-detail) 0 1px, transparent 2px);
+        animation: twinkle 4s ease-in-out infinite;
+      }
+
+      body::after {
+        z-index: 0;
+        background:
+          radial-gradient(circle at 78% 18%, #f6d36f 0 28px, transparent 29px),
+          radial-gradient(circle at 79.8% 16.5%, var(--paper) 0 24px, transparent 25px);
+      }
+
       main {
         position: relative;
+        z-index: 1;
         display: block;
         width: 100vw;
         min-height: 100svh;
@@ -61,9 +127,77 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 0;
+        pointer-events: none;
+        content: "";
+      }
+
+      main::before {
+        bottom: 0;
+        height: 30vh;
+        background:
+          linear-gradient(90deg, transparent 0 5%, var(--window-light) 5% 6%, transparent 6% 15%) 0 42% / 180px 46px repeat-x,
+          linear-gradient(90deg, transparent 0 10%, var(--window-light) 10% 12%, transparent 12% 24%) 48px 62% / 220px 56px repeat-x,
+          linear-gradient(180deg, transparent 0 38%, var(--ground-shadow) 38% 100%);
+        opacity: calc(var(--night-opacity) * 0.85);
+        transition: opacity 450ms ease;
+      }
+
+      main::after {
+        bottom: 10vh;
+        height: 2px;
+        background:
+          linear-gradient(90deg, transparent, var(--rail-glow), transparent),
+          repeating-linear-gradient(90deg, transparent 0 52px, var(--rail) 52px 58px);
+        box-shadow: 0 8vh 0 var(--rail), 0 24vh 0 var(--rail), 0 40vh 0 var(--rail),
+          0 56vh 0 var(--rail);
+      }
+
+      .theme-toggle {
+        position: fixed;
+        top: 16px;
+        right: 62px;
+        z-index: 10;
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 16px;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .theme-toggle:hover,
+      .mute-toggle:hover {
+        background: color-mix(in srgb, var(--panel) 45%, var(--paper));
+        border-color: color-mix(in srgb, var(--faint) 55%, var(--ink));
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle:focus-visible,
+      .mute-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,7 +241,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 3;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -126,8 +260,8 @@
 
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 2;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -157,17 +291,6 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
-        transform: translateY(-1px);
-      }
-
-      .mute-toggle:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-      }
-
       .counter {
         position: fixed;
         bottom: 16px;
@@ -192,6 +315,17 @@
 
         75% {
           transform: translateY(-4px) rotate(6deg);
+        }
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          filter: brightness(0.9);
+        }
+
+        50% {
+          filter: brightness(1.45);
         }
       }
 
@@ -229,7 +363,8 @@
 
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        body::before {
           animation: none;
           transition: none;
         }
@@ -274,6 +409,16 @@
       </div>
 
       <button
+        class="theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -297,7 +442,9 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -308,6 +455,10 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode =
+        localStorage.getItem("wtc:theme") === "night" ||
+        (!localStorage.getItem("wtc:theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +469,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.dataset.theme = nightMode ? "night" : "day";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#101724" : "#fbfbfa");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -398,6 +561,12 @@
       }
 
       dispatcher.addEventListener("click", dispatchTrain);
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       muteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         muted = !muted;
@@ -408,12 +577,16 @@
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
           dispatchTrain();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
