@@ -227,6 +227,76 @@
         }
       }
 
+      .milestone-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        border-radius: 24px;
+        padding: 32px 48px;
+        text-align: center;
+        z-index: 999;
+        pointer-events: none;
+        animation: milestone-pop 2800ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      .milestone-banner .milestone-count {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -2px;
+      }
+
+      .milestone-banner .milestone-label {
+        font-size: 1.1rem;
+        opacity: 0.75;
+        margin-top: 6px;
+      }
+
+      .milestone-confetti {
+        position: fixed;
+        font-size: 2rem;
+        pointer-events: none;
+        z-index: 998;
+        animation: confetti-fall var(--dur) ease-in forwards;
+      }
+
+      @keyframes milestone-pop {
+        0% {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 0;
+        }
+        15% {
+          transform: translate(-50%, -50%) scale(1.05);
+          opacity: 1;
+        }
+        20% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        70% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(0.85);
+          opacity: 0;
+        }
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(var(--travel)) rotate(var(--spin)) scale(0.5);
+          opacity: 0;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -357,6 +427,34 @@
         }, delay);
       }
 
+      const MILESTONE_CONFETTI = ["🎉", "🎊", "🚂", "⭐", "✨", "🎈", "🏆", "🎆"];
+
+      function showMilestone(total) {
+        const banner = document.createElement("div");
+        banner.className = "milestone-banner";
+        banner.innerHTML = `
+          <div class="milestone-count">🚂 ${total}</div>
+          <div class="milestone-label">trains dispatched!</div>
+        `;
+        document.body.append(banner);
+        banner.addEventListener("animationend", () => banner.remove(), { once: true });
+
+        const pieces = 20;
+        for (let i = 0; i < pieces; i++) {
+          const el = document.createElement("span");
+          el.className = "milestone-confetti";
+          el.textContent = pick(MILESTONE_CONFETTI);
+          const startX = 10 + Math.random() * 80;
+          const startY = 20 + Math.random() * 60;
+          const travel = `${60 + Math.random() * 120}px`;
+          const spin = `${-180 + Math.random() * 360}deg`;
+          const dur = `${800 + Math.random() * 1400}ms`;
+          el.style.cssText = `left:${startX}vw;top:${startY}vh;--travel:${travel};--spin:${spin};--dur:${dur};animation-delay:${Math.random() * 300}ms`;
+          document.body.append(el);
+          el.addEventListener("animationend", () => el.remove(), { once: true });
+        }
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -391,6 +489,7 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+        if (count % 10 === 0) showMilestone(count);
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
