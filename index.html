@@ -180,6 +180,64 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        pointer-events: none;
+      }
+
+      .milestone-card {
+        display: grid;
+        min-width: min(360px, calc(100vw - 48px));
+        gap: 10px;
+        justify-items: center;
+        padding: 22px 24px;
+        border: 1px solid var(--faint);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.14);
+        backdrop-filter: blur(14px);
+        animation: milestone-pop 2200ms ease-in-out forwards;
+      }
+
+      .milestone-train {
+        font-size: clamp(48px, 12vw, 84px);
+        line-height: 1;
+        animation: milestone-choo 900ms ease-in-out infinite;
+      }
+
+      .milestone-count {
+        color: var(--ink);
+        font-size: clamp(26px, 7vw, 44px);
+        font-weight: 760;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 520;
+        letter-spacing: 0;
+        line-height: 1.35;
+        text-align: center;
+      }
+
+      .confetti {
+        position: fixed;
+        top: -10vh;
+        z-index: 19;
+        color: var(--ink);
+        font-size: 20px;
+        pointer-events: none;
+        animation: confetti-fall 1800ms ease-in forwards;
+        will-change: transform, opacity;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,15 +285,69 @@
         }
       }
 
+      @keyframes milestone-pop {
+        0% {
+          opacity: 0;
+          transform: translateY(18px) scale(0.88);
+        }
+
+        16%,
+        78% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(-16px) scale(0.94);
+        }
+      }
+
+      @keyframes milestone-choo {
+        0%,
+        100% {
+          transform: translateX(-5px) rotate(-4deg);
+        }
+
+        50% {
+          transform: translateX(5px) rotate(4deg);
+        }
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          opacity: 0;
+          transform: translate3d(0, 0, 0) rotate(0);
+        }
+
+        12% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate3d(var(--confetti-drift), 112vh, 0)
+            rotate(var(--confetti-spin));
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .milestone-card,
+        .milestone-train,
+        .confetti {
           animation: none;
           transition: none;
         }
 
-        .steam {
+        .steam,
+        .confetti {
           display: none;
+        }
+
+        .milestone-card {
+          opacity: 1;
         }
 
         .train.ltr,
@@ -294,6 +406,10 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const MILESTONE_INTERVAL = 10;
+      const MILESTONE_DURATION_MS = 2200;
+      const CONFETTI_COUNT = 20;
+      const CONFETTI_CHARS = ["★", "✦", "●", "▲", "◆"];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
@@ -357,6 +473,55 @@
         }, delay);
       }
 
+      function launchConfetti() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        for (let i = 0; i < CONFETTI_COUNT; i += 1) {
+          const confetti = document.createElement("span");
+          const drift = Math.round(-80 + Math.random() * 160);
+          const spin = Math.round(180 + Math.random() * 540);
+
+          confetti.className = "confetti";
+          confetti.textContent = pick(CONFETTI_CHARS);
+          confetti.style.left = `${Math.random() * 100}vw`;
+          confetti.style.animationDelay = `${Math.random() * 280}ms`;
+          confetti.style.setProperty("--confetti-drift", `${drift}px`);
+          confetti.style.setProperty("--confetti-spin", `${spin}deg`);
+          confetti.addEventListener("animationend", removeNode, { once: true });
+          dispatcher.append(confetti);
+        }
+      }
+
+      function showMilestone() {
+        const milestone = document.createElement("div");
+        const card = document.createElement("div");
+        const train = document.createElement("span");
+        const countNode = document.createElement("span");
+        const label = document.createElement("span");
+
+        milestone.className = "milestone";
+        milestone.setAttribute("role", "status");
+        milestone.setAttribute("aria-live", "polite");
+
+        card.className = "milestone-card";
+        train.className = "milestone-train";
+        train.textContent = "🚂";
+        train.setAttribute("aria-hidden", "true");
+        countNode.className = "milestone-count";
+        countNode.textContent = String(count);
+        label.className = "milestone-label";
+        label.textContent = "total trains dispatched";
+
+        card.append(train, countNode, label);
+        milestone.append(card);
+        dispatcher.append(milestone);
+        launchConfetti();
+
+        window.setTimeout(() => {
+          milestone.remove();
+        }, MILESTONE_DURATION_MS);
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -391,6 +556,10 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+
+        if (count % MILESTONE_INTERVAL === 0) {
+          showMilestone();
+        }
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
