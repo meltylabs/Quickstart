@@ -21,7 +21,21 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
         --accent: #111;
+        --steam: #c9c9c7;
+      }
+
+      :root[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f3f0df;
+        --muted: #b8b39e;
+        --faint: rgba(246, 232, 182, 0.22);
+        --paper: #10131a;
+        --panel: rgba(24, 27, 36, 0.74);
+        --panel-hover: rgba(39, 43, 55, 0.9);
+        --accent: #f6d56d;
+        --steam: #8f9aad;
       }
 
       * {
@@ -36,7 +50,9 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background:
+          radial-gradient(circle at 50% 115%, rgba(124, 139, 117, 0.18), transparent 34%),
+          var(--paper);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -48,6 +64,15 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background-color 240ms ease,
+          color 240ms ease;
+      }
+
+      :root[data-theme="night"] body {
+        background:
+          linear-gradient(180deg, #0c1020 0%, #141824 48%, #202018 100%),
+          var(--paper);
       }
 
       main {
@@ -59,6 +84,77 @@
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+      }
+
+      .night-sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      :root[data-theme="night"] .night-sky {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(42px, 9vh, 82px);
+        left: clamp(34px, 8vw, 96px);
+        width: clamp(44px, 7vw, 72px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f6d56d;
+        box-shadow: 0 0 24px rgba(246, 213, 109, 0.34);
+      }
+
+      .moon::after {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 14px;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: #0c1020;
+      }
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #fff6c7;
+        opacity: 0.84;
+        box-shadow: 0 0 8px rgba(255, 246, 199, 0.45);
+      }
+
+      .star:nth-child(2) {
+        top: 14%;
+        left: 31%;
+      }
+
+      .star:nth-child(3) {
+        top: 22%;
+        right: 23%;
+      }
+
+      .star:nth-child(4) {
+        top: 38%;
+        left: 17%;
+      }
+
+      .star:nth-child(5) {
+        top: 30%;
+        right: 10%;
+      }
+
+      .star:nth-child(6) {
+        top: 12%;
+        right: 43%;
       }
 
       .hero {
@@ -127,18 +223,23 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +258,17 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .icon-toggle:hover {
+        background: var(--panel-hover);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      :root[data-theme="night"] .icon-toggle:hover {
+        border-color: rgba(246, 213, 109, 0.45);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -266,6 +371,15 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-sky" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +387,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,8 +423,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +436,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +447,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.documentElement.dataset.theme = nightMode ? "night" : "light";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to light mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#10131a" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "light");
       }
 
       function updateCounter() {
@@ -398,6 +539,12 @@
       }
 
       dispatcher.addEventListener("click", dispatchTrain);
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       muteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         muted = !muted;
@@ -408,12 +555,16 @@
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
           dispatchTrain();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
