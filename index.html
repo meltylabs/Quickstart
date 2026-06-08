@@ -180,6 +180,47 @@
         pointer-events: none;
       }
 
+      .auto-toggle {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        z-index: 10;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 14px;
+        height: 38px;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .auto-toggle:hover {
+        background: #fff;
+        border-color: #b8b8b8;
+        transform: translateY(-1px);
+      }
+
+      .auto-toggle.active {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+
+      .auto-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -284,6 +325,16 @@
       </button>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+
+      <button
+        class="auto-toggle"
+        id="auto"
+        type="button"
+        aria-label="Start auto-dispatch"
+        aria-pressed="false"
+      >
+        ▶ Auto
+      </button>
     </main>
 
     <script>
@@ -412,6 +463,33 @@
           muted = !muted;
           syncMuteButton();
         }
+      });
+
+      const autoButton = document.querySelector("#auto");
+      let autoInterval = null;
+      const AUTO_INTERVAL_MS = 800;
+
+      function toggleAuto() {
+        if (autoInterval) {
+          clearInterval(autoInterval);
+          autoInterval = null;
+          autoButton.textContent = "▶ Auto";
+          autoButton.classList.remove("active");
+          autoButton.setAttribute("aria-label", "Start auto-dispatch");
+          autoButton.setAttribute("aria-pressed", "false");
+        } else {
+          dispatchTrain();
+          autoInterval = setInterval(dispatchTrain, AUTO_INTERVAL_MS);
+          autoButton.textContent = "⏹ Auto";
+          autoButton.classList.add("active");
+          autoButton.setAttribute("aria-label", "Stop auto-dispatch");
+          autoButton.setAttribute("aria-pressed", "true");
+        }
+      }
+
+      autoButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleAuto();
       });
 
       syncMuteButton();
