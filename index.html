@@ -21,7 +21,9 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
         --accent: #111;
+        --steam: #c9c9c7;
       }
 
       * {
@@ -48,6 +50,24 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background 450ms ease,
+          color 450ms ease;
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #f2f4ff;
+        --muted: #aab0c6;
+        --faint: rgba(189, 202, 255, 0.25);
+        --paper: #070914;
+        --panel: rgba(16, 20, 39, 0.76);
+        --panel-hover: rgba(26, 32, 58, 0.88);
+        --accent: #f2f4ff;
+        --steam: #8e98b7;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(94, 126, 255, 0.16), transparent 24vw),
+          linear-gradient(180deg, #090d1c 0%, #070914 54%, #0d1020 100%);
       }
 
       main {
@@ -91,6 +111,11 @@
         pointer-events: auto;
       }
 
+      body.night .train-emoji,
+      body.night .train {
+        filter: drop-shadow(0 0 14px rgba(247, 222, 143, 0.28));
+      }
+
       .train-emoji:hover {
         animation: wiggle 600ms ease-in-out;
       }
@@ -127,18 +152,82 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .night-details {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 450ms ease;
+      }
+
+      body.night .night-details {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(46px, 10vh, 96px);
+        left: clamp(34px, 10vw, 128px);
+        width: clamp(38px, 8vw, 68px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f6e6ad;
+        box-shadow:
+          0 0 28px rgba(246, 230, 173, 0.28),
+          inset -14px -2px 0 #d7c67f;
+      }
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #f6f2d6;
+        box-shadow: 0 0 10px rgba(246, 242, 214, 0.72);
+        animation: twinkle 2600ms ease-in-out infinite;
+      }
+
+      .star-one {
+        top: 18%;
+        left: 29%;
+      }
+
+      .star-two {
+        top: 12%;
+        right: 24%;
+        animation-delay: 700ms;
+      }
+
+      .star-three {
+        top: 33%;
+        right: 12%;
+        animation-delay: 1200ms;
+      }
+
+      .star-four {
+        top: 58%;
+        left: 14%;
+        animation-delay: 1600ms;
+      }
+
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: inline-flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +246,17 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .icon-toggle:hover {
+        background: var(--panel-hover);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body.night .icon-toggle:hover {
+        border-color: rgba(222, 230, 255, 0.42);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -227,9 +320,23 @@
         }
       }
 
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.48;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.65);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .star {
           animation: none;
           transition: none;
         }
@@ -266,6 +373,14 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-details" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star star-one"></span>
+        <span class="star star-two"></span>
+        <span class="star star-three"></span>
+        <span class="star star-four"></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +388,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="icon-toggle theme-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle mute-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,8 +424,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +437,11 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      const storedTheme = localStorage.getItem("wtc:theme");
+      let nightMode =
+        storedTheme === "night" ||
+        (storedTheme === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +452,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", nightMode);
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#070914" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -404,6 +550,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +563,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "t" || event.key === "T") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
