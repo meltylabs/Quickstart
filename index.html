@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfbfa" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -22,6 +22,31 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --sky-glow: transparent;
+        --moon: transparent;
+        --star: transparent;
+        --rail: rgba(21, 21, 21, 0.08);
+        --hover-panel: #fff;
+        --hover-border: #b8b8b8;
+      }
+
+      :root[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f4f0dc;
+        --muted: #bfc7cf;
+        --faint: rgba(244, 240, 220, 0.26);
+        --paper: #101521;
+        --panel: rgba(22, 31, 45, 0.72);
+        --accent: #f7d56b;
+        --steam: rgba(236, 242, 247, 0.7);
+        --sky-glow: radial-gradient(circle at 78% 18%, rgba(247, 213, 107, 0.2), transparent 26%),
+          linear-gradient(180deg, #111827 0%, #162338 54%, #20362f 100%);
+        --moon: #f7d56b;
+        --star: rgba(255, 246, 190, 0.92);
+        --rail: rgba(247, 213, 107, 0.16);
+        --hover-panel: rgba(35, 48, 67, 0.94);
+        --hover-border: rgba(247, 213, 107, 0.5);
       }
 
       * {
@@ -36,7 +61,7 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background: var(--sky-glow), var(--paper);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -61,6 +86,44 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        content: "";
+        position: fixed;
+        pointer-events: none;
+        transition: opacity 350ms ease;
+      }
+
+      main::before {
+        top: 42px;
+        right: clamp(54px, 10vw, 128px);
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--moon);
+        box-shadow: 0 0 32px rgba(247, 213, 107, 0.32);
+        opacity: 0;
+      }
+
+      main::after {
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(circle at 12% 18%, var(--star) 0 1px, transparent 2px),
+          radial-gradient(circle at 24% 42%, var(--star) 0 1px, transparent 2px),
+          radial-gradient(circle at 38% 24%, var(--star) 0 1px, transparent 2px),
+          radial-gradient(circle at 54% 36%, var(--star) 0 1px, transparent 2px),
+          radial-gradient(circle at 70% 14%, var(--star) 0 1px, transparent 2px),
+          radial-gradient(circle at 86% 32%, var(--star) 0 1px, transparent 2px),
+          linear-gradient(to bottom, transparent 78%, var(--rail) 78% 79%, transparent 79% 100%);
+        opacity: 0;
+      }
+
+      :root[data-theme="night"] main::before,
+      :root[data-theme="night"] main::after {
+        opacity: 1;
+      }
+
       .hero {
         position: absolute;
         inset: 0;
@@ -71,6 +134,7 @@
         text-align: center;
         transition: opacity 600ms ease;
         pointer-events: none;
+        z-index: 1;
       }
 
       .hero.dispatched {
@@ -127,18 +191,23 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +226,13 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+      .icon-toggle:hover {
+        background: var(--hover-panel);
+        border-color: var(--hover-border);
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -273,15 +342,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Turn on night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,8 +378,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +391,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +402,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.documentElement.dataset.theme = nightMode ? "night" : "light";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Turn off night mode" : "Turn on night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#101521" : "#fbfbfa");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "light");
       }
 
       function updateCounter() {
@@ -404,6 +500,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +513,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
