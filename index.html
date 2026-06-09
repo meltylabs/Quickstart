@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" id="theme-color" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -22,6 +22,22 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --sky-glow: transparent;
+      }
+
+      body[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f4f1e8;
+        --muted: #c1bba9;
+        --faint: rgba(244, 241, 232, 0.2);
+        --paper: #11151d;
+        --panel: rgba(24, 29, 40, 0.76);
+        --accent: #f4d35e;
+        --steam: #aeb8c8;
+        --sky-glow:
+          radial-gradient(circle at 18% 18%, rgba(244, 211, 94, 0.13), transparent 26vw),
+          linear-gradient(180deg, #11151d 0%, #171c29 54%, #10131a 100%);
       }
 
       * {
@@ -36,7 +52,7 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background: var(--sky-glow), var(--paper);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -48,6 +64,9 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background 300ms ease,
+          color 300ms ease;
       }
 
       main {
@@ -81,6 +100,8 @@
         display: grid;
         gap: 18px;
         place-items: center;
+        position: relative;
+        z-index: 2;
       }
 
       .train-emoji {
@@ -127,18 +148,99 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .night-details {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      body[data-theme="night"] .night-details {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(58px, 10vh, 94px);
+        left: clamp(30px, 10vw, 120px);
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: #f4d35e;
+        box-shadow: 0 0 34px rgba(244, 211, 94, 0.24);
+      }
+
+      .moon::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: #11151d;
+      }
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #f4f1e8;
+        box-shadow: 0 0 8px rgba(244, 241, 232, 0.7);
+        opacity: 0.82;
+        animation: twinkle 2600ms ease-in-out infinite;
+      }
+
+      .star:nth-child(2) {
+        top: 17%;
+        left: 31%;
+      }
+
+      .star:nth-child(3) {
+        top: 12%;
+        left: 67%;
+        animation-delay: 650ms;
+      }
+
+      .star:nth-child(4) {
+        top: 28%;
+        left: 78%;
+        animation-delay: 1300ms;
+      }
+
+      .star:nth-child(5) {
+        top: 44%;
+        left: 18%;
+        animation-delay: 450ms;
+      }
+
+      .star:nth-child(6) {
+        top: 58%;
+        left: 86%;
+        animation-delay: 1000ms;
+      }
+
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: inline-flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +259,18 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
+      .icon-toggle:hover {
         background: #fff;
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body[data-theme="night"] .icon-toggle:hover {
+        background: rgba(46, 54, 72, 0.92);
+        border-color: rgba(244, 241, 232, 0.34);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -227,9 +334,23 @@
         }
       }
 
+      @keyframes twinkle {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.68;
+        }
+
+        50% {
+          transform: scale(1.8);
+          opacity: 1;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .star {
           animation: none;
           transition: none;
         }
@@ -266,6 +387,15 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-details" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +403,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,6 +439,8 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
+      const themeColor = document.querySelector("#theme-color");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
@@ -308,6 +452,10 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode =
+        localStorage.getItem("wtc:theme") === "night" ||
+        (!localStorage.getItem("wtc:theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +466,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.dataset.theme = nightMode ? "night" : "day";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#11151d" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -404,6 +564,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +577,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
