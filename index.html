@@ -21,7 +21,11 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
         --accent: #111;
+        --steam: #c9c9c7;
+        --rail: rgba(125, 125, 122, 0.15);
+        --rail-tie: rgba(125, 125, 122, 0.12);
       }
 
       * {
@@ -48,6 +52,26 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background 400ms ease,
+          color 400ms ease;
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #eef3ff;
+        --muted: #b9c8ef;
+        --faint: rgba(185, 200, 239, 0.22);
+        --paper: #080b16;
+        --panel: rgba(11, 16, 31, 0.68);
+        --panel-hover: rgba(19, 29, 51, 0.84);
+        --accent: #d7e2ff;
+        --steam: #d7e2ff;
+        --rail: rgba(166, 184, 232, 0.18);
+        --rail-tie: rgba(166, 184, 232, 0.13);
+        background:
+          radial-gradient(circle at 78% 18%, rgba(98, 126, 190, 0.24), transparent 19vw),
+          linear-gradient(180deg, #080b16 0%, #121a2d 66%, #111827 100%);
       }
 
       main {
@@ -59,6 +83,82 @@
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+      }
+
+      .night-sky,
+      .rail-line {
+        position: fixed;
+        pointer-events: none;
+      }
+
+      .night-sky {
+        inset: 0;
+        opacity: 0;
+        transition: opacity 500ms ease;
+      }
+
+      body.night .night-sky {
+        opacity: 1;
+      }
+
+      .moon {
+        position: fixed;
+        top: 9vh;
+        right: 13vw;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #f4e7a1;
+        box-shadow: 0 0 26px rgba(244, 231, 161, 0.5);
+      }
+
+      .moon::after {
+        position: absolute;
+        top: -5px;
+        right: -7px;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: #080b16;
+        content: "";
+      }
+
+      .star {
+        position: fixed;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #f7fbff;
+        box-shadow: 0 0 8px rgba(247, 251, 255, 0.72);
+        animation: twinkle 2400ms ease-in-out infinite;
+      }
+
+      .rail-line {
+        right: 0;
+        left: 0;
+        height: 10px;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 20px,
+            var(--rail-tie) 20px 25px,
+            transparent 25px 44px
+          ),
+          linear-gradient(var(--rail), var(--rail)) center / 100% 2px no-repeat;
+        opacity: 0;
+        transition: opacity 500ms ease;
+      }
+
+      .rail-line-top {
+        bottom: 76px;
+      }
+
+      .rail-line-bottom {
+        bottom: 58px;
+      }
+
+      body.night .rail-line {
+        opacity: 1;
       }
 
       .hero {
@@ -127,17 +227,17 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .mute-toggle,
+      .theme-toggle {
         position: fixed;
         top: 16px;
-        right: 16px;
         z-index: 10;
         display: inline-flex;
         width: 38px;
@@ -157,13 +257,23 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .mute-toggle {
+        right: 16px;
+      }
+
+      .theme-toggle {
+        right: 62px;
+      }
+
+      .mute-toggle:hover,
+      .theme-toggle:hover {
+        background: var(--panel-hover);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      .mute-toggle:focus-visible,
+      .theme-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -227,6 +337,19 @@
         }
       }
 
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.35;
+          transform: scale(0.8);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -236,6 +359,10 @@
 
         .steam {
           display: none;
+        }
+
+        .star {
+          animation: none;
         }
 
         .train.ltr,
@@ -266,6 +393,13 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-sky" id="night-sky" aria-hidden="true">
+        <span class="moon"></span>
+      </div>
+
+      <div class="rail-line rail-line-top" aria-hidden="true"></div>
+      <div class="rail-line rail-line-bottom" aria-hidden="true"></div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -283,12 +417,27 @@
         🔊
       </button>
 
+      <button
+        class="theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
 
     <script>
       const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
+      const STARS = Array.from({ length: 24 }, (_, i) => ({
+        left: (i * 37 + 11) % 100,
+        top: 5 + ((i * 23 + 7) % 40),
+        delay: (i % 6) * 350,
+      }));
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
       const PUFF_COUNT = 4;
@@ -298,6 +447,8 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeButton = document.querySelector("#theme");
+      const nightSky = document.querySelector("#night-sky");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -308,6 +459,16 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let theme = localStorage.getItem("wtc:theme") === "night" ? "night" : "day";
+
+      for (const star of STARS) {
+        const starNode = document.createElement("span");
+        starNode.className = "star";
+        starNode.style.left = `${star.left}vw`;
+        starNode.style.top = `${star.top}vh`;
+        starNode.style.animationDelay = `${star.delay}ms`;
+        nightSky.append(starNode);
+      }
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +479,21 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        const isNight = theme === "night";
+        document.body.classList.toggle("night", isNight);
+        themeButton.textContent = isNight ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          isNight ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(isNight));
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute("content", isNight ? "#080b16" : "#ffffff");
+        localStorage.setItem("wtc:theme", theme);
       }
 
       function updateCounter() {
@@ -404,6 +580,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        theme = theme === "night" ? "day" : "night";
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,10 +593,14 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          theme = theme === "night" ? "day" : "night";
+          syncThemeButton();
         }
       });
 
       syncMuteButton();
+      syncThemeButton();
       updateCounter();
     </script>
   </body>
