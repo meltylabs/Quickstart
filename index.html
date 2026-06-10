@@ -180,6 +180,84 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 20;
+        display: grid;
+        gap: 6px;
+        place-items: center;
+        padding: 22px 34px;
+        border: 1px solid var(--faint);
+        border-radius: 18px;
+        background: var(--panel);
+        text-align: center;
+        pointer-events: none;
+        backdrop-filter: blur(14px);
+        animation: milestone-pop 2400ms ease forwards;
+        will-change: transform, opacity;
+      }
+
+      .milestone-count {
+        font-size: clamp(34px, 6vw, 52px);
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 450;
+      }
+
+      .confetti {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 19;
+        font-size: 22px;
+        pointer-events: none;
+        animation: confetti-burst 1600ms ease-out forwards;
+        will-change: transform, opacity;
+      }
+
+      @keyframes milestone-pop {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.6) rotate(-4deg);
+        }
+
+        12% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.08) rotate(2deg);
+        }
+
+        20%,
+        80% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1) rotate(0);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -56%) scale(0.96);
+        }
+      }
+
+      @keyframes confetti-burst {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.6) rotate(0);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+            scale(1.2) rotate(var(--spin));
+        }
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -234,8 +312,31 @@
           transition: none;
         }
 
-        .steam {
+        .steam,
+        .confetti {
           display: none;
+        }
+
+        .milestone {
+          animation: milestone-fade 2400ms ease forwards;
+        }
+
+        @keyframes milestone-fade {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, -50%);
+          }
+
+          15%,
+          85% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+          }
+
+          100% {
+            opacity: 0;
+            transform: translate(-50%, -50%);
+          }
         }
 
         .train.ltr,
@@ -289,6 +390,9 @@
     <script>
       const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
+      const CONFETTI_EMOJIS = ["🎉", "✨", "🎊", "⭐", "🚂"];
+      const MILESTONE_EVERY = 10;
+      const CONFETTI_PIECES = 14;
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
       const PUFF_COUNT = 4;
@@ -357,6 +461,35 @@
         }, delay);
       }
 
+      function celebrateMilestone() {
+        const badge = document.createElement("div");
+        const milestoneCount = document.createElement("span");
+        const label = document.createElement("span");
+
+        badge.className = "milestone";
+        milestoneCount.className = "milestone-count";
+        milestoneCount.textContent = `🎉 ${count} 🎉`;
+        label.className = "milestone-label";
+        label.textContent = "trains dispatched";
+        badge.append(milestoneCount, label);
+        badge.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(badge);
+
+        for (let i = 0; i < CONFETTI_PIECES; i += 1) {
+          const piece = document.createElement("span");
+          const angle = (Math.PI * 2 * i) / CONFETTI_PIECES + Math.random() * 0.5;
+          const distance = 120 + Math.random() * 160;
+
+          piece.className = "confetti";
+          piece.textContent = pick(CONFETTI_EMOJIS);
+          piece.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+          piece.style.setProperty("--dy", `${Math.sin(angle) * distance}px`);
+          piece.style.setProperty("--spin", `${Math.random() * 720 - 360}deg`);
+          piece.addEventListener("animationend", removeNode, { once: true });
+          dispatcher.append(piece);
+        }
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -391,6 +524,7 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+        if (count % MILESTONE_EVERY === 0) celebrateMilestone();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
