@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" id="theme-color" content="#fbfbfa" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -15,13 +15,53 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
+        --panel-hover-border: #b8b8b8;
         --accent: #111;
+        --steam: #c9c9c7;
+        --background-counter: #111;
+        --background-counter-opacity: 0.045;
+        --background-counter-bump-opacity: 0.075;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --ink: #f0f0ee;
+        --muted: #9a9a9a;
+        --faint: #333332;
+        --paper: #111110;
+        --panel: rgba(30, 30, 30, 0.78);
+        --panel-hover: rgba(44, 44, 44, 0.92);
+        --panel-hover-border: #555554;
+        --accent: #f0f0ee;
+        --steam: #4a4a48;
+        --background-counter: #f5f5f3;
+        --background-counter-opacity: 0.06;
+        --background-counter-bump-opacity: 0.1;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          color-scheme: dark;
+          --ink: #f0f0ee;
+          --muted: #9a9a9a;
+          --faint: #333332;
+          --paper: #111110;
+          --panel: rgba(30, 30, 30, 0.78);
+          --panel-hover: rgba(44, 44, 44, 0.92);
+          --panel-hover-border: #555554;
+          --accent: #f0f0ee;
+          --steam: #4a4a48;
+          --background-counter: #f5f5f3;
+          --background-counter-opacity: 0.06;
+          --background-counter-bump-opacity: 0.1;
+        }
       }
 
       * {
@@ -64,6 +104,7 @@
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,7 +148,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 4;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -126,18 +167,18 @@
 
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 3;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
+      .theme-toggle,
       .mute-toggle {
         position: fixed;
         top: 16px;
-        right: 16px;
         z-index: 10;
         display: inline-flex;
         width: 38px;
@@ -157,15 +198,25 @@
           transform 150ms ease;
       }
 
+      .theme-toggle:hover,
       .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+        background: var(--panel-hover);
+        border-color: var(--panel-hover-border);
         transform: translateY(-1px);
       }
 
+      .theme-toggle:focus-visible,
       .mute-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+
+      .theme-toggle {
+        right: 62px;
+      }
+
+      .mute-toggle {
+        right: 16px;
       }
 
       .counter {
@@ -178,6 +229,31 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      .background-counter {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        place-items: center;
+        color: var(--background-counter);
+        font-size: clamp(180px, 42vw, 760px);
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 0.78;
+        opacity: var(--background-counter-opacity);
+        pointer-events: none;
+        text-align: center;
+        transform: translateY(-1.5vh);
+        transition:
+          opacity 180ms ease,
+          transform 240ms ease;
+      }
+
+      .background-counter.bump {
+        opacity: var(--background-counter-bump-opacity);
+        transform: translateY(-1.5vh) scale(1.025);
       }
 
       @keyframes wiggle {
@@ -274,6 +350,15 @@
       </div>
 
       <button
+        class="theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to dark mode"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -283,6 +368,7 @@
         🔊
       </button>
 
+      <div class="background-counter" id="background-counter" aria-hidden="true">0</div>
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
 
@@ -297,8 +383,11 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
+      const themeColorMeta = document.querySelector("#theme-color");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const backgroundCounter = document.querySelector("#background-counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -307,10 +396,32 @@
       let lastDispatch = 0;
       let lastLane = -1;
       let lastDirection = "rtl";
+      let backgroundCounterPulseTimer;
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let theme = localStorage.getItem("wtc:theme");
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function resolveTheme() {
+        if (theme === "light" || theme === "dark") return theme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+
+      function syncTheme() {
+        const resolved = resolveTheme();
+        document.documentElement.dataset.theme = resolved;
+        themeButton.textContent = resolved === "dark" ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          resolved === "dark" ? "Switch to light mode" : "Switch to dark mode",
+        );
+        if (themeColorMeta) {
+          themeColorMeta.content = resolved === "dark" ? "#111110" : "#fbfbfa";
+        }
       }
 
       function syncMuteButton() {
@@ -323,6 +434,7 @@
       function updateCounter() {
         const noun = count === 1 ? "train" : "trains";
         counter.textContent = `${count} ${noun} dispatched`;
+        backgroundCounter.textContent = count;
         document.title =
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
       }
@@ -390,6 +502,13 @@
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
+        backgroundCounter.classList.remove("bump");
+        void backgroundCounter.offsetWidth;
+        backgroundCounter.classList.add("bump");
+        window.clearTimeout(backgroundCounterPulseTimer);
+        backgroundCounterPulseTimer = window.setTimeout(() => {
+          backgroundCounter.classList.remove("bump");
+        }, 260);
         playChoo();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
@@ -398,6 +517,12 @@
       }
 
       dispatcher.addEventListener("click", dispatchTrain);
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        theme = resolveTheme() === "dark" ? "light" : "dark";
+        localStorage.setItem("wtc:theme", theme);
+        syncTheme();
+      });
       muteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         muted = !muted;
@@ -414,6 +539,13 @@
         }
       });
 
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+          if (theme !== "light" && theme !== "dark") syncTheme();
+        });
+
+      syncTheme();
       syncMuteButton();
       updateCounter();
     </script>
