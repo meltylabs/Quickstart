@@ -134,22 +134,26 @@
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .audio-controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .sound-select,
+      .mute-toggle {
         display: inline-flex;
-        width: 38px;
         height: 38px;
         align-items: center;
         justify-content: center;
         border: 1px solid var(--faint);
-        border-radius: 999px;
         background: var(--panel);
         color: var(--ink);
         cursor: pointer;
-        font-size: 16px;
         backdrop-filter: blur(14px);
         transition:
           border-color 150ms ease,
@@ -157,12 +161,40 @@
           transform 150ms ease;
       }
 
+      .sound-select {
+        max-width: min(44vw, 180px);
+        border-radius: 999px;
+        padding: 0 34px 0 14px;
+        appearance: none;
+        background-image:
+          linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+          linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+        background-position:
+          calc(100% - 17px) 16px,
+          calc(100% - 12px) 16px;
+        background-size:
+          5px 5px,
+          5px 5px;
+        background-repeat: no-repeat;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .mute-toggle {
+        width: 38px;
+        border-radius: 999px;
+        font-size: 16px;
+      }
+
+      .sound-select:hover,
       .mute-toggle:hover {
         background: #fff;
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
+      .sound-select:focus-visible,
       .mute-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
@@ -273,15 +305,19 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="audio-controls" role="group" aria-label="Train audio controls">
+        <select class="sound-select" id="sound" aria-label="Train sound"></select>
+
+        <button
+          class="mute-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -294,13 +330,33 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const TRAIN_SOUNDS = [
+        {
+          id: "choo-choo",
+          label: "Choo choo",
+          src: "./public/choo-choo.mp3",
+          volume: 0.28,
+        },
+        {
+          id: "sf-muni",
+          label: "SF Muni chime",
+          src: "./public/sf-muni-inbound-train-chime.mp3",
+          volume: 0.55,
+        },
+      ];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const soundSelect = document.querySelector("#sound");
       const counter = document.querySelector("#counter");
-      const choo = new Audio("./public/choo-choo.mp3");
-      choo.preload = "auto";
+      const sounds = new Map(
+        TRAIN_SOUNDS.map((sound) => {
+          const audio = new Audio(sound.src);
+          audio.preload = "auto";
+          return [sound.id, { ...sound, audio }];
+        }),
+      );
 
       let count = 0;
       let nextId = 1;
@@ -308,6 +364,9 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let selectedSoundId = sounds.has(localStorage.getItem("wtc:sound"))
+        ? localStorage.getItem("wtc:sound")
+        : TRAIN_SOUNDS[0].id;
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -320,6 +379,16 @@
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
       }
 
+      function syncSoundSelect() {
+        soundSelect.value = selectedSoundId;
+        localStorage.setItem("wtc:sound", selectedSoundId);
+      }
+
+      function isControlElement(element) {
+        return element instanceof Element
+          && Boolean(element.closest("button, select, input, textarea, a"));
+      }
+
       function updateCounter() {
         const noun = count === 1 ? "train" : "trains";
         counter.textContent = `${count} ${noun} dispatched`;
@@ -327,10 +396,11 @@
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
       }
 
-      function playChoo() {
+      function playTrainSound() {
         if (muted) return;
-        const node = choo.cloneNode(true);
-        node.volume = 0.28;
+        const sound = sounds.get(selectedSoundId) ?? sounds.get(TRAIN_SOUNDS[0].id);
+        const node = sound.audio.cloneNode(true);
+        node.volume = sound.volume;
         node.play().catch(() => {});
       }
 
@@ -390,7 +460,7 @@
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
-        playChoo();
+        playTrainSound();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
@@ -403,8 +473,18 @@
         muted = !muted;
         syncMuteButton();
       });
+      soundSelect.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+      soundSelect.addEventListener("change", (event) => {
+        event.stopPropagation();
+        selectedSoundId = event.currentTarget.value;
+        syncSoundSelect();
+      });
 
       window.addEventListener("keydown", (event) => {
+        if (isControlElement(event.target)) return;
+
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
           dispatchTrain();
@@ -414,7 +494,15 @@
         }
       });
 
+      for (const sound of TRAIN_SOUNDS) {
+        const option = document.createElement("option");
+        option.value = sound.id;
+        option.textContent = sound.label;
+        soundSelect.append(option);
+      }
+
       syncMuteButton();
+      syncSoundSelect();
       updateCounter();
     </script>
   </body>
