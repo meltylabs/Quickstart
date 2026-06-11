@@ -1,0 +1,95 @@
+/* World Cup What-If Machine — dark couch-phone theme (wireframe v3) */
+:root {
+  --bg: #0b1d33;
+  --panel: #122a47;
+  --panel-2: #16334f;
+  --line: #1f3f60;
+  --text: #e8f0f7;
+  --dim: #9fb8d0;
+  --accent: #ffd75e;
+  --go: #4cd98a;
+  --warn: #ff9d66;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; }
+button { font: inherit; cursor: pointer; }
+
+.app { max-width: 480px; margin: 0 auto; padding: 12px 14px 90px; }
+.app-head { display: flex; justify-content: space-between; align-items: center; }
+.app-head h1 { font-size: 20px; margin: 8px 0; cursor: pointer; }
+.map-btn { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; font-size: 20px; padding: 6px 10px; }
+
+.banner { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 13px; color: var(--dim); margin: 6px 0; }
+.banner.warn { color: var(--warn); }
+
+.screen-head h2 { margin: 10px 0 4px; font-size: 22px; }
+.screen-head small { color: var(--dim); font-weight: normal; font-size: 14px; }
+.progress-dots { display: flex; gap: 5px; margin-top: 8px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.dot.done { background: var(--dim); }
+.dot.active { background: var(--accent); }
+
+.fixtures { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.fixture { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.fixture .team { font-size: 14px; }
+.fixture .team.away { text-align: right; }
+.fixture.official { border-color: var(--go); }
+.score { display: flex; align-items: center; gap: 4px; }
+.score.locked { color: var(--go); font-weight: bold; }
+.score.locked small { display: block; font-weight: normal; color: var(--dim); text-align: center; }
+.sep { color: var(--dim); }
+.stepper { display: inline-flex; align-items: center; gap: 2px; }
+.stepper b { min-width: 18px; text-align: center; font-size: 16px; }
+.stepper button { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font-size: 16px; line-height: 1; }
+
+.magic { width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg, #6c5ce7, #a55eea); color: white; font-size: 15px; font-weight: 600; margin: 6px 0 14px; }
+.secondary { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-size: 15px; margin: 6px 0; }
+
+.standings { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 12px; overflow: hidden; }
+.standings td { padding: 9px 10px; border-top: 1px solid var(--line); font-size: 14px; }
+.standings tr:first-child td { border-top: none; }
+.standings .pos { color: var(--dim); width: 24px; }
+.standings .pts { text-align: right; color: var(--dim); white-space: nowrap; }
+.standings .status { text-align: right; font-size: 12px; color: var(--go); white-space: nowrap; }
+.badge { margin-left: 6px; background: var(--panel-2); border: 1px solid var(--warn); color: var(--warn); border-radius: 8px; font-size: 10px; padding: 1px 6px; vertical-align: middle; }
+
+.cards { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.card.locked { opacity: 0.65; }
+.card.decided { border-color: var(--go); }
+.match-no { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.4px; }
+.pick { display: flex; justify-content: space-between; width: 100%; padding: 11px 12px; margin-top: 6px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); font-size: 15px; }
+.pick.winner { border-color: var(--go); background: #14422e; }
+.pick:disabled { cursor: default; }
+.check { color: var(--go); font-weight: bold; }
+.hint { color: var(--dim); font-size: 12px; margin: 6px 0 0; }
+.error { color: var(--warn); font-size: 13px; }
+
+.champion-banner { text-align: center; padding: 18px 0 6px; }
+.trophy { font-size: 52px; }
+.champion-name { font-size: 26px; font-weight: 700; margin: 4px 0 12px; }
+
+.odds-panel { margin: 14px 0; }
+.spinner { margin: 12px auto; width: 26px; height: 26px; border: 3px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.odds-list { list-style: none; padding: 0; margin: 10px 0 4px; background: var(--panel); border-radius: 12px; overflow: hidden; }
+.odds-list li { display: flex; justify-content: space-between; padding: 10px 12px; border-top: 1px solid var(--line); font-size: 14px; }
+.odds-list li:first-child { border-top: none; }
+.odds { color: var(--accent); }
+
+.tree-grid { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; }
+.tree-col { min-width: 130px; }
+.tree-col h3 { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.4px; }
+.tree-node { display: flex; flex-direction: column; width: 100%; margin-bottom: 8px; padding: 7px 9px; gap: 2px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-size: 12px; text-align: left; }
+.tree-node .won { color: var(--go); font-weight: 600; }
+.tree-champion { text-align: center; font-size: 18px; font-weight: 700; }
+
+.flow-nav { position: fixed; bottom: 44px; left: 0; right: 0; display: flex; gap: 10px; max-width: 480px; margin: 0 auto; padding: 0 14px; }
+.flow-nav button { flex: 1; padding: 13px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font-size: 15px; }
+.flow-nav button.primary { background: var(--accent); border-color: var(--accent); color: #14283c; font-weight: 700; }
+.flow-nav button:disabled { opacity: 0.4; }
+
+.app-foot { position: fixed; bottom: 0; left: 0; right: 0; display: flex; gap: 12px; align-items: center; max-width: 480px; margin: 0 auto; padding: 8px 14px; background: var(--bg); font-size: 12px; }
+.app-foot button { background: none; border: none; color: var(--dim); text-decoration: underline; padding: 4px 0; font-size: 12px; }
+.live { color: var(--go); margin-left: auto; }

@@ -1,0 +1,2025 @@
+{
+ "version": 1,
+ "tournament": "FIFA World Cup 2026",
+ "source": "openfootball/worldcup.json + FIFA Annex C (via Wikipedia template)",
+ "teams": [
+  {
+   "id": "MEX",
+   "name": "Mexico",
+   "group": "A",
+   "fifaRank": 15,
+   "flag": "🇲🇽"
+  },
+  {
+   "id": "RSA",
+   "name": "South Africa",
+   "group": "A",
+   "fifaRank": 60,
+   "flag": "🇿🇦"
+  },
+  {
+   "id": "KOR",
+   "name": "South Korea",
+   "group": "A",
+   "fifaRank": 25,
+   "flag": "🇰🇷"
+  },
+  {
+   "id": "CZE",
+   "name": "Czech Republic",
+   "group": "A",
+   "fifaRank": 41,
+   "flag": "🇨🇿"
+  },
+  {
+   "id": "CAN",
+   "name": "Canada",
+   "group": "B",
+   "fifaRank": 30,
+   "flag": "🇨🇦"
+  },
+  {
+   "id": "BIH",
+   "name": "Bosnia & Herzegovina",
+   "group": "B",
+   "fifaRank": 65,
+   "flag": "🇧🇦"
+  },
+  {
+   "id": "QAT",
+   "name": "Qatar",
+   "group": "B",
+   "fifaRank": 55,
+   "flag": "🇶🇦"
+  },
+  {
+   "id": "SUI",
+   "name": "Switzerland",
+   "group": "B",
+   "fifaRank": 19,
+   "flag": "🇨🇭"
+  },
+  {
+   "id": "BRA",
+   "name": "Brazil",
+   "group": "C",
+   "fifaRank": 6,
+   "flag": "🇧🇷"
+  },
+  {
+   "id": "MAR",
+   "name": "Morocco",
+   "group": "C",
+   "fifaRank": 8,
+   "flag": "🇲🇦"
+  },
+  {
+   "id": "HAI",
+   "name": "Haiti",
+   "group": "C",
+   "fifaRank": 83,
+   "flag": "🇭🇹"
+  },
+  {
+   "id": "SCO",
+   "name": "Scotland",
+   "group": "C",
+   "fifaRank": 43,
+   "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
+  },
+  {
+   "id": "USA",
+   "name": "USA",
+   "group": "D",
+   "fifaRank": 16,
+   "flag": "🇺🇸"
+  },
+  {
+   "id": "PAR",
+   "name": "Paraguay",
+   "group": "D",
+   "fifaRank": 40,
+   "flag": "🇵🇾"
+  },
+  {
+   "id": "AUS",
+   "name": "Australia",
+   "group": "D",
+   "fifaRank": 27,
+   "flag": "🇦🇺"
+  },
+  {
+   "id": "TUR",
+   "name": "Turkey",
+   "group": "D",
+   "fifaRank": 22,
+   "flag": "🇹🇷"
+  },
+  {
+   "id": "GER",
+   "name": "Germany",
+   "group": "E",
+   "fifaRank": 10,
+   "flag": "🇩🇪"
+  },
+  {
+   "id": "CUW",
+   "name": "Curaçao",
+   "group": "E",
+   "fifaRank": 82,
+   "flag": "🇨🇼"
+  },
+  {
+   "id": "CIV",
+   "name": "Ivory Coast",
+   "group": "E",
+   "fifaRank": 34,
+   "flag": "🇨🇮"
+  },
+  {
+   "id": "ECU",
+   "name": "Ecuador",
+   "group": "E",
+   "fifaRank": 23,
+   "flag": "🇪🇨"
+  },
+  {
+   "id": "NED",
+   "name": "Netherlands",
+   "group": "F",
+   "fifaRank": 7,
+   "flag": "🇳🇱"
+  },
+  {
+   "id": "JPN",
+   "name": "Japan",
+   "group": "F",
+   "fifaRank": 18,
+   "flag": "🇯🇵"
+  },
+  {
+   "id": "SWE",
+   "name": "Sweden",
+   "group": "F",
+   "fifaRank": 38,
+   "flag": "🇸🇪"
+  },
+  {
+   "id": "TUN",
+   "name": "Tunisia",
+   "group": "F",
+   "fifaRank": 44,
+   "flag": "🇹🇳"
+  },
+  {
+   "id": "BEL",
+   "name": "Belgium",
+   "group": "G",
+   "fifaRank": 9,
+   "flag": "🇧🇪"
+  },
+  {
+   "id": "EGY",
+   "name": "Egypt",
+   "group": "G",
+   "fifaRank": 29,
+   "flag": "🇪🇬"
+  },
+  {
+   "id": "IRN",
+   "name": "Iran",
+   "group": "G",
+   "fifaRank": 21,
+   "flag": "🇮🇷"
+  },
+  {
+   "id": "NZL",
+   "name": "New Zealand",
+   "group": "G",
+   "fifaRank": 85,
+   "flag": "🇳🇿"
+  },
+  {
+   "id": "ESP",
+   "name": "Spain",
+   "group": "H",
+   "fifaRank": 2,
+   "flag": "🇪🇸"
+  },
+  {
+   "id": "CPV",
+   "name": "Cape Verde",
+   "group": "H",
+   "fifaRank": 69,
+   "flag": "🇨🇻"
+  },
+  {
+   "id": "KSA",
+   "name": "Saudi Arabia",
+   "group": "H",
+   "fifaRank": 61,
+   "flag": "🇸🇦"
+  },
+  {
+   "id": "URU",
+   "name": "Uruguay",
+   "group": "H",
+   "fifaRank": 17,
+   "flag": "🇺🇾"
+  },
+  {
+   "id": "FRA",
+   "name": "France",
+   "group": "I",
+   "fifaRank": 1,
+   "flag": "🇫🇷"
+  },
+  {
+   "id": "SEN",
+   "name": "Senegal",
+   "group": "I",
+   "fifaRank": 14,
+   "flag": "🇸🇳"
+  },
+  {
+   "id": "IRQ",
+   "name": "Iraq",
+   "group": "I",
+   "fifaRank": 57,
+   "flag": "🇮🇶"
+  },
+  {
+   "id": "NOR",
+   "name": "Norway",
+   "group": "I",
+   "fifaRank": 31,
+   "flag": "🇳🇴"
+  },
+  {
+   "id": "ARG",
+   "name": "Argentina",
+   "group": "J",
+   "fifaRank": 3,
+   "flag": "🇦🇷"
+  },
+  {
+   "id": "ALG",
+   "name": "Algeria",
+   "group": "J",
+   "fifaRank": 28,
+   "flag": "🇩🇿"
+  },
+  {
+   "id": "AUT",
+   "name": "Austria",
+   "group": "J",
+   "fifaRank": 24,
+   "flag": "🇦🇹"
+  },
+  {
+   "id": "JOR",
+   "name": "Jordan",
+   "group": "J",
+   "fifaRank": 63,
+   "flag": "🇯🇴"
+  },
+  {
+   "id": "POR",
+   "name": "Portugal",
+   "group": "K",
+   "fifaRank": 5,
+   "flag": "🇵🇹"
+  },
+  {
+   "id": "COD",
+   "name": "DR Congo",
+   "group": "K",
+   "fifaRank": 46,
+   "flag": "🇨🇩"
+  },
+  {
+   "id": "UZB",
+   "name": "Uzbekistan",
+   "group": "K",
+   "fifaRank": 50,
+   "flag": "🇺🇿"
+  },
+  {
+   "id": "COL",
+   "name": "Colombia",
+   "group": "K",
+   "fifaRank": 13,
+   "flag": "🇨🇴"
+  },
+  {
+   "id": "ENG",
+   "name": "England",
+   "group": "L",
+   "fifaRank": 4,
+   "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+  },
+  {
+   "id": "CRO",
+   "name": "Croatia",
+   "group": "L",
+   "fifaRank": 11,
+   "flag": "🇭🇷"
+  },
+  {
+   "id": "GHA",
+   "name": "Ghana",
+   "group": "L",
+   "fifaRank": 74,
+   "flag": "🇬🇭"
+  },
+  {
+   "id": "PAN",
+   "name": "Panama",
+   "group": "L",
+   "fifaRank": 33,
+   "flag": "🇵🇦"
+  }
+ ],
+ "fixtures": [
+  {
+   "id": 1,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-11",
+   "time": "13:00 UTC-6",
+   "venue": "Mexico City",
+   "home": {
+    "type": "team",
+    "team": "MEX"
+   },
+   "away": {
+    "type": "team",
+    "team": "RSA"
+   }
+  },
+  {
+   "id": 2,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-11",
+   "time": "20:00 UTC-6",
+   "venue": "Guadalajara (Zapopan)",
+   "home": {
+    "type": "team",
+    "team": "KOR"
+   },
+   "away": {
+    "type": "team",
+    "team": "CZE"
+   }
+  },
+  {
+   "id": 3,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-12",
+   "time": "15:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "team",
+    "team": "CAN"
+   },
+   "away": {
+    "type": "team",
+    "team": "BIH"
+   }
+  },
+  {
+   "id": 4,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-12",
+   "time": "18:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "team",
+    "team": "USA"
+   },
+   "away": {
+    "type": "team",
+    "team": "PAR"
+   }
+  },
+  {
+   "id": 5,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-13",
+   "time": "12:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "team",
+    "team": "QAT"
+   },
+   "away": {
+    "type": "team",
+    "team": "SUI"
+   }
+  },
+  {
+   "id": 6,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-13",
+   "time": "18:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "team",
+    "team": "BRA"
+   },
+   "away": {
+    "type": "team",
+    "team": "MAR"
+   }
+  },
+  {
+   "id": 7,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-13",
+   "time": "21:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "team",
+    "team": "HAI"
+   },
+   "away": {
+    "type": "team",
+    "team": "SCO"
+   }
+  },
+  {
+   "id": 8,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-13",
+   "time": "21:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "team",
+    "team": "AUS"
+   },
+   "away": {
+    "type": "team",
+    "team": "TUR"
+   }
+  },
+  {
+   "id": 9,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-14",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "team",
+    "team": "GER"
+   },
+   "away": {
+    "type": "team",
+    "team": "CUW"
+   }
+  },
+  {
+   "id": 10,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-14",
+   "time": "15:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "team",
+    "team": "NED"
+   },
+   "away": {
+    "type": "team",
+    "team": "JPN"
+   }
+  },
+  {
+   "id": 11,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-14",
+   "time": "19:00 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "team",
+    "team": "CIV"
+   },
+   "away": {
+    "type": "team",
+    "team": "ECU"
+   }
+  },
+  {
+   "id": 12,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-14",
+   "time": "20:00 UTC-6",
+   "venue": "Monterrey (Guadalupe)",
+   "home": {
+    "type": "team",
+    "team": "SWE"
+   },
+   "away": {
+    "type": "team",
+    "team": "TUN"
+   }
+  },
+  {
+   "id": 13,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-15",
+   "time": "12:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "team",
+    "team": "ESP"
+   },
+   "away": {
+    "type": "team",
+    "team": "CPV"
+   }
+  },
+  {
+   "id": 14,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-15",
+   "time": "12:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "team",
+    "team": "BEL"
+   },
+   "away": {
+    "type": "team",
+    "team": "EGY"
+   }
+  },
+  {
+   "id": 15,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-15",
+   "time": "18:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "team",
+    "team": "KSA"
+   },
+   "away": {
+    "type": "team",
+    "team": "URU"
+   }
+  },
+  {
+   "id": 16,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-15",
+   "time": "18:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "team",
+    "team": "IRN"
+   },
+   "away": {
+    "type": "team",
+    "team": "NZL"
+   }
+  },
+  {
+   "id": 17,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-16",
+   "time": "15:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "team",
+    "team": "FRA"
+   },
+   "away": {
+    "type": "team",
+    "team": "SEN"
+   }
+  },
+  {
+   "id": 18,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-16",
+   "time": "18:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "team",
+    "team": "IRQ"
+   },
+   "away": {
+    "type": "team",
+    "team": "NOR"
+   }
+  },
+  {
+   "id": 19,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-16",
+   "time": "20:00 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "team",
+    "team": "ARG"
+   },
+   "away": {
+    "type": "team",
+    "team": "ALG"
+   }
+  },
+  {
+   "id": 20,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-16",
+   "time": "21:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "team",
+    "team": "AUT"
+   },
+   "away": {
+    "type": "team",
+    "team": "JOR"
+   }
+  },
+  {
+   "id": 21,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-17",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "team",
+    "team": "POR"
+   },
+   "away": {
+    "type": "team",
+    "team": "COD"
+   }
+  },
+  {
+   "id": 22,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-17",
+   "time": "15:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "team",
+    "team": "ENG"
+   },
+   "away": {
+    "type": "team",
+    "team": "CRO"
+   }
+  },
+  {
+   "id": 23,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-17",
+   "time": "19:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "team",
+    "team": "GHA"
+   },
+   "away": {
+    "type": "team",
+    "team": "PAN"
+   }
+  },
+  {
+   "id": 24,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-17",
+   "time": "20:00 UTC-6",
+   "venue": "Mexico City",
+   "home": {
+    "type": "team",
+    "team": "UZB"
+   },
+   "away": {
+    "type": "team",
+    "team": "COL"
+   }
+  },
+  {
+   "id": 25,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-18",
+   "time": "12:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "team",
+    "team": "CZE"
+   },
+   "away": {
+    "type": "team",
+    "team": "RSA"
+   }
+  },
+  {
+   "id": 26,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-18",
+   "time": "12:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "team",
+    "team": "SUI"
+   },
+   "away": {
+    "type": "team",
+    "team": "BIH"
+   }
+  },
+  {
+   "id": 27,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-18",
+   "time": "15:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "team",
+    "team": "CAN"
+   },
+   "away": {
+    "type": "team",
+    "team": "QAT"
+   }
+  },
+  {
+   "id": 28,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-18",
+   "time": "19:00 UTC-6",
+   "venue": "Guadalajara (Zapopan)",
+   "home": {
+    "type": "team",
+    "team": "MEX"
+   },
+   "away": {
+    "type": "team",
+    "team": "KOR"
+   }
+  },
+  {
+   "id": 29,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-19",
+   "time": "12:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "team",
+    "team": "USA"
+   },
+   "away": {
+    "type": "team",
+    "team": "AUS"
+   }
+  },
+  {
+   "id": 30,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-19",
+   "time": "18:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "team",
+    "team": "SCO"
+   },
+   "away": {
+    "type": "team",
+    "team": "MAR"
+   }
+  },
+  {
+   "id": 31,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-19",
+   "time": "20:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "team",
+    "team": "TUR"
+   },
+   "away": {
+    "type": "team",
+    "team": "PAR"
+   }
+  },
+  {
+   "id": 32,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-19",
+   "time": "20:30 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "team",
+    "team": "BRA"
+   },
+   "away": {
+    "type": "team",
+    "team": "HAI"
+   }
+  },
+  {
+   "id": 33,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-20",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "team",
+    "team": "NED"
+   },
+   "away": {
+    "type": "team",
+    "team": "SWE"
+   }
+  },
+  {
+   "id": 34,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-20",
+   "time": "16:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "team",
+    "team": "GER"
+   },
+   "away": {
+    "type": "team",
+    "team": "CIV"
+   }
+  },
+  {
+   "id": 35,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-20",
+   "time": "19:00 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "team",
+    "team": "ECU"
+   },
+   "away": {
+    "type": "team",
+    "team": "CUW"
+   }
+  },
+  {
+   "id": 36,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-20",
+   "time": "22:00 UTC-6",
+   "venue": "Monterrey (Guadalupe)",
+   "home": {
+    "type": "team",
+    "team": "TUN"
+   },
+   "away": {
+    "type": "team",
+    "team": "JPN"
+   }
+  },
+  {
+   "id": 37,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-21",
+   "time": "12:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "team",
+    "team": "ESP"
+   },
+   "away": {
+    "type": "team",
+    "team": "KSA"
+   }
+  },
+  {
+   "id": 38,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-21",
+   "time": "12:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "team",
+    "team": "BEL"
+   },
+   "away": {
+    "type": "team",
+    "team": "IRN"
+   }
+  },
+  {
+   "id": 39,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-21",
+   "time": "18:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "team",
+    "team": "URU"
+   },
+   "away": {
+    "type": "team",
+    "team": "CPV"
+   }
+  },
+  {
+   "id": 40,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-21",
+   "time": "18:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "team",
+    "team": "NZL"
+   },
+   "away": {
+    "type": "team",
+    "team": "EGY"
+   }
+  },
+  {
+   "id": 41,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-22",
+   "time": "12:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "team",
+    "team": "ARG"
+   },
+   "away": {
+    "type": "team",
+    "team": "AUT"
+   }
+  },
+  {
+   "id": 42,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-22",
+   "time": "17:00 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "team",
+    "team": "FRA"
+   },
+   "away": {
+    "type": "team",
+    "team": "IRQ"
+   }
+  },
+  {
+   "id": 43,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-22",
+   "time": "20:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "team",
+    "team": "NOR"
+   },
+   "away": {
+    "type": "team",
+    "team": "SEN"
+   }
+  },
+  {
+   "id": 44,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-22",
+   "time": "20:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "team",
+    "team": "JOR"
+   },
+   "away": {
+    "type": "team",
+    "team": "ALG"
+   }
+  },
+  {
+   "id": 45,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-23",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "team",
+    "team": "POR"
+   },
+   "away": {
+    "type": "team",
+    "team": "UZB"
+   }
+  },
+  {
+   "id": 46,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-23",
+   "time": "16:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "team",
+    "team": "ENG"
+   },
+   "away": {
+    "type": "team",
+    "team": "GHA"
+   }
+  },
+  {
+   "id": 47,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-23",
+   "time": "19:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "team",
+    "team": "PAN"
+   },
+   "away": {
+    "type": "team",
+    "team": "CRO"
+   }
+  },
+  {
+   "id": 48,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-23",
+   "time": "20:00 UTC-6",
+   "venue": "Guadalajara (Zapopan)",
+   "home": {
+    "type": "team",
+    "team": "COL"
+   },
+   "away": {
+    "type": "team",
+    "team": "COD"
+   }
+  },
+  {
+   "id": 49,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-24",
+   "time": "12:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "team",
+    "team": "SUI"
+   },
+   "away": {
+    "type": "team",
+    "team": "CAN"
+   }
+  },
+  {
+   "id": 50,
+   "stage": "GROUP",
+   "group": "B",
+   "date": "2026-06-24",
+   "time": "12:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "team",
+    "team": "BIH"
+   },
+   "away": {
+    "type": "team",
+    "team": "QAT"
+   }
+  },
+  {
+   "id": 51,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-24",
+   "time": "18:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "team",
+    "team": "SCO"
+   },
+   "away": {
+    "type": "team",
+    "team": "BRA"
+   }
+  },
+  {
+   "id": 52,
+   "stage": "GROUP",
+   "group": "C",
+   "date": "2026-06-24",
+   "time": "18:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "team",
+    "team": "MAR"
+   },
+   "away": {
+    "type": "team",
+    "team": "HAI"
+   }
+  },
+  {
+   "id": 53,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-24",
+   "time": "19:00 UTC-6",
+   "venue": "Mexico City",
+   "home": {
+    "type": "team",
+    "team": "CZE"
+   },
+   "away": {
+    "type": "team",
+    "team": "MEX"
+   }
+  },
+  {
+   "id": 54,
+   "stage": "GROUP",
+   "group": "A",
+   "date": "2026-06-24",
+   "time": "19:00 UTC-6",
+   "venue": "Monterrey (Guadalupe)",
+   "home": {
+    "type": "team",
+    "team": "RSA"
+   },
+   "away": {
+    "type": "team",
+    "team": "KOR"
+   }
+  },
+  {
+   "id": 55,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-25",
+   "time": "16:00 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "team",
+    "team": "CUW"
+   },
+   "away": {
+    "type": "team",
+    "team": "CIV"
+   }
+  },
+  {
+   "id": 56,
+   "stage": "GROUP",
+   "group": "E",
+   "date": "2026-06-25",
+   "time": "16:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "team",
+    "team": "ECU"
+   },
+   "away": {
+    "type": "team",
+    "team": "GER"
+   }
+  },
+  {
+   "id": 57,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-25",
+   "time": "18:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "team",
+    "team": "JPN"
+   },
+   "away": {
+    "type": "team",
+    "team": "SWE"
+   }
+  },
+  {
+   "id": 58,
+   "stage": "GROUP",
+   "group": "F",
+   "date": "2026-06-25",
+   "time": "18:00 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "team",
+    "team": "TUN"
+   },
+   "away": {
+    "type": "team",
+    "team": "NED"
+   }
+  },
+  {
+   "id": 59,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-25",
+   "time": "19:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "team",
+    "team": "TUR"
+   },
+   "away": {
+    "type": "team",
+    "team": "USA"
+   }
+  },
+  {
+   "id": 60,
+   "stage": "GROUP",
+   "group": "D",
+   "date": "2026-06-25",
+   "time": "19:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "team",
+    "team": "PAR"
+   },
+   "away": {
+    "type": "team",
+    "team": "AUS"
+   }
+  },
+  {
+   "id": 61,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-26",
+   "time": "15:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "team",
+    "team": "NOR"
+   },
+   "away": {
+    "type": "team",
+    "team": "FRA"
+   }
+  },
+  {
+   "id": 62,
+   "stage": "GROUP",
+   "group": "I",
+   "date": "2026-06-26",
+   "time": "15:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "team",
+    "team": "SEN"
+   },
+   "away": {
+    "type": "team",
+    "team": "IRQ"
+   }
+  },
+  {
+   "id": 63,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-26",
+   "time": "18:00 UTC-6",
+   "venue": "Guadalajara (Zapopan)",
+   "home": {
+    "type": "team",
+    "team": "URU"
+   },
+   "away": {
+    "type": "team",
+    "team": "ESP"
+   }
+  },
+  {
+   "id": 64,
+   "stage": "GROUP",
+   "group": "H",
+   "date": "2026-06-26",
+   "time": "19:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "team",
+    "team": "CPV"
+   },
+   "away": {
+    "type": "team",
+    "team": "KSA"
+   }
+  },
+  {
+   "id": 65,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-26",
+   "time": "20:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "team",
+    "team": "EGY"
+   },
+   "away": {
+    "type": "team",
+    "team": "IRN"
+   }
+  },
+  {
+   "id": 66,
+   "stage": "GROUP",
+   "group": "G",
+   "date": "2026-06-26",
+   "time": "20:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "team",
+    "team": "NZL"
+   },
+   "away": {
+    "type": "team",
+    "team": "BEL"
+   }
+  },
+  {
+   "id": 67,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-27",
+   "time": "17:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "team",
+    "team": "PAN"
+   },
+   "away": {
+    "type": "team",
+    "team": "ENG"
+   }
+  },
+  {
+   "id": 68,
+   "stage": "GROUP",
+   "group": "L",
+   "date": "2026-06-27",
+   "time": "17:00 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "team",
+    "team": "CRO"
+   },
+   "away": {
+    "type": "team",
+    "team": "GHA"
+   }
+  },
+  {
+   "id": 69,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-27",
+   "time": "19:30 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "team",
+    "team": "COL"
+   },
+   "away": {
+    "type": "team",
+    "team": "POR"
+   }
+  },
+  {
+   "id": 70,
+   "stage": "GROUP",
+   "group": "K",
+   "date": "2026-06-27",
+   "time": "19:30 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "team",
+    "team": "COD"
+   },
+   "away": {
+    "type": "team",
+    "team": "UZB"
+   }
+  },
+  {
+   "id": 71,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-27",
+   "time": "21:00 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "team",
+    "team": "ALG"
+   },
+   "away": {
+    "type": "team",
+    "team": "AUT"
+   }
+  },
+  {
+   "id": 72,
+   "stage": "GROUP",
+   "group": "J",
+   "date": "2026-06-27",
+   "time": "21:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "team",
+    "team": "JOR"
+   },
+   "away": {
+    "type": "team",
+    "team": "ARG"
+   }
+  },
+  {
+   "id": 73,
+   "stage": "R32",
+   "date": "2026-06-28",
+   "time": "12:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "groupRunnerUp",
+    "group": "A"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "B"
+   }
+  },
+  {
+   "id": 74,
+   "stage": "R32",
+   "date": "2026-06-29",
+   "time": "16:30 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "groupWinner",
+    "group": "E"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "A",
+     "B",
+     "C",
+     "D",
+     "F"
+    ]
+   }
+  },
+  {
+   "id": 75,
+   "stage": "R32",
+   "date": "2026-06-29",
+   "time": "19:00 UTC-6",
+   "venue": "Monterrey (Guadalupe)",
+   "home": {
+    "type": "groupWinner",
+    "group": "F"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "C"
+   }
+  },
+  {
+   "id": 76,
+   "stage": "R32",
+   "date": "2026-06-29",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "groupWinner",
+    "group": "C"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "F"
+   }
+  },
+  {
+   "id": 77,
+   "stage": "R32",
+   "date": "2026-06-30",
+   "time": "17:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "groupWinner",
+    "group": "I"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "C",
+     "D",
+     "F",
+     "G",
+     "H"
+    ]
+   }
+  },
+  {
+   "id": 78,
+   "stage": "R32",
+   "date": "2026-06-30",
+   "time": "12:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "groupRunnerUp",
+    "group": "E"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "I"
+   }
+  },
+  {
+   "id": 79,
+   "stage": "R32",
+   "date": "2026-06-30",
+   "time": "19:00 UTC-6",
+   "venue": "Mexico City",
+   "home": {
+    "type": "groupWinner",
+    "group": "A"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "C",
+     "E",
+     "F",
+     "H",
+     "I"
+    ]
+   }
+  },
+  {
+   "id": 80,
+   "stage": "R32",
+   "date": "2026-07-01",
+   "time": "12:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "groupWinner",
+    "group": "L"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "E",
+     "H",
+     "I",
+     "J",
+     "K"
+    ]
+   }
+  },
+  {
+   "id": 81,
+   "stage": "R32",
+   "date": "2026-07-01",
+   "time": "17:00 UTC-7",
+   "venue": "San Francisco Bay Area (Santa Clara)",
+   "home": {
+    "type": "groupWinner",
+    "group": "D"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "B",
+     "E",
+     "F",
+     "I",
+     "J"
+    ]
+   }
+  },
+  {
+   "id": 82,
+   "stage": "R32",
+   "date": "2026-07-01",
+   "time": "13:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "groupWinner",
+    "group": "G"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "A",
+     "E",
+     "H",
+     "I",
+     "J"
+    ]
+   }
+  },
+  {
+   "id": 83,
+   "stage": "R32",
+   "date": "2026-07-02",
+   "time": "19:00 UTC-4",
+   "venue": "Toronto",
+   "home": {
+    "type": "groupRunnerUp",
+    "group": "K"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "L"
+   }
+  },
+  {
+   "id": 84,
+   "stage": "R32",
+   "date": "2026-07-02",
+   "time": "12:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "groupWinner",
+    "group": "H"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "J"
+   }
+  },
+  {
+   "id": 85,
+   "stage": "R32",
+   "date": "2026-07-02",
+   "time": "20:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "groupWinner",
+    "group": "B"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "E",
+     "F",
+     "G",
+     "I",
+     "J"
+    ]
+   }
+  },
+  {
+   "id": 86,
+   "stage": "R32",
+   "date": "2026-07-03",
+   "time": "18:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "groupWinner",
+    "group": "J"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "H"
+   }
+  },
+  {
+   "id": 87,
+   "stage": "R32",
+   "date": "2026-07-03",
+   "time": "20:30 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "groupWinner",
+    "group": "K"
+   },
+   "away": {
+    "type": "thirdPlace",
+    "pool": [
+     "D",
+     "E",
+     "I",
+     "J",
+     "L"
+    ]
+   }
+  },
+  {
+   "id": 88,
+   "stage": "R32",
+   "date": "2026-07-03",
+   "time": "13:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "groupRunnerUp",
+    "group": "D"
+   },
+   "away": {
+    "type": "groupRunnerUp",
+    "group": "G"
+   }
+  },
+  {
+   "id": 89,
+   "stage": "R16",
+   "date": "2026-07-04",
+   "time": "17:00 UTC-4",
+   "venue": "Philadelphia",
+   "home": {
+    "type": "matchWinner",
+    "match": 74
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 77
+   }
+  },
+  {
+   "id": 90,
+   "stage": "R16",
+   "date": "2026-07-04",
+   "time": "12:00 UTC-5",
+   "venue": "Houston",
+   "home": {
+    "type": "matchWinner",
+    "match": 73
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 75
+   }
+  },
+  {
+   "id": 91,
+   "stage": "R16",
+   "date": "2026-07-05",
+   "time": "16:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "matchWinner",
+    "match": 76
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 78
+   }
+  },
+  {
+   "id": 92,
+   "stage": "R16",
+   "date": "2026-07-05",
+   "time": "18:00 UTC-6",
+   "venue": "Mexico City",
+   "home": {
+    "type": "matchWinner",
+    "match": 79
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 80
+   }
+  },
+  {
+   "id": 93,
+   "stage": "R16",
+   "date": "2026-07-06",
+   "time": "14:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "matchWinner",
+    "match": 83
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 84
+   }
+  },
+  {
+   "id": 94,
+   "stage": "R16",
+   "date": "2026-07-06",
+   "time": "17:00 UTC-7",
+   "venue": "Seattle",
+   "home": {
+    "type": "matchWinner",
+    "match": 81
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 82
+   }
+  },
+  {
+   "id": 95,
+   "stage": "R16",
+   "date": "2026-07-07",
+   "time": "12:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "matchWinner",
+    "match": 86
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 88
+   }
+  },
+  {
+   "id": 96,
+   "stage": "R16",
+   "date": "2026-07-07",
+   "time": "13:00 UTC-7",
+   "venue": "Vancouver",
+   "home": {
+    "type": "matchWinner",
+    "match": 85
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 87
+   }
+  },
+  {
+   "id": 97,
+   "stage": "QF",
+   "date": "2026-07-09",
+   "time": "16:00 UTC-4",
+   "venue": "Boston (Foxborough)",
+   "home": {
+    "type": "matchWinner",
+    "match": 89
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 90
+   }
+  },
+  {
+   "id": 98,
+   "stage": "QF",
+   "date": "2026-07-10",
+   "time": "12:00 UTC-7",
+   "venue": "Los Angeles (Inglewood)",
+   "home": {
+    "type": "matchWinner",
+    "match": 93
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 94
+   }
+  },
+  {
+   "id": 99,
+   "stage": "QF",
+   "date": "2026-07-11",
+   "time": "17:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "matchWinner",
+    "match": 91
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 92
+   }
+  },
+  {
+   "id": 100,
+   "stage": "QF",
+   "date": "2026-07-11",
+   "time": "20:00 UTC-5",
+   "venue": "Kansas City",
+   "home": {
+    "type": "matchWinner",
+    "match": 95
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 96
+   }
+  },
+  {
+   "id": 101,
+   "stage": "SF",
+   "date": "2026-07-14",
+   "time": "14:00 UTC-5",
+   "venue": "Dallas (Arlington)",
+   "home": {
+    "type": "matchWinner",
+    "match": 97
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 98
+   }
+  },
+  {
+   "id": 102,
+   "stage": "SF",
+   "date": "2026-07-15",
+   "time": "15:00 UTC-4",
+   "venue": "Atlanta",
+   "home": {
+    "type": "matchWinner",
+    "match": 99
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 100
+   }
+  },
+  {
+   "id": 103,
+   "stage": "THIRD",
+   "date": "2026-07-18",
+   "time": "17:00 UTC-4",
+   "venue": "Miami (Miami Gardens)",
+   "home": {
+    "type": "matchLoser",
+    "match": 101
+   },
+   "away": {
+    "type": "matchLoser",
+    "match": 102
+   }
+  },
+  {
+   "id": 104,
+   "stage": "FINAL",
+   "date": "2026-07-19",
+   "time": "15:00 UTC-4",
+   "venue": "New York/New Jersey (East Rutherford)",
+   "home": {
+    "type": "matchWinner",
+    "match": 101
+   },
+   "away": {
+    "type": "matchWinner",
+    "match": 102
+   }
+  }
+ ]
+}
