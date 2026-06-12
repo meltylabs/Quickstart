@@ -180,6 +180,125 @@
         pointer-events: none;
       }
 
+      .remote {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 10;
+        display: grid;
+        gap: 10px;
+        justify-items: start;
+      }
+
+      .remote-toggle {
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 16px;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .remote-toggle:hover {
+        background: #fff;
+        border-color: #b8b8b8;
+        transform: translateY(-1px);
+      }
+
+      .remote-toggle[aria-expanded="true"] {
+        background: #fff;
+        border-color: #b8b8b8;
+      }
+
+      .remote-toggle:focus-visible,
+      .remote-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .remote-panel {
+        display: grid;
+        gap: 12px;
+        width: 224px;
+        padding: 14px;
+        border: 1px solid var(--faint);
+        border-radius: 14px;
+        background: var(--panel);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(14px);
+      }
+
+      .remote-panel[hidden] {
+        display: none;
+      }
+
+      .remote-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 450;
+      }
+
+      .remote-dot {
+        flex: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--faint);
+      }
+
+      .remote.live .remote-dot {
+        background: #2e9e5b;
+        animation: remote-pulse 1400ms ease-in-out infinite;
+      }
+
+      .remote-actions {
+        display: grid;
+        gap: 8px;
+      }
+
+      .remote-btn {
+        appearance: none;
+        padding: 9px 12px;
+        border: 1px solid var(--faint);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .remote-btn:hover {
+        border-color: #b8b8b8;
+        transform: translateY(-1px);
+      }
+
+      .remote-btn[aria-pressed="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,11 +346,33 @@
         }
       }
 
+      @keyframes remote-pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: 0.35;
+          transform: scale(0.7);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
           animation: none;
           transition: none;
+        }
+
+        .remote-toggle,
+        .remote-btn {
+          transition: none;
+        }
+
+        .remote.live .remote-dot {
+          animation: none;
         }
 
         .steam {
@@ -284,6 +425,45 @@
       </button>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+
+      <div class="remote" id="remote">
+        <button
+          class="remote-toggle"
+          id="remoteToggle"
+          type="button"
+          aria-label="Open remote control"
+          aria-expanded="false"
+          aria-controls="remotePanel"
+        >
+          📡
+        </button>
+
+        <div
+          class="remote-panel"
+          id="remotePanel"
+          role="region"
+          aria-label="Remote control"
+          hidden
+        >
+          <p class="remote-status">
+            <span class="remote-dot" aria-hidden="true"></span>
+            <span id="remoteStatus" aria-live="polite" aria-atomic="true">Idle · 0 trains dispatched</span>
+          </p>
+          <div class="remote-actions">
+            <button class="remote-btn" id="remoteDispatch" type="button">
+              Dispatch a train
+            </button>
+            <button
+              class="remote-btn"
+              id="remoteAuto"
+              type="button"
+              aria-pressed="false"
+            >
+              Start auto-dispatch
+            </button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
@@ -294,11 +474,18 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const AUTO_DISPATCH_INTERVAL_MS = 1800;
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const remote = document.querySelector("#remote");
+      const remoteToggle = document.querySelector("#remoteToggle");
+      const remotePanel = document.querySelector("#remotePanel");
+      const remoteStatus = document.querySelector("#remoteStatus");
+      const remoteDispatch = document.querySelector("#remoteDispatch");
+      const remoteAuto = document.querySelector("#remoteAuto");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +495,9 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let panelOpen = false;
+      let autoOn = false;
+      let autoTimer = 0;
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -325,6 +515,34 @@
         counter.textContent = `${count} ${noun} dispatched`;
         document.title =
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
+      }
+
+      function syncRemoteStatus() {
+        const noun = count === 1 ? "train" : "trains";
+        const state = autoOn ? "Live" : "Idle";
+        remoteStatus.textContent = `${state} · ${count} ${noun} dispatched`;
+      }
+
+      function setPanelOpen(open) {
+        panelOpen = open;
+        remotePanel.hidden = !open;
+        remoteToggle.setAttribute("aria-expanded", String(open));
+        remoteToggle.setAttribute(
+          "aria-label",
+          open ? "Close remote control" : "Open remote control",
+        );
+      }
+
+      function setAuto(on) {
+        autoOn = on;
+        remoteAuto.setAttribute("aria-pressed", String(on));
+        remoteAuto.textContent = on ? "Stop auto-dispatch" : "Start auto-dispatch";
+        remote.classList.toggle("live", on);
+        window.clearInterval(autoTimer);
+        if (on) {
+          autoTimer = window.setInterval(dispatchTrain, AUTO_DISPATCH_INTERVAL_MS);
+        }
+        syncRemoteStatus();
       }
 
       function playChoo() {
@@ -390,6 +608,7 @@
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
+        syncRemoteStatus();
         playChoo();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
@@ -404,8 +623,16 @@
         syncMuteButton();
       });
 
+      remote.addEventListener("click", (event) => event.stopPropagation());
+      remoteToggle.addEventListener("click", () => setPanelOpen(!panelOpen));
+      remoteDispatch.addEventListener("click", dispatchTrain);
+      remoteAuto.addEventListener("click", () => setAuto(!autoOn));
+
       window.addEventListener("keydown", (event) => {
+        const onButton =
+          event.target instanceof Element && event.target.closest("button");
         if (event.code === "Space" || event.code === "Enter") {
+          if (onButton) return;
           event.preventDefault();
           dispatchTrain();
         } else if (event.key === "m" || event.key === "M") {
@@ -416,6 +643,7 @@
 
       syncMuteButton();
       updateCounter();
+      syncRemoteStatus();
     </script>
   </body>
 </html>
