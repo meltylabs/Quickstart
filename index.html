@@ -180,6 +180,112 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 8;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        pointer-events: none;
+        animation: milestone-fade 2800ms ease both;
+      }
+
+      .milestone-badge {
+        position: relative;
+        display: grid;
+        min-width: min(82vw, 380px);
+        gap: 8px;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid #d2d2cf;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.14);
+        padding: 22px 28px 24px;
+        backdrop-filter: blur(18px);
+        transform-origin: 50% 60%;
+        animation: badge-pop 2800ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+      }
+
+      .milestone-badge::before,
+      .milestone-badge::after {
+        content: "";
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        opacity: 0.28;
+        filter: blur(8px);
+      }
+
+      .milestone-badge::before {
+        top: -86px;
+        left: -56px;
+        background: #ffcf4a;
+      }
+
+      .milestone-badge::after {
+        right: -52px;
+        bottom: -92px;
+        background: #35b7a8;
+      }
+
+      .milestone-count {
+        position: relative;
+        z-index: 1;
+        color: var(--ink);
+        font-size: clamp(46px, 14vw, 86px);
+        font-weight: 800;
+        letter-spacing: 0;
+        line-height: 0.9;
+      }
+
+      .milestone-label {
+        position: relative;
+        z-index: 1;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+        letter-spacing: 0.04em;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .milestone-rail {
+        position: relative;
+        z-index: 1;
+        width: min(62vw, 300px);
+        height: 28px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+
+      .milestone-rail::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        left: 0;
+        height: 3px;
+        border-radius: 999px;
+        background: repeating-linear-gradient(
+          90deg,
+          #2f2f2f 0 16px,
+          transparent 16px 24px
+        );
+      }
+
+      .milestone-train {
+        position: absolute;
+        bottom: 8px;
+        left: -42px;
+        font-size: 25px;
+        line-height: 1;
+        animation: milestone-train 1600ms ease-in-out both;
+        will-change: left, transform;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,6 +333,57 @@
         }
       }
 
+      @keyframes milestone-fade {
+        0% {
+          opacity: 0;
+        }
+
+        12%,
+        82% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes badge-pop {
+        0% {
+          transform: translateY(12px) scale(0.86) rotate(-1deg);
+        }
+
+        15% {
+          transform: translateY(0) scale(1.04) rotate(1deg);
+        }
+
+        28%,
+        78% {
+          transform: translateY(0) scale(1) rotate(0);
+        }
+
+        100% {
+          transform: translateY(-8px) scale(0.96) rotate(1deg);
+        }
+      }
+
+      @keyframes milestone-train {
+        0% {
+          left: -42px;
+          transform: rotate(-3deg);
+        }
+
+        55% {
+          left: calc(100% - 50px);
+          transform: rotate(3deg);
+        }
+
+        100% {
+          left: calc(100% + 32px);
+          transform: rotate(0);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -236,6 +393,20 @@
 
         .steam {
           display: none;
+        }
+
+        .milestone {
+          animation: milestone-fade 1600ms ease both;
+        }
+
+        .milestone-badge,
+        .milestone-train {
+          animation: none;
+        }
+
+        .milestone-train {
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .train.ltr,
@@ -338,6 +509,34 @@
         event.currentTarget.remove();
       }
 
+      function showMilestone(total) {
+        const milestone = document.createElement("div");
+        const badge = document.createElement("div");
+        const countNode = document.createElement("div");
+        const label = document.createElement("div");
+        const rail = document.createElement("div");
+        const train = document.createElement("span");
+
+        milestone.className = "milestone";
+        badge.className = "milestone-badge";
+        countNode.className = "milestone-count";
+        label.className = "milestone-label";
+        rail.className = "milestone-rail";
+        train.className = "milestone-train";
+
+        countNode.textContent = total;
+        label.textContent = "trains dispatched";
+        train.textContent = "🚂";
+
+        rail.append(train);
+        badge.append(countNode, label, rail);
+        milestone.append(badge);
+        milestone.addEventListener("animationend", (event) => {
+          if (event.target === milestone) milestone.remove();
+        });
+        dispatcher.append(milestone);
+      }
+
       function createSteam(train, delay) {
         window.setTimeout(() => {
           const elapsed = performance.now() - train.startedAt;
@@ -391,6 +590,10 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+
+        if (count % 10 === 0) {
+          showMilestone(count);
+        }
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
