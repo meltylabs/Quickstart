@@ -180,6 +180,57 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .milestone.show {
+        animation: milestone-shell 1800ms ease-out both;
+      }
+
+      .milestone-card {
+        display: grid;
+        min-width: min(320px, calc(100vw - 48px));
+        place-items: center;
+        gap: 8px;
+        border: 1px solid rgba(21, 21, 21, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        padding: 22px 24px;
+        box-shadow: 0 18px 48px rgba(21, 21, 21, 0.16);
+        backdrop-filter: blur(16px);
+      }
+
+      .milestone-count {
+        color: var(--ink);
+        font-size: clamp(32px, 8vw, 58px);
+        font-weight: 760;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 520;
+        letter-spacing: 0;
+      }
+
+      .spark {
+        position: fixed;
+        z-index: 19;
+        color: var(--ink);
+        font-size: 20px;
+        pointer-events: none;
+        animation: spark-pop 1050ms ease-out forwards;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,15 +278,52 @@
         }
       }
 
+      @keyframes milestone-shell {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+
+        18%,
+        76% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes spark-pop {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+        }
+
+        18% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(var(--spark-x), var(--spark-y)) scale(1.25)
+            rotate(var(--spark-rotate));
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .milestone.show {
           animation: none;
           transition: none;
         }
 
-        .steam {
+        .steam,
+        .spark {
           display: none;
+        }
+
+        .milestone.show {
+          opacity: 1;
         }
 
         .train.ltr,
@@ -284,14 +372,22 @@
       </button>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+      <div class="milestone" id="milestone" aria-live="polite" aria-atomic="true">
+        <div class="milestone-card">
+          <span class="milestone-count" id="milestone-count">10</span>
+          <span class="milestone-label">trains dispatched</span>
+        </div>
+      </div>
     </main>
 
     <script>
       const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
+      const SPARK_CHARS = ["✦", "✧", "◆", "◇", "★"];
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
       const PUFF_COUNT = 4;
+      const SPARK_COUNT = 18;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
 
@@ -299,6 +395,8 @@
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const milestone = document.querySelector("#milestone");
+      const milestoneCount = document.querySelector("#milestone-count");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -307,6 +405,7 @@
       let lastDispatch = 0;
       let lastLane = -1;
       let lastDirection = "rtl";
+      let milestoneTimer;
       let muted = localStorage.getItem("wtc:muted") === "1";
 
       function pick(items) {
@@ -357,6 +456,38 @@
         }, delay);
       }
 
+      function createSpark(index, total) {
+        const spark = document.createElement("span");
+        const angle = (Math.PI * 2 * index) / total;
+        const distance = 96 + Math.random() * 90;
+
+        spark.className = "spark";
+        spark.textContent = pick([...SPARK_CHARS, String(count)]);
+        spark.style.left = "50vw";
+        spark.style.top = "50vh";
+        spark.style.setProperty("--spark-x", `${Math.cos(angle) * distance}px`);
+        spark.style.setProperty("--spark-y", `${Math.sin(angle) * distance}px`);
+        spark.style.setProperty("--spark-rotate", `${-120 + Math.random() * 240}deg`);
+        spark.style.animationDelay = `${Math.random() * 140}ms`;
+        spark.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(spark);
+      }
+
+      function showMilestone() {
+        milestoneCount.textContent = String(count);
+        window.clearTimeout(milestoneTimer);
+        milestone.classList.remove("show");
+        void milestone.offsetWidth;
+        milestone.classList.add("show");
+        milestoneTimer = window.setTimeout(() => {
+          milestone.classList.remove("show");
+        }, 1800);
+
+        for (let i = 0; i < SPARK_COUNT; i += 1) {
+          createSpark(i, SPARK_COUNT);
+        }
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -391,6 +522,7 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+        if (count % 10 === 0) showMilestone();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
