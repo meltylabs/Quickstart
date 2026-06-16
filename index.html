@@ -21,7 +21,23 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
+        --panel-border-hover: #b8b8b8;
         --accent: #111;
+        --steam: #c9c9c7;
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #e8e9f0;
+        --muted: #9aa0b4;
+        --faint: #2c2f3d;
+        --paper: #0c0e16;
+        --panel: rgba(28, 31, 44, 0.72);
+        --panel-hover: #262a3a;
+        --panel-border-hover: #3d4154;
+        --accent: #cdd2ec;
+        --steam: #4a4f63;
       }
 
       * {
@@ -38,6 +54,9 @@
         overflow: hidden;
         background: var(--paper);
         color: var(--ink);
+        transition:
+          background 400ms ease,
+          color 400ms ease;
         font-family:
           ui-sans-serif,
           -apple-system,
@@ -127,18 +146,24 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: inline-flex;
+        gap: 8px;
+      }
+
+      .mute-toggle,
+      .theme-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,15 +182,66 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+      .mute-toggle:hover,
+      .theme-toggle:hover {
+        background: var(--panel-hover);
+        border-color: var(--panel-border-hover);
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      .mute-toggle:focus-visible,
+      .theme-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+
+      /* Night sky details — hidden by default, shown in night mode. */
+      .night-sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 600ms ease;
+      }
+
+      body.night .night-sky {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: 8vh;
+        left: 12vw;
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1;
+        filter: drop-shadow(0 0 18px rgba(205, 210, 236, 0.35));
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        /* A scatter of tiny stars drawn with layered radial gradients. */
+        background-image:
+          radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
+          radial-gradient(1.5px 1.5px at 70% 20%, #fff, transparent),
+          radial-gradient(1px 1px at 40% 70%, #cdd2ec, transparent),
+          radial-gradient(1.5px 1.5px at 85% 60%, #fff, transparent),
+          radial-gradient(1px 1px at 55% 45%, #cdd2ec, transparent),
+          radial-gradient(1px 1px at 10% 80%, #fff, transparent),
+          radial-gradient(1.5px 1.5px at 90% 15%, #fff, transparent),
+          radial-gradient(1px 1px at 33% 12%, #cdd2ec, transparent);
+        animation: twinkle 4s ease-in-out infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        50% {
+          opacity: 1;
+        }
       }
 
       .counter {
@@ -238,6 +314,10 @@
           display: none;
         }
 
+        .stars {
+          animation: none;
+        }
+
         .train.ltr,
         .train.rtl {
           left: 50%;
@@ -266,6 +346,11 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-sky" id="nightSky" aria-hidden="true">
+        <span class="stars"></span>
+        <span class="moon" role="img" aria-label="moon">🌙</span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +358,26 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="theme-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+        <button
+          class="mute-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -298,6 +394,7 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeButton = document.querySelector("#theme");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -309,8 +406,28 @@
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
 
+      const storedTheme = localStorage.getItem("wtc:theme");
+      let night =
+        storedTheme === "night" ||
+        (storedTheme === null &&
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", night);
+        themeButton.textContent = night ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          night ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(night));
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.setAttribute("content", night ? "#0c0e16" : "#ffffff");
+        localStorage.setItem("wtc:theme", night ? "night" : "day");
       }
 
       function syncMuteButton() {
@@ -404,6 +521,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        night = !night;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,10 +534,14 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          night = !night;
+          syncThemeButton();
         }
       });
 
       syncMuteButton();
+      syncThemeButton();
       updateCounter();
     </script>
   </body>
