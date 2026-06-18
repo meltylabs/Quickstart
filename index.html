@@ -180,6 +180,82 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 8;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        animation: milestone-out 2600ms ease forwards;
+      }
+
+      .milestone-burst {
+        position: absolute;
+        width: min(72vw, 460px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.78) 0 26%, transparent 27%),
+          conic-gradient(
+            from 12deg,
+            #f05252,
+            #f59f00,
+            #22a06b,
+            #2684ff,
+            #7c3aed,
+            #f05252
+          );
+        opacity: 0.22;
+        animation: burst-spin 2600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      .milestone-card {
+        position: relative;
+        display: grid;
+        min-width: min(78vw, 360px);
+        gap: 10px;
+        padding: 22px 26px;
+        border: 1px solid rgba(21, 21, 21, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        backdrop-filter: blur(14px);
+        animation: card-pop 2600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      .milestone-train {
+        display: block;
+        font-size: clamp(42px, 10vw, 72px);
+        line-height: 1;
+        animation: mini-train 1500ms ease-in-out infinite;
+      }
+
+      .milestone-count {
+        font-size: clamp(30px, 8vw, 48px);
+        font-weight: 780;
+        line-height: 1;
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 520;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .spark {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: var(--spark-color);
+        font-size: 20px;
+        transform: rotate(var(--angle)) translateY(-120px);
+        animation: spark-fly 1400ms ease-out forwards;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,14 +303,100 @@
         }
       }
 
+      @keyframes milestone-out {
+        0%,
+        78% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes burst-spin {
+        0% {
+          opacity: 0;
+          transform: scale(0.45) rotate(0deg);
+        }
+
+        16% {
+          opacity: 0.22;
+        }
+
+        100% {
+          opacity: 0;
+          transform: scale(1.25) rotate(180deg);
+        }
+      }
+
+      @keyframes card-pop {
+        0% {
+          opacity: 0;
+          transform: translateY(14px) scale(0.92);
+        }
+
+        14%,
+        78% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(-10px) scale(0.98);
+        }
+      }
+
+      @keyframes mini-train {
+        0%,
+        100% {
+          transform: translateX(-10px) rotate(-2deg);
+        }
+
+        50% {
+          transform: translateX(10px) rotate(2deg);
+        }
+      }
+
+      @keyframes spark-fly {
+        0% {
+          opacity: 0;
+          transform: rotate(var(--angle)) translateY(-28px) scale(0.5);
+        }
+
+        18% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: rotate(var(--angle)) translateY(-170px) scale(1);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .milestone,
+        .milestone-burst,
+        .milestone-card,
+        .milestone-train,
+        .spark {
           animation: none;
           transition: none;
         }
 
         .steam {
+          display: none;
+        }
+
+        .milestone {
+          opacity: 1;
+        }
+
+        .milestone-burst,
+        .spark {
           display: none;
         }
 
@@ -294,6 +456,9 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const MILESTONE_INTERVAL = 10;
+      const MILESTONE_DURATION_MS = 2600;
+      const SPARK_COLORS = ["#f05252", "#f59f00", "#22a06b", "#2684ff", "#7c3aed"];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
@@ -325,6 +490,50 @@
         counter.textContent = `${count} ${noun} dispatched`;
         document.title =
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
+      }
+
+      function showMilestone(total) {
+        const existing = document.querySelector(".milestone");
+        existing?.remove();
+
+        const milestone = document.createElement("div");
+        const burst = document.createElement("span");
+        const card = document.createElement("div");
+        const train = document.createElement("span");
+        const totalText = document.createElement("span");
+        const label = document.createElement("span");
+
+        milestone.className = "milestone";
+        milestone.setAttribute("role", "status");
+        milestone.setAttribute("aria-live", "polite");
+
+        burst.className = "milestone-burst";
+        burst.setAttribute("aria-hidden", "true");
+
+        card.className = "milestone-card";
+        train.className = "milestone-train";
+        train.textContent = "🚆";
+        train.setAttribute("aria-hidden", "true");
+        totalText.className = "milestone-count";
+        totalText.textContent = `${total}`;
+        label.className = "milestone-label";
+        label.textContent = "trains dispatched";
+
+        card.append(train, totalText, label);
+        milestone.append(burst, card);
+
+        for (let i = 0; i < 14; i += 1) {
+          const spark = document.createElement("span");
+          spark.className = "spark";
+          spark.textContent = i % 2 === 0 ? "✦" : "•";
+          spark.style.setProperty("--angle", `${(360 / 14) * i}deg`);
+          spark.style.setProperty("--spark-color", SPARK_COLORS[i % SPARK_COLORS.length]);
+          spark.setAttribute("aria-hidden", "true");
+          milestone.append(spark);
+        }
+
+        dispatcher.append(milestone);
+        window.setTimeout(() => milestone.remove(), MILESTONE_DURATION_MS);
       }
 
       function playChoo() {
@@ -390,6 +599,9 @@
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
+        if (count % MILESTONE_INTERVAL === 0) {
+          showMilestone(count);
+        }
         playChoo();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
