@@ -22,6 +22,50 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --hover-bg: #fff;
+        --hover-border: #b8b8b8;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="day"]) {
+          color-scheme: dark;
+          --ink: #e8e8e4;
+          --muted: #888880;
+          --faint: #2c2c30;
+          --paper: #0c0c14;
+          --panel: rgba(18, 18, 26, 0.82);
+          --accent: #e8e8e4;
+          --steam: rgba(200, 200, 220, 0.55);
+          --hover-bg: rgba(30, 30, 40, 0.9);
+          --hover-border: #48484e;
+        }
+      }
+
+      [data-theme="night"] {
+        color-scheme: dark;
+        --ink: #e8e8e4;
+        --muted: #888880;
+        --faint: #2c2c30;
+        --paper: #0c0c14;
+        --panel: rgba(18, 18, 26, 0.82);
+        --accent: #e8e8e4;
+        --steam: rgba(200, 200, 220, 0.55);
+        --hover-bg: rgba(30, 30, 40, 0.9);
+        --hover-border: #48484e;
+      }
+
+      [data-theme="day"] {
+        color-scheme: light;
+        --ink: #151515;
+        --muted: #7a7a7a;
+        --faint: #d9d9d9;
+        --paper: #fbfbfa;
+        --panel: rgba(255, 255, 255, 0.72);
+        --accent: #111;
+        --steam: #c9c9c7;
+        --hover-bg: #fff;
+        --hover-border: #b8b8b8;
       }
 
       * {
@@ -127,7 +171,7 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -158,8 +202,8 @@
       }
 
       .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+        background: var(--hover-bg);
+        border-color: var(--hover-border);
         transform: translateY(-1px);
       }
 
@@ -178,6 +222,54 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        top: 16px;
+        right: 62px;
+        z-index: 10;
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 16px;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .theme-toggle:hover {
+        background: var(--hover-bg);
+        border-color: var(--hover-border);
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .star {
+        position: fixed;
+        z-index: 0;
+        border-radius: 50%;
+        background: #e8e8e4;
+        pointer-events: none;
+        animation: twinkle var(--twinkle-dur, 3s) ease-in-out infinite var(--twinkle-delay, 0s);
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: var(--star-opacity, 0.65); }
+        50% { opacity: 0.08; }
       }
 
       @keyframes wiggle {
@@ -274,6 +366,16 @@
       </div>
 
       <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -298,6 +400,7 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeToggle = document.querySelector("#theme-toggle");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -308,6 +411,43 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+
+      const savedTheme = localStorage.getItem("wtc:night");
+      let nightMode = savedTheme !== null
+        ? savedTheme === "1"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      function spawnStars() {
+        document.querySelectorAll(".star").forEach((s) => s.remove());
+        for (let i = 0; i < 75; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          const size = Math.random() * 2 + 1;
+          star.style.cssText = [
+            `left:${Math.random() * 100}vw`,
+            `top:${Math.random() * 100}vh`,
+            `width:${size}px`,
+            `height:${size}px`,
+            `--twinkle-dur:${2 + Math.random() * 4}s`,
+            `--twinkle-delay:${-(Math.random() * 4)}s`,
+            `--star-opacity:${0.35 + Math.random() * 0.55}`,
+          ].join(";");
+          dispatcher.prepend(star);
+        }
+      }
+
+      function applyTheme() {
+        document.documentElement.setAttribute("data-theme", nightMode ? "night" : "day");
+        themeToggle.textContent = nightMode ? "☀️" : "🌙";
+        themeToggle.setAttribute("aria-label", nightMode ? "Day mode" : "Night mode");
+        themeToggle.setAttribute("aria-pressed", String(nightMode));
+        localStorage.setItem("wtc:night", nightMode ? "1" : "0");
+        if (nightMode) {
+          spawnStars();
+        } else {
+          document.querySelectorAll(".star").forEach((s) => s.remove());
+        }
+      }
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -403,6 +543,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        applyTheme();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -416,6 +561,7 @@
 
       syncMuteButton();
       updateCounter();
+      applyTheme();
     </script>
   </body>
 </html>
