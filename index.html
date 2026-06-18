@@ -227,6 +227,81 @@
         }
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        animation: milestone-pop 2600ms ease both;
+      }
+
+      .milestone-badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 28px 40px;
+        background: var(--panel);
+        border: 1px solid var(--faint);
+        border-radius: 24px;
+        backdrop-filter: blur(20px);
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .milestone-trains {
+        font-size: 28px;
+        letter-spacing: 0.05em;
+        line-height: 1;
+      }
+
+      .milestone-count {
+        font-size: clamp(40px, 10vw, 72px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 450;
+        letter-spacing: 0;
+      }
+
+      @keyframes milestone-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.65);
+        }
+
+        14% {
+          opacity: 1;
+          transform: scale(1.06);
+        }
+
+        22% {
+          transform: scale(0.97);
+        }
+
+        30% {
+          transform: scale(1);
+        }
+
+        72% {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        100% {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -301,6 +376,8 @@
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
+      const chime = new Audio("./public/sf-muni-inbound-train-chime.mp3");
+      chime.preload = "auto";
 
       let count = 0;
       let nextId = 1;
@@ -336,6 +413,35 @@
 
       function removeNode(event) {
         event.currentTarget.remove();
+      }
+
+      function showMilestone() {
+        if (!muted) chime.cloneNode(true).play().catch(() => {});
+
+        const overlay = document.createElement("div");
+        overlay.className = "milestone";
+        overlay.setAttribute("role", "status");
+        overlay.setAttribute("aria-live", "polite");
+
+        const badge = document.createElement("div");
+        badge.className = "milestone-badge";
+
+        const trains = document.createElement("div");
+        trains.className = "milestone-trains";
+        trains.textContent = "🚂 🚃 🚅";
+
+        const countEl = document.createElement("div");
+        countEl.className = "milestone-count";
+        countEl.textContent = count;
+
+        const label = document.createElement("div");
+        label.className = "milestone-label";
+        label.textContent = `trains dispatched!`;
+
+        badge.append(trains, countEl, label);
+        overlay.append(badge);
+        overlay.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(overlay);
       }
 
       function createSteam(train, delay) {
@@ -391,6 +497,7 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+        if (count % 10 === 0) showMilestone();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
