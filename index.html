@@ -22,6 +22,7 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
       }
 
       * {
@@ -48,6 +49,20 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background 300ms ease,
+          color 300ms ease;
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #f2efe5;
+        --muted: #b6bdc9;
+        --faint: rgba(242, 239, 229, 0.22);
+        --paper: #10151c;
+        --panel: rgba(20, 27, 36, 0.72);
+        --accent: #ffd36e;
+        --steam: rgba(218, 224, 230, 0.62);
       }
 
       main {
@@ -75,6 +90,71 @@
 
       .hero.dispatched {
         opacity: 0;
+      }
+
+      .night-sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 360ms ease;
+      }
+
+      body.night .night-sky {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(30px, 7vh, 72px);
+        left: clamp(28px, 8vw, 92px);
+        width: clamp(54px, 9vw, 92px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f5df8f;
+        box-shadow:
+          0 0 26px rgba(245, 223, 143, 0.36),
+          inset -18px -10px 0 rgba(215, 160, 86, 0.28);
+      }
+
+      .star {
+        position: absolute;
+        color: #fff8c9;
+        font-size: 13px;
+        line-height: 1;
+        opacity: 0.88;
+        animation: twinkle 2600ms ease-in-out infinite;
+      }
+
+      .star:nth-child(2) {
+        top: 13%;
+        left: 28%;
+      }
+
+      .star:nth-child(3) {
+        top: 22%;
+        left: 78%;
+        animation-delay: 500ms;
+      }
+
+      .star:nth-child(4) {
+        top: 48%;
+        left: 18%;
+        animation-delay: 1100ms;
+      }
+
+      .star:nth-child(5) {
+        top: 62%;
+        left: 70%;
+        animation-delay: 800ms;
+      }
+
+      .star:nth-child(6) {
+        top: 34%;
+        left: 53%;
+        animation-delay: 1500ms;
       }
 
       .hero-inner {
@@ -127,18 +207,23 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: inline-flex;
+        gap: 8px;
+      }
+
+      .control-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +242,18 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .control-toggle:hover {
+        background: rgba(255, 255, 255, 0.88);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body.night .control-toggle:hover {
+        background: rgba(37, 48, 62, 0.9);
+        border-color: rgba(242, 239, 229, 0.36);
+      }
+
+      .control-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -227,9 +317,23 @@
         }
       }
 
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.45;
+          transform: scale(0.9);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .star {
           animation: none;
           transition: none;
         }
@@ -266,6 +370,15 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-sky" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +386,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="control-toggle theme-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="control-toggle mute-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,8 +422,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +435,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +446,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", nightMode);
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeMeta.setAttribute("content", nightMode ? "#10151c" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -398,6 +538,12 @@
       }
 
       dispatcher.addEventListener("click", dispatchTrain);
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       muteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         muted = !muted;
@@ -408,12 +554,16 @@
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
           dispatchTrain();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
