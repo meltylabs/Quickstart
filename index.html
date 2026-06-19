@@ -22,6 +22,18 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #f4f1df;
+        --muted: #b9c0d6;
+        --faint: rgba(255, 255, 255, 0.24);
+        --paper: #081326;
+        --panel: rgba(12, 24, 45, 0.76);
+        --accent: #f6d779;
+        --steam: rgba(227, 231, 239, 0.74);
       }
 
       * {
@@ -36,7 +48,9 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background:
+          radial-gradient(circle at 50% 110%, rgba(36, 78, 110, 0.14), transparent 44%),
+          var(--paper);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -48,6 +62,17 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background-color 240ms ease,
+          color 240ms ease;
+      }
+
+      body.night {
+        background:
+          radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.08), transparent 2px),
+          radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.08), transparent 2px),
+          radial-gradient(circle at 38% 68%, rgba(255, 255, 255, 0.06), transparent 2px),
+          linear-gradient(180deg, #081326 0%, #111b33 62%, #192b3d 100%);
       }
 
       main {
@@ -75,6 +100,63 @@
 
       .hero.dispatched {
         opacity: 0;
+      }
+
+      .night-scene {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 240ms ease;
+      }
+
+      body.night .night-scene {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(44px, 10vh, 88px);
+        left: clamp(34px, 8vw, 96px);
+        width: clamp(46px, 7vw, 76px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: #f6d779;
+        box-shadow: 0 0 28px rgba(246, 215, 121, 0.36);
+      }
+
+      .moon::after {
+        position: absolute;
+        inset: -4px 0 4px 18px;
+        border-radius: 50%;
+        background: #081326;
+        content: "";
+      }
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+      }
+
+      .star.one {
+        top: 18%;
+        left: 30%;
+      }
+
+      .star.two {
+        top: 14%;
+        right: 22%;
+      }
+
+      .star.three {
+        top: 36%;
+        left: 76%;
       }
 
       .hero-inner {
@@ -107,7 +189,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 2;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -126,18 +208,17 @@
 
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 1;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .icon-button {
         position: fixed;
         top: 16px;
-        right: 16px;
         z-index: 10;
         display: inline-flex;
         width: 38px;
@@ -157,15 +238,28 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
+      .icon-button:hover {
         background: #fff;
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body.night .icon-button:hover {
+        background: rgba(31, 48, 78, 0.9);
+        border-color: rgba(255, 255, 255, 0.38);
+      }
+
+      .icon-button:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+
+      .theme-toggle {
+        right: 62px;
+      }
+
+      .mute-toggle {
+        right: 16px;
       }
 
       .counter {
@@ -266,6 +360,13 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-scene" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star one"></span>
+        <span class="star two"></span>
+        <span class="star three"></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -274,7 +375,17 @@
       </div>
 
       <button
-        class="mute-toggle"
+        class="icon-button theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
+        class="icon-button mute-toggle"
         id="mute"
         type="button"
         aria-label="Mute"
@@ -297,8 +408,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +421,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +432,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", nightMode);
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#081326" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -404,6 +530,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +543,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
