@@ -21,7 +21,25 @@
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
         --accent: #111;
+        --steam: #c9c9c7;
+        --star: #f8efb7;
+        --moon: #fff3b0;
+      }
+
+      :root[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f6f2df;
+        --muted: #b9c3d6;
+        --faint: rgba(255, 255, 255, 0.2);
+        --paper: #080c18;
+        --panel: rgba(14, 22, 38, 0.74);
+        --panel-hover: rgba(28, 39, 63, 0.9);
+        --accent: #f3d36b;
+        --steam: #7d8ba5;
+        --star: #ffeaa1;
+        --moon: #ffe58c;
       }
 
       * {
@@ -48,6 +66,9 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background 220ms ease,
+          color 220ms ease;
       }
 
       main {
@@ -61,9 +82,92 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background:
+          radial-gradient(circle at 50% 100%, rgba(196, 209, 229, 0.22), transparent 28%),
+          linear-gradient(180deg, #141b2d 0%, #080c18 62%);
+        opacity: 0;
+        transition: opacity 300ms ease;
+        pointer-events: none;
+      }
+
+      :root[data-theme="night"] main::before {
+        opacity: 1;
+      }
+
+      .night-details {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: opacity 300ms ease;
+        pointer-events: none;
+      }
+
+      :root[data-theme="night"] .night-details {
+        opacity: 1;
+      }
+
+      .moon {
+        position: absolute;
+        top: clamp(42px, 9vh, 84px);
+        left: clamp(30px, 8vw, 92px);
+        width: clamp(54px, 9vw, 86px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--moon);
+        box-shadow:
+          0 0 28px rgba(255, 229, 140, 0.42),
+          inset -16px -8px 0 rgba(238, 191, 82, 0.22);
+      }
+
+      .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--star);
+        box-shadow: 0 0 10px rgba(255, 234, 161, 0.76);
+        animation: twinkle 2600ms ease-in-out infinite;
+      }
+
+      .star:nth-child(2) {
+        top: 12%;
+        left: 28%;
+      }
+
+      .star:nth-child(3) {
+        top: 20%;
+        left: 78%;
+        animation-delay: 400ms;
+      }
+
+      .star:nth-child(4) {
+        top: 34%;
+        left: 18%;
+        animation-delay: 900ms;
+      }
+
+      .star:nth-child(5) {
+        top: 15%;
+        left: 58%;
+        animation-delay: 1300ms;
+      }
+
+      .star:nth-child(6) {
+        top: 42%;
+        left: 88%;
+        animation-delay: 1700ms;
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,7 +211,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 3;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -126,19 +230,24 @@
 
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 1;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +266,17 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
+      .icon-toggle:hover {
+        background: var(--panel-hover);
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      :root[data-theme="night"] .icon-toggle:hover {
+        border-color: rgba(255, 255, 255, 0.36);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -178,6 +291,19 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.45;
+          transform: scale(0.8);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.35);
+        }
       }
 
       @keyframes wiggle {
@@ -229,7 +355,8 @@
 
       @media (prefers-reduced-motion: reduce) {
         .hero,
-        .train-emoji:hover {
+        .train-emoji:hover,
+        .star {
           animation: none;
           transition: none;
         }
@@ -266,6 +393,15 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="night-details" aria-hidden="true">
+        <span class="moon"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+      </div>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -273,15 +409,26 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,6 +444,8 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
@@ -308,6 +457,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +468,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.documentElement.dataset.theme = nightMode ? "night" : "day";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeMeta.setAttribute("content", nightMode ? "#080c18" : "#ffffff");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -403,6 +565,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -411,9 +578,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "t" || event.key === "T") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
