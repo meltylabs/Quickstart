@@ -22,6 +22,20 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --rail: rgba(21, 21, 21, 0.1);
+      }
+
+      body.night {
+        color-scheme: dark;
+        --ink: #f4f0e6;
+        --muted: #b4bfd2;
+        --faint: rgba(255, 255, 255, 0.16);
+        --paper: #07111f;
+        --panel: rgba(10, 20, 34, 0.76);
+        --accent: #f4f0e6;
+        --steam: #dce7f7;
+        --rail: rgba(244, 240, 230, 0.16);
       }
 
       * {
@@ -61,9 +75,46 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 300ms ease;
+        content: "";
+      }
+
+      main::before {
+        z-index: 0;
+        background:
+          radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px),
+          radial-gradient(circle at 34% 12%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+          radial-gradient(circle at 62% 18%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+          radial-gradient(circle at 80% 28%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+          radial-gradient(circle at 91% 10%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+          linear-gradient(180deg, #07111f 0%, #111a2a 52%, #182131 100%);
+      }
+
+      main::after {
+        z-index: 0;
+        background:
+          radial-gradient(circle at calc(100% - 66px) 70px, #f7e9ac 0 22px, transparent 23px),
+          linear-gradient(90deg, transparent 0 8%, var(--rail) 8% 92%, transparent 92% 100%);
+        background-size: auto, 100% 2px;
+        background-position: 0 0, 0 78vh;
+        background-repeat: no-repeat;
+      }
+
+      body.night main::before,
+      body.night main::after {
+        opacity: 1;
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -127,18 +178,23 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-toggle {
         display: inline-flex;
         width: 38px;
         height: 38px;
@@ -157,13 +213,18 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
+      .icon-toggle:hover {
         background: #fff;
         border-color: #b8b8b8;
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      body.night .icon-toggle:hover {
+        background: rgba(22, 35, 54, 0.92);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+
+      .icon-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -273,15 +334,27 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="controls" role="group" aria-label="Display and sound controls">
+        <button
+          class="icon-toggle"
+          id="theme"
+          type="button"
+          aria-label="Turn on night mode"
+          aria-pressed="false"
+        >
+          🌙
+        </button>
+
+        <button
+          class="icon-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
 
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
@@ -297,8 +370,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +383,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:night") === "1";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +394,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.classList.toggle("night", nightMode);
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Turn off night mode" : "Turn on night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeMeta.setAttribute("content", nightMode ? "#07111f" : "#ffffff");
+        localStorage.setItem("wtc:night", nightMode ? "1" : "0");
       }
 
       function updateCounter() {
@@ -404,6 +492,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +505,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
