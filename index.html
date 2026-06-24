@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#1a1a1e" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -15,13 +16,60 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #e8e6e3;
+          --muted: #8b8b8b;
+          --faint: #3a3a3a;
+          --paper: #1a1a1e;
+          --panel: rgba(30, 30, 35, 0.78);
+          --accent: #e8e6e3;
+        }
+
+        body {
+          background-image:
+            radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.35), transparent),
+            radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.25), transparent),
+            radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.45), transparent),
+            radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.25), transparent),
+            radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.35), transparent),
+            radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.2), transparent);
+        }
+
+        .steam {
+          color: #eee;
+        }
+
+        .mute-toggle:hover {
+          background: #2a2a2f;
+          border-color: #555;
+        }
+
+        body::after {
+          content: "🌙";
+          position: fixed;
+          top: 20px;
+          left: 24px;
+          z-index: 1;
+          font-size: 22px;
+          pointer-events: none;
+          opacity: 0.6;
+          animation: moon-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes moon-glow {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50% { opacity: 0.9; transform: scale(1.08); }
+        }
       }
 
       * {
@@ -236,6 +284,10 @@
 
         .steam {
           display: none;
+        }
+
+        body::after {
+          animation: none;
         }
 
         .train.ltr,
