@@ -1,3 +1,20 @@
-## Congratulations 🎉
+## Summary
 
-You made a pull request in Conductor. This starter project gave you something quick to install, run, edit, review, and ship from an isolated git worktree workspace.
+-
+
+## Verification
+
+- [ ] Opened `index.html` locally
+- [ ] Checked responsive layout at mobile width
+- [ ] Ran any relevant automated checks, if available
+
+## Cross-Model Review
+
+- Builder artifact:
+- Adversarial reviewer needed before merge: yes/no
+- Specialist lens needed: none/security/auth/data/deploy/frontend/performance/money/brand
+- Synthesis notes or `.context` handoff:
+
+## Risks
+
+-
