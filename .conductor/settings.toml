@@ -3,3 +3,14 @@
 [scripts]
 setup = "true"
 run = "open index.html"
+
+[prompts]
+general = """
+Use the cross-model review workflow for non-trivial work: builder creates a reviewable artifact, adversarial reviewer checks it against origin/main, specialist reviewers join only for high-risk lenses, and synthesis decides which findings matter.
+"""
+code_review = """
+Review this branch against origin/main. Prioritize correctness bugs, missing tests, risky assumptions, regressions, security or data issues, and user-facing behavior. Do not summarize until after findings. Give file and line references. Separate blocking issues from nice-to-haves.
+"""
+create_pr = """
+Create a pull request that makes the review artifact obvious. Include what changed, how it was verified, open risks, and whether a cross-model reviewer or specialist pass is still needed before merge.
+"""
