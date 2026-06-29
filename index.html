@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101521" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -15,13 +16,16 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --moon-display: none;
+        --sky-display: none;
       }
 
       * {
@@ -61,9 +65,50 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      main::before {
+        content: "";
+        z-index: 0;
+        display: var(--sky-display);
+        background-image:
+          radial-gradient(circle at 16% 22%, rgba(255, 255, 255, 0.92) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 31% 68%, rgba(225, 239, 255, 0.86) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 46% 32%, rgba(255, 242, 201, 0.8) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 64% 18%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 78% 72%, rgba(211, 236, 255, 0.78) 0 1px, transparent 1.5px),
+          radial-gradient(circle at 91% 42%, rgba(255, 255, 255, 0.88) 0 1px, transparent 1.5px);
+      }
+
+      main::after {
+        content: "";
+        top: clamp(52px, 9vh, 86px);
+        right: clamp(34px, 9vw, 120px);
+        left: auto;
+        bottom: auto;
+        z-index: 0;
+        display: var(--moon-display);
+        width: clamp(48px, 8vw, 76px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 36% 34%, rgba(255, 255, 255, 0.7) 0 4px, transparent 5px),
+          radial-gradient(circle at 62% 62%, rgba(168, 147, 101, 0.22) 0 7px, transparent 8px),
+          #f4d68a;
+        box-shadow:
+          0 0 24px rgba(244, 214, 138, 0.38),
+          0 0 64px rgba(96, 181, 185, 0.18);
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -127,7 +172,7 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -178,6 +223,40 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #f4f1e8;
+          --muted: #b6c1cf;
+          --faint: rgba(222, 230, 241, 0.22);
+          --paper: #101521;
+          --panel: rgba(19, 25, 38, 0.74);
+          --accent: #f4d68a;
+          --steam: #9ab9c7;
+          --moon-display: block;
+          --sky-display: block;
+        }
+
+        body {
+          background:
+            linear-gradient(180deg, rgba(16, 21, 33, 0.58), rgba(7, 10, 16, 0.98)),
+            var(--paper);
+        }
+
+        .train-emoji {
+          filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.34));
+        }
+
+        .tagline,
+        .counter {
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+        }
+
+        .mute-toggle:hover {
+          background: rgba(33, 43, 62, 0.9);
+          border-color: rgba(244, 214, 138, 0.44);
+        }
       }
 
       @keyframes wiggle {
