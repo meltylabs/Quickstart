@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clipcull"
+version = "0.1.0"
+description = "Local AI-powered video footage culling tool for event photographers"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.100",
+    "uvicorn[standard]>=0.20",
+    "onnxruntime>=1.15",
+    "opencv-python>=4.8",
+    "huggingface-hub>=0.16",
+    "python-multipart>=0.0.6",
+]
+
+[project.scripts]
+clipcull = "clipcull.__main__:main"

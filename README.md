@@ -1,40 +1,44 @@
-# Welcome to Conductor
+# ClipCull
 
-This is the starter project for Conductor, a macOS app for running multiple coding agents in parallel in isolated git worktree workspaces.
+Local AI-powered video footage culling tool for event photographers. Scans proxy files for technically unusable clips (black frames, dark/lens-cap, heavy shake, blur, silence, ultra-short) and quarantines them for review.
 
-The app is intentionally tiny: one dependency-free `index.html` file plus a few static assets in `public/`. There is no install step, build step, package manager, framework, or dev server.
-
-## How Conductor Uses This Project
-
-Conductor creates each workspace as its own git worktree and branch. The checked-in `.conductor/settings.toml` tells Conductor how to prepare and run this starter app:
-
-```toml
-"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
-
-[scripts]
-setup = "true"
-run = "open index.html"
-```
-
-When you create a workspace, setup succeeds immediately. When you click Run on macOS, Conductor opens the HTML file in your default browser.
-
-## Local Development
-
-Open the app directly:
+## Install
 
 ```sh
-open index.html
+pip install -e .
 ```
 
-Edit `index.html`, then refresh the browser.
+Requires Python 3.10+ and [ffmpeg](https://ffmpeg.org/download.html) installed on your system.
 
-## Project Structure
+## Usage
 
-- `index.html` contains the UI, styling, and interaction logic.
-- `public/` contains static assets used by the page.
-- `.conductor/settings.toml` contains the shared Conductor workspace scripts.
-- `.context/` is available in Conductor workspaces for gitignored notes and handoff files between agents.
+```sh
+clipcull
+```
 
-## Learn More
+This starts a local server at `http://localhost:8080` and opens the review UI in your browser. Point it at a folder of proxy clips to scan.
 
-- [Conductor docs](https://conductor.build/docs)
+### Download ML models manually
+
+```sh
+clipcull --download-models
+```
+
+Models are downloaded automatically on first run to `~/.clipcull/models/`. If download fails (no internet), the tool runs in heuristics-only mode using ffmpeg.
+
+### Configuration
+
+Create `clipcull.config.json` in your scan folder (or `~/.clipcull/config.json` for global defaults):
+
+```json
+{
+  "black": { "frame_threshold": 0.80 },
+  "dark": { "yavg_threshold": 10 },
+  "silent": { "silence_threshold": 0.90 },
+  "short": { "duration_threshold": 2.0 },
+  "blur": { "score_threshold": 0.7 },
+  "shake": { "score_threshold": 0.7 }
+}
+```
+
+All thresholds are optional — defaults are used for any omitted values.
