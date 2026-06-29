@@ -24,6 +24,16 @@
         --accent: #111;
       }
 
+      :root.night {
+        color-scheme: dark;
+        --ink: #f0f0f0;
+        --muted: #999999;
+        --faint: #333333;
+        --paper: #0f0f0f;
+        --panel: rgba(30, 30, 30, 0.72);
+        --accent: #e8e8e8;
+      }
+
       * {
         box-sizing: border-box;
       }
@@ -132,6 +142,10 @@
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
+      }
+
+      :root.night .steam {
+        color: #555555;
       }
 
       .mute-toggle {
@@ -283,6 +297,16 @@
         🔊
       </button>
 
+      <button
+        class="mute-toggle"
+        id="theme"
+        type="button"
+        aria-label="Toggle theme"
+        style="right: 64px;"
+      >
+        🌙
+      </button>
+
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
 
@@ -298,6 +322,7 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeButton = document.querySelector("#theme");
       const counter = document.querySelector("#counter");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
@@ -308,6 +333,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = false;
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +344,16 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute("aria-label", nightMode ? "Light mode" : "Night mode");
+        if (nightMode) {
+          document.documentElement.classList.add("night");
+        } else {
+          document.documentElement.classList.remove("night");
+        }
       }
 
       function updateCounter() {
@@ -403,6 +439,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -415,6 +456,7 @@
       });
 
       syncMuteButton();
+      syncThemeButton();
       updateCounter();
     </script>
   </body>
