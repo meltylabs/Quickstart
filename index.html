@@ -180,6 +180,77 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+      }
+
+      .milestone-badge {
+        position: relative;
+        display: grid;
+        min-width: min(320px, calc(100vw - 40px));
+        min-height: 156px;
+        place-items: center;
+        padding: 24px;
+        border: 2px solid var(--ink);
+        border-radius: 8px;
+        background: #fffdf5;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+        text-align: center;
+        animation: milestone-pop 2200ms ease both;
+      }
+
+      .milestone-count {
+        color: var(--ink);
+        font-size: clamp(56px, 14vw, 108px);
+        font-weight: 850;
+        letter-spacing: 0;
+        line-height: 0.9;
+      }
+
+      .milestone-label {
+        margin-top: 8px;
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .milestone-track {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        left: 18px;
+        height: 3px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+
+      .milestone-engine {
+        position: absolute;
+        bottom: 9px;
+        left: 18px;
+        font-size: 28px;
+        line-height: 1;
+        animation: milestone-engine 1300ms 220ms ease-in-out both;
+      }
+
+      .confetti {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 16px;
+        border-radius: 2px;
+        background: var(--confetti-color);
+        transform: translate(-50%, -50%) rotate(var(--confetti-rotate));
+        animation: confetti-burst 1400ms ease-out forwards;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,6 +298,60 @@
         }
       }
 
+      @keyframes milestone-pop {
+        0% {
+          opacity: 0;
+          transform: translateY(22px) scale(0.82) rotate(-3deg);
+        }
+
+        12%,
+        72% {
+          opacity: 1;
+          transform: translateY(0) scale(1) rotate(0);
+        }
+
+        82% {
+          transform: translateY(0) scale(1.04) rotate(1deg);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(-24px) scale(0.94) rotate(2deg);
+        }
+      }
+
+      @keyframes milestone-engine {
+        0% {
+          transform: translateX(0) scaleX(-1);
+        }
+
+        100% {
+          transform: translateX(calc(min(320px, 100vw - 40px) - 72px))
+            scaleX(-1);
+        }
+      }
+
+      @keyframes confetti-burst {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.4)
+            rotate(var(--confetti-rotate));
+        }
+
+        12% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(
+              calc(-50% + var(--confetti-x)),
+              calc(-50% + var(--confetti-y))
+            )
+            scale(0.9) rotate(calc(var(--confetti-rotate) + 460deg));
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -244,6 +369,15 @@
           animation: fade-blip 1500ms ease both !important;
         }
 
+        .milestone-badge {
+          animation: milestone-fade 1800ms ease both;
+        }
+
+        .milestone-engine,
+        .confetti {
+          display: none;
+        }
+
         @keyframes fade-blip {
           0% {
             opacity: 0;
@@ -259,6 +393,18 @@
           100% {
             opacity: 0;
             transform: translateX(-50%) scale(1);
+          }
+        }
+
+        @keyframes milestone-fade {
+          0%,
+          100% {
+            opacity: 0;
+          }
+
+          20%,
+          80% {
+            opacity: 1;
           }
         }
       }
@@ -294,6 +440,8 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const MILESTONE_INTERVAL = 10;
+      const CONFETTI_COLORS = ["#ff4f64", "#ffd166", "#06d6a0", "#118ab2", "#f78c6b"];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
@@ -357,6 +505,47 @@
         }, delay);
       }
 
+      function createConfettiPiece(index) {
+        const piece = document.createElement("span");
+        const angle = (Math.PI * 2 * index) / 24;
+        const distance = 120 + Math.random() * 170;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance - 40;
+
+        piece.className = "confetti";
+        piece.style.setProperty("--confetti-color", pick(CONFETTI_COLORS));
+        piece.style.setProperty("--confetti-x", `${x}px`);
+        piece.style.setProperty("--confetti-y", `${y}px`);
+        piece.style.setProperty("--confetti-rotate", `${Math.random() * 180}deg`);
+        piece.style.animationDelay = `${Math.random() * 180}ms`;
+        piece.addEventListener("animationend", removeNode, { once: true });
+        return piece;
+      }
+
+      function showMilestone(total) {
+        if (total % MILESTONE_INTERVAL !== 0) return;
+
+        const milestone = document.createElement("div");
+        milestone.className = "milestone";
+        milestone.setAttribute("role", "status");
+        milestone.setAttribute("aria-label", `${total} trains dispatched`);
+        milestone.innerHTML = `
+          <div class="milestone-badge">
+            <span class="milestone-count">${total}</span>
+            <span class="milestone-label">trains dispatched</span>
+            <span class="milestone-track" aria-hidden="true"></span>
+            <span class="milestone-engine" aria-hidden="true">🚂</span>
+          </div>
+        `;
+
+        for (let i = 0; i < 24; i += 1) {
+          milestone.append(createConfettiPiece(i));
+        }
+
+        window.setTimeout(() => milestone.remove(), 2400);
+        dispatcher.append(milestone);
+      }
+
       function dispatchTrain() {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
@@ -390,6 +579,7 @@
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
+        showMilestone(count);
         playChoo();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
