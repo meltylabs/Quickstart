@@ -180,6 +180,69 @@
         pointer-events: none;
       }
 
+      .milestone {
+        position: fixed;
+        inset: 0;
+        z-index: 8;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        pointer-events: none;
+      }
+
+      .milestone-burst {
+        position: relative;
+        display: grid;
+        min-width: min(84vw, 390px);
+        min-height: 180px;
+        place-items: center;
+        animation: milestone-pop 2200ms ease-out forwards;
+        will-change: opacity, transform;
+      }
+
+      .milestone-count {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        gap: 7px;
+        place-items: center;
+        padding: 22px 28px;
+        border: 1px solid rgba(21, 21, 21, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 18px 50px rgba(21, 21, 21, 0.1);
+        backdrop-filter: blur(16px);
+      }
+
+      .milestone-number {
+        font-size: clamp(46px, 12vw, 78px);
+        font-weight: 780;
+        letter-spacing: 0;
+        line-height: 0.9;
+      }
+
+      .milestone-label {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+        letter-spacing: 0.06em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .spark {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 24px;
+        line-height: 1;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.6);
+        animation: spark-fly 1600ms cubic-bezier(0.2, 0.78, 0.22, 1) forwards;
+        animation-delay: var(--delay);
+        will-change: opacity, transform;
+      }
+
       @keyframes wiggle {
         0%,
         100% {
@@ -227,6 +290,49 @@
         }
       }
 
+      @keyframes milestone-pop {
+        0% {
+          opacity: 0;
+          transform: translateY(18px) scale(0.82) rotate(-2deg);
+        }
+
+        14% {
+          opacity: 1;
+          transform: translateY(0) scale(1.05) rotate(1deg);
+        }
+
+        24%,
+        72% {
+          opacity: 1;
+          transform: translateY(0) scale(1) rotate(0);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(-28px) scale(0.96) rotate(0);
+        }
+      }
+
+      @keyframes spark-fly {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.5) rotate(0);
+        }
+
+        18% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(
+              calc(-50% + var(--x)),
+              calc(-50% + var(--y))
+            )
+            scale(1.15) rotate(var(--spin));
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -244,6 +350,14 @@
           animation: fade-blip 1500ms ease both !important;
         }
 
+        .milestone-burst {
+          animation: milestone-fade 1800ms ease forwards;
+        }
+
+        .spark {
+          display: none;
+        }
+
         @keyframes fade-blip {
           0% {
             opacity: 0;
@@ -259,6 +373,18 @@
           100% {
             opacity: 0;
             transform: translateX(-50%) scale(1);
+          }
+        }
+
+        @keyframes milestone-fade {
+          0%,
+          100% {
+            opacity: 0;
+          }
+
+          18%,
+          82% {
+            opacity: 1;
           }
         }
       }
@@ -294,6 +420,15 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const MILESTONE_INTERVAL = 10;
+      const SPARKS = [
+        ["🚂", "-126px", "-54px", "-18deg", "0ms"],
+        ["⭐", "118px", "-76px", "24deg", "40ms"],
+        ["🎉", "-104px", "72px", "32deg", "90ms"],
+        ["✨", "132px", "58px", "-28deg", "130ms"],
+        ["🚃", "0px", "-104px", "18deg", "180ms"],
+        ["🎊", "0px", "98px", "-20deg", "220ms"],
+      ];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
@@ -336,6 +471,44 @@
 
       function removeNode(event) {
         event.currentTarget.remove();
+      }
+
+      function showMilestone() {
+        const milestone = document.createElement("div");
+        const burst = document.createElement("div");
+        const panel = document.createElement("div");
+        const number = document.createElement("span");
+        const label = document.createElement("span");
+
+        milestone.className = "milestone";
+        milestone.setAttribute("aria-live", "polite");
+        burst.className = "milestone-burst";
+        panel.className = "milestone-count";
+        number.className = "milestone-number";
+        label.className = "milestone-label";
+        number.textContent = String(count);
+        label.textContent = "trains dispatched";
+
+        panel.append(number, label);
+        burst.append(panel);
+
+        for (const [char, x, y, spin, delay] of SPARKS) {
+          const spark = document.createElement("span");
+          spark.className = "spark";
+          spark.textContent = char;
+          spark.style.setProperty("--x", x);
+          spark.style.setProperty("--y", y);
+          spark.style.setProperty("--spin", spin);
+          spark.style.setProperty("--delay", delay);
+          spark.setAttribute("aria-hidden", "true");
+          burst.append(spark);
+        }
+
+        milestone.append(burst);
+        burst.addEventListener("animationend", (event) => {
+          if (event.target === burst) milestone.remove();
+        });
+        dispatcher.append(milestone);
       }
 
       function createSteam(train, delay) {
@@ -391,6 +564,9 @@
         hero.classList.add("dispatched");
         updateCounter();
         playChoo();
+        if (count % MILESTONE_INTERVAL === 0) {
+          showMilestone();
+        }
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
