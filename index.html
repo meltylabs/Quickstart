@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfbfa" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -22,6 +22,26 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --sky-glow: rgba(255, 255, 255, 0);
+        --star: rgba(255, 255, 255, 0);
+        --moon: rgba(255, 255, 255, 0);
+        --track-glow: rgba(255, 255, 255, 0);
+        --steam: #c9c9c7;
+      }
+
+      body[data-theme="night"] {
+        color-scheme: dark;
+        --ink: #f4efe4;
+        --muted: #b8c1d9;
+        --faint: rgba(205, 218, 255, 0.22);
+        --paper: #111624;
+        --panel: rgba(17, 22, 36, 0.7);
+        --accent: #f7d56c;
+        --sky-glow: rgba(94, 130, 255, 0.2);
+        --star: rgba(255, 246, 204, 0.9);
+        --moon: #f7d56c;
+        --track-glow: rgba(247, 213, 108, 0.24);
+        --steam: rgba(215, 224, 245, 0.72);
       }
 
       * {
@@ -36,7 +56,9 @@
       body {
         margin: 0;
         overflow: hidden;
-        background: var(--paper);
+        background:
+          radial-gradient(circle at 74% 14%, var(--sky-glow), transparent 22rem),
+          var(--paper);
         color: var(--ink);
         font-family:
           ui-sans-serif,
@@ -48,6 +70,9 @@
           Arial,
           sans-serif;
         font-feature-settings: "kern";
+        transition:
+          background-color 240ms ease,
+          color 240ms ease;
       }
 
       main {
@@ -61,9 +86,55 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        position: fixed;
+        content: "";
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 240ms ease;
+      }
+
+      main::before {
+        top: 72px;
+        right: 13vw;
+        z-index: 0;
+        width: clamp(44px, 7vw, 72px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--moon);
+        box-shadow:
+          -14px -8px 0 -6px rgba(255, 255, 255, 0.42) inset,
+          0 0 34px rgba(247, 213, 108, 0.28);
+      }
+
+      main::after {
+        inset: 0;
+        z-index: 0;
+        background-image:
+          radial-gradient(circle, var(--star) 0 1px, transparent 1.5px),
+          radial-gradient(circle, var(--star) 0 1px, transparent 1.5px),
+          linear-gradient(90deg, transparent 0 12%, var(--track-glow) 12% 88%, transparent 88%);
+        background-position:
+          9vw 15vh,
+          37vw 9vh,
+          0 74vh;
+        background-size:
+          31vw 24vh,
+          43vw 29vh,
+          100% 1px;
+        background-repeat: repeat, repeat, no-repeat;
+      }
+
+      body[data-theme="night"] main::before,
+      body[data-theme="night"] main::after {
+        opacity: 1;
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,13 +178,18 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 3;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
         will-change: transform;
+        filter: drop-shadow(0 0 0 transparent);
+      }
+
+      body[data-theme="night"] .train {
+        filter: drop-shadow(0 5px 14px rgba(247, 213, 108, 0.25));
       }
 
       .train.ltr {
@@ -127,7 +203,7 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -157,10 +233,19 @@
           transform 150ms ease;
       }
 
+      .theme-toggle {
+        right: 62px;
+      }
+
       .mute-toggle:hover {
-        background: #fff;
+        background: rgba(255, 255, 255, 0.9);
         border-color: #b8b8b8;
         transform: translateY(-1px);
+      }
+
+      body[data-theme="night"] .mute-toggle:hover {
+        background: rgba(37, 47, 73, 0.9);
+        border-color: rgba(205, 218, 255, 0.36);
       }
 
       .mute-toggle:focus-visible {
@@ -274,6 +359,16 @@
       </div>
 
       <button
+        class="mute-toggle theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Turn on night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -297,8 +392,10 @@
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -308,6 +405,7 @@
       let lastLane = -1;
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let nightMode = localStorage.getItem("wtc:theme") === "night";
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
@@ -318,6 +416,18 @@
         muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
         muteButton.setAttribute("aria-pressed", String(muted));
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
+      }
+
+      function syncThemeButton() {
+        document.body.dataset.theme = nightMode ? "night" : "day";
+        themeButton.textContent = nightMode ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          nightMode ? "Turn off night mode" : "Turn on night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(nightMode));
+        themeColor.setAttribute("content", nightMode ? "#111624" : "#fbfbfa");
+        localStorage.setItem("wtc:theme", nightMode ? "night" : "day");
       }
 
       function updateCounter() {
@@ -404,6 +514,12 @@
         syncMuteButton();
       });
 
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncThemeButton();
+      });
+
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
@@ -411,9 +527,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "n" || event.key === "N") {
+          nightMode = !nightMode;
+          syncThemeButton();
         }
       });
 
+      syncThemeButton();
       syncMuteButton();
       updateCounter();
     </script>
