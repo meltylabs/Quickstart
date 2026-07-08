@@ -22,6 +22,22 @@
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --toggle-hover-bg: #ffffff;
+        --toggle-hover-border: #b8b8b8;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --ink: #ededed;
+        --muted: #8f8f8f;
+        --faint: #333333;
+        --paper: #0e0e10;
+        --panel: rgba(28, 28, 32, 0.72);
+        --accent: #ededed;
+        --steam: #4a4a4a;
+        --toggle-hover-bg: #1c1c20;
+        --toggle-hover-border: #555555;
       }
 
       * {
@@ -127,17 +143,17 @@
       .steam {
         position: fixed;
         z-index: 0;
-        color: #c9c9c7;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .mute-toggle,
+      .theme-toggle {
         position: fixed;
         top: 16px;
-        right: 16px;
         z-index: 10;
         display: inline-flex;
         width: 38px;
@@ -157,13 +173,23 @@
           transform 150ms ease;
       }
 
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+      .mute-toggle {
+        right: 16px;
+      }
+
+      .theme-toggle {
+        right: 62px;
+      }
+
+      .mute-toggle:hover,
+      .theme-toggle:hover {
+        background: var(--toggle-hover-bg);
+        border-color: var(--toggle-hover-border);
         transform: translateY(-1px);
       }
 
-      .mute-toggle:focus-visible {
+      .mute-toggle:focus-visible,
+      .theme-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
       }
@@ -274,6 +300,16 @@
       </div>
 
       <button
+        class="theme-toggle"
+        id="theme"
+        type="button"
+        aria-label="Switch to night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
+      <button
         class="mute-toggle"
         id="mute"
         type="button"
@@ -298,7 +334,9 @@
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
+      const themeButton = document.querySelector("#theme");
       const counter = document.querySelector("#counter");
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
 
@@ -309,8 +347,29 @@
       let lastDirection = "rtl";
       let muted = localStorage.getItem("wtc:muted") === "1";
 
+      const storedTheme = localStorage.getItem("wtc:theme");
+      let dark =
+        storedTheme === "dark" ||
+        (storedTheme === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function syncTheme() {
+        document.documentElement.setAttribute(
+          "data-theme",
+          dark ? "dark" : "light",
+        );
+        themeButton.textContent = dark ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          dark ? "Switch to day mode" : "Switch to night mode",
+        );
+        themeButton.setAttribute("aria-pressed", String(dark));
+        if (themeMeta) themeMeta.content = dark ? "#0e0e10" : "#ffffff";
+        localStorage.setItem("wtc:theme", dark ? "dark" : "light");
       }
 
       function syncMuteButton() {
@@ -403,6 +462,11 @@
         muted = !muted;
         syncMuteButton();
       });
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        dark = !dark;
+        syncTheme();
+      });
 
       window.addEventListener("keydown", (event) => {
         if (event.code === "Space" || event.code === "Enter") {
@@ -411,9 +475,13 @@
         } else if (event.key === "m" || event.key === "M") {
           muted = !muted;
           syncMuteButton();
+        } else if (event.key === "t" || event.key === "T") {
+          dark = !dark;
+          syncTheme();
         }
       });
 
+      syncTheme();
       syncMuteButton();
       updateCounter();
     </script>
