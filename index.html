@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08111f" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -15,13 +16,19 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
         --accent: #111;
+        --steam: #c9c9c7;
+        --button-hover: #fff;
+        --button-hover-border: #b8b8b8;
+        --sky-glow: transparent;
+        --star-opacity: 0;
+        --moon-opacity: 0;
       }
 
       * {
@@ -61,9 +68,53 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      main::before,
+      main::after {
+        position: fixed;
+        pointer-events: none;
+        content: "";
+      }
+
+      main::before {
+        inset: 0;
+        z-index: 0;
+        opacity: var(--star-opacity);
+        background-image:
+          radial-gradient(circle, rgba(255, 255, 255, 0.92) 0 1px, transparent 1.5px),
+          radial-gradient(circle, rgba(190, 211, 255, 0.78) 0 1px, transparent 1.4px),
+          radial-gradient(circle, rgba(255, 247, 209, 0.7) 0 1px, transparent 1.3px);
+        background-position:
+          18px 26px,
+          74px 58px,
+          42px 94px;
+        background-size:
+          128px 128px,
+          176px 176px,
+          220px 220px;
+      }
+
+      main::after {
+        top: clamp(44px, 8vh, 82px);
+        right: clamp(42px, 10vw, 132px);
+        z-index: 0;
+        width: clamp(72px, 12vw, 128px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        opacity: var(--moon-opacity);
+        background:
+          radial-gradient(circle at 36% 35%, rgba(255, 255, 255, 0.7) 0 6%, transparent 7%),
+          radial-gradient(circle at 62% 58%, rgba(190, 170, 120, 0.18) 0 9%, transparent 10%),
+          radial-gradient(circle at 42% 68%, rgba(190, 170, 120, 0.13) 0 6%, transparent 7%),
+          #f5e5b2;
+        box-shadow:
+          0 0 24px rgba(245, 229, 178, 0.42),
+          0 0 72px rgba(86, 130, 255, 0.18);
+      }
+
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,7 +158,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 2;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -126,8 +177,8 @@
 
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 1;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
@@ -158,8 +209,8 @@
       }
 
       .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+        background: var(--button-hover);
+        border-color: var(--button-hover-border);
         transform: translateY(-1px);
       }
 
@@ -178,6 +229,37 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #edf4ff;
+          --muted: #9fb0c8;
+          --faint: rgba(170, 196, 238, 0.26);
+          --paper: #08111f;
+          --panel: rgba(12, 24, 42, 0.72);
+          --accent: #c8dcff;
+          --steam: rgba(196, 212, 235, 0.62);
+          --button-hover: rgba(28, 45, 72, 0.86);
+          --button-hover-border: rgba(198, 219, 255, 0.48);
+          --sky-glow:
+            radial-gradient(circle at 78% 15%, rgba(87, 120, 214, 0.32), transparent 32%),
+            linear-gradient(180deg, #0b1830 0%, #08111f 58%, #060a12 100%);
+          --star-opacity: 1;
+          --moon-opacity: 1;
+        }
+
+        body {
+          background: var(--sky-glow), var(--paper);
+        }
+
+        .train-emoji {
+          filter: drop-shadow(0 0 18px rgba(255, 214, 102, 0.18));
+        }
+
+        .train-emoji:hover {
+          filter: drop-shadow(0 0 22px rgba(255, 214, 102, 0.34));
+        }
       }
 
       @keyframes wiggle {
