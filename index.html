@@ -24,6 +24,16 @@
         --accent: #111;
       }
 
+      :root.night {
+        color-scheme: dark;
+        --ink: #e8e8e8;
+        --muted: #8a9ab5;
+        --faint: #2a3347;
+        --paper: #0d1117;
+        --panel: rgba(15, 22, 36, 0.82);
+        --accent: #e8e8e8;
+      }
+
       * {
         box-sizing: border-box;
       }
@@ -132,6 +142,82 @@
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
+      }
+
+      .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 600ms ease;
+        z-index: 0;
+      }
+
+      :root.night .stars {
+        opacity: 1;
+      }
+
+      .star {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        animation: twinkle var(--dur, 3s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.2; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.3); }
+      }
+
+      .moon {
+        position: fixed;
+        top: 60px;
+        right: 70px;
+        font-size: 28px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 600ms ease;
+        z-index: 0;
+        filter: drop-shadow(0 0 8px rgba(200, 220, 255, 0.6));
+      }
+
+      :root.night .moon {
+        opacity: 1;
+      }
+
+      .night-toggle {
+        position: fixed;
+        top: 16px;
+        right: 62px;
+        z-index: 10;
+        display: inline-flex;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--faint);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 16px;
+        backdrop-filter: blur(14px);
+        transition:
+          border-color 150ms ease,
+          background 150ms ease,
+          transform 150ms ease;
+      }
+
+      .night-toggle:hover {
+        background: var(--paper);
+        border-color: var(--muted);
+        transform: translateY(-1px);
+      }
+
+      .night-toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
       }
 
       .mute-toggle {
@@ -266,6 +352,19 @@
   </head>
   <body>
     <main id="dispatcher">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <div class="moon" id="moon" aria-hidden="true">🌕</div>
+
+      <button
+        class="night-toggle"
+        id="night-toggle"
+        type="button"
+        aria-label="Enable night mode"
+        aria-pressed="false"
+      >
+        🌙
+      </button>
+
       <div class="hero" id="hero">
         <div class="hero-inner">
           <span class="train-emoji" role="img" aria-label="train">🚂</span>
@@ -299,8 +398,47 @@
       const hero = document.querySelector("#hero");
       const muteButton = document.querySelector("#mute");
       const counter = document.querySelector("#counter");
+      const nightToggle = document.querySelector("#night-toggle");
+      const starsContainer = document.querySelector("#stars");
       const choo = new Audio("./public/choo-choo.mp3");
       choo.preload = "auto";
+
+      let nightMode = localStorage.getItem("wtc:night") === "1";
+
+      function buildStars() {
+        starsContainer.innerHTML = "";
+        for (let i = 0; i < 60; i++) {
+          const star = document.createElement("span");
+          star.className = "star";
+          const size = 1 + Math.random() * 2.5;
+          star.style.cssText = [
+            `width:${size}px`,
+            `height:${size}px`,
+            `left:${Math.random() * 100}%`,
+            `top:${Math.random() * 80}%`,
+            `--dur:${2 + Math.random() * 3}s`,
+            `--delay:${Math.random() * 4}s`,
+          ].join(";");
+          starsContainer.append(star);
+        }
+      }
+
+      function syncNight() {
+        document.documentElement.classList.toggle("night", nightMode);
+        nightToggle.textContent = nightMode ? "☀️" : "🌙";
+        nightToggle.setAttribute("aria-label", nightMode ? "Disable night mode" : "Enable night mode");
+        nightToggle.setAttribute("aria-pressed", String(nightMode));
+        localStorage.setItem("wtc:night", nightMode ? "1" : "0");
+      }
+
+      buildStars();
+      syncNight();
+
+      nightToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        nightMode = !nightMode;
+        syncNight();
+      });
 
       let count = 0;
       let nextId = 1;
