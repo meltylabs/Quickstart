@@ -227,6 +227,59 @@
         }
       }
 
+      .explosion {
+        position: fixed;
+        z-index: 2;
+        font-size: clamp(80px, 14vw, 140px);
+        line-height: 1;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+        animation: explode 800ms ease-out forwards;
+        will-change: transform, opacity;
+      }
+
+      .explosion-particle {
+        position: fixed;
+        z-index: 2;
+        font-size: clamp(24px, 3.5vw, 36px);
+        line-height: 1;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        animation: particle-fly 900ms ease-out forwards;
+        will-change: transform, opacity;
+      }
+
+      @keyframes explode {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(0.2);
+        }
+
+        40% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(2);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(2.5);
+        }
+      }
+
+      @keyframes particle-fly {
+        0% {
+          opacity: 1;
+          transform: translate(-50%, -50%) translate(0, 0) scale(0.6);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(1.2);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero,
         .train-emoji:hover {
@@ -234,8 +287,13 @@
           transition: none;
         }
 
-        .steam {
+        .steam,
+        .explosion-particle {
           display: none;
+        }
+
+        .explosion {
+          animation-duration: 500ms;
         }
 
         .train.ltr,
@@ -289,6 +347,8 @@
     <script>
       const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
       const PUFF_CHARS = ["·", "°", "・", "∘"];
+      const PARTICLE_EMOJIS = ["🔥", "💨", "✨"];
+      const PARTICLE_COUNT = 10;
       const LANE_COUNT = 5;
       const DISPATCH_THROTTLE_MS = 120;
       const PUFF_COUNT = 4;
@@ -357,10 +417,26 @@
         }, delay);
       }
 
-      function dispatchTrain() {
+      function dispatchTrain(event) {
         const now = performance.now();
         if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
         lastDispatch = now;
+
+        count += 1;
+        hero.classList.add("dispatched");
+        updateCounter();
+        playChoo();
+
+        if (count % 20 === 0) {
+          const x = event && typeof event.clientX === "number"
+            ? event.clientX
+            : window.innerWidth / 2;
+          const y = event && typeof event.clientY === "number"
+            ? event.clientY
+            : window.innerHeight / 2;
+          explodeAt(x, y);
+          return;
+        }
 
         let lane = Math.floor(Math.random() * LANE_COUNT);
         if (lane === lastLane) lane = (lane + 1) % LANE_COUNT;
@@ -387,13 +463,32 @@
         trainNode.addEventListener("animationend", removeNode, { once: true });
         dispatcher.append(trainNode);
 
-        count += 1;
-        hero.classList.add("dispatched");
-        updateCounter();
-        playChoo();
-
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
+        }
+      }
+
+      function explodeAt(x, y) {
+        const boom = document.createElement("span");
+        boom.className = "explosion";
+        boom.textContent = "💥";
+        boom.style.left = `${x}px`;
+        boom.style.top = `${y}px`;
+        boom.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(boom);
+
+        for (let i = 0; i < PARTICLE_COUNT; i += 1) {
+          const angle = (Math.PI * 2 * i) / PARTICLE_COUNT;
+          const distance = 90 + Math.random() * 70;
+          const particle = document.createElement("span");
+          particle.className = "explosion-particle";
+          particle.textContent = pick(PARTICLE_EMOJIS);
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          particle.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+          particle.style.setProperty("--dy", `${Math.sin(angle) * distance}px`);
+          particle.addEventListener("animationend", removeNode, { once: true });
+          dispatcher.append(particle);
         }
       }
 
