@@ -1,0 +1,10 @@
+.agents
+.claude
+.conductor
+.context
+.github
+.vercel
+.env*
+README.md
+skills-lock.json
+src

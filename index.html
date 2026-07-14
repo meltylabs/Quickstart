@@ -3,25 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f7f8f4" />
     <meta
       name="description"
-      content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
+      content="Uganda tour route map with July weather, altitude, wildlife photos, habitat photos, and bird species highlights."
     />
-    <meta property="og:title" content="welcome to conductor" />
-    <meta property="og:description" content="Click anywhere to dispatch a train." />
+    <meta property="og:title" content="Uganda Wildlife Tour Route" />
+    <meta
+      property="og:description"
+      content="A clear route map, July temperatures, altitude notes, and wildlife photo galleries for a Uganda tour."
+    />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="./public/favicon.png" />
-    <title>welcome to conductor</title>
+    <title>Uganda Wildlife Tour Route</title>
     <style>
       :root {
         color-scheme: light;
-        --ink: #151515;
-        --muted: #7a7a7a;
-        --faint: #d9d9d9;
-        --paper: #fbfbfa;
-        --panel: rgba(255, 255, 255, 0.72);
-        --accent: #111;
+        --ink: #1d241f;
+        --muted: #647068;
+        --line: #dfe6dc;
+        --paper: #f7f8f4;
+        --panel: #ffffff;
+        --forest: #244a33;
+        --moss: #7f9b62;
+        --water: #4a8da0;
+        --clay: #b85f3c;
+        --gold: #c79b3f;
+        --shadow: 0 18px 45px rgba(28, 43, 34, 0.12);
       }
 
       * {
@@ -30,12 +38,11 @@
 
       html,
       body {
-        min-height: 100%;
+        overflow-x: hidden;
       }
 
       body {
         margin: 0;
-        overflow: hidden;
         background: var(--paper);
         color: var(--ink);
         font-family:
@@ -50,372 +57,1170 @@
         font-feature-settings: "kern";
       }
 
-      main {
-        position: relative;
+      img {
         display: block;
-        width: 100vw;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      a {
+        color: inherit;
+        text-decoration-color: rgba(36, 74, 51, 0.35);
+        text-underline-offset: 3px;
+      }
+
+      .page {
         min-height: 100svh;
-        overflow: hidden;
-        cursor: pointer;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
       }
 
       .hero {
-        position: absolute;
-        inset: 0;
+        position: relative;
         display: grid;
-        place-items: center;
-        gap: 18px;
-        padding: 32px;
-        text-align: center;
-        transition: opacity 600ms ease;
-        pointer-events: none;
+        min-height: 88svh;
+        align-items: end;
+        overflow: hidden;
+        color: #fff;
+        isolation: isolate;
       }
 
-      .hero.dispatched {
-        opacity: 0;
+      .hero::before,
+      .hero::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        z-index: -1;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(10, 30, 26, 0.04), rgba(10, 30, 26, 0.76)),
+          url("./public/uganda/hero-uganda-illustration.png") center / cover;
+      }
+
+      .hero::after {
+        background: linear-gradient(
+          90deg,
+          rgba(8, 30, 28, 0.76) 0%,
+          rgba(8, 30, 28, 0.38) 42%,
+          rgba(8, 30, 28, 0.02) 72%
+        );
+      }
+
+      .hero-inner,
+      .section-inner {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
       }
 
       .hero-inner {
         display: grid;
-        gap: 18px;
-        place-items: center;
+        gap: 34px;
+        padding: 28px 0 54px;
       }
 
-      .train-emoji {
-        display: inline-block;
-        font-size: clamp(56px, 10vw, 96px);
+      .eyebrow {
+        margin: 0 0 12px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin-bottom: 18px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(48px, 9vw, 112px);
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 0.92;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: clamp(18px, 2vw, 24px);
+        line-height: 1.45;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        max-width: 920px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        background: rgba(255, 255, 255, 0.26);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-stat {
+        min-height: 104px;
+        padding: 18px;
+        background: rgba(15, 36, 26, 0.52);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-stat strong {
+        display: block;
+        margin-bottom: 8px;
+        color: #fff;
+        font-size: clamp(22px, 3vw, 34px);
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .hero-stat span {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      section {
+        padding: 74px 0;
+      }
+
+      .section-header {
+        display: grid;
+        grid-template-columns: minmax(0, 0.72fr) minmax(260px, 0.28fr);
+        gap: 34px;
+        align-items: end;
+        margin-bottom: 30px;
+      }
+
+      .section-kicker {
+        margin: 0 0 10px;
+        color: var(--clay);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(34px, 5vw, 64px);
+        font-weight: 500;
+        letter-spacing: 0;
         line-height: 1;
-        transform-origin: 50% 60%;
-        pointer-events: auto;
       }
 
-      .train-emoji:hover {
-        animation: wiggle 600ms ease-in-out;
+      .section-note {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.55;
       }
 
-      .tagline {
-        max-width: 28ch;
+      .map-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .route-map {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background:
+          radial-gradient(circle at 18% 78%, rgba(74, 141, 160, 0.18), transparent 24%),
+          radial-gradient(circle at 58% 32%, rgba(127, 155, 98, 0.16), transparent 26%),
+          #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .route-map svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .map-key {
+        display: grid;
+        gap: 10px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .map-key h3 {
+        margin-bottom: 4px;
+        font-size: 18px;
+      }
+
+      .stop-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .stop-list li {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
         color: var(--muted);
         font-size: 14px;
-        font-weight: 450;
+        line-height: 1.35;
+      }
+
+      .stop-list b {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--forest);
+        color: #fff;
+        font-size: 12px;
+      }
+
+      .stop-list strong {
+        display: block;
+        color: var(--ink);
+      }
+
+      .planner {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      table {
+        width: 100%;
+        min-width: 880px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 17px 18px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #eef3ec;
+        color: #314339;
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      td {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      td strong {
+        display: block;
+        color: var(--ink);
+        font-size: 15px;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .temp {
+        color: var(--forest);
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .weather-note {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .lodge-band {
+        background: #eef3ec;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .lodge-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .lodge-card {
+        display: flex;
+        min-height: 280px;
+        flex-direction: column;
+        padding: 22px;
+        border: 1px solid #d3ddd0;
+        background: #fff;
+      }
+
+      .lodge-card--main {
+        background: var(--forest);
+        color: #fff;
+      }
+
+      .lodge-stop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 28px;
+        color: var(--clay);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .lodge-card--main .lodge-stop {
+        color: #efd291;
+      }
+
+      .lodge-stop span:last-child {
+        color: var(--muted);
+        font-weight: 700;
         letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .lodge-card--main .lodge-stop span:last-child {
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      .lodge-card h3 {
+        margin-bottom: 10px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 27px;
+        font-weight: 500;
+        line-height: 1.05;
+      }
+
+      .lodge-card p {
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .lodge-card--main p {
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .lodge-link {
+        display: inline-flex;
+        width: fit-content;
+        min-height: 44px;
+        align-items: center;
+        margin-top: auto;
+        color: var(--forest);
+        font-size: 13px;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .lodge-link:hover,
+      .lodge-link:focus-visible {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+      }
+
+      .lodge-card--main .lodge-link {
+        color: #fff;
+      }
+
+      .lodge-disclaimer {
+        max-width: 780px;
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .gallery-band {
+        background: #ffffff;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      figure {
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      figure img {
+        aspect-ratio: 4 / 3;
+        transition: transform 350ms ease;
+      }
+
+      figure:hover img {
+        transform: scale(1.035);
+      }
+
+      figcaption {
+        min-height: 76px;
+        padding: 12px 13px 14px;
+      }
+
+      figcaption strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--ink);
+        font-size: 14px;
+        line-height: 1.25;
+      }
+
+      figcaption span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .habitat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .habitat-card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .habitat-card b {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--clay);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .habitat-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
         line-height: 1.5;
       }
 
-      .train {
-        position: fixed;
-        left: 0;
-        z-index: 1;
-        font-size: clamp(38px, 6vw, 56px);
-        line-height: 1;
-        pointer-events: none;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
-        will-change: transform;
+      .footer {
+        padding: 42px 0;
+        background: #1e2e25;
+        color: rgba(255, 255, 255, 0.78);
       }
 
-      .train.ltr {
-        animation-name: train-ltr;
+      .footer-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+        gap: 28px;
       }
 
-      .train.rtl {
-        animation-name: train-rtl;
+      .footer h2 {
+        color: #fff;
+        font-size: 28px;
       }
 
-      .steam {
-        position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
-        font-size: 18px;
-        pointer-events: none;
-        animation: puff 1400ms ease-out forwards;
-        will-change: transform, opacity;
-      }
-
-      .mute-toggle {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        z-index: 10;
-        display: inline-flex;
-        width: 38px;
-        height: 38px;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--faint);
-        border-radius: 999px;
-        background: var(--panel);
-        color: var(--ink);
-        cursor: pointer;
-        font-size: 16px;
-        backdrop-filter: blur(14px);
-        transition:
-          border-color 150ms ease,
-          background 150ms ease,
-          transform 150ms ease;
-      }
-
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
-        transform: translateY(-1px);
-      }
-
-      .mute-toggle:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-      }
-
-      .counter {
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        z-index: 10;
-        color: var(--muted);
+      .footer p,
+      .footer li {
+        color: rgba(255, 255, 255, 0.72);
         font-size: 13px;
-        font-weight: 450;
-        letter-spacing: 0;
-        pointer-events: none;
+        line-height: 1.55;
       }
 
-      @keyframes wiggle {
-        0%,
-        100% {
-          transform: rotate(0);
+      .footer ul {
+        display: grid;
+        gap: 5px;
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      details {
+        margin-top: 20px;
+      }
+
+      summary {
+        cursor: pointer;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .credit-list {
+        columns: 2;
+        column-gap: 28px;
+        margin-top: 12px;
+      }
+
+      .credit-list li {
+        break-inside: avoid;
+        margin-bottom: 6px;
+      }
+
+      @media (max-width: 980px) {
+        .hero-stats,
+        .gallery,
+        .habitat-strip,
+        .lodge-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        25% {
-          transform: translateY(-4px) rotate(-6deg);
+        .section-header,
+        .map-layout,
+        .footer-grid {
+          grid-template-columns: 1fr;
         }
 
-        75% {
-          transform: translateY(-4px) rotate(6deg);
+        .map-key {
+          order: -1;
         }
       }
 
-      @keyframes train-ltr {
-        from {
-          transform: translateX(-15vw) scaleX(-1);
+      @media (max-width: 640px) {
+        .hero-inner,
+        .section-inner {
+          width: min(100% - 28px, 1180px);
         }
 
-        to {
-          transform: translateX(115vw) scaleX(-1);
-        }
-      }
-
-      @keyframes train-rtl {
-        from {
-          transform: translateX(115vw);
+        .hero {
+          min-height: 94svh;
         }
 
-        to {
-          transform: translateX(-15vw);
-        }
-      }
-
-      @keyframes puff {
-        0% {
-          opacity: 0.7;
-          transform: translate(0, 0) scale(0.8);
+        .hero::before {
+          background-position: 82% center;
         }
 
-        100% {
-          opacity: 0;
-          transform: translate(0, -40px) scale(1.4);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .hero,
-        .train-emoji:hover {
-          animation: none;
-          transition: none;
+        .hero::after {
+          background: linear-gradient(90deg, rgba(8, 30, 28, 0.82), rgba(8, 30, 28, 0.34));
         }
 
-        .steam {
-          display: none;
+        h1 {
+          font-size: 43px;
+          line-height: 0.98;
         }
 
-        .train.ltr,
-        .train.rtl {
-          left: 50%;
-          animation: fade-blip 1500ms ease both !important;
+        h2 {
+          font-size: 32px;
+          line-height: 1.05;
         }
 
-        @keyframes fade-blip {
-          0% {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.85);
-          }
+        .lede {
+          font-size: 17px;
+        }
 
-          20%,
-          80% {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-          }
+        .hero-inner {
+          padding-bottom: 32px;
+        }
 
-          100% {
-            opacity: 0;
-            transform: translateX(-50%) scale(1);
-          }
+        .gallery,
+        .habitat-strip,
+        .lodge-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hero-stat {
+          min-height: 116px;
+          padding: 15px;
+        }
+
+        section {
+          padding: 54px 0;
+        }
+
+        .credit-list {
+          columns: 1;
         }
       }
     </style>
   </head>
   <body>
-    <main id="dispatcher">
-      <div class="hero" id="hero">
+    <main class="page">
+      <header class="hero">
         <div class="hero-inner">
-          <span class="train-emoji" role="img" aria-label="train">🚂</span>
-          <span class="tagline">Click anywhere to dispatch a train.</span>
+          <div>
+            <p class="eyebrow">Uganda safari route</p>
+            <h1>Wildlife, forests,<br />lakes, and the<br />Nile.</h1>
+            <p class="lede">
+              A readable route overview for a July Uganda tour from Entebbe through
+              Ziwa, Murchison Falls, Kibale, Queen Elizabeth, Bwindi, and Lake
+              Bunyonyi.
+            </p>
+          </div>
+          <div class="hero-stats" aria-label="Tour highlights">
+            <div class="hero-stat">
+              <strong>8 stops</strong>
+              <span>Looping west from Entebbe and back toward Kampala.</span>
+            </div>
+            <div class="hero-stat">
+              <strong>20 photos</strong>
+              <span>Ten animals and habitat images, plus ten bird species.</span>
+            </div>
+            <div class="hero-stat">
+              <strong>12-30&deg;C</strong>
+              <span>Typical July range across highland forest and low savanna.</span>
+            </div>
+            <div class="hero-stat">
+              <strong>619-2,607 m</strong>
+              <span>Route altitude range from Nile lowlands to Bwindi ridges.</span>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <section aria-labelledby="route-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Route map</p>
+              <h2 id="route-title">Clear tour path and main destination</h2>
+            </div>
+            <p class="section-note">
+              The map is simplified for fast reading: north is up, blue marks major
+              lakes and the Nile, and the clay route line follows the main overland
+              progression.
+            </p>
+          </div>
 
-      <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+          <div class="map-layout">
+            <div class="route-map" aria-label="Simplified Uganda tour route map">
+              <svg viewBox="0 0 720 560" role="img" aria-labelledby="map-title map-desc">
+                <title id="map-title">Uganda tour route map</title>
+                <desc id="map-desc">
+                  Route from Entebbe and Kampala to Ziwa Rhino Sanctuary,
+                  Murchison Falls, Kibale, Queen Elizabeth, Bwindi, Lake Bunyonyi,
+                  and back toward Entebbe.
+                </desc>
+                <defs>
+                  <marker
+                    id="arrow"
+                    viewBox="0 0 10 10"
+                    refX="8"
+                    refY="5"
+                    markerWidth="7"
+                    markerHeight="7"
+                    orient="auto-start-reverse"
+                  >
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#b85f3c"></path>
+                  </marker>
+                  <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity="0.16"></feDropShadow>
+                  </filter>
+                </defs>
+
+                <rect width="720" height="560" fill="#fbfcf8"></rect>
+                <path
+                  d="M351 35 L406 60 L442 96 L508 116 L590 184 L559 252 L601 329 L548 398 L489 446 L405 464 L329 519 L230 502 L137 454 L88 389 L65 319 L91 252 L79 206 L129 147 L198 106 L269 52 Z"
+                  fill="#dce9d2"
+                  stroke="#9cb88a"
+                  stroke-width="2"
+                  filter="url(#soft-shadow)"
+                ></path>
+                <path
+                  d="M389 378 C427 370 472 381 506 408 C462 442 420 448 377 433 C352 422 346 396 389 378 Z"
+                  fill="#9dccd4"
+                  opacity="0.82"
+                ></path>
+                <path
+                  d="M167 224 C186 180 219 166 244 184 C255 213 238 247 207 260 C181 268 158 252 167 224 Z"
+                  fill="#9dccd4"
+                  opacity="0.75"
+                ></path>
+                <path
+                  d="M124 387 C155 375 188 389 197 420 C163 443 124 436 103 413 C96 402 105 393 124 387 Z"
+                  fill="#9dccd4"
+                  opacity="0.62"
+                ></path>
+                <path
+                  d="M512 151 C479 188 468 232 502 274"
+                  fill="none"
+                  stroke="#4a8da0"
+                  stroke-width="10"
+                  stroke-linecap="round"
+                  opacity="0.5"
+                ></path>
+                <path
+                  d="M398 381 L357 356 L324 276 L297 215 L178 344 L130 393 L108 470 L126 494 L398 381"
+                  fill="none"
+                  stroke="#b85f3c"
+                  stroke-width="5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  marker-end="url(#arrow)"
+                ></path>
+                <path
+                  d="M398 381 L357 356 L324 276 L297 215 L178 344 L130 393 L108 470 L126 494"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  opacity="0.8"
+                ></path>
+
+                <g font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif">
+                  <g transform="translate(398 381)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">1</text>
+                    <text x="18" y="5" fill="#1d241f" font-size="14" font-weight="800">Entebbe</text>
+                  </g>
+                  <g transform="translate(357 356)">
+                    <circle r="10" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="10" font-weight="800" text-anchor="middle">2</text>
+                    <text x="17" y="4" fill="#1d241f" font-size="13" font-weight="800">Kampala</text>
+                  </g>
+                  <g transform="translate(324 276)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">3</text>
+                    <text x="18" y="5" fill="#1d241f" font-size="14" font-weight="800">Ziwa</text>
+                  </g>
+                  <g transform="translate(297 215)">
+                    <circle r="14" fill="#b85f3c"></circle>
+                    <text x="0" y="5" fill="#fff" font-size="12" font-weight="900" text-anchor="middle">4</text>
+                    <text x="20" y="-2" fill="#1d241f" font-size="15" font-weight="900">Murchison Falls</text>
+                    <text x="20" y="16" fill="#647068" font-size="12">Main Nile destination</text>
+                  </g>
+                  <g transform="translate(178 344)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">5</text>
+                    <text x="-12" y="-18" fill="#1d241f" font-size="14" font-weight="800" text-anchor="end">Kibale</text>
+                  </g>
+                  <g transform="translate(130 393)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">6</text>
+                    <text x="-12" y="5" fill="#1d241f" font-size="14" font-weight="800" text-anchor="end">Queen Elizabeth</text>
+                  </g>
+                  <g transform="translate(108 470)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">7</text>
+                    <text x="19" y="-2" fill="#1d241f" font-size="14" font-weight="800">Bwindi</text>
+                  </g>
+                  <g transform="translate(126 494)">
+                    <circle r="12" fill="#244a33"></circle>
+                    <text x="0" y="4" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">8</text>
+                    <text x="18" y="5" fill="#1d241f" font-size="14" font-weight="800">Lake Bunyonyi</text>
+                  </g>
+                  <text x="612" y="72" fill="#647068" font-size="13" font-weight="800">N</text>
+                  <path d="M616 100 L616 56 M616 56 L606 72 M616 56 L626 72" stroke="#647068" stroke-width="2" fill="none" stroke-linecap="round"></path>
+                </g>
+              </svg>
+            </div>
+
+            <aside class="map-key" aria-label="Route stop list">
+              <h3>Route order</h3>
+              <ol class="stop-list">
+                <li><b>1</b><span><strong>Entebbe</strong>Lake Victoria arrival and acclimatization.</span></li>
+                <li><b>2</b><span><strong>Kampala</strong>City transfer corridor toward the north.</span></li>
+                <li><b>3</b><span><strong>Ziwa Rhino Sanctuary</strong>Walking rhino tracking in Nakasongola.</span></li>
+                <li><b>4</b><span><strong>Murchison Falls</strong>Main destination: Nile falls, game drives, boat safari.</span></li>
+                <li><b>5</b><span><strong>Kibale Forest</strong>Chimpanzee tracking and forest birding.</span></li>
+                <li><b>6</b><span><strong>Queen Elizabeth</strong>Kazinga Channel, savanna, crater lakes, Ishasha.</span></li>
+                <li><b>7</b><span><strong>Bwindi</strong>Mountain gorilla trekking in montane forest.</span></li>
+                <li><b>8</b><span><strong>Lake Bunyonyi</strong>Highland lake rest stop before returning east.</span></li>
+              </ol>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="weather-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">July planner</p>
+              <h2 id="weather-title">Expected temps, weather, and altitude</h2>
+            </div>
+            <p class="section-note">
+              July is one of Uganda's drier travel months. The biggest comfort
+              shift is altitude: Murchison and Queen Elizabeth feel warmer, while
+              Bwindi and Bunyonyi are cooler in the morning and evening.
+            </p>
+          </div>
+
+          <div class="planner">
+            <table>
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Location</th>
+                  <th>Altitude</th>
+                  <th>Expected July temp</th>
+                  <th>Basic July weather</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Day 1</strong></td>
+                  <td><strong>Entebbe</strong>Lake Victoria arrival</td>
+                  <td>1,180 m / 3,870 ft</td>
+                  <td class="temp">18-25&deg;C / 64-77&deg;F</td>
+                  <td>Warm, breezy, humid, with occasional light showers.</td>
+                </tr>
+                <tr>
+                  <td><strong>Day 2</strong></td>
+                  <td><strong>Kampala to Ziwa</strong>Northbound transfer and rhino tracking</td>
+                  <td>Kampala 1,200 m; Nakasongola/Ziwa approx. 1,090 m</td>
+                  <td class="temp">16-28&deg;C / 61-82&deg;F</td>
+                  <td>Generally dry-season travel weather; warm afternoons and mild mornings.</td>
+                </tr>
+                <tr>
+                  <td><strong>Days 3-4</strong></td>
+                  <td><strong>Murchison Falls National Park</strong>Nile falls, delta, and savanna</td>
+                  <td>619-1,292 m / 2,031-4,239 ft</td>
+                  <td class="temp">19-30&deg;C / 66-86&deg;F</td>
+                  <td>Lowland safari conditions: sunny, dry spells, hot afternoons, cooler nights.</td>
+                </tr>
+                <tr>
+                  <td><strong>Day 5</strong></td>
+                  <td><strong>Kibale Forest / Fort Portal</strong>Chimpanzee tracking zone</td>
+                  <td>Kibale 1,100-1,590 m; Fort Portal 1,523 m</td>
+                  <td class="temp">16-26&deg;C / 61-79&deg;F</td>
+                  <td>Mild forest climate; showers are possible even during the drier window.</td>
+                </tr>
+                <tr>
+                  <td><strong>Days 6-7</strong></td>
+                  <td><strong>Queen Elizabeth National Park</strong>Kazinga Channel and Ishasha</td>
+                  <td>About 880-1,350 m in the main park; average near 1,194 m</td>
+                  <td class="temp">17-28&deg;C / 63-82&deg;F</td>
+                  <td>One of the driest periods; warm days, cool mornings, slight rain chance.</td>
+                </tr>
+                <tr>
+                  <td><strong>Days 8-9</strong></td>
+                  <td><strong>Bwindi Impenetrable National Park</strong>Gorilla trekking</td>
+                  <td>1,160-2,607 m / 3,806-8,553 ft</td>
+                  <td class="temp">12-21&deg;C / 54-70&deg;F</td>
+                  <td>Cool, damp montane forest; trails are usually drier than in rainy season.</td>
+                </tr>
+                <tr>
+                  <td><strong>Day 10</strong></td>
+                  <td><strong>Lake Bunyonyi</strong>Highland lake and return prep</td>
+                  <td>1,962 m / 6,437 ft</td>
+                  <td class="temp">10-22&deg;C / 50-72&deg;F</td>
+                  <td>Cool mornings, pleasant afternoons, lake breezes, and crisp evenings.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="weather-note">
+            Temperatures are planning averages, not guarantees. Pack light layers,
+            a rain shell, sun protection, and warmer clothing for Bwindi and Lake
+            Bunyonyi mornings.
+          </p>
+        </div>
+      </section>
+
+      <section class="lodge-band" aria-labelledby="lodges-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Lodges by stop</p>
+              <h2 id="lodges-title">A place to land after each wild day</h2>
+            </div>
+            <p class="section-note">
+              These route-matched stays keep transfers practical and the landscape
+              close, from the Nile bank to the edge of Bwindi's forest.
+            </p>
+          </div>
+
+          <div class="lodge-grid">
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Entebbe</span><span>Day 1</span></div>
+              <h3>No. 5 Boutique Hotel</h3>
+              <p>
+                A quiet arrival-night base in Entebbe's leafy suburbs. Rooms open
+                toward the garden and pool, with a restaurant and wellness area on site.
+              </p>
+              <a class="lodge-link" href="https://www.hotelnumber5.com/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Ziwa</span><span>Day 2 option</span></div>
+              <h3>Amuka Lodge</h3>
+              <p>
+                Woodland cottages inside Ziwa Rhino Sanctuary make this a natural
+                optional overnight for guests who want more time around the sanctuary.
+              </p>
+              <a class="lodge-link" href="https://amukalodgeuganda.com/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card lodge-card--main">
+              <div class="lodge-stop"><span>Main destination</span><span>Days 3-4</span></div>
+              <h3>Murchison River Lodge</h3>
+              <p>
+                An eco-minded Nile-side base with river views and a mix of thatched
+                cottages and safari tents, well placed for game drives, falls visits,
+                and boat trips.
+              </p>
+              <a class="lodge-link" href="https://www.murchisonriverlodge.com/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Kibale Forest</span><span>Day 5</span></div>
+              <h3>Primate Lodge Kibale</h3>
+              <p>
+                Forest cottages beside the chimpanzee tracking start point. The
+                location reduces morning transfers and keeps the rainforest experience continuous.
+              </p>
+              <a class="lodge-link" href="https://greatlakessafaris.com/collection/primate-lodge-kibale/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Queen Elizabeth</span><span>Days 6-7</span></div>
+              <h3>Mweya Safari Lodge</h3>
+              <p>
+                Set on the Mweya Peninsula inside the park, with Kazinga Channel
+                views and a choice of rooms, cottages, and safari tents.
+              </p>
+              <a class="lodge-link" href="https://mweyalodge.com/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Bwindi, Buhoma</span><span>Days 8-9</span></div>
+              <h3>Mahogany Springs</h3>
+              <p>
+                A garden lodge above the Munyanga River, about a 5-10 minute walk
+                from the Buhoma gorilla trekking entrance, with forest-facing suites.
+              </p>
+              <a class="lodge-link" href="https://www.mahoganysprings.com/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+
+            <article class="lodge-card">
+              <div class="lodge-stop"><span>Lake Bunyonyi</span><span>Day 10</span></div>
+              <h3>Arcadia Lodge Bunyonyi</h3>
+              <p>
+                Self-contained hillside cottages with private decks and broad views
+                across the lake's islands, suited to a quiet highland finish.
+              </p>
+              <a class="lodge-link" href="https://arcadialodges.com/bunyonyi/" target="_blank" rel="noreferrer">Official lodge site &rarr;</a>
+            </article>
+          </div>
+
+          <p class="lodge-disclaimer">
+            Planning note: these are suggested route fits, not confirmed reservations.
+            Availability, room types, park sectors, rates, and transfer times should be
+            checked with the tour operator before booking, especially for July.
+          </p>
+        </div>
+      </section>
+
+      <section class="gallery-band" aria-labelledby="wildlife-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Animals and habitat</p>
+              <h2 id="wildlife-title">Ten route-defining wildlife views</h2>
+            </div>
+            <p class="section-note">
+              A balanced set of primates, savanna wildlife, Nile species, and
+              landscape context for the tour.
+            </p>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <img src="./public/uganda/animal-gorilla.jpg" alt="Mountain gorilla feeding in Bwindi forest" loading="lazy" />
+              <figcaption><strong>Mountain gorilla</strong><span>Bwindi forest trek highlight.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-chimpanzee.jpg" alt="Chimpanzee in Kibale Forest National Park" loading="lazy" />
+              <figcaption><strong>Chimpanzee</strong><span>Kibale's signature primate experience.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-rhino.jpg" alt="White rhinos at Ziwa Rhino Sanctuary" loading="lazy" />
+              <figcaption><strong>White rhino</strong><span>Ziwa walking safari stop.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-elephant.jpg" alt="African elephant in savanna habitat" loading="lazy" />
+              <figcaption><strong>African elephant</strong><span>Common along savanna and channel areas.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-giraffe.jpg" alt="Rothschild giraffe in Murchison Falls National Park" loading="lazy" />
+              <figcaption><strong>Rothschild giraffe</strong><span>Murchison Falls plains.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-lion.jpg" alt="Tree-climbing lions resting in branches" loading="lazy" />
+              <figcaption><strong>Tree-climbing lions</strong><span>Ishasha sector association.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-kazinga.jpg" alt="Elephants beside the Kazinga Channel in Uganda" loading="lazy" />
+              <figcaption><strong>Kazinga Channel habitat</strong><span>Water, elephants, hippos, and birds.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-crocodile.jpg" alt="Nile crocodile beside the river in Murchison Falls National Park" loading="lazy" />
+              <figcaption><strong>Nile crocodile</strong><span>Riverbanks below Murchison Falls.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-murchison-falls.jpg" alt="Murchison Falls dropping through a narrow Nile gorge" loading="lazy" />
+              <figcaption><strong>Murchison Falls</strong><span>The route's main scenic destination.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/animal-lake-bunyonyi.jpg" alt="Lake Bunyonyi and terraced hills at evening" loading="lazy" />
+              <figcaption><strong>Lake Bunyonyi</strong><span>Cool highland lake finish.</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="habitat-strip" aria-label="Main habitat notes">
+            <div class="habitat-card">
+              <b>Lowland Nile</b>
+              <p>Murchison mixes riverine forest, delta wetlands, and open savanna.</p>
+            </div>
+            <div class="habitat-card">
+              <b>Tropical forest</b>
+              <p>Kibale and Bwindi bring cooler, shaded conditions and primate habitat.</p>
+            </div>
+            <div class="habitat-card">
+              <b>Rift savanna</b>
+              <p>Queen Elizabeth shifts between grassland, acacia, crater lakes, and channel edges.</p>
+            </div>
+            <div class="habitat-card">
+              <b>Highland lake</b>
+              <p>Lake Bunyonyi sits high in terraced hills, making evenings noticeably cooler.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="birds-title">
+        <div class="section-inner">
+          <div class="section-header">
+            <div>
+              <p class="section-kicker">Bird species</p>
+              <h2 id="birds-title">Ten birds to watch for</h2>
+            </div>
+            <p class="section-note">
+              The route crosses wetland, lake, forest, and savanna birding zones,
+              including Uganda's national bird and several highly sought-after
+              wetland and forest species.
+            </p>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <img src="./public/uganda/bird-shoebill.jpg" alt="Shoebill standing in wetland vegetation" loading="lazy" />
+              <figcaption><strong>Shoebill</strong><span>Wetland prize species near papyrus marshes.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-crane.jpg" alt="Grey crowned crane portrait" loading="lazy" />
+              <figcaption><strong>Grey crowned crane</strong><span>Uganda's national bird.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-fish-eagle.jpg" alt="African fish eagle perched on a branch" loading="lazy" />
+              <figcaption><strong>African fish eagle</strong><span>Large lakes and channels.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-great-blue-turaco.jpg" alt="Great blue turaco in Kibale forest" loading="lazy" />
+              <figcaption><strong>Great blue turaco</strong><span>Bold forest bird around Kibale.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-black-bee-eater.jpg" alt="Black bee-eater in Bwindi Impenetrable Forest" loading="lazy" />
+              <figcaption><strong>Black bee-eater</strong><span>Forest-edge color in Bwindi.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-ross-turaco.jpg" alt="Ross's turaco in Kibale forest" loading="lazy" />
+              <figcaption><strong>Ross's turaco</strong><span>Forest canopy and woodland.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-saddle-billed-stork.jpg" alt="Saddle-billed stork in Uganda" loading="lazy" />
+              <figcaption><strong>Saddle-billed stork</strong><span>Wetland and channel margins.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-malachite-kingfisher.jpg" alt="Malachite kingfisher at Lake Bunyonyi" loading="lazy" />
+              <figcaption><strong>Malachite kingfisher</strong><span>Lake Bunyonyi and quiet reed edges.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-papyrus-gonolek.jpg" alt="Papyrus gonolek in Kibale National Park" loading="lazy" />
+              <figcaption><strong>Papyrus gonolek</strong><span>Papyrus swamp specialist.</span></figcaption>
+            </figure>
+            <figure>
+              <img src="./public/uganda/bird-african-jacana.jpg" alt="African jacana standing on floating vegetation" loading="lazy" />
+              <figcaption><strong>African jacana</strong><span>Lily pads and wetland edges.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <script>
-      const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
-      const PUFF_CHARS = ["·", "°", "・", "∘"];
-      const LANE_COUNT = 5;
-      const DISPATCH_THROTTLE_MS = 120;
-      const PUFF_COUNT = 4;
-      const MIN_DURATION_MS = 4500;
-      const MAX_DURATION_MS = 7500;
-
-      const dispatcher = document.querySelector("#dispatcher");
-      const hero = document.querySelector("#hero");
-      const muteButton = document.querySelector("#mute");
-      const counter = document.querySelector("#counter");
-      const choo = new Audio("./public/choo-choo.mp3");
-      choo.preload = "auto";
-
-      let count = 0;
-      let nextId = 1;
-      let lastDispatch = 0;
-      let lastLane = -1;
-      let lastDirection = "rtl";
-      let muted = localStorage.getItem("wtc:muted") === "1";
-
-      function pick(items) {
-        return items[Math.floor(Math.random() * items.length)];
-      }
-
-      function syncMuteButton() {
-        muteButton.textContent = muted ? "🔇" : "🔊";
-        muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
-        muteButton.setAttribute("aria-pressed", String(muted));
-        localStorage.setItem("wtc:muted", muted ? "1" : "0");
-      }
-
-      function updateCounter() {
-        const noun = count === 1 ? "train" : "trains";
-        counter.textContent = `${count} ${noun} dispatched`;
-        document.title =
-          count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
-      }
-
-      function playChoo() {
-        if (muted) return;
-        const node = choo.cloneNode(true);
-        node.volume = 0.28;
-        node.play().catch(() => {});
-      }
-
-      function removeNode(event) {
-        event.currentTarget.remove();
-      }
-
-      function createSteam(train, delay) {
-        window.setTimeout(() => {
-          const elapsed = performance.now() - train.startedAt;
-          const progress = Math.min(elapsed / train.durationMs, 1);
-          const puff = document.createElement("span");
-          const x =
-            train.direction === "ltr"
-              ? -15 + 130 * progress
-              : 115 - 130 * progress;
-
-          puff.className = "steam";
-          puff.textContent = pick(PUFF_CHARS);
-          puff.style.left = `${x}vw`;
-          puff.style.top = `${10 + train.lane * 16}vh`;
-          puff.addEventListener("animationend", removeNode, { once: true });
-          dispatcher.append(puff);
-        }, delay);
-      }
-
-      function dispatchTrain() {
-        const now = performance.now();
-        if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
-        lastDispatch = now;
-
-        let lane = Math.floor(Math.random() * LANE_COUNT);
-        if (lane === lastLane) lane = (lane + 1) % LANE_COUNT;
-        lastLane = lane;
-
-        const direction = lastDirection === "ltr" ? "rtl" : "ltr";
-        lastDirection = direction;
-
-        const durationMs =
-          MIN_DURATION_MS + Math.random() * (MAX_DURATION_MS - MIN_DURATION_MS);
-        const train = {
-          id: nextId++,
-          lane,
-          direction,
-          durationMs,
-          startedAt: now,
-        };
-
-        const trainNode = document.createElement("span");
-        trainNode.className = `train ${direction}`;
-        trainNode.textContent = pick(TRAIN_EMOJIS);
-        trainNode.style.top = `${10 + lane * 16}vh`;
-        trainNode.style.animationDuration = `${durationMs}ms`;
-        trainNode.addEventListener("animationend", removeNode, { once: true });
-        dispatcher.append(trainNode);
-
-        count += 1;
-        hero.classList.add("dispatched");
-        updateCounter();
-        playChoo();
-
-        for (let i = 0; i < PUFF_COUNT; i += 1) {
-          createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
-        }
-      }
-
-      dispatcher.addEventListener("click", dispatchTrain);
-      muteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        muted = !muted;
-        syncMuteButton();
-      });
-
-      window.addEventListener("keydown", (event) => {
-        if (event.code === "Space" || event.code === "Enter") {
-          event.preventDefault();
-          dispatchTrain();
-        } else if (event.key === "m" || event.key === "M") {
-          muted = !muted;
-          syncMuteButton();
-        }
-      });
-
-      syncMuteButton();
-      updateCounter();
-    </script>
+    <footer class="footer">
+      <div class="section-inner footer-grid">
+        <div>
+          <h2>Sources and notes</h2>
+          <p>
+            Route order follows a common western Uganda safari loop. Weather values
+            are July planning averages compiled from travel climate references and
+            rounded for easy reading. Altitudes are rounded where a park spans a
+            range.
+          </p>
+        </div>
+        <div>
+          <ul>
+            <li><a href="https://www.kimkim.com/c/uganda-in-july-travel-tips-weather-more">kimkim: Uganda in July weather overview</a></li>
+            <li><a href="https://www.safaribookings.com/uganda/climate">SafariBookings: Uganda dry-season temperatures</a></li>
+            <li><a href="https://www.safaribookings.com/queen-elizabeth-np/climate">SafariBookings: Queen Elizabeth July climate</a></li>
+            <li><a href="https://www.safaribookings.com/bwindi/climate">SafariBookings: Bwindi July climate</a></li>
+            <li><a href="https://weatherspark.com/m/97227/7/Average-Weather-in-July-in-Nakasongola-Uganda">WeatherSpark: Nakasongola July temperature</a></li>
+            <li><a href="https://weatherspark.com/m/96875/7/Average-Weather-in-July-in-Kibale-Uganda">WeatherSpark: Kibale July temperature</a></li>
+            <li><a href="https://whc.unesco.org/en/list/682/">UNESCO: Bwindi altitude range</a></li>
+            <li><a href="https://www.murchisonfallsgamepark.com/park-information/altitude/">Murchison Falls altitude range</a></li>
+            <li><a href="https://en-gb.topographic-map.com/map-9h725k/Queen-Elizabeth-National-Park/">Topographic Map: Queen Elizabeth elevation</a></li>
+            <li><a href="https://www.lakebunyonyiuganda.com/">Lake Bunyonyi altitude</a></li>
+          </ul>
+          <details>
+            <summary>Photo credits</summary>
+            <ul class="credit-list">
+              <li>Mountain gorilla: Charles J. Sharp, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Chimpanzee: Giles Laurent, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>White rhino: LAKATO SAFARIS, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>African elephant: Charles J. Sharp, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Rothschild giraffe: Vanmulondo, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Tree-climbing lions: Charles J. Sharp, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Kazinga Channel elephants: Sandra Aceng, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Nile crocodile: Kateregga1, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Murchison Falls: NANTUMBWEJ, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Lake Bunyonyi: Rod Waddington, CC BY-SA 2.0, Wikimedia Commons.</li>
+              <li>Shoebill: Bernard DUPONT, CC BY-SA 2.0, Wikimedia Commons.</li>
+              <li>Grey crowned crane: Luc Viatour, CC BY-SA 3.0, Wikimedia Commons.</li>
+              <li>African fish eagle: Giles Laurent, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Great blue turaco: Giles Laurent, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Black bee-eater: Charles J. Sharp, CC BY 4.0, Wikimedia Commons.</li>
+              <li>Ross's turaco: Giles Laurent, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Saddle-billed stork: Rod Waddington, CC BY-SA 2.0, Wikimedia Commons.</li>
+              <li>Malachite kingfisher: Holger Uwe Schmitt, CC BY-SA 4.0, Wikimedia Commons.</li>
+              <li>Papyrus gonolek: Francesco Veronesi, CC BY-SA 2.0, Wikimedia Commons.</li>
+              <li>African jacana: Charles J. Sharp, CC BY-SA 4.0, Wikimedia Commons.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
