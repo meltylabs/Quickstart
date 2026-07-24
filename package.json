@@ -1,0 +1,25 @@
+{
+  "name": "biologix-decision-board-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "start": "vinext start"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.46.0",
+    "@vitejs/plugin-react": "6.0.4",
+    "vinext": "1.0.0-beta.3",
+    "vite": "8.1.5",
+    "wrangler": "4.113.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
