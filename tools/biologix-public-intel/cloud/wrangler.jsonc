@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "biologix-public-intel",
+  "compatibility_date": "2026-07-22",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "src/worker.js",
+  "triggers": {
+    "crons": [
+      "*/15 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BIOLOGIX_INTEL",
+        "class_name": "BiologixIntelStore"
+      }
+    ]
+  },
+  "exports": {
+    "BiologixIntelStore": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    }
+  }
+}

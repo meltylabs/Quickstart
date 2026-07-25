@@ -1,0 +1,17 @@
+{
+  "name": "biologix-public-intel-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node --test test/biologix-intel.test.mjs",
+    "validate": "npm test && wrangler deploy --dry-run --outdir .dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "4.114.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
