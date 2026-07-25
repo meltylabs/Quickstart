@@ -1,0 +1,12 @@
+{
+  "screen": "biologix-operating-partnership-brief",
+  "mode": "freeform",
+  "framework": "react-vinext",
+  "source_file": "app/page.jsx",
+  "style_file": "styles/site.css",
+  "pretext_tier": "simple-layout",
+  "design_authority": "claude-fable-5",
+  "design_status": "approved-for-shipment",
+  "reviewed_at": "2026-07-24",
+  "branch": "scaling-strategy"
+}

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Internal affiliate CRM for the Biologix desk. Affiliates, pipeline, activation gates, outbound and money.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial,sans-serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../board.css">
+  <link rel="stylesheet" href="./crm.css">
+  <title>Biologix Control Tower — Affiliate CRM</title>
+</head>
+<body class="crm-body">
+
+<div class="crm-shell">
+
+  <header class="crm-topbar">
+    <div class="crm-brand">
+      Biologix / Control Tower
+      <span class="crm-brand-sub">Affiliate CRM — internal</span>
+    </div>
+    <div class="crm-tools">
+      <a class="crm-btn is-quiet" href="../index.html">Board</a>
+      <button type="button" class="crm-btn" id="tool-import">Import CSV</button>
+      <button type="button" class="crm-btn" id="tool-export">Export CSV</button>
+      <button type="button" class="crm-btn is-quiet" id="tool-reset">Reset demo data</button>
+      <button type="button" class="crm-btn is-danger" id="tool-clear">Clear all</button>
+      <input type="file" id="tool-file" accept=".csv,text/csv" class="visually-hidden" aria-hidden="true" tabindex="-1">
+    </div>
+  </header>
+
+  <noscript>
+    <div class="crm-banner is-warn">
+      <div class="crm-banner-title">This view needs JavaScript</div>
+      <div class="crm-banner-body">
+        The Control Tower reads and writes records in your browser, so it cannot render without JavaScript.
+        Turn it on and reload, or go back to the <a href="../index.html">decision board</a>.
+      </div>
+    </div>
+  </noscript>
+
+  <nav class="crm-tabs" role="tablist" aria-label="Control Tower views">
+    <button type="button" class="crm-tab is-active" role="tab" id="tab-dashboard" data-tab="dashboard" aria-controls="view-dashboard" aria-selected="true" tabindex="0">Dashboard <span class="crm-tab-count" id="count-dashboard">0</span></button>
+    <button type="button" class="crm-tab" role="tab" id="tab-affiliates" data-tab="affiliates" aria-controls="view-affiliates" aria-selected="false" tabindex="-1">Affiliates <span class="crm-tab-count" id="count-affiliates">0</span></button>
+    <button type="button" class="crm-tab" role="tab" id="tab-pipeline" data-tab="pipeline" aria-controls="view-pipeline" aria-selected="false" tabindex="-1">Pipeline <span class="crm-tab-count" id="count-pipeline">0</span></button>
+    <button type="button" class="crm-tab" role="tab" id="tab-onboarding" data-tab="onboarding" aria-controls="view-onboarding" aria-selected="false" tabindex="-1">Onboarding <span class="crm-tab-count" id="count-onboarding">0</span></button>
+    <button type="button" class="crm-tab" role="tab" id="tab-outbound" data-tab="outbound" aria-controls="view-outbound" aria-selected="false" tabindex="-1">Outbound <span class="crm-tab-count" id="count-outbound">0</span></button>
+    <button type="button" class="crm-tab" role="tab" id="tab-money" data-tab="money" aria-controls="view-money" aria-selected="false" tabindex="-1">Money <span class="crm-tab-count" id="count-money">0</span></button>
+  </nav>
+
+  <main class="crm-main">
+
+    <!-- ------------------------------------------------------- dashboard -->
+    <section class="crm-view is-active" id="view-dashboard" role="tabpanel" aria-labelledby="tab-dashboard" tabindex="-1">
+
+      <div class="crm-banner is-warn">
+        <div class="crm-banner-title">Nothing in the Biologix deal is signed</div>
+        <div class="crm-banner-body">
+          Three calls are recorded, 2026-07-21, 2026-07-22 and 2026-07-23, and a fourth is pending.<br>
+          No commission rate has been agreed, so commission reads "no rate set", never zero.<br>
+          Every Biologix revenue figure is founder-reported and unverified.
+        </div>
+      </div>
+
+      <div class="crm-metrics" id="dash-metrics"></div>
+
+      <div class="crm-panel">
+        <div class="crm-panel-head">
+          <h2 class="crm-panel-title">Net sales, last 30 days</h2>
+          <span class="crm-sub" id="dash-spark-note"></span>
+        </div>
+        <div class="crm-spark" id="dash-spark"></div>
+      </div>
+
+      <div class="crm-two-col">
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Needs attention</h2>
+            <span class="crm-sub">Next actions past due. Click a row to open the record.</span>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th class="crm-th" scope="col">Record</th>
+                  <th class="crm-th" scope="col">Owner</th>
+                  <th class="crm-th" scope="col">Action</th>
+                  <th class="crm-th crm-num" scope="col">Due</th>
+                  <th class="crm-th crm-num" scope="col">Days late</th>
+                </tr>
+              </thead>
+              <tbody id="dash-overdue"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Defects</h2>
+            <span class="crm-sub">Unowned, unscheduled or live without gates. Click to fix.</span>
+          </div>
+          <div class="crm-table-wrap">
+            <table class="crm-table">
+              <thead>
+                <tr>
+                  <th class="crm-th" scope="col">Record</th>
+                  <th class="crm-th" scope="col">Type</th>
+                  <th class="crm-th" scope="col">Problem</th>
+                </tr>
+              </thead>
+              <tbody id="dash-defects"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="crm-two-col">
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Pipeline</h2>
+            <span class="crm-sub">Every affiliate by stage.</span>
+          </div>
+          <div id="dash-pipeline"></div>
+        </div>
+
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Gate bottleneck</h2>
+            <span class="crm-sub">Where onboarding is stuck.</span>
+          </div>
+          <div id="dash-gates"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------ affiliates -->
+    <section class="crm-view" id="view-affiliates" role="tabpanel" aria-labelledby="tab-affiliates" tabindex="-1" hidden>
+      <div class="crm-toolbar">
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="aff-search">Search</label>
+          <input class="crm-search crm-input" id="aff-search" type="search" placeholder="Name, handle, code, notes">
+        </div>
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="aff-owner">Owner</label>
+          <select class="crm-select" id="aff-owner"></select>
+        </div>
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="aff-stage">Stage</label>
+          <select class="crm-select" id="aff-stage"></select>
+        </div>
+        <span class="crm-spacer"></span>
+        <div class="crm-btn-row">
+          <button type="button" class="crm-btn is-quiet" id="aff-clear-filters">Clear filters</button>
+          <button type="button" class="crm-btn is-primary" id="aff-add">Add affiliate</button>
+        </div>
+      </div>
+
+      <div class="crm-table-wrap">
+        <table class="crm-table" id="aff-table">
+          <caption class="visually-hidden">Affiliates with sales and commission. Column headers sort the table.</caption>
+          <thead>
+            <tr>
+              <th class="crm-th is-sortable" scope="col" data-sort="name" tabindex="0" aria-sort="none">Name</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="stage" tabindex="0" aria-sort="none">Stage</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="owner" tabindex="0" aria-sort="none">Owner</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="code" tabindex="0" aria-sort="none">Code</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="orders" tabindex="0" aria-sort="none">Orders</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="gross" tabindex="0" aria-sort="none">Gross</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="refunded" tabindex="0" aria-sort="none">Refunded</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="net" tabindex="0" aria-sort="none">Net</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="rate" tabindex="0" aria-sort="none">Rate</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="owed" tabindex="0" aria-sort="none">Commission owed</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="gates" tabindex="0" aria-sort="none">Gates</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="lastSale" tabindex="0" aria-sort="none">Last sale</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="nextActionDue" tabindex="0" aria-sort="none">Next action</th>
+            </tr>
+          </thead>
+          <tbody id="aff-body"></tbody>
+          <tfoot id="aff-foot">
+            <tr>
+              <th class="crm-th" scope="row" colspan="4">Totals</th>
+              <td class="crm-num" id="aff-tot-orders">0</td>
+              <td class="crm-num" id="aff-tot-gross">0</td>
+              <td class="crm-num" id="aff-tot-refunded">0</td>
+              <td class="crm-num" id="aff-tot-net">0</td>
+              <td colspan="5"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------- pipeline -->
+    <section class="crm-view" id="view-pipeline" role="tabpanel" aria-labelledby="tab-pipeline" tabindex="-1" hidden>
+      <div class="crm-toolbar">
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="pipe-owner">Owner</label>
+          <select class="crm-select" id="pipe-owner"></select>
+        </div>
+        <span class="crm-spacer"></span>
+        <span class="crm-sub">Move a card with the back and forward buttons. Every move saves.</span>
+      </div>
+      <div class="crm-board" id="pipe-board"></div>
+    </section>
+
+    <!-- ------------------------------------------------------ onboarding -->
+    <section class="crm-view" id="view-onboarding" role="tabpanel" aria-labelledby="tab-onboarding" tabindex="-1" hidden>
+      <div class="crm-toolbar">
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="onb-owner">Owner</label>
+          <select class="crm-select" id="onb-owner"></select>
+        </div>
+        <span class="crm-spacer"></span>
+        <span class="crm-sub">Signed and onboarding affiliates. Nine gates, all nine must pass before links go live.</span>
+      </div>
+      <div id="onb-list"></div>
+    </section>
+
+    <!-- -------------------------------------------------------- outbound -->
+    <section class="crm-view" id="view-outbound" role="tabpanel" aria-labelledby="tab-outbound" tabindex="-1" hidden>
+      <div class="crm-toolbar">
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="out-search">Search</label>
+          <input class="crm-search crm-input" id="out-search" type="search" placeholder="Name, handle, notes">
+        </div>
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="out-owner">Owner</label>
+          <select class="crm-select" id="out-owner"></select>
+        </div>
+        <div class="crm-filter">
+          <label class="crm-filter-label" for="out-disp">Disposition</label>
+          <select class="crm-select" id="out-disp"></select>
+        </div>
+        <div class="crm-filter">
+          <label class="crm-check" for="out-dnc">
+            <input type="checkbox" id="out-dnc" checked>
+            Hide do not contact
+          </label>
+        </div>
+        <span class="crm-spacer"></span>
+        <div class="crm-btn-row">
+          <button type="button" class="crm-btn is-primary" id="out-add">Add target</button>
+        </div>
+      </div>
+
+      <div class="crm-table-wrap">
+        <table class="crm-table" id="out-table">
+          <caption class="visually-hidden">Outbound targets with sequence step and disposition.</caption>
+          <thead>
+            <tr>
+              <th class="crm-th is-sortable" scope="col" data-sort="name" tabindex="0" aria-sort="none">Name</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="handle" tabindex="0" aria-sort="none">Handle</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="platform" tabindex="0" aria-sort="none">Platform</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="followers" tabindex="0" aria-sort="none">Followers</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="owner" tabindex="0" aria-sort="none">Owner</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="channel" tabindex="0" aria-sort="none">Channel</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="step" tabindex="0" aria-sort="none">Step</th>
+              <th class="crm-th is-sortable crm-num" scope="col" data-sort="lastTouch" tabindex="0" aria-sort="none">Last touch</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="replied" tabindex="0" aria-sort="none">Replied</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="disposition" tabindex="0" aria-sort="none">Disposition</th>
+              <th class="crm-th is-sortable" scope="col" data-sort="nextActionDue" tabindex="0" aria-sort="none">Next action</th>
+              <th class="crm-th" scope="col">Touch</th>
+            </tr>
+          </thead>
+          <tbody id="out-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------- money -->
+    <section class="crm-view" id="view-money" role="tabpanel" aria-labelledby="tab-money" tabindex="-1" hidden>
+
+      <div class="crm-panel">
+        <div class="crm-panel-head">
+          <h2 class="crm-panel-title">Commission</h2>
+          <span class="crm-sub">Earned is net sales times the agreed rate. No rate agreed means the number is unknown, not zero.</span>
+        </div>
+        <div class="crm-table-wrap">
+          <table class="crm-table" id="comm-table">
+            <thead>
+              <tr>
+                <th class="crm-th" scope="col">Affiliate</th>
+                <th class="crm-th crm-num" scope="col">Net sales</th>
+                <th class="crm-th crm-num" scope="col">Rate</th>
+                <th class="crm-th crm-num" scope="col">Earned</th>
+                <th class="crm-th crm-num" scope="col">Override earned</th>
+                <th class="crm-th crm-num" scope="col">Paid</th>
+                <th class="crm-th crm-num" scope="col">Owed</th>
+              </tr>
+            </thead>
+            <tbody id="comm-body"></tbody>
+          </table>
+        </div>
+        <p class="crm-sub" id="comm-total"></p>
+      </div>
+
+      <div class="crm-money-split">
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Sales ledger</h2>
+            <div class="crm-btn-row">
+              <button type="button" class="crm-btn is-quiet" id="sale-export">Export</button>
+              <button type="button" class="crm-btn is-primary" id="sale-add">Add sale</button>
+            </div>
+          </div>
+          <div class="crm-ledger crm-table-wrap">
+            <table class="crm-table" id="sale-table">
+              <thead>
+                <tr>
+                  <th class="crm-th is-sortable crm-num" scope="col" data-sort="date" tabindex="0" aria-sort="none">Date</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="affiliateId" tabindex="0" aria-sort="none">Affiliate</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="orderRef" tabindex="0" aria-sort="none">Order</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="product" tabindex="0" aria-sort="none">Product</th>
+                  <th class="crm-th is-sortable crm-num" scope="col" data-sort="gross" tabindex="0" aria-sort="none">Gross</th>
+                  <th class="crm-th is-sortable crm-num" scope="col" data-sort="refunded" tabindex="0" aria-sort="none">Refunded</th>
+                  <th class="crm-th crm-num" scope="col">Net</th>
+                </tr>
+              </thead>
+              <tbody id="sale-body"></tbody>
+              <tfoot>
+                <tr>
+                  <th class="crm-th" scope="row" colspan="4">Totals</th>
+                  <td class="crm-num" id="sale-tot-gross">0</td>
+                  <td class="crm-num" id="sale-tot-refunded">0</td>
+                  <td class="crm-num" id="sale-tot-net">0</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="crm-panel">
+          <div class="crm-panel-head">
+            <h2 class="crm-panel-title">Payout ledger</h2>
+            <div class="crm-btn-row">
+              <button type="button" class="crm-btn is-quiet" id="payout-export">Export</button>
+              <button type="button" class="crm-btn is-primary" id="payout-add">Add payout</button>
+            </div>
+          </div>
+          <div class="crm-ledger crm-table-wrap">
+            <table class="crm-table" id="payout-table">
+              <thead>
+                <tr>
+                  <th class="crm-th is-sortable crm-num" scope="col" data-sort="date" tabindex="0" aria-sort="none">Date</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="affiliateId" tabindex="0" aria-sort="none">Affiliate</th>
+                  <th class="crm-th is-sortable crm-num" scope="col" data-sort="amount" tabindex="0" aria-sort="none">Amount</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="method" tabindex="0" aria-sort="none">Method</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="status" tabindex="0" aria-sort="none">Status</th>
+                  <th class="crm-th is-sortable" scope="col" data-sort="reference" tabindex="0" aria-sort="none">Reference</th>
+                </tr>
+              </thead>
+              <tbody id="payout-body"></tbody>
+              <tfoot>
+                <tr>
+                  <th class="crm-th" scope="row" colspan="2">Paid, sent or cleared</th>
+                  <td class="crm-num" id="payout-tot">0</td>
+                  <td colspan="3"></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ------------------------------------------------------------- drawer -->
+<div class="crm-drawer" id="crm-drawer" hidden>
+  <div class="crm-drawer-scrim" data-drawer-close></div>
+  <div class="crm-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="crm-drawer-title" id="crm-drawer-panel">
+    <div class="crm-drawer-head">
+      <h2 class="crm-drawer-title" id="crm-drawer-title">Record</h2>
+      <button type="button" class="crm-drawer-close" id="crm-drawer-close" data-drawer-close aria-label="Close record">Close</button>
+    </div>
+    <div class="crm-drawer-body" id="crm-drawer-body"></div>
+    <div class="crm-drawer-foot" id="crm-drawer-foot"></div>
+  </div>
+</div>
+
+<div class="crm-toast" id="crm-toast" role="status"></div>
+<div class="visually-hidden" id="crm-live" aria-live="polite" aria-atomic="true"></div>
+
+<script src="./crm-data.js"></script>
+<script src="./crm-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1946 @@
+/* Biologix Control Tower, operator CSS.
+   Loads AFTER ../board.css and inherits its tokens. Adds nothing to the palette.
+   Printed-ledger density: hairline rules, DM Mono numbers, no gradients, no shadows. */
+
+/* ------------------------------------------------------------------ scope */
+
+.crm-shell {
+  /* local layout constants, not new colours */
+  --crm-topbar-h: 52px;
+  --crm-tabs-h: 40px;
+  --crm-row-h: 30px;
+  --crm-gutter: 20px;
+  --crm-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --crm-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--crm-sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body:has(> .crm-shell),
+body.crm-app,
+body.crm-body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* board.css puts 96px of tail padding on main. Not here. */
+.crm-shell main,
+.crm-shell .crm-main {
+  padding-bottom: 0;
+}
+
+.crm-shell h1,
+.crm-shell h2,
+.crm-shell h3,
+.crm-shell h4,
+.crm-shell p {
+  margin: 0;
+}
+
+.crm-shell a {
+  color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+.crm-shell ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.crm-shell ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.crm-shell ::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 3px solid var(--paper);
+}
+
+.crm-shell ::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+/* Shared mono treatment. Every number, id, date and code. */
+.crm-num,
+.crm-sub,
+.crm-th,
+.crm-tab,
+.crm-tab-count,
+.crm-brand-sub,
+.crm-stage,
+.crm-pill,
+.crm-unset,
+.crm-flag,
+.crm-gate,
+.crm-metric-value,
+.crm-metric-label,
+.crm-metric-note,
+.crm-col-head,
+.crm-col-count,
+.crm-card-meta,
+.crm-field-label,
+.crm-filter-label,
+.crm-fieldset-title,
+.crm-panel-title,
+.crm-empty,
+.crm-btn,
+.crm-toast,
+.crm-banner-title,
+.crm-drawer-title,
+.crm-input,
+.crm-select,
+.crm-mono {
+  font-family: var(--crm-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------- topbar */
+
+.crm-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--crm-topbar-h);
+  padding: 0 var(--crm-gutter);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.crm-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.crm-brand-sub {
+  color: var(--ink-3);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crm-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-left: auto;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------------- tabs */
+
+.crm-tabs {
+  position: sticky;
+  top: var(--crm-topbar-h);
+  z-index: 38;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-height: var(--crm-tabs-h);
+  padding: 0 var(--crm-gutter);
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+
+.crm-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.crm-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 0 14px;
+  color: var(--ink-3);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.crm-tab:first-child {
+  padding-left: 0;
+}
+
+.crm-tab:hover {
+  color: var(--ink);
+}
+
+.crm-tab.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.crm-tab-count {
+  padding: 2px 5px;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  font-size: 9.5px;
+  line-height: 1;
+}
+
+.crm-tab.is-active .crm-tab-count {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ views */
+
+.crm-view {
+  display: none;
+}
+
+.crm-view.is-active {
+  display: block;
+}
+
+/* The active view is the only scroller. The page itself never moves. */
+.crm-shell > .crm-view.is-active,
+.crm-shell > main,
+.crm-shell > .crm-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crm-shell > main > .crm-view.is-active,
+.crm-shell > .crm-main > .crm-view.is-active {
+  min-height: 0;
+}
+
+.crm-view.is-active {
+  padding: 0 var(--crm-gutter) 64px;
+}
+
+.crm-view > * + * {
+  margin-top: 16px;
+}
+
+.crm-view h2 {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.crm-view h3 {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.crm-view p {
+  max-width: 78ch;
+  color: var(--ink-2);
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- banners */
+
+.crm-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ink-3);
+  background: var(--paper-raised);
+}
+
+.crm-banner-title {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.crm-banner-body {
+  max-width: 92ch;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.crm-banner.is-warn {
+  border-left-color: var(--proof);
+}
+
+.crm-banner.is-warn .crm-banner-title {
+  color: var(--proof);
+}
+
+.crm-banner.is-info {
+  border-left-color: var(--inference);
+}
+
+.crm-banner.is-info .crm-banner-title {
+  color: var(--inference);
+}
+
+/* ---------------------------------------------------------------- toolbar */
+
+.crm-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.crm-spacer {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.crm-search {
+  flex: 0 1 260px;
+  min-width: 140px;
+  height: 30px;
+  padding: 0 9px;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font-family: var(--crm-mono);
+  font-size: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.crm-search::placeholder {
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+.crm-search:focus-visible,
+.crm-filter:focus-visible,
+.crm-input:focus-visible,
+.crm-select:focus-visible,
+.crm-textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.crm-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* .crm-filter works two ways: as the control itself, or as a small group
+   that holds a label and a control. Both are supported. */
+.crm-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+select.crm-filter,
+input.crm-filter {
+  display: inline-block;
+  height: 30px;
+  max-width: 190px;
+  padding: 0 8px;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font-family: var(--crm-mono);
+  font-size: 11.5px;
+  line-height: 1;
+  cursor: pointer;
+  background-image: none;
+}
+
+.crm-filter > .crm-select,
+.crm-filter > .crm-search,
+.crm-filter > .crm-input {
+  min-width: 0;
+}
+
+/* Inside a label the wrapper draws the caret, so strip the native one.
+   A bare .crm-filter keeps the native arrow rather than losing its affordance. */
+.crm-filter-label > select.crm-filter,
+.crm-filter-label > .crm-select {
+  margin-left: 2px;
+  padding-right: 22px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* text caret, drawn on a label that wraps its own select */
+.crm-filter-label:has(> select) {
+  position: relative;
+}
+
+.crm-filter-label:has(> select)::after {
+  content: 'v';
+  position: absolute;
+  right: 8px;
+  color: var(--ink-3);
+  font-family: var(--crm-mono);
+  font-size: 9px;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.crm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 11px;
+  color: var(--ink-2);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.crm-btn:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+
+.crm-btn:active {
+  background: var(--paper);
+}
+
+.crm-btn[disabled],
+.crm-btn[aria-disabled='true'] {
+  color: var(--ink-3);
+  border-color: var(--line);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.crm-btn.is-primary {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.crm-btn.is-primary:hover {
+  color: var(--accent-ink);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.crm-btn.is-quiet {
+  color: var(--ink-3);
+  background: transparent;
+  border-color: transparent;
+  padding: 0 6px;
+}
+
+.crm-btn.is-quiet:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.crm-btn.is-danger {
+  color: var(--proof);
+  border-color: color-mix(in srgb, var(--proof) 45%, var(--line));
+}
+
+.crm-btn.is-danger:hover {
+  color: var(--paper);
+  background: var(--proof);
+  border-color: var(--proof);
+}
+
+.crm-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ----------------------------------------------------------------- tables */
+
+.crm-table-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  /* the wrap is the scroll box, which is what makes the header row stick.
+     height stays auto for short tables, the cap only bites on long ones. */
+  max-height: calc(100dvh - 200px);
+  overflow-x: auto;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--line);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* No blanket min-width. Cells are nowrap, so the table grows to its
+   content and the wrap scrolls only when the columns genuinely need it. */
+.crm-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.crm-table thead th,
+.crm-table .crm-th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: 7px 10px;
+  color: var(--ink-3);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1.3;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.crm-th.is-sortable {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.crm-th.is-sortable:hover {
+  color: var(--ink);
+}
+
+.crm-th.is-sortable::after {
+  content: '\2195';
+  display: inline-block;
+  margin-left: 5px;
+  color: var(--ink-3);
+  font-size: 9px;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.crm-th.is-sortable:hover::after,
+.crm-th.is-sortable:focus-visible::after {
+  opacity: 0.5;
+}
+
+.crm-th.is-sorted-asc,
+.crm-th.is-sorted-desc {
+  color: var(--ink);
+}
+
+.crm-th.is-sorted-asc::after {
+  content: '\25B2';
+  color: var(--accent);
+  font-size: 8px;
+  opacity: 1;
+}
+
+.crm-th.is-sorted-desc::after {
+  content: '\25BC';
+  color: var(--accent);
+  font-size: 8px;
+  opacity: 1;
+}
+
+/* No fixed cell height. A table cell clips overflow, so a two line cell
+   would lose its second line. Density comes from padding and line height. */
+.crm-table tbody td,
+.crm-table tbody th {
+  padding: 5px 10px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.crm-table tbody td.crm-wrap,
+.crm-table tbody td[data-wrap] {
+  white-space: normal;
+  min-width: 180px;
+}
+
+/* zebra is deliberately off. The rules carry the eye. */
+.crm-row {
+  background: transparent;
+  transition: background-color 90ms ease;
+}
+
+.crm-row:hover {
+  background: var(--paper-raised);
+}
+
+.crm-row.is-selected {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+.crm-row.is-selected > td:first-child,
+.crm-row.is-selected > th:first-child {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.crm-row[tabindex],
+.crm-row[role='button'],
+.crm-table tbody tr[data-id] {
+  cursor: pointer;
+}
+
+.crm-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.crm-num {
+  font-size: 13px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.crm-table td.crm-num,
+.crm-table th.crm-num {
+  text-align: right;
+}
+
+/* works either on the cell itself or on a span inside it */
+.crm-cell-name {
+  color: var(--ink);
+  font-family: var(--crm-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+span.crm-cell-name,
+div.crm-cell-name,
+a.crm-cell-name {
+  display: block;
+}
+
+.crm-sub {
+  display: block;
+  margin-top: 1px;
+  color: var(--ink-3);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+}
+
+/* only truncate where the row height is fixed */
+.crm-table .crm-sub,
+.crm-card .crm-sub {
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crm-empty {
+  padding: 40px 20px;
+  color: var(--ink-3);
+  border: 1px dashed var(--line);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.crm-table .crm-empty,
+.crm-table td.crm-empty {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  white-space: normal;
+}
+
+/* ------------------------------------------------------------------ chips */
+
+.crm-stage {
+  --stage-color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  padding: 1px 6px;
+  color: var(--stage-color);
+  background: transparent;
+  border: 1px solid var(--stage-color);
+  border-radius: 0;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crm-stage[data-group='recruit'] {
+  --stage-color: var(--ink-3);
+}
+
+.crm-stage[data-group='close'] {
+  --stage-color: var(--inference);
+}
+
+.crm-stage[data-group='activate'] {
+  --stage-color: var(--unverified);
+}
+
+.crm-stage[data-group='live'] {
+  --stage-color: var(--verified);
+}
+
+.crm-stage[data-group='dead'] {
+  --stage-color: var(--hold);
+  border-style: dashed;
+}
+
+button.crm-stage,
+.crm-stage[role='button'] {
+  cursor: pointer;
+}
+
+.crm-pill {
+  --pill-color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 6px;
+  color: var(--pill-color);
+  background: color-mix(in srgb, var(--pill-color) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pill-color) 40%, transparent);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crm-pill.is-ok {
+  --pill-color: var(--verified);
+}
+
+.crm-pill.is-warn {
+  --pill-color: var(--unverified);
+}
+
+.crm-pill.is-bad {
+  --pill-color: var(--proof);
+}
+
+.crm-pill.is-quiet {
+  --pill-color: var(--hold);
+  background: transparent;
+}
+
+/* Not zero. Unknown. It should catch the eye every time. */
+.crm-unset {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  color: var(--proof);
+  background: color-mix(in srgb, var(--proof) 6%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--proof) 55%, transparent);
+  font-family: var(--crm-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crm-num > .crm-unset,
+td.crm-num .crm-unset {
+  float: none;
+}
+
+.crm-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 5px;
+  color: var(--proof);
+  border: 1px solid color-mix(in srgb, var(--proof) 40%, transparent);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crm-flag + .crm-flag {
+  margin-left: 4px;
+}
+
+/* ------------------------------------------------------------------ gates */
+
+.crm-gatebar {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 2px;
+  width: 96px;
+  height: 6px;
+  vertical-align: middle;
+}
+
+.crm-gatebar > * {
+  flex: 1 1 0;
+  min-width: 3px;
+  background: var(--line);
+}
+
+.crm-gatebar-fill {
+  background: var(--verified);
+}
+
+.crm-gatebar > .is-next,
+.crm-gatebar-fill.is-next {
+  background: var(--unverified);
+}
+
+.crm-gatebar > .is-todo,
+.crm-gatebar-fill.is-todo {
+  background: var(--line);
+}
+
+/* Fallback: one proportional fill with an inline width instead of nine
+   segments. The track carries the unfilled colour and the gap closes up. */
+.crm-gatebar:has(> [style*='width']) {
+  gap: 0;
+  background: var(--line);
+}
+
+.crm-gatebar-fill[style*='width'] {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.crm-gatebar + .crm-sub,
+.crm-gatebar + .crm-num {
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.crm-table .crm-gatebar {
+  width: 88px;
+}
+
+.crm-gatebar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.crm-gatebar-row .crm-sub {
+  margin: 0;
+}
+
+.crm-gates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.crm-gate {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  min-height: 54px;
+  padding: 9px 10px;
+  color: var(--ink-3);
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--crm-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
+}
+
+.crm-gate::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  margin-top: 2px;
+  border: 1px solid currentColor;
+}
+
+.crm-gate:hover {
+  color: var(--ink);
+  background: var(--paper-raised);
+}
+
+.crm-gate.is-done {
+  color: var(--verified);
+}
+
+.crm-gate.is-done::before {
+  background: currentColor;
+  box-shadow: inset 0 0 0 2px var(--paper);
+}
+
+.crm-gate.is-next {
+  color: var(--unverified);
+}
+
+.crm-gate.is-next::before {
+  border-width: 2px;
+}
+
+.crm-gate.is-blocked {
+  color: var(--ink-3);
+}
+
+.crm-gate.is-blocked::before {
+  border-style: dashed;
+}
+
+.crm-gate small,
+.crm-gate .crm-sub {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+  white-space: normal;
+  max-width: none;
+  overflow: visible;
+}
+
+/* ---------------------------------------------------------------- metrics */
+
+.crm-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line);
+  /* closes the shape when the last row is short */
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.crm-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 12px 14px 14px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+
+.crm-metric-label {
+  color: var(--ink-3);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.crm-metric-value {
+  color: var(--ink);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.crm-metric-value .crm-unset {
+  font-size: 11px;
+  vertical-align: 0.35em;
+}
+
+.crm-metric-note {
+  color: var(--ink-3);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.crm-metric-note.is-unknown {
+  color: var(--proof);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ------------------------------------------------------------------ trend */
+
+.crm-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 64px;
+  padding-top: 4px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.crm-spark-bar {
+  flex: 1 1 0;
+  min-width: 2px;
+  min-height: 1px;
+  background: var(--accent);
+}
+
+.crm-spark-bar.is-empty,
+.crm-spark-bar[data-value='0'] {
+  background: var(--line);
+}
+
+.crm-spark-bar:hover {
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------------ board */
+
+.crm-board {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.crm-col {
+  flex: 0 0 216px;
+  width: 216px;
+  min-width: 216px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+  background: transparent;
+}
+
+.crm-col-head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  color: var(--ink-2);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.crm-col-count {
+  color: var(--ink-3);
+  font-size: 9.5px;
+}
+
+.crm-col-body,
+.crm-col > .crm-cards {
+  display: flex;
+  flex-direction: column;
+  min-height: 60px;
+}
+
+.crm-card {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 90ms ease;
+}
+
+.crm-card:hover {
+  background: var(--paper-raised);
+}
+
+.crm-card.is-selected {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.crm-card-name {
+  display: block;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crm-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+.crm-card-meta .crm-unset,
+.crm-card-meta .crm-pill,
+.crm-card-meta .crm-flag {
+  font-size: 8.5px;
+}
+
+/* ----------------------------------------------------------------- drawer */
+
+.crm-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  visibility: hidden;
+  pointer-events: none;
+  /* hold visibility until the slide-out finishes */
+  transition: visibility 0s linear 200ms;
+}
+
+.crm-drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition: visibility 0s linear 0s;
+}
+
+.crm-drawer-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 19, 18, 0.32);
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+
+.crm-drawer.is-open .crm-drawer-scrim {
+  opacity: 1;
+}
+
+.crm-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(460px, 100%);
+  background: var(--paper);
+  border-left: 1px solid var(--line-strong);
+  transform: translateX(100%);
+  transition: transform 200ms ease;
+}
+
+.crm-drawer.is-open .crm-drawer-panel {
+  transform: translateX(0);
+}
+
+.crm-drawer-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 16px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.crm-drawer-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* sized for a glyph or the word Close */
+.crm-drawer-close {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--line);
+  font-family: var(--crm-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.crm-drawer-close:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+
+.crm-drawer-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 4px 16px 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crm-drawer-foot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line-strong);
+}
+
+.crm-drawer-foot .crm-spacer {
+  flex: 1 1 auto;
+}
+
+.crm-fieldset {
+  padding: 0;
+  margin: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.crm-fieldset-title {
+  display: block;
+  width: 100%;
+  padding: 10px 0 8px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.crm-field {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+
+.crm-field-label {
+  color: var(--ink-2);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.crm-field-hint {
+  color: var(--ink-3);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.crm-field-hint.is-warn {
+  color: var(--proof);
+}
+
+.crm-input,
+.crm-select,
+.crm-textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.crm-input,
+.crm-select {
+  height: 32px;
+  font-family: var(--crm-mono);
+  font-size: 12.5px;
+}
+
+.crm-select {
+  padding-right: 22px;
+  cursor: pointer;
+}
+
+.crm-textarea {
+  min-height: 84px;
+  font-family: var(--crm-sans);
+  resize: vertical;
+}
+
+.crm-input::placeholder,
+.crm-textarea::placeholder {
+  color: var(--ink-3);
+}
+
+.crm-input:invalid,
+.crm-input[aria-invalid='true'],
+.crm-select[aria-invalid='true'] {
+  border-color: var(--proof);
+}
+
+.crm-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.crm-check input[type='checkbox'],
+input[type='checkbox'].crm-check {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin: 1px 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------ money */
+
+.crm-money-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.crm-ledger {
+  min-width: 0;
+}
+
+.crm-ledger > .crm-table-wrap {
+  max-height: calc(100dvh - 260px);
+}
+
+.crm-ledger .crm-table {
+  min-width: 0;
+}
+
+.crm-ledger-head,
+.crm-ledger > h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--crm-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ split */
+
+.crm-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.crm-panel {
+  min-width: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.crm-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.crm-panel-title {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.crm-panel-head .crm-btn.is-quiet {
+  margin: -4px 0;
+}
+
+.crm-panel > .crm-table-wrap {
+  border-bottom: 0;
+}
+
+.crm-panel ul,
+.crm-panel ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.crm-panel li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+
+.crm-panel li > span:last-child {
+  color: var(--ink-3);
+  font-family: var(--crm-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------ toast */
+
+.crm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 300;
+  max-width: min(520px, calc(100vw - 32px));
+  padding: 9px 14px;
+  color: var(--accent-ink);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.crm-toast.is-show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* -------------------------------------------------------------- utilities */
+
+.crm-shell hr {
+  height: 0;
+  margin: 16px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.crm-shell .crm-stage + .crm-stage,
+.crm-shell .crm-pill + .crm-pill {
+  margin-left: 4px;
+}
+
+/* --------------------------------------------------------------- 1180px */
+
+@media (max-width: 1180px) {
+  .crm-shell {
+    --crm-gutter: 16px;
+  }
+
+  .crm-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .crm-col {
+    flex-basis: 200px;
+    width: 200px;
+    min-width: 200px;
+  }
+}
+
+/* ---------------------------------------------------------------- 900px */
+
+@media (max-width: 900px) {
+  .crm-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .crm-money-split,
+  .crm-two-col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .crm-gates {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-drawer-panel {
+    width: min(420px, 100%);
+  }
+}
+
+/* ---------------------------------------------------------------- 720px */
+
+@media (max-width: 720px) {
+  .crm-shell {
+    --crm-gutter: 12px;
+    font-size: 13.5px;
+  }
+
+  .crm-topbar {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  .crm-brand-sub {
+    display: none;
+  }
+
+  .crm-tools .crm-btn {
+    padding: 0 8px;
+    font-size: 9.5px;
+  }
+
+  .crm-gates {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .crm-toolbar {
+    padding: 8px 0;
+  }
+
+  .crm-search {
+    flex: 1 1 100%;
+  }
+
+  /* full-screen sheet */
+  .crm-drawer-panel {
+    width: 100%;
+    border-left: 0;
+  }
+
+  .crm-drawer-head,
+  .crm-drawer-foot {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .crm-drawer-body {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .crm-spark {
+    height: 52px;
+  }
+}
+
+/* ---------------------------------------------------------------- 480px */
+
+@media (max-width: 480px) {
+  /* Six tabs do not fit on one phone-width line, and a scrolling tab strip
+     hides Outbound and Money with no hint that they exist. Wrap to two rows. */
+  .crm-tabs {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .crm-tab {
+    flex: 1 1 32%;
+    justify-content: center;
+    padding: 8px 6px;
+  }
+
+  .crm-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-metric {
+    padding: 10px 11px 12px;
+  }
+
+  .crm-metric-value {
+    font-size: 22px;
+  }
+
+  .crm-tools {
+    gap: 4px;
+  }
+
+  .crm-col {
+    flex-basis: 180px;
+    width: 180px;
+    min-width: 180px;
+  }
+
+  .crm-toast {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+    transform: translate(0, 8px);
+  }
+
+  .crm-toast.is-show {
+    transform: translate(0, 0);
+  }
+}
+
+/* ---------------------------------------------------------------- 390px */
+
+@media (max-width: 390px) {
+  .crm-shell {
+    --crm-gutter: 10px;
+    --crm-topbar-h: 48px;
+  }
+
+  .crm-brand {
+    font-size: 13px;
+  }
+
+  .crm-tabs {
+    padding-left: var(--crm-gutter);
+    padding-right: var(--crm-gutter);
+  }
+
+  .crm-tab {
+    padding: 8px 4px;
+    font-size: 9.5px;
+    letter-spacing: 0.07em;
+  }
+
+  .crm-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-metric-value {
+    font-size: 20px;
+  }
+
+  .crm-btn {
+    padding: 0 8px;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  .crm-filter {
+    max-width: 150px;
+  }
+
+  .crm-view h2 {
+    font-size: 14px;
+  }
+
+  .crm-banner {
+    padding: 9px 10px;
+  }
+
+  .crm-banner-body {
+    font-size: 12.5px;
+  }
+}
+
+/* --------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-shell *,
+  .crm-drawer,
+  .crm-drawer *,
+  .crm-toast {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .crm-drawer-panel {
+    transform: none;
+  }
+
+  .crm-drawer:not(.is-open) .crm-drawer-panel {
+    transform: translateX(100%);
+  }
+
+  .crm-toast {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 480px) {
+  .crm-toast {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------- contrast */
+
+@media (prefers-contrast: more) {
+  .crm-shell {
+    --ink-2: #2a2724;
+    --ink-3: #45413b;
+    --line: #a8a29a;
+  }
+
+  .crm-table thead th,
+  .crm-table .crm-th {
+    border-bottom-width: 2px;
+  }
+
+  .crm-stage,
+  .crm-pill,
+  .crm-flag,
+  .crm-unset {
+    border-width: 1px;
+    font-weight: 500;
+  }
+
+  .crm-pill {
+    border-color: currentColor;
+  }
+
+  .crm-btn {
+    border-color: var(--ink-2);
+  }
+
+  .crm-row:hover {
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+
+  .crm-drawer-scrim {
+    background: rgba(20, 19, 18, 0.55);
+  }
+
+  .crm-th.is-sortable::after {
+    opacity: 0.6;
+  }
+}
+
+/* ------------------------------------------------------------------ print */
+
+@media print {
+  body:has(> .crm-shell),
+  body.crm-app {
+    overflow: visible;
+  }
+
+  .crm-shell {
+    position: static;
+    display: block;
+    height: auto;
+    overflow: visible;
+    background: #ffffff;
+    font-size: 10pt;
+  }
+
+  .crm-topbar,
+  .crm-tabs,
+  .crm-toolbar,
+  .crm-tools,
+  .crm-drawer,
+  .crm-toast,
+  .crm-btn,
+  .crm-btn-row,
+  .crm-board,
+  .crm-spark,
+  .crm-empty {
+    display: none !important;
+  }
+
+  .crm-view {
+    display: none !important;
+  }
+
+  .crm-view.is-active {
+    display: block !important;
+    padding: 0;
+    overflow: visible !important;
+  }
+
+  .crm-shell > .crm-view.is-active,
+  .crm-shell > main,
+  .crm-shell > .crm-main {
+    overflow: visible !important;
+  }
+
+  .crm-table-wrap {
+    max-height: none !important;
+    overflow: visible !important;
+    border: 0;
+  }
+
+  .crm-table {
+    min-width: 0;
+    width: 100%;
+    font-size: 9pt;
+  }
+
+  .crm-table thead th,
+  .crm-table .crm-th {
+    position: static;
+    color: #000000;
+    background: transparent;
+    border-bottom: 1px solid #000000;
+  }
+
+  .crm-table tbody td,
+  .crm-table tbody th {
+    color: #000000;
+    border-bottom: 1px solid #aaaaaa;
+    white-space: normal;
+  }
+
+  .crm-row,
+  .crm-metric,
+  .crm-panel li {
+    break-inside: avoid;
+  }
+
+  .crm-row.is-selected,
+  .crm-row:hover {
+    background: transparent;
+  }
+
+  .crm-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid #000000;
+  }
+
+  .crm-metric {
+    background: transparent;
+  }
+
+  .crm-unset {
+    color: #000000;
+    background: transparent;
+    border-color: #000000;
+  }
+
+  .crm-stage,
+  .crm-pill,
+  .crm-flag {
+    color: #000000;
+    background: transparent;
+    border-color: #000000;
+  }
+}
