@@ -1,0 +1,26 @@
+name: rsggateway-heartbeat
+version: 1.0.0
+description: RSGGateway + Heartbeat overlay bundle — adds impact analysis, cross-group routing awareness, and rate-limiting context to SDD templates. Covers RegionalGatewayGroup, OnCloudGatewayGroup, and HeartbeatGroup.
+
+dependencies:
+  apm:
+    - philips-internal/HSP_GenAI_Framework/Resources/apm-bundles/java
+  mcp: []
+
+instructions:
+  # SDD process instructions
+  - rsggateway-heartbeat-impact-analysis.instructions.md
+  - rsggateway-heartbeat-sdd-workflow.instructions.md
+  # Team coding standard overrides (replace base bundle's generic instructions)
+  - rsggateway-heartbeat-java.instructions.md
+  - rsggateway-heartbeat-build-and-test.instructions.md
+  - rsggateway-heartbeat-unit-test.instructions.md
+  - rsggateway-heartbeat-service-test.instructions.md
+  - rsggateway-heartbeat-code-reuse.instructions.md
+
+prompts:
+  - requirements-template.prompt.md
+  - design-template.prompt.md
+  - tasks-template.prompt.md
+
+scripts: {}
