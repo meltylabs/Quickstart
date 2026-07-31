@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Noli's fixed 25-company Retatrutide competitor observatory.">
+  <title>Noli Competitor Observatory</title>
+  <link rel="stylesheet" href="./competitor-observatory.css">
+  <script src="./competitor-observatory-data.js" defer></script>
+  <script src="./competitor-observatory.js" defer></script>
+</head>
+<body>
+  <div class="topbar-wrap">
+    <header class="shell topbar">
+      <a class="brand" href="./operating-blueprint.html">Noli / Intelligence</a>
+      <nav aria-label="Observatory sections">
+        <a href="#overview">Overview</a>
+        <a href="#changed">What changed</a>
+        <a href="#companies">25 companies</a>
+        <a href="#method">Method</a>
+      </nav>
+    </header>
+  </div>
+
+  <main id="top">
+    <section class="shell hero" id="overview">
+      <div>
+        <p class="eyebrow">Noli / Fixed cohort / 90-day watch</p>
+        <h1>Competitor Observatory.</h1>
+        <p class="lead"><strong>Twenty-five companies. One clean operating view.</strong> Track Reta pricing, public checkout signals, traffic scenarios, marketing systems, availability, and UI without treating models as measured facts.</p>
+        <div class="actions">
+          <a class="button primary" href="#changed">See what changed</a>
+          <a class="button" href="#companies">Open the cohort</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-labelledby="freshness-title">
+        <span class="kicker" id="freshness-title">Data status</span>
+        <strong id="freshness-heading">Loading committed baseline…</strong>
+        <p id="freshness-detail">The live refresh is bounded. This page remains usable if the API is unavailable.</p>
+        <span class="freshness-pill is-loading" id="freshness-pill">Checking live source</span>
+      </aside>
+    </section>
+
+    <section class="shell metric-grid" id="observatory-metrics" aria-label="Observatory metrics">
+      <article><span>Watchlist</span><strong>25</strong><small>fixed companies</small></article>
+      <article><span>Reta listings</span><strong>—</strong><small>public signals</small></article>
+      <article><span>Traffic</span><strong>—</strong><small>modeled scenarios</small></article>
+      <article><span>Checkout</span><strong>—</strong><small>public signals</small></article>
+    </section>
+
+    <section class="shell section" id="changed">
+      <div class="section-head">
+        <div>
+          <p class="kicker">01 / Signal feed</p>
+          <h2>What changed.</h2>
+        </div>
+        <p>On day one, these are baseline findings, not invented deltas. Automatic refreshes add dated catalog, price, availability, and public marketing changes. Traffic and checkout remain labeled baseline evidence until recaptured.</p>
+      </div>
+      <div class="change-feed" id="change-feed">
+        <p class="empty-state">Loading the baseline findings…</p>
+      </div>
+    </section>
+
+    <section class="shell section" id="companies">
+      <div class="section-head">
+        <div>
+          <p class="kicker">02 / Fixed cohort</p>
+          <h2>The 25 companies.</h2>
+        </div>
+        <p>Each card separates verified identity, observed storefront evidence, modeled traffic, and explicit unknowns. Open a company for history, checkout boundaries, and source links.</p>
+      </div>
+
+      <form class="controls" id="observatory-controls" role="search">
+        <label>
+          <span>Search</span>
+          <input id="company-search" name="q" type="search" placeholder="Company, domain, platform, signal…" autocomplete="off">
+        </label>
+        <label>
+          <span>Evidence</span>
+          <select id="evidence-filter" name="evidence">
+            <option value="all">All evidence</option>
+            <option value="Verified">Verified</option>
+            <option value="Observed">Observed</option>
+            <option value="Estimated">Estimated</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+        </label>
+        <label>
+          <span>Signal</span>
+          <select id="signal-filter" name="signal">
+            <option value="all">All signals</option>
+            <option value="reta">Reta listed</option>
+            <option value="checkout">Checkout observed</option>
+            <option value="traffic">Traffic modeled</option>
+            <option value="ui">UI score 8+</option>
+            <option value="unknown">Has an unknown</option>
+          </select>
+        </label>
+        <label>
+          <span>Sort</span>
+          <select id="company-sort" name="sort">
+            <option value="priority">Watch priority</option>
+            <option value="name">Name A–Z</option>
+            <option value="traffic">Modeled traffic</option>
+            <option value="ui">UI score</option>
+            <option value="reta">Reta variants</option>
+          </select>
+        </label>
+        <button class="reset-button" id="reset-controls" type="button">Reset</button>
+      </form>
+
+      <div class="result-line">
+        <p id="company-result-count" aria-live="polite">Loading 25 companies…</p>
+        <p>Fixed through 90 days</p>
+      </div>
+      <div class="company-list" id="company-list"></div>
+      <button class="show-all" id="show-all-companies" type="button">Show all 25</button>
+    </section>
+
+    <section class="shell section" id="method">
+      <div class="section-head">
+        <div>
+          <p class="kicker">03 / Evidence rules</p>
+          <h2>Know what you know.</h2>
+        </div>
+        <p>The page is useful only if estimates stay estimates and missing evidence stays unknown.</p>
+      </div>
+      <div class="state-legend" aria-label="Evidence state legend">
+        <article><span class="state state-verified">Verified</span><p>Primary registry or direct record.</p></article>
+        <article><span class="state state-observed">Observed</span><p>Captured on a public page, feed, code path, or screenshot.</p></article>
+        <article><span class="state state-estimated">Estimated</span><p>A disclosed model, never measured revenue or analytics.</p></article>
+        <article><span class="state state-unknown">Unknown</span><p>No defensible public answer. Not zero.</p></article>
+      </div>
+      <div class="method-grid" id="methodology-grid"></div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>Noli competitor observatory / Fixed 25-company cohort</span>
+    <span>Simple scales. Complex fails.</span>
+  </footer>
+
+  <noscript>
+    <div class="noscript">JavaScript is required to render the observatory dataset.</div>
+  </noscript>
+</body>
+</html>

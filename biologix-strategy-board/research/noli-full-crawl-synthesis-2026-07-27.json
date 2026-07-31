@@ -1,0 +1,449 @@
+{
+  "title": "Noli Retatrutide Storefront Census: Corrected Synthesis",
+  "generatedAt": "2026-07-27T22:46:00.000Z",
+  "sourcePayload": "biologix-strategy-board/research/retatrutide-vendor-audit-data.js",
+  "methodology": {
+    "scope": "570 deduplicated public domains from a 655-record source universe",
+    "pagesObserved": 1855,
+    "safetyBoundary": "Public pages only. No account creation, gate or CAPTCHA bypass, fabricated identity, cart mutation, checkout submission, transaction, credential use, or retry of blocked requests.",
+    "evidenceBoundary": "Every domain record retains source URLs, timestamps, confidence, and compact referenced evidence. Aggregates are observations from detected public pages, not proof of sales, legality, product quality, payment activation, or business performance.",
+    "correction": "Product identity now requires URL, title, H1, Product schema name, or a close Reta commerce block. Non-Reta product pages are not promoted by related-product or sitewide Reta mentions.",
+    "aggregateConfidence": "medium"
+  },
+  "integrity": {
+    "domains": 570,
+    "evidenceRecords": 13555,
+    "evidenceReferences": 14648,
+    "brokenEvidenceReferences": 0,
+    "payloadBytes": 9172005,
+    "gzipBytes": 1366400,
+    "accelerateLabsRegression": {
+      "domain": "accelerate-labs.us",
+      "retaListed": false,
+      "listingStatus": null,
+      "pricesExtracted": 0,
+      "strengthsExtracted": 0,
+      "reason": "Observed pages were AOD-9604, Shipping Protection, and collection pages, not a dedicated Reta product listing."
+    }
+  },
+  "crawlStatus": {
+    "completed": 295,
+    "partial": 83,
+    "blocked": 32,
+    "failed": 100,
+    "skipped": 60,
+    "completedOrPartial": 378,
+    "completedOrPartialPct": 66.3
+  },
+  "segments": {
+    "retail": {
+      "domains": 217,
+      "completed": 174,
+      "partial": 33,
+      "blocked": 6,
+      "failed": 4,
+      "retaListed": 145,
+      "retaAvailable": 99
+    },
+    "probableRetail": {
+      "domains": 28,
+      "completed": 22,
+      "partial": 3,
+      "blocked": 2,
+      "failed": 1,
+      "retaListed": 12,
+      "retaAvailable": 11
+    },
+    "manufacturerOrSupplier": {
+      "domains": 17,
+      "completed": 8,
+      "partial": 8,
+      "blocked": 1,
+      "retaListed": 0,
+      "retaAvailable": 0
+    },
+    "directories": {
+      "domains": 33,
+      "skipped": 33,
+      "retaListed": 0
+    },
+    "unknownPublicWebsite": {
+      "domains": 248,
+      "completed": 91,
+      "partial": 39,
+      "blocked": 23,
+      "failed": 95,
+      "retaListed": 0
+    },
+    "otherSkipped": {
+      "domains": 27,
+      "definition": "Social or messaging, contact or file service, and unlinked records"
+    }
+  },
+  "retaMarket": {
+    "retailAndProbableDomains": 245,
+    "listed": 157,
+    "listedPct": 64.1,
+    "available": 110,
+    "availablePctOfListed": 70.1,
+    "outOfStock": 24,
+    "listedWithoutAvailabilityCue": 21,
+    "preorder": 2,
+    "interpretation": "This is evidence of a crowded visible market, not evidence of revenue, customer count, margin, or legal durability."
+  },
+  "platforms": {
+    "denominator": 245,
+    "counts": {
+      "WooCommerce": 138,
+      "Unknown": 62,
+      "Shopify": 14,
+      "Next.js": 13,
+      "Medusa": 7,
+      "Wix": 5,
+      "BigCommerce": 3,
+      "WordPress": 2,
+      "Magento": 1
+    },
+    "availableCounts": {
+      "WooCommerce": 73,
+      "Unknown": 10,
+      "Shopify": 8,
+      "Next.js": 6,
+      "Medusa": 5,
+      "Wix": 4,
+      "BigCommerce": 2,
+      "WordPress": 2
+    },
+    "lesson": "WooCommerce is the dominant detected stack at 56.3 percent. Dominance shows familiarity and plugin availability, not that it is safer, faster, or better underwritten."
+  },
+  "productPresentation": {
+    "mostCommonPlausibleStrengthTokensByDomain": {
+      "10mg": 128,
+      "20mg": 93,
+      "30mg": 92,
+      "5mg": 90,
+      "50mg": 61,
+      "15mg": 53,
+      "60mg": 53,
+      "40mg": 41,
+      "100mg": 30,
+      "12mg": 17,
+      "80mg": 15
+    },
+    "strengthFilter": "mg tokens from 1mg through 100mg",
+    "caveat": "A token can come from a related product, bundle, molecular description, or sitewide block. It is not treated as an exact SKU variant without page-level review.",
+    "minimumUsefulListing": [
+      "Unambiguous product identity",
+      "Variant-bound strength and price",
+      "Live stock state",
+      "Shipping expectation",
+      "Lot-specific report link",
+      "Research-use restriction",
+      "Contact and policy access"
+    ]
+  },
+  "pricing": {
+    "availableDomainsWithPlausibleUsdTokens": 99,
+    "filter": "Displayed USD tokens from $5 through $2,000",
+    "domainMinimumDistribution": {
+      "p10": 8,
+      "p25": 19.98,
+      "median": 39.99,
+      "p75": 80,
+      "p90": 152
+    },
+    "domainMedianDistribution": {
+      "p25": 67.25,
+      "median": 114,
+      "p75": 171
+    },
+    "caveat": "These are page-level price tokens, not normalized price-per-mg or guaranteed Reta variant prices. Cross-sells, kits, crossed-out prices, shipping protection, and bundles can contaminate a domain rollup.",
+    "decisionRule": "Do not set Noli pricing from this aggregate. Build a manually verified strength-price matrix for the closest 15 to 25 comparable storefronts, then compare price per mg, test cost, shipping, discounts, and expected contribution margin."
+  },
+  "marketing": {
+    "denominator": 245,
+    "offerDomains": {
+      "freeShipping": 69,
+      "bundle": 67,
+      "percentageDiscount": 65,
+      "subscription": 50,
+      "coupon": 25,
+      "affiliate": 15,
+      "guarantee": 14,
+      "bulkPricing": 13,
+      "loyalty": 13,
+      "referral": 3
+    },
+    "trackerDomains": {
+      "googleAnalytics": 79,
+      "googleTagManager": 68,
+      "metaPixel": 28,
+      "klaviyo": 26,
+      "tiktokPixel": 22,
+      "redditPixel": 9,
+      "sentry": 6
+    },
+    "lesson": "The common play is offer-led conversion plus basic measurement. A minimal Noli stack should measure acquisition, product view, checkout start, accepted order, refund, chargeback, and repeat purchase before adding more channels."
+  },
+  "trustAndOperations": {
+    "denominator": 245,
+    "domainsWithCoaLinks": 119,
+    "domainsWithReviewEvidence": 62,
+    "domainsWithPolicies": 174,
+    "domainsWithContactEvidence": 194,
+    "domainsWithShippingCues": 93,
+    "domainsWithReturnCues": 150,
+    "reviewProviderDomains": {
+      "Trustpilot": 32,
+      "JudgeMe": 3,
+      "Yotpo": 3,
+      "GoogleReviews": 2,
+      "Loox": 2
+    },
+    "evidenceBoundary": "Displayed reviews, ratings, badges, COAs, and purity numbers are first-party claims unless independently authenticated."
+  },
+  "claimsRisk": {
+    "denominator": 245,
+    "researchOnlyCueDomains": 147,
+    "humanUseOrOutcomeCueDomains": 181,
+    "bothCueTypes": 136,
+    "bothCueTypesPct": 55.5,
+    "categories": {
+      "administration": 152,
+      "therapeutic": 146,
+      "humanOutcome": 69,
+      "humanEvidence": 49
+    },
+    "lesson": "A research-only footer does not erase conflicting product, dosing, administration, therapeutic, or human-outcome language elsewhere. Treat this as a launch-blocking content-control problem, not a wording loophole."
+  },
+  "payment": {
+    "denominator": 245,
+    "domainsWithAnyVisibleOrIntegrationSignal": 87,
+    "domainsWithVisibleMethods": 47,
+    "domainsWithIntegrationSignals": 49,
+    "domainsWithBoth": 9,
+    "visibleMethodDomains": {
+      "Discover": 22,
+      "Visa": 20,
+      "AmericanExpress": 17,
+      "Cryptocurrency": 15,
+      "Mastercard": 14,
+      "Zelle": 12,
+      "BankTransfer": 11,
+      "PayPal": 11,
+      "Bitcoin": 9,
+      "ACH": 8,
+      "Venmo": 7,
+      "ApplePay": 5
+    },
+    "integrationSignalDomains": {
+      "NMI": 13,
+      "Bankful": 9,
+      "eDebitDirect": 9,
+      "Paynote": 6,
+      "Stripe": 6,
+      "AuthorizeNet": 5,
+      "Blockonomics": 4,
+      "NOWPayments": 4,
+      "Square": 4
+    },
+    "paymentCodeCensus": {
+      "domains": 149,
+      "evidenceRows": 783,
+      "processorOrPspCodeDomains": 48,
+      "activeProviderLayerRetaCartDomains": 7,
+      "directExamples": [
+        "LifeLink: Stripe",
+        "ResearchChemHQ and Rivn: PayPal-named integration IDs",
+        "NMI: 6 active Reta carts",
+        "Authorize.Net: 3 active Reta carts",
+        "eDebit Direct: 3 active Reta carts",
+        "NewBioRx: Bankful",
+        "Umbrella: Paynote"
+      ]
+    },
+    "merchantContractProcessorOrIsoEvidence": 0,
+    "merchantContractAcquirerOrSponsorBankEvidence": 0,
+    "evidenceBoundary": "Public code can identify named gateways, PSPs, processors, and active provider IDs. It does not by itself establish the merchant's contractual processor or ISO, MID, acquirer, sponsor bank, reserves, settlement path, merchant of record, or transaction success.",
+    "noliRule": "Use only providers that give written approval for the exact legal entity, product catalog, claims, fulfillment model, geography, and merchant category. Model reserve, hold, chargeback, and termination exposure before launch."
+  },
+  "sourcing": {
+    "denominator": 245,
+    "firstPartyClaimDomains": {
+      "lyophilized": 120,
+      "thirdPartyTesting": 79,
+      "purityClaim": 69,
+      "batchTesting": 19,
+      "cGMP": 13,
+      "USManufacturing": 10,
+      "manufacturerClaim": 7,
+      "domesticFulfillment": 6,
+      "wholesaleOrOem": 4,
+      "fdaRegistration": 1
+    },
+    "independentlyVerifiedManufacturerIdentities": 0,
+    "lesson": "Public competitor pages do not reveal a dependable manufacturer map. Manufacturer selection requires identity and ownership checks, quality agreements, facility evidence, independent lot sampling, assay and identity testing, endotoxin and sterility strategy where relevant, stability, traceability, complaints, recall, and continuity planning."
+  },
+  "observationalCorrelations": {
+    "warning": "These are descriptive differences, not causal proof. Available storefronts were often more crawlable and exposed more pages, so detection and survivorship bias are substantial.",
+    "availableN": 110,
+    "nonAvailableN": 135,
+    "ratesPct": {
+      "coaLinks": {
+        "available": 65.5,
+        "nonAvailable": 34.8,
+        "differencePoints": 30.7
+      },
+      "reviewEvidence": {
+        "available": 34.5,
+        "nonAvailable": 17.8,
+        "differencePoints": 16.7
+      },
+      "policies": {
+        "available": 86.4,
+        "nonAvailable": 58.5,
+        "differencePoints": 27.9
+      },
+      "tracking": {
+        "available": 72.7,
+        "nonAvailable": 43.7,
+        "differencePoints": 29
+      },
+      "offers": {
+        "available": 82.7,
+        "nonAvailable": 49.6,
+        "differencePoints": 33.1
+      },
+      "shippingCues": {
+        "available": 53.6,
+        "nonAvailable": 25.2,
+        "differencePoints": 28.4
+      },
+      "contactEvidence": {
+        "available": 94.5,
+        "nonAvailable": 66.7,
+        "differencePoints": 27.8
+      },
+      "conflictingResearchAndHumanCues": {
+        "available": 74.5,
+        "nonAvailable": 40,
+        "differencePoints": 34.5
+      }
+    }
+  },
+  "northlineCaseStudy": {
+    "domain": "northlinelabs.org",
+    "sourceUrl": "https://northlinelabs.org/product/reta-glp-3/",
+    "capturedAt": "2026-07-27T22:46:00.000Z",
+    "confidence": "high for visible page facts; low for review authenticity; unknown for payment chain and manufacturer",
+    "status": "completed",
+    "listingStatus": "available",
+    "variants": [
+      {
+        "strength": "10mg",
+        "priceUsd": 79.99
+      },
+      {
+        "strength": "15mg",
+        "priceUsd": 99.99
+      },
+      {
+        "strength": "20mg",
+        "priceUsd": 129.99
+      },
+      {
+        "strength": "30mg",
+        "priceUsd": 189.99
+      },
+      {
+        "strength": "50mg",
+        "priceUsd": 299.99
+      }
+    ],
+    "observed": [
+      "Add-to-cart and current stock cues",
+      "Buy one, get one 50 percent off",
+      "Free shipping over $200",
+      "Same or next business-day dispatch claim",
+      "Public quality, shipping, contact, and certificate pages",
+      "Lot NLL-8620700 with linked purity and endotoxin PDFs",
+      "Google Tag Manager present",
+      "Visa, American Express, Discover, and Google Pay shown in public footer"
+    ],
+    "firstPartyClaims": [
+      "4.8 rating",
+      "867 verified reviews",
+      "99 percent or greater purity",
+      "Independent HPLC and mass-spectrometry testing",
+      "Lot traceability and same-day fulfillment"
+    ],
+    "unknown": [
+      "Checkout integration",
+      "Gateway or PSP activation",
+      "Processor or ISO",
+      "Acquirer or sponsor bank",
+      "Transaction success",
+      "Manufacturer identity",
+      "Revenue, order volume, margin, refund rate, and chargeback rate"
+    ]
+  },
+  "noliPriorities": [
+    {
+      "priority": 1,
+      "action": "Make legal product eligibility and exact-claims review the first go or no-go gate.",
+      "why": "A large share of visible stores mix research-only language with human-use cues, creating obvious fragility."
+    },
+    {
+      "priority": 2,
+      "action": "Launch a narrow catalog with one product-data template and a small, justified variant set.",
+      "why": "Simple scales. Exact identity, price, stock, reports, shipping, policies, and contact should be consistent everywhere."
+    },
+    {
+      "priority": 3,
+      "action": "Require lot-specific evidence and traceability before inventory is sellable.",
+      "why": "Generic purity badges are common; defensible trust comes from lot-bound documents and independent verification."
+    },
+    {
+      "priority": 4,
+      "action": "Secure written payment underwriting before building growth around a checkout.",
+      "why": "Competitor HTML exposes integrations, not the processor or acquiring chain and not durable approval."
+    },
+    {
+      "priority": 5,
+      "action": "Use one storefront, one approved payment path, one fulfillment workflow, and one analytics taxonomy first.",
+      "why": "WooCommerce is common, but plugin sprawl and parallel payment paths add failure modes before product-market proof."
+    },
+    {
+      "priority": 6,
+      "action": "Instrument contribution margin and risk, not just revenue.",
+      "why": "Track landed product cost, testing, packaging, shipping, discounts, payment fees, reserve cost, refunds, chargebacks, support, and reships by order."
+    },
+    {
+      "priority": 7,
+      "action": "Build a manually verified 15 to 25 competitor panel for weekly pricing and offer decisions.",
+      "why": "The full automated census is excellent for discovery, but exact variant pricing needs page-level normalization."
+    },
+    {
+      "priority": 8,
+      "action": "Treat manufacturer identity and continuity as diligence work, not forum intelligence.",
+      "why": "The public crawl independently verified zero manufacturer identities."
+    }
+  ],
+  "findings": [
+    "The market is visibly crowded: 157 of 245 retail or probable storefronts listed Reta and 110 showed an availability cue.",
+    "Visibility is not viability: the crawl cannot prove sales, margin, legal durability, payment stability, product quality, or customer retention.",
+    "WooCommerce is the default detected operating system, appearing on 138 of 245 storefronts.",
+    "The strongest recurring listing pattern is exact variant choice, visible price, stock, shipping, report access, and a clear cart action.",
+    "Automated price tokens are directional. The median domain minimum was $39.99 and the median domain-level median was $114, but neither is a clean normalized Reta price.",
+    "Offer-led selling is common: free shipping, bundles, percentage discounts, and subscriptions were the four most detected offer types.",
+    "Available storefronts exposed offers and measurement more often than non-available storefronts, but the relationship is observational and crawl-biased.",
+    "Trust infrastructure is a competitive baseline: COA links, policies, contact access, shipping detail, and review evidence were much more visible on available sites.",
+    "Research-only wording is not a safe harbor when product pages also contain dosing, administration, therapeutic, or human-outcome cues.",
+    "Payment code is materially readable: the combined census produced 783 exact rows across 149 domains, including processor and PSP brands, gateways, configured plugins, and active Reta-cart provider IDs. The private merchant-contract and acquiring chain remains separate.",
+    "No public competitor page independently established its true manufacturer, so supplier names remain gated and unverified.",
+    "Northline demonstrates a high-clarity page structure, but its review, purity, testing, and fulfillment numbers remain first-party claims.",
+    "Noli should compete on verified lot evidence, operational clarity, fast support, and reliable fulfillment, not on the loudest purity badge.",
+    "The fastest responsible route is a narrow launch with one stack and explicit gates for legality, supplier quality, payments, and contribution margin.",
+    "The opportunity is commercially interesting but structurally fragile. It is viable only if Noli can make compliance, underwriting, quality control, and fulfillment durable before scaling acquisition."
+  ]
+}

@@ -1,0 +1,164 @@
+#!/bin/bash
+# Account-isolated Claude Code launcher for Conductor.
+#
+# Conductor calls this as its Claude Code executable. The selected account is
+# resolved once, when the Claude process starts, so already-running chats keep
+# their original credentials and cannot overwrite a later account selection.
+
+set -euo pipefail
+umask 077
+
+STORE="${CLAUDE_ACCOUNT_STORE:-$HOME/.claude-accounts}"
+PROFILE_ROOT="${CLAUDE_PROFILE_ROOT:-$HOME/.claude-profiles}"
+GLOBAL_CONFIG="${CLAUDE_GLOBAL_CONFIG:-$HOME/.claude}"
+SELECTED_FILE="${CLAUDE_ACCOUNT_SELECTED_FILE:-$STORE/.conductor-active}"
+MANUAL_NEXT_FILE="${CLAUDE_ACCOUNT_MANUAL_NEXT_FILE:-$STORE/.conductor-next}"
+CONDUCTOR_APP_SUPPORT="${CONDUCTOR_APP_SUPPORT:-$HOME/Library/Application Support/com.conductor.app}"
+CONDUCTOR_BIN_DIR="${CONDUCTOR_BIN_DIR:-$CONDUCTOR_APP_SUPPORT/bin}"
+CONDUCTOR_AGENT_ROOT="${CONDUCTOR_CLAUDE_AGENT_ROOT:-$CONDUCTOR_APP_SUPPORT/agent-binaries/claude}"
+ROUTER_TARGET="$CONDUCTOR_BIN_DIR/claude-router-target"
+CONDUCTOR_CLAUDE="$CONDUCTOR_BIN_DIR/claude"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+USAGE_HELPER="${CLAUDE_USAGE_HELPER:-$SCRIPT_DIR/claude-acct-usage.py}"
+
+die() {
+  echo "conductor-claude: $*" >&2
+  exit 2
+}
+
+valid_name() {
+  case "$1" in
+    ''|.*|-*|*[!A-Za-z0-9@._-]*) return 1 ;;
+    *) return 0 ;;
+  esac
+}
+
+real_path() {
+  python3 - "$1" <<'PY'
+import os
+import sys
+
+print(os.path.realpath(sys.argv[1]))
+PY
+}
+
+direct_binary() {
+  local candidate="$1" resolved
+  [ -x "$candidate" ] || return 1
+  resolved="$(real_path "$candidate")" || return 1
+  [ "$resolved" != "$(real_path "$0")" ] || return 1
+  [ "$(basename "$resolved")" != "conductor-claude" ] || return 1
+  printf '%s\n' "$candidate"
+}
+
+discover_binary() {
+  local candidate
+  while IFS= read -r candidate; do
+    direct_binary "$candidate" && return 0
+  done < <(
+    python3 - "$CONDUCTOR_AGENT_ROOT" <<'PY'
+import os
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+candidates = []
+for path in root.glob("*/claude"):
+    try:
+        if path.is_file() and os.access(path, os.X_OK):
+            candidates.append((path.stat().st_mtime, path))
+    except OSError:
+        pass
+for _, path in sorted(candidates, key=lambda item: item[0], reverse=True):
+    print(path)
+PY
+    printf '%s\n' "$ROUTER_TARGET" "$CONDUCTOR_CLAUDE" "/opt/homebrew/bin/claude"
+  )
+  return 1
+}
+
+if [ -n "${CONDUCTOR_CLAUDE_BIN:-}" ]; then
+  CLAUDE_BIN="$(direct_binary "$CONDUCTOR_CLAUDE_BIN")" ||
+    die "refusing recursive or invalid Claude executable: $CONDUCTOR_CLAUDE_BIN"
+else
+  CLAUDE_BIN="$(discover_binary)" ||
+    die "no direct Conductor Claude executable found"
+fi
+
+account="${CLAUDE_ACCOUNT_OVERRIDE:-}"
+manual_override=0
+if [ -z "$account" ] && [ -f "$MANUAL_NEXT_FILE" ]; then
+  manual_claim="$MANUAL_NEXT_FILE.claim.$$"
+  if mv "$MANUAL_NEXT_FILE" "$manual_claim" 2>/dev/null; then
+    account="$(sed -n '1p' "$manual_claim")"
+    rm -f "$manual_claim"
+    manual_override=1
+  fi
+fi
+if [ -z "$account" ]; then
+  [ -x "$USAGE_HELPER" ] || die "account decision helper is missing: $USAGE_HELPER"
+  # Resolve and, if needed, safely refresh the healthiest subscription before
+  # every new Claude process. Existing chats retain their original profile.
+  if ! account="$("$USAGE_HELPER" --best)"; then
+    die "no authenticated, non-draining Claude account is available"
+  fi
+fi
+
+[ -n "$account" ] || die "no account selected; run: claude-acct use <account>"
+valid_name "$account" || die "invalid selected account: $account"
+[ -x "$CLAUDE_BIN" ] || die "Claude executable not found: $CLAUDE_BIN"
+if [ "$manual_override" = "1" ]; then
+  [ -x "$USAGE_HELPER" ] || die "account decision helper is missing: $USAGE_HELPER"
+  "$USAGE_HELPER" --ensure "$account" >/dev/null ||
+    die "manually selected account '$account' could not refresh safely"
+fi
+
+profile_dir="$PROFILE_ROOT/$account"
+snapshot="$STORE/$account.json"
+mkdir -p "$STORE" "$PROFILE_ROOT" "$profile_dir"
+chmod 700 "$STORE" "$PROFILE_ROOT" "$profile_dir"
+
+if [ ! -f "$profile_dir/.credentials.json" ]; then
+  if [ -f "$snapshot" ]; then
+    install -m 600 "$snapshot" "$profile_dir/.credentials.json"
+  elif [ "${1:-}" = "auth" ] && [ "${2:-}" = "login" ]; then
+    : # A new isolated profile intentionally starts without credentials.
+  else
+    credential_state=""
+    if [ -x "$USAGE_HELPER" ]; then
+      credential_state="$("$USAGE_HELPER" --state "$account" 2>/dev/null || true)"
+    fi
+    case "$credential_state" in
+      ready|refreshable) : ;; # Keychain-only profile.
+      *) die "no credentials for '$account'; run: claude-acct login $account" ;;
+    esac
+  fi
+fi
+
+# Keep global instructions/settings consistent while credentials remain
+# account-specific. Runtime transcript continuity is installed as a shared
+# projects symlink by install.sh.
+for config_file in CLAUDE.md settings.json settings.local.json; do
+  if [ -f "$GLOBAL_CONFIG/$config_file" ]; then
+    install -m 600 "$GLOBAL_CONFIG/$config_file" "$profile_dir/$config_file"
+  fi
+done
+
+for config_dir in agents commands hooks output-styles plugins skills; do
+  if [ -d "$GLOBAL_CONFIG/$config_dir" ] && [ ! -e "$profile_dir/$config_dir" ]; then
+    ln -s "$GLOBAL_CONFIG/$config_dir" "$profile_dir/$config_dir"
+  fi
+done
+
+if [ ! -e "$profile_dir/projects" ]; then
+  ln -s "$GLOBAL_CONFIG/projects" "$profile_dir/projects"
+fi
+
+if [ -z "${CLAUDE_ACCOUNT_OVERRIDE:-}" ]; then
+  selected_tmp="$SELECTED_FILE.tmp.$$"
+  printf '%s\n' "$account" > "$selected_tmp"
+  chmod 600 "$selected_tmp"
+  mv "$selected_tmp" "$SELECTED_FILE"
+fi
+
+exec env CLAUDE_CONFIG_DIR="$profile_dir" "$CLAUDE_BIN" "$@"

@@ -1,0 +1,26 @@
+{
+  "name": "@ovo/conductor-pocket",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "auth-mode": "node --no-warnings=ExperimentalWarning src/cli.mjs auth-mode",
+    "check": "node --check src/cli.mjs && node --check src/server.mjs && node --check src/security.mjs && node --check src/conductor-db.mjs && node --check src/attachment-markup.mjs && node --check src/attachments.mjs && node --check src/accessibility.mjs && node --check src/conductor-input.js && node --check src/tailscale-config.mjs && node --check src/operation-lock.mjs && node --check scripts/lib/sidecar.mjs && node --check scripts/lib/login.mjs && node --check scripts/lib/cutover.mjs && node --check scripts/install-relay.mjs && node --check scripts/install-sidecar.mjs && node --check scripts/login-sidecar.mjs && node --check scripts/cutover-sidecar.mjs && node --check scripts/ui-fixture.mjs && node --check public/delivery-receipts.js && node --check public/app-update.js && node --check public/http.js && node --check public/image-attachments.js && node --check public/live-refresh.js && node --check public/rich-text.js && node --check public/transcript-focus.js && node --check public/swipe-navigation.js && node --check public/app.js && node --check public/service-worker.js && npm test",
+    "doctor": "node --no-warnings=ExperimentalWarning src/cli.mjs doctor",
+    "install:relay": "node --no-warnings=ExperimentalWarning scripts/install-relay.mjs",
+    "pair": "node --no-warnings=ExperimentalWarning src/cli.mjs pair",
+    "setup": "node --no-warnings=ExperimentalWarning src/cli.mjs setup",
+    "sidecar:cutover": "node --no-warnings=ExperimentalWarning scripts/cutover-sidecar.mjs",
+    "sidecar:install": "node --no-warnings=ExperimentalWarning scripts/install-sidecar.mjs",
+    "sidecar:login": "node --no-warnings=ExperimentalWarning scripts/login-sidecar.mjs",
+    "start": "node --no-warnings=ExperimentalWarning src/cli.mjs serve",
+    "start:ui-fixture": "node --no-warnings=ExperimentalWarning scripts/ui-fixture.mjs",
+    "test": "node --no-warnings=ExperimentalWarning --test"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "13.3.2"
+  }
+}

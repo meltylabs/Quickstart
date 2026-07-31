@@ -1,0 +1,24 @@
+# Copy to .dev.vars for local development. Never commit the real file.
+CHATWOOT_ACCOUNT_ID=
+CHATWOOT_API_TOKEN=
+CHATWOOT_BASE_URL=
+CHATWOOT_INBOX_ID=
+CHATWOOT_WEBHOOK_SECRET=
+WECOM_CALLBACK_TOKEN=
+WECOM_CORP_ID=
+WECOM_ENCODING_AES_KEY=
+WECOM_KF_SECRET=
+WECOM_OPEN_KFID=
+WECOM_RECEIVER_ID=
+
+# draft | approved-only | auto-safe
+REPLY_MODE=draft
+
+# Comma-separated Chatwoot agent IDs allowed to approve public replies.
+CHATWOOT_APPROVER_IDS=
+
+# Fixed acknowledgement only. Free-form AI output must not use auto-safe.
+AUTO_SAFE_ACK_TEXT=
+
+# Missing, false, or any unrecognized value blocks every outbound path.
+OUTBOUND_ENABLED=false

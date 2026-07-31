@@ -1,0 +1,2414 @@
+{
+  "summary": {
+    "captured_at": "2026-07-28T20:43:44.412Z",
+    "companies": 18,
+    "main_company_additions": 16,
+    "priority_existing_refreshes": 2,
+    "modeled_domains": 16,
+    "methodology": "Rank.to daily rank converted with 9e10 × rank^-1.05. Mean daily pace is used with 28+ observations; otherwise latest-rank pace is used. A latest observation older than seven days is retained but not modeled as current. All figures are models, not analytics or measured revenue."
+  },
+  "rows": [
+    {
+      "domain": "northlinelabs.org",
+      "wave": "Priority existing refresh",
+      "cohort": "priority-existing-refresh",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-12-19",
+      "domain_age_days": 221,
+      "domain_age_source": "https://rdap.publicinterestregistry.org/rdap/domain/northlinelabs.org",
+      "rank_observations": 30,
+      "latest_rank": 558914,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 83086,
+      "trailing30_visits_model": 57470,
+      "traffic_basis_visits_model": 57470,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1149,
+      "gmv_low": 57470,
+      "gmv_base": 201145,
+      "gmv_high": 431025,
+      "storefront_url": "https://northlinelabs.org/",
+      "rank_source": "https://rank.to/api/?d=northlinelabs.org&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 1510130
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 1434550
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 1375980
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 1298768
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 1242496
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 1181118
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 1136515
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 1094476
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 1048471
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 1005495
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 969768
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 950034
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 930109
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 909493
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 894847
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 745984
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 715978
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 689734
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 672591
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 653608
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 637724
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 622443
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 612257
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 604810
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 593800
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 588168
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 580682
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 573231
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 565815
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 558914
+        }
+      ]
+    },
+    {
+      "domain": "bluumpeptides.com",
+      "wave": "Priority existing refresh",
+      "cohort": "priority-existing-refresh",
+      "market_scope": "active-us-facing",
+      "domain_created": "2024-05-15",
+      "domain_age_days": 804,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/BLUUMPEPTIDES.COM",
+      "rank_observations": 15,
+      "latest_rank": 2741058,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 15647,
+      "trailing30_visits_model": null,
+      "traffic_basis_visits_model": 15647,
+      "traffic_confidence": "low",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 313,
+      "gmv_low": 15647,
+      "gmv_base": 54765,
+      "gmv_high": 117352,
+      "storefront_url": "https://bluumpeptides.com/",
+      "rank_source": "https://rank.to/api/?d=bluumpeptides.com&n=30",
+      "caveat": "Only 15/30 ranked days were available, so the latest-rank pace is used. This is an order-of-magnitude model, not analytics or measured revenue.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-07-13",
+          "rank": 4055479
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 3799646
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 3638711
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 3562668
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 3416941
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 3351737
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 3263396
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 3146345
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 3070767
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 3024066
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 2978730
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 2920256
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 2894185
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 2812389
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 2741058
+        }
+      ]
+    },
+    {
+      "domain": "ameanopeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-01-29",
+      "domain_age_days": 545,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/AMEANOPEPTIDES.COM",
+      "rank_observations": 30,
+      "latest_rank": 630485,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 73212,
+      "trailing30_visits_model": 69161,
+      "traffic_basis_visits_model": 69161,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1383,
+      "gmv_low": 69161,
+      "gmv_base": 242064,
+      "gmv_high": 518708,
+      "storefront_url": "https://ameanopeptides.com/",
+      "rank_source": "https://rank.to/api/?d=ameanopeptides.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 742814
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 740453
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 733347
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 725510
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 720106
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 712788
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 707603
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 698590
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 692757
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 687733
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 678930
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 674308
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 668427
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 664044
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 659417
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 654259
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 650566
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 648436
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 644367
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 637030
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 629513
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 624351
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 624323
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 629386
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 629842
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 631445
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 631336
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 631179
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 631041
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 630485
+        }
+      ]
+    },
+    {
+      "domain": "nexaph.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2024-05-06",
+      "domain_age_days": 813,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/NEXAPH.COM",
+      "rank_observations": 30,
+      "latest_rank": 618706,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 74677,
+      "trailing30_visits_model": 75480,
+      "traffic_basis_visits_model": 75480,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1510,
+      "gmv_low": 75480,
+      "gmv_base": 264180,
+      "gmv_high": 566100,
+      "storefront_url": "https://nexaph.com/",
+      "rank_source": "https://rank.to/api/?d=nexaph.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 611550
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 610252
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 610343
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 608646
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 608683
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 609024
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 609772
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 608588
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 609367
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 609827
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 608916
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 608045
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 607593
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 608540
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 608541
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 609193
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 613598
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 609560
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 612263
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 614776
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 614917
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 614233
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 617923
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 618520
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 617425
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 618608
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 618776
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 618865
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 618827
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 618706
+        }
+      ]
+    },
+    {
+      "domain": "ionpeptide.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-08-11",
+      "domain_age_days": 351,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/IONPEPTIDE.COM",
+      "rank_observations": 30,
+      "latest_rank": 375887,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 126018,
+      "trailing30_visits_model": 116062,
+      "traffic_basis_visits_model": 116062,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 2321,
+      "gmv_low": 116062,
+      "gmv_base": 406217,
+      "gmv_high": 870465,
+      "storefront_url": "https://ionpeptide.com/",
+      "rank_source": "https://rank.to/api/?d=ionpeptide.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 457996
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 456452
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 454786
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 449607
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 447190
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 441607
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 437238
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 432060
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 427236
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 422151
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 418185
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 413979
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 410196
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 406568
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 403026
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 399823
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 396995
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 394240
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 391212
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 388476
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 385350
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 382765
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 382428
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 381228
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 379732
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 378493
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 377288
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 379382
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 379167
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 375887
+        }
+      ]
+    },
+    {
+      "domain": "verifiedpeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2019-10-12",
+      "domain_age_days": 2481,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/VERIFIEDPEPTIDES.COM",
+      "rank_observations": 30,
+      "latest_rank": 431091,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 109130,
+      "trailing30_visits_model": 111003,
+      "traffic_basis_visits_model": 111003,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 2220,
+      "gmv_low": 111003,
+      "gmv_base": 388511,
+      "gmv_high": 832522,
+      "storefront_url": "https://verifiedpeptides.com/",
+      "rank_source": "https://rank.to/api/?d=verifiedpeptides.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 444233
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 444996
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 445281
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 439223
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 436501
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 432330
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 429073
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 426275
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 422621
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 417471
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 416309
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 415342
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 414496
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 414331
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 413783
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 414610
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 414935
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 415121
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 415665
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 415608
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 416625
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 417859
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 420674
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 423368
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 425870
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 426162
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 426385
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 427078
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 428262
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 431091
+        }
+      ]
+    },
+    {
+      "domain": "primelabpeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-03-26",
+      "domain_age_days": 489,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/PRIMELABPEPTIDES.COM",
+      "rank_observations": 0,
+      "latest_rank": null,
+      "latest_rank_date": null,
+      "rank_freshness_days": null,
+      "current_monthly_visits_model": null,
+      "trailing30_visits_model": null,
+      "traffic_basis_visits_model": null,
+      "traffic_confidence": "none",
+      "aov_low": null,
+      "aov_base": null,
+      "aov_high": null,
+      "cvr_low": null,
+      "cvr_base": null,
+      "cvr_high": null,
+      "orders_base": null,
+      "gmv_low": null,
+      "gmv_base": null,
+      "gmv_high": null,
+      "storefront_url": "https://primelabpeptides.com/",
+      "rank_source": "https://rank.to/api/?d=primelabpeptides.com&n=30",
+      "caveat": "No public rank history was available. Unknown traffic is not zero traffic.",
+      "rank_observations_raw": []
+    },
+    {
+      "domain": "modernaminos.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2022-11-25",
+      "domain_age_days": 1341,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/MODERNAMINOS.COM",
+      "rank_observations": 30,
+      "latest_rank": 512786,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 90951,
+      "trailing30_visits_model": 102292,
+      "traffic_basis_visits_model": 102292,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 2046,
+      "gmv_low": 102292,
+      "gmv_base": 358022,
+      "gmv_high": 767190,
+      "storefront_url": "https://modernaminos.com/",
+      "rank_source": "https://rank.to/api/?d=modernaminos.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 437302
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 438209
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 438615
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 435284
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 435261
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 433955
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 433716
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 433789
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 434882
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 436626
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 439036
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 441549
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 444047
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 446560
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 449390
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 450764
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 452277
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 456643
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 460739
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 464596
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 469743
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 473707
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 481957
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 489398
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 493305
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 497329
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 501288
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 506433
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 509953
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 512786
+        }
+      ]
+    },
+    {
+      "domain": "peptidecrafters.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2024-02-18",
+      "domain_age_days": 891,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/PEPTIDECRAFTERS.COM",
+      "rank_observations": 30,
+      "latest_rank": 642076,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 71825,
+      "trailing30_visits_model": 73689,
+      "traffic_basis_visits_model": 73689,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1474,
+      "gmv_low": 73689,
+      "gmv_base": 257912,
+      "gmv_high": 552668,
+      "storefront_url": "https://peptidecrafters.com/",
+      "rank_source": "https://rank.to/api/?d=peptidecrafters.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 626127
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 627995
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 629809
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 632535
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 631301
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 630567
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 630706
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 630485
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 632366
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 630986
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 626212
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 621549
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 617786
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 614261
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 610571
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 610332
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 611188
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 612544
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 619805
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 621545
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 622325
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 623894
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 628240
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 632517
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 633713
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 634857
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 634686
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 639665
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 641228
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 642076
+        }
+      ]
+    },
+    {
+      "domain": "directpeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2012-10-02",
+      "domain_age_days": 5047,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/DIRECTPEPTIDES.COM",
+      "rank_observations": 0,
+      "latest_rank": null,
+      "latest_rank_date": null,
+      "rank_freshness_days": null,
+      "current_monthly_visits_model": null,
+      "trailing30_visits_model": null,
+      "traffic_basis_visits_model": null,
+      "traffic_confidence": "none",
+      "aov_low": null,
+      "aov_base": null,
+      "aov_high": null,
+      "cvr_low": null,
+      "cvr_base": null,
+      "cvr_high": null,
+      "orders_base": null,
+      "gmv_low": null,
+      "gmv_base": null,
+      "gmv_high": null,
+      "storefront_url": "https://directpeptides.com/",
+      "rank_source": "https://rank.to/api/?d=directpeptides.com&n=30",
+      "caveat": "No public rank history was available. Unknown traffic is not zero traffic.",
+      "rank_observations_raw": []
+    },
+    {
+      "domain": "biotechpeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2020-01-31",
+      "domain_age_days": 2370,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/BIOTECHPEPTIDES.COM",
+      "rank_observations": 30,
+      "latest_rank": 442019,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 106299,
+      "trailing30_visits_model": 114001,
+      "traffic_basis_visits_model": 114001,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 2280,
+      "gmv_low": 114001,
+      "gmv_base": 399004,
+      "gmv_high": 855007,
+      "storefront_url": "https://biotechpeptides.com/",
+      "rank_source": "https://rank.to/api/?d=biotechpeptides.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 420302
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 420339
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 417319
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 415507
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 413949
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 410805
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 408594
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 405973
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 404145
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 402118
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 401931
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 401787
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 401512
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 401235
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 401084
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 400724
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 404406
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 405992
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 407795
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 409608
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 411400
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 413999
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 417099
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 420190
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 425529
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 428248
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 431068
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 433887
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 437087
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 442019
+        }
+      ]
+    },
+    {
+      "domain": "purerawz.co",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2019-02-07",
+      "domain_age_days": 2728,
+      "domain_age_source": "https://rdap.nic.co/domain/purerawz.co",
+      "rank_observations": 30,
+      "latest_rank": 556110,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 83526,
+      "trailing30_visits_model": 74534,
+      "traffic_basis_visits_model": 74534,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1491,
+      "gmv_low": 74534,
+      "gmv_base": 260869,
+      "gmv_high": 559005,
+      "storefront_url": "https://purerawz.co/",
+      "rank_source": "https://rank.to/api/?d=purerawz.co&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 669520
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 669511
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 666178
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 665503
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 663972
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 663898
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 664247
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 662257
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 660957
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 657524
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 651691
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 646097
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 639273
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 634729
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 630112
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 624713
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 619361
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 613574
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 610206
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 606145
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 600466
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 591586
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 585712
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 581079
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 576135
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 571246
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 568113
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 562655
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 557389
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 556110
+        }
+      ]
+    },
+    {
+      "domain": "oathresearch.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-07-14",
+      "domain_age_days": 379,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/OATHRESEARCH.COM",
+      "rank_observations": 30,
+      "latest_rank": 626680,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 73679,
+      "trailing30_visits_model": 75817,
+      "traffic_basis_visits_model": 75817,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1516,
+      "gmv_low": 75817,
+      "gmv_base": 265360,
+      "gmv_high": 568627,
+      "storefront_url": "https://oathresearch.com/",
+      "rank_source": "https://rank.to/api/?d=oathresearch.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 603386
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 600196
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 600727
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 600858
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 601947
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 601001
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 603898
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 606807
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 604502
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 604664
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 604278
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 608499
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 609983
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 610124
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 609271
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 608524
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 609465
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 611172
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 614333
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 610450
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 609186
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 608825
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 612505
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 614402
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 618723
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 620151
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 619163
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 620290
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 623603
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 626680
+        }
+      ]
+    },
+    {
+      "domain": "peptidessource.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2024-02-17",
+      "domain_age_days": 892,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/PEPTIDESSOURCE.COM",
+      "rank_observations": 22,
+      "latest_rank": 2874560,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 14885,
+      "trailing30_visits_model": null,
+      "traffic_basis_visits_model": 14885,
+      "traffic_confidence": "low",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 298,
+      "gmv_low": 14885,
+      "gmv_base": 52098,
+      "gmv_high": 111638,
+      "storefront_url": "https://peptidessource.com/",
+      "rank_source": "https://rank.to/api/?d=peptidessource.com&n=30",
+      "caveat": "Only 22/30 ranked days were available, so the latest-rank pace is used. This is an order-of-magnitude model, not analytics or measured revenue.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-07-06",
+          "rank": 4218339
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 3821153
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 3635123
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 3510778
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 3366235
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 3292880
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 3129293
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 3034020
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 2982318
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 2945555
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 2907967
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 2869495
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 2842034
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 2795220
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 2801919
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 2791495
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 2782108
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 2786974
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 2847933
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 2846328
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 2868832
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 2874560
+        }
+      ]
+    },
+    {
+      "domain": "particlepeptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "international-benchmark",
+      "domain_created": "2015-06-15",
+      "domain_age_days": 4061,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/PARTICLEPEPTIDES.COM",
+      "rank_observations": 30,
+      "latest_rank": 487631,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 95884,
+      "trailing30_visits_model": 89022,
+      "traffic_basis_visits_model": 89022,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1780,
+      "gmv_low": 89022,
+      "gmv_base": 311577,
+      "gmv_high": 667665,
+      "storefront_url": "https://particlepeptides.com/",
+      "rank_source": "https://rank.to/api/?d=particlepeptides.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 552240
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 550265
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 546635
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 546258
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 546785
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 547128
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 543575
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 543713
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 545125
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 544168
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 540478
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 536372
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 531602
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 528501
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 525866
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 522879
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 520737
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 518244
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 515898
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 513506
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 512015
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 512132
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 508362
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 504986
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 502506
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 500117
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 495186
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 493022
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 489080
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 487631
+        }
+      ]
+    },
+    {
+      "domain": "certified-pep.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2024-12-14",
+      "domain_age_days": 591,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/CERTIFIED-PEP.COM",
+      "rank_observations": 30,
+      "latest_rank": 451846,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 103873,
+      "trailing30_visits_model": 104034,
+      "traffic_basis_visits_model": 104034,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 2081,
+      "gmv_low": 104034,
+      "gmv_base": 364119,
+      "gmv_high": 780255,
+      "storefront_url": "https://certified-pep.com/",
+      "rank_source": "https://rank.to/api/?d=certified-pep.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 523073
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 513094
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 504018
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 495296
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 486825
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 473037
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 462623
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 454306
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 446954
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 439027
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 431638
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 432376
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 432803
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 433342
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 434214
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 433142
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 432115
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 433416
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 434153
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 435072
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 435779
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 437643
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 440612
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 445871
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 445462
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 445942
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 446485
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 447364
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 448872
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 451846
+        }
+      ]
+    },
+    {
+      "domain": "apex-peptides.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2025-02-16",
+      "domain_age_days": 527,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/APEX-PEPTIDES.COM",
+      "rank_observations": 30,
+      "latest_rank": 521501,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 89356,
+      "trailing30_visits_model": 91798,
+      "traffic_basis_visits_model": 91798,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1836,
+      "gmv_low": 91798,
+      "gmv_base": 321293,
+      "gmv_high": 688485,
+      "storefront_url": "https://apex-peptides.com/",
+      "rank_source": "https://rank.to/api/?d=apex-peptides.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 533934
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 532348
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 529210
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 525866
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 522955
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 519596
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 512338
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 509511
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 503819
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 497030
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 488959
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 487016
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 485517
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 484756
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 484788
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 487083
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 489741
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 494188
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 499029
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 503581
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 507786
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 512398
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 515641
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 517783
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 517918
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 518346
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 518281
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 520436
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 521191
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 521501
+        }
+      ]
+    },
+    {
+      "domain": "planetpeptide.com",
+      "wave": "Main company addition",
+      "cohort": "main-company-gap",
+      "market_scope": "active-us-facing",
+      "domain_created": "2023-04-05",
+      "domain_age_days": 1210,
+      "domain_age_source": "https://rdap.verisign.com/com/v1/domain/PLANETPEPTIDE.COM",
+      "rank_observations": 30,
+      "latest_rank": 815259,
+      "latest_rank_date": "2026-07-27",
+      "rank_freshness_days": 1,
+      "current_monthly_visits_model": 55896,
+      "trailing30_visits_model": 52012,
+      "traffic_basis_visits_model": 52012,
+      "traffic_confidence": "low-medium",
+      "aov_low": 100,
+      "aov_base": 175,
+      "aov_high": 250,
+      "cvr_low": "1%",
+      "cvr_base": "2%",
+      "cvr_high": "3%",
+      "orders_base": 1040,
+      "gmv_low": 52012,
+      "gmv_base": 182042,
+      "gmv_high": 390090,
+      "storefront_url": "https://planetpeptide.com/",
+      "rank_source": "https://rank.to/api/?d=planetpeptide.com&n=30",
+      "caveat": "Thirty-day rank observations were converted to an order-of-magnitude monthly-visit model. This is not analytics, measured traffic, revenue, or profit.",
+      "rank_observations_raw": [
+        {
+          "date": "2026-06-28",
+          "rank": 1132676
+        },
+        {
+          "date": "2026-06-29",
+          "rank": 1097457
+        },
+        {
+          "date": "2026-06-30",
+          "rank": 1067495
+        },
+        {
+          "date": "2026-07-01",
+          "rank": 1040309
+        },
+        {
+          "date": "2026-07-02",
+          "rank": 1012842
+        },
+        {
+          "date": "2026-07-03",
+          "rank": 983976
+        },
+        {
+          "date": "2026-07-04",
+          "rank": 961254
+        },
+        {
+          "date": "2026-07-05",
+          "rank": 937977
+        },
+        {
+          "date": "2026-07-06",
+          "rank": 916189
+        },
+        {
+          "date": "2026-07-07",
+          "rank": 896604
+        },
+        {
+          "date": "2026-07-08",
+          "rank": 841887
+        },
+        {
+          "date": "2026-07-09",
+          "rank": 841541
+        },
+        {
+          "date": "2026-07-10",
+          "rank": 840979
+        },
+        {
+          "date": "2026-07-11",
+          "rank": 840755
+        },
+        {
+          "date": "2026-07-12",
+          "rank": 840499
+        },
+        {
+          "date": "2026-07-13",
+          "rank": 841335
+        },
+        {
+          "date": "2026-07-14",
+          "rank": 812541
+        },
+        {
+          "date": "2026-07-15",
+          "rank": 811903
+        },
+        {
+          "date": "2026-07-16",
+          "rank": 812903
+        },
+        {
+          "date": "2026-07-17",
+          "rank": 812504
+        },
+        {
+          "date": "2026-07-18",
+          "rank": 812654
+        },
+        {
+          "date": "2026-07-19",
+          "rank": 813018
+        },
+        {
+          "date": "2026-07-20",
+          "rank": 813794
+        },
+        {
+          "date": "2026-07-21",
+          "rank": 814334
+        },
+        {
+          "date": "2026-07-22",
+          "rank": 814259
+        },
+        {
+          "date": "2026-07-23",
+          "rank": 814190
+        },
+        {
+          "date": "2026-07-24",
+          "rank": 813737
+        },
+        {
+          "date": "2026-07-25",
+          "rank": 814135
+        },
+        {
+          "date": "2026-07-26",
+          "rank": 814787
+        },
+        {
+          "date": "2026-07-27",
+          "rank": 815259
+        }
+      ]
+    }
+  ]
+}

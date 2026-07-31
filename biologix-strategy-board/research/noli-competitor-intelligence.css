@@ -1,0 +1,716 @@
+.noli-ci {
+  margin: 22px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(252, 250, 244, .78);
+}
+
+.noli-ci-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.noli-ci-head h3 {
+  margin: 4px 0 0;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  letter-spacing: -.035em;
+}
+
+.noli-ci-head p {
+  max-width: 600px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.ci-stats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--line);
+}
+
+.ci-stats div {
+  min-width: 0;
+  padding: 13px;
+  background: var(--card);
+}
+
+.ci-stats strong,
+.ci-stats span {
+  display: block;
+}
+
+.ci-stats strong {
+  font-size: 1.2rem;
+  letter-spacing: -.03em;
+}
+
+.ci-stats span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: .69rem;
+  line-height: 1.25;
+}
+
+.ci-cases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.ci-cases article {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card);
+}
+
+.ci-cases span,
+.ci-cases small {
+  display: block;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.ci-cases span {
+  color: var(--accent);
+  font-weight: 850;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.ci-cases strong {
+  display: block;
+  margin: 5px 0;
+  line-height: 1.25;
+}
+
+.ci-cases p {
+  margin: 0 0 4px;
+  font-size: .82rem;
+}
+
+.ci-marketing-rollup {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--line);
+}
+
+.ci-marketing-rollup article {
+  min-width: 0;
+  padding: 13px;
+  background: #f2eee4;
+}
+
+.ci-marketing-rollup span {
+  display: block;
+  color: var(--accent);
+  font-size: .65rem;
+  font-weight: 850;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.ci-marketing-rollup strong {
+  display: block;
+  margin: 4px 0;
+  font-size: .78rem;
+}
+
+.ci-marketing-rollup p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.ci-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(150px, .35fr) minmax(150px, .35fr);
+  gap: 9px;
+  margin: 13px 0 8px;
+}
+
+.ci-controls label,
+.ci-catalog-controls label {
+  display: grid;
+  gap: 4px;
+}
+
+.ci-controls label span,
+.ci-catalog-controls label span {
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.ci-controls input,
+.ci-controls select,
+.ci-catalog-controls input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-size: .82rem;
+}
+
+.ci-result-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.ci-result-line a {
+  font-weight: 750;
+}
+
+.ci-company {
+  margin-top: 7px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+}
+
+.ci-company > summary {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.4fr) repeat(3, minmax(90px, .45fr));
+  gap: 10px;
+  align-items: center;
+  min-height: 62px;
+  padding: 10px 14px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.ci-company > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ci-company > summary > span {
+  display: grid;
+  min-width: 0;
+}
+
+.ci-company > summary > span:not(:first-child) {
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+.ci-company > summary strong,
+.ci-company > summary b {
+  overflow: hidden;
+  font-size: .83rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ci-company > summary small {
+  color: var(--muted);
+  font-size: .65rem;
+}
+
+.ci-company[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.ci-company-body {
+  padding: 14px;
+}
+
+.ci-company-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.ci-company-metrics div {
+  min-width: 0;
+  padding: 10px;
+  background: white;
+}
+
+.ci-company-metrics span,
+.ci-company-metrics strong {
+  display: block;
+}
+
+.ci-company-metrics span {
+  color: var(--muted);
+  font-size: .63rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.ci-company-metrics strong {
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  font-size: .75rem;
+  line-height: 1.3;
+}
+
+.ci-company-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 11px 0;
+}
+
+.ci-company-links a,
+.ci-full-catalog > a,
+.ci-full-catalog > button,
+.ci-catalog-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 750;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ci-reta {
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ci-reta > summary {
+  min-height: 44px;
+  padding: 11px 0;
+  font-size: .76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ci-reta-list {
+  display: grid;
+  gap: 1px;
+  padding-bottom: 10px;
+  background: var(--line);
+}
+
+.ci-reta-list div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+  background: white;
+  font-size: .72rem;
+}
+
+.ci-reta-list a {
+  font-weight: 750;
+}
+
+.ci-full-catalog {
+  margin-top: 11px;
+}
+
+.ci-full-catalog > a,
+.ci-full-catalog > button {
+  margin: 0 6px 6px 0;
+}
+
+.ci-full-catalog > button {
+  color: white;
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.ci-full-catalog > button[hidden],
+.ci-more[hidden] {
+  display: none !important;
+}
+
+.ci-catalog-controls {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.ci-catalog-controls label {
+  width: min(440px, 100%);
+}
+
+.ci-catalog-controls small {
+  flex: 0 0 auto;
+  color: var(--muted);
+}
+
+.ci-catalog-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ci-catalog-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background: white;
+  font-size: .7rem;
+}
+
+.ci-catalog-table th,
+.ci-catalog-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ci-catalog-table th {
+  position: sticky;
+  top: 0;
+  background: #f2eee4;
+  font-size: .63rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.ci-catalog-more {
+  margin-top: 8px;
+}
+
+.ci-boundary {
+  margin: 11px 0 0;
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.45;
+}
+
+.ci-empty {
+  padding: 13px;
+  border-radius: 8px;
+  color: var(--muted);
+  background: #f2eee4;
+  font-size: .75rem;
+}
+
+.ci-more {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 10px;
+  border: 1px solid var(--ink);
+  border-radius: 9px;
+  color: white;
+  background: var(--ink);
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ci-method {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.ci-method > summary {
+  min-height: 44px;
+  padding: 12px 0;
+  font-size: .76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ci-method ul {
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+.ci-marketing {
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ci-marketing > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 11px 0;
+  cursor: pointer;
+}
+
+.ci-marketing > summary span {
+  font-size: .76rem;
+  font-weight: 850;
+}
+
+.ci-marketing > summary small {
+  color: var(--muted);
+  font-size: .66rem;
+  text-align: right;
+}
+
+.ci-marketing-body {
+  padding-bottom: 11px;
+}
+
+.ci-marketing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.ci-marketing-grid > div {
+  min-width: 0;
+  padding: 10px;
+  background: white;
+}
+
+.ci-marketing-grid span,
+.ci-marketing-grid strong {
+  display: block;
+}
+
+.ci-marketing-grid span {
+  color: var(--muted);
+  font-size: .61rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.ci-marketing-grid strong {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.ci-marketing-section {
+  margin-top: 10px;
+}
+
+.ci-marketing-section > strong {
+  font-size: .72rem;
+}
+
+.ci-marketing-section ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.ci-marketing-section li + li {
+  margin-top: 4px;
+}
+
+.ci-ad-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.ci-ad-list article {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.ci-ad-list span,
+.ci-ad-list strong,
+.ci-ad-list small {
+  display: block;
+}
+
+.ci-ad-list span,
+.ci-ad-list small {
+  color: var(--muted);
+  font-size: .62rem;
+}
+
+.ci-ad-list strong {
+  margin-top: 3px;
+  font-size: .75rem;
+}
+
+.ci-ad-list p {
+  margin: 5px 0;
+  color: var(--muted);
+  font-size: .69rem;
+}
+
+.ci-marketing-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.ci-marketing-links a {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  font-size: .65rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.ci-change {
+  margin: 9px 0 0;
+  padding: 8px 10px;
+  border-radius: 7px;
+  color: var(--muted);
+  background: #f2eee4;
+  font-size: .68rem;
+}
+
+@media (max-width: 980px) {
+  .ci-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ci-company-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ci-marketing-rollup {
+    grid-template-columns: 1fr;
+  }
+
+  .ci-marketing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .noli-ci {
+    margin-right: -8px;
+    margin-left: -8px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .noli-ci-head,
+  .ci-catalog-controls {
+    display: grid;
+    align-items: start;
+  }
+
+  .ci-stats,
+  .ci-cases,
+  .ci-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .ci-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ci-company > summary {
+    grid-template-columns: minmax(0, 1fr) repeat(3, minmax(60px, .4fr));
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .ci-company > summary > span:not(:first-child) {
+    padding-left: 6px;
+  }
+
+  .ci-company > summary strong,
+  .ci-company > summary b {
+    font-size: .72rem;
+  }
+
+  .ci-company > summary small {
+    font-size: .58rem;
+  }
+
+  .ci-reta-list div {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ci-reta-list a {
+    grid-column: 1 / -1;
+  }
+
+  .ci-marketing > summary {
+    display: grid;
+  }
+
+  .ci-marketing > summary small {
+    text-align: left;
+  }
+
+  .ci-ad-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .ci-company > summary {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .ci-company > summary > span:first-child {
+    grid-column: 1 / -1;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ci-company > summary > span:nth-child(2) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .ci-company-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .ci-marketing-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,643 @@
+name: Conductor autoland
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - labeled
+      - synchronize
+      - reopened
+      - ready_for_review
+      - converted_to_draft
+      - closed
+  push:
+    branches:
+      - main
+  check_suite:
+    types:
+      - completed
+  status:
+  workflow_run:
+    workflows:
+      - Consolidation gate
+    types:
+      - completed
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - conductor-autoland-advance
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions: {}
+
+concurrency:
+  group: conductor-autoland-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  advance:
+    name: Advance background queue
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Select oldest eligible pull request
+        id: select
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          owner="${REPOSITORY%%/*}"
+          repository_name="${REPOSITORY#*/}"
+          queue_json="$(
+            gh api graphql \
+              -f query='
+                query($owner: String!, $name: String!) {
+                  repository(owner: $owner, name: $name) {
+                    defaultBranchRef {
+                      name
+                      target {
+                        oid
+                      }
+                    }
+                    pullRequests(
+                      first: 100
+                      states: OPEN
+                      labels: ["conductor-autoland"]
+                      orderBy: {field: CREATED_AT, direction: ASC}
+                    ) {
+                      nodes {
+                        number
+                        url
+                        isDraft
+                        headRefName
+                        headRefOid
+                        baseRefName
+                        headRepository {
+                          nameWithOwner
+                        }
+                        labels(first: 20) {
+                          nodes {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }' \
+              -F owner="$owner" \
+              -F name="$repository_name"
+          )"
+
+          default_branch="$(jq -r '.data.repository.defaultBranchRef.name' <<<"$queue_json")"
+          base_sha="$(jq -r '.data.repository.defaultBranchRef.target.oid' <<<"$queue_json")"
+          selected="$(
+            jq -c \
+              --arg repository "$REPOSITORY" \
+              --arg base "$default_branch" \
+              '
+                [
+                  .data.repository.pullRequests.nodes[]
+                  | select(.headRepository.nameWithOwner == $repository)
+                  | select(.baseRefName == $base)
+                  | select(.isDraft == false)
+                  | select(
+                      [.labels.nodes[].name]
+                      | index("conductor-blocked")
+                      | not
+                    )
+                ][0] // null
+              ' <<<"$queue_json"
+          )"
+
+          if [[ "$selected" == "null" ]]; then
+            echo "queued=false" >>"$GITHUB_OUTPUT"
+            echo "No eligible Conductor pull request is queued."
+            exit 0
+          fi
+
+          number="$(jq -r '.number' <<<"$selected")"
+          url="$(jq -r '.url' <<<"$selected")"
+          head_ref="$(jq -r '.headRefName' <<<"$selected")"
+          head_sha="$(jq -r '.headRefOid' <<<"$selected")"
+          base_ref="$(jq -r '.baseRefName' <<<"$selected")"
+
+          if [[ ! "$number" =~ ^[0-9]+$ ]]; then
+            echo "::error::GitHub returned an invalid pull request number."
+            exit 1
+          fi
+          if [[ ! "$head_sha" =~ ^[0-9a-f]{40}$ || ! "$base_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::GitHub returned an invalid commit SHA."
+            exit 1
+          fi
+          if ! git check-ref-format "refs/heads/$head_ref" >/dev/null; then
+            echo "::error::GitHub returned an invalid head ref."
+            exit 1
+          fi
+          if ! git check-ref-format "refs/heads/$base_ref" >/dev/null; then
+            echo "::error::GitHub returned an invalid base ref."
+            exit 1
+          fi
+
+          protected_change=false
+          while IFS= read -r changed_file; do
+            case "$changed_file" in
+              .github/CODEOWNERS|.github/actions/*|.github/workflows/*)
+                protected_change=true
+                break
+                ;;
+            esac
+          done < <(
+            gh api --paginate \
+              "repos/$REPOSITORY/pulls/$number/files?per_page=100" \
+              --jq '.[].filename'
+          )
+
+          {
+            echo "queued=true"
+            echo "number=$number"
+            echo "url=$url"
+            echo "head_ref=$head_ref"
+            echo "head_sha=$head_sha"
+            echo "base_ref=$base_ref"
+            echo "base_sha=$base_sha"
+            echo "protected_change=$protected_change"
+          } >>"$GITHUB_OUTPUT"
+
+          echo "Selected $url at $head_sha."
+
+      - name: Reconcile pull request with current default branch
+        id: reconcile
+        if: steps.select.outputs.queued == 'true' && steps.select.outputs.protected_change != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BASE_REF: ${{ steps.select.outputs.base_ref }}
+          EXPECTED_BASE_SHA: ${{ steps.select.outputs.base_sha }}
+          HEAD_REF: ${{ steps.select.outputs.head_ref }}
+          EXPECTED_HEAD_SHA: ${{ steps.select.outputs.head_sha }}
+          DEPLOY_KEY: ${{ secrets.CONDUCTOR_AUTOLAND_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+
+          write_result() {
+            {
+              echo "action=$1"
+              echo "head_sha=${2:-}"
+            } >>"$GITHUB_OUTPUT"
+          }
+
+          if [[ -z "$DEPLOY_KEY" ]]; then
+            write_result "configuration_error"
+            echo "::error::CONDUCTOR_AUTOLAND_DEPLOY_KEY is not configured."
+            exit 0
+          fi
+
+          task_tmp="$(mktemp -d)"
+          trap 'rm -rf "$task_tmp"' EXIT
+          key_file="$task_tmp/deploy-key"
+          known_hosts="$task_tmp/known-hosts"
+          bare_repo="$task_tmp/repository.git"
+
+          umask 077
+          printf '%s\n' "$DEPLOY_KEY" >"$key_file"
+          chmod 600 "$key_file"
+          if ! ssh-keygen -y -f "$key_file" >/dev/null 2>&1; then
+            write_result "configuration_error"
+            echo "::error::CONDUCTOR_AUTOLAND_DEPLOY_KEY is invalid."
+            exit 0
+          fi
+
+          gh api meta --jq '.ssh_keys[] | "github.com " + .' >"$known_hosts"
+          export GIT_SSH_COMMAND="ssh -i $key_file -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$known_hosts"
+
+          git init --bare "$bare_repo" >/dev/null
+          git -C "$bare_repo" remote add origin "git@github.com:$REPOSITORY.git"
+          if ! git -C "$bare_repo" fetch --no-tags origin \
+            "+refs/heads/$BASE_REF:refs/autoland/base" \
+            "+refs/heads/$HEAD_REF:refs/autoland/head"
+          then
+            write_result "configuration_error"
+            echo "::error::The deploy key could not fetch the queued branches."
+            exit 0
+          fi
+
+          actual_base_sha="$(git -C "$bare_repo" rev-parse refs/autoland/base)"
+          actual_head_sha="$(git -C "$bare_repo" rev-parse refs/autoland/head)"
+          if [[ "$actual_base_sha" != "$EXPECTED_BASE_SHA" || "$actual_head_sha" != "$EXPECTED_HEAD_SHA" ]]; then
+            write_result "race" "$actual_head_sha"
+            echo "The base or head moved during selection; a fresh run will retry."
+            exit 0
+          fi
+
+          if git -C "$bare_repo" merge-base --is-ancestor "$actual_base_sha" "$actual_head_sha"; then
+            write_result "current" "$actual_head_sha"
+            echo "$HEAD_REF already contains $BASE_REF."
+            exit 0
+          fi
+
+          merge_errors="$task_tmp/merge-errors"
+          if ! merge_tree="$(
+            git -C "$bare_repo" merge-tree \
+              --write-tree \
+              --no-messages \
+              "$actual_head_sha" \
+              "$actual_base_sha" \
+              2>"$merge_errors"
+          )"
+          then
+            write_result "conflict" "$actual_head_sha"
+            echo "::warning::The queued pull request conflicts with $BASE_REF."
+            exit 0
+          fi
+
+          if [[ ! "$merge_tree" =~ ^[0-9a-f]{40}$ ]]; then
+            write_result "configuration_error" "$actual_head_sha"
+            echo "::error::git merge-tree returned an invalid tree."
+            exit 0
+          fi
+
+          new_head_sha="$(
+            printf 'Merge %s into %s for Conductor autoland\n' "$BASE_REF" "$HEAD_REF" |
+              GIT_AUTHOR_NAME="Conductor Autoland" \
+              GIT_AUTHOR_EMAIL="conductor-autoland@users.noreply.github.com" \
+              GIT_COMMITTER_NAME="Conductor Autoland" \
+              GIT_COMMITTER_EMAIL="conductor-autoland@users.noreply.github.com" \
+              git -C "$bare_repo" commit-tree \
+                "$merge_tree" \
+                -p "$actual_head_sha" \
+                -p "$actual_base_sha"
+          )"
+
+          if ! git -C "$bare_repo" push \
+            --force-with-lease="refs/heads/$HEAD_REF:$actual_head_sha" \
+            origin \
+            "$new_head_sha:refs/heads/$HEAD_REF"
+          then
+            write_result "race" "$actual_head_sha"
+            echo "The head moved before the compare-and-swap push; a fresh run will retry."
+            exit 0
+          fi
+
+          remote_head_sha="$(
+            git -C "$bare_repo" ls-remote origin "refs/heads/$HEAD_REF" |
+              awk '{print $1}'
+          )"
+          if [[ "$remote_head_sha" != "$new_head_sha" ]]; then
+            write_result "configuration_error" "$actual_head_sha"
+            echo "::error::The remote branch does not match the reconciled commit."
+            exit 0
+          fi
+
+          write_result "updated" "$new_head_sha"
+          echo "Updated $HEAD_REF to $new_head_sha."
+
+      - name: Enable merge or block safely
+        if: steps.select.outputs.queued == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          NUMBER: ${{ steps.select.outputs.number }}
+          URL: ${{ steps.select.outputs.url }}
+          EXPECTED_HEAD_SHA: ${{ steps.reconcile.outputs.head_sha || steps.select.outputs.head_sha }}
+          RECONCILE_ACTION: ${{ steps.reconcile.outputs.action }}
+          PROTECTED_CHANGE: ${{ steps.select.outputs.protected_change }}
+        run: |
+          set -euo pipefail
+
+          dispatch_next() {
+            gh api \
+              --method POST \
+              "repos/$REPOSITORY/dispatches" \
+              -f event_type="conductor-autoland-advance" >/dev/null 2>&1 || true
+          }
+
+          block_pull_request() {
+            local reason="$1"
+            local marker="<!-- conductor-autoland:block -->"
+
+            gh label create "conductor-blocked" \
+              --repo "$REPOSITORY" \
+              --color "B60205" \
+              --description "Background landing needs human attention" \
+              >/dev/null 2>&1 || true
+            gh pr merge "$NUMBER" \
+              --repo "$REPOSITORY" \
+              --disable-auto \
+              >/dev/null 2>&1 || true
+            gh api \
+              --method POST \
+              "repos/$REPOSITORY/issues/$NUMBER/labels" \
+              -f "labels[]=conductor-blocked" >/dev/null
+            gh api \
+              --method DELETE \
+              "repos/$REPOSITORY/issues/$NUMBER/labels/conductor-autoland" \
+              >/dev/null 2>&1 || true
+
+            if ! gh api --paginate \
+              "repos/$REPOSITORY/issues/$NUMBER/comments?per_page=100" \
+              --jq '.[].body' |
+              grep -Fq "$marker"
+            then
+              comment_body="$(
+                printf '%s\n%s\n\n%s\n' \
+                  "$marker" \
+                  "Conductor background landing paused: $reason" \
+                  'Fix the pull request, then run `conductor-land` again to requeue it.'
+              )"
+              gh api \
+                --method POST \
+                "repos/$REPOSITORY/issues/$NUMBER/comments" \
+                -f body="$comment_body" \
+                >/dev/null
+            fi
+
+            echo "::warning::$reason"
+            dispatch_next
+          }
+
+          if [[ "$PROTECTED_CHANGE" == "true" ]]; then
+            block_pull_request "This pull request changes trusted GitHub automation and requires manual review."
+            exit 0
+          fi
+
+          case "$RECONCILE_ACTION" in
+            conflict)
+              block_pull_request "This pull request conflicts with the current default branch."
+              exit 0
+              ;;
+            configuration_error)
+              block_pull_request "The repository's Conductor autoland credential is missing or invalid."
+              exit 0
+              ;;
+            race)
+              echo "Repository state moved during reconciliation; retrying."
+              dispatch_next
+              exit 0
+              ;;
+            current|updated)
+              ;;
+            *)
+              echo "::error::The reconciliation step returned no valid action."
+              dispatch_next
+              exit 1
+              ;;
+          esac
+
+          pr_json="$(
+            gh pr view "$NUMBER" \
+              --repo "$REPOSITORY" \
+              --json state,isDraft,headRefOid,baseRefName,autoMergeRequest,url
+          )"
+          live_state="$(jq -r '.state' <<<"$pr_json")"
+          live_draft="$(jq -r '.isDraft' <<<"$pr_json")"
+          live_head_sha="$(jq -r '.headRefOid' <<<"$pr_json")"
+          auto_merge_enabled="$(jq -r '.autoMergeRequest != null' <<<"$pr_json")"
+
+          if [[ "$live_state" != "OPEN" || "$live_draft" != "false" ]]; then
+            echo "The selected pull request is no longer eligible."
+            dispatch_next
+            exit 0
+          fi
+          if [[ "$live_head_sha" != "$EXPECTED_HEAD_SHA" ]]; then
+            echo "The head moved after reconciliation; retrying."
+            dispatch_next
+            exit 0
+          fi
+
+          required_checks="$(
+            gh pr checks "$NUMBER" \
+              --repo "$REPOSITORY" \
+              --required \
+              --json bucket,name,state \
+              2>/dev/null || true
+          )"
+          required_checks="${required_checks:-[]}"
+          if jq -e 'any(.[]; .bucket == "fail" or .bucket == "cancel")' \
+            >/dev/null <<<"$required_checks"
+          then
+            block_pull_request "A required GitHub check failed or was cancelled."
+            exit 0
+          fi
+
+          if [[ "$auto_merge_enabled" == "false" ]]; then
+            if ! gh pr merge "$NUMBER" \
+              --repo "$REPOSITORY" \
+              --auto \
+              --squash \
+              --match-head-commit "$live_head_sha"
+            then
+              final_state="$(
+                gh pr view "$NUMBER" \
+                  --repo "$REPOSITORY" \
+                  --json state \
+                  --jq '.state'
+              )"
+              if [[ "$final_state" != "MERGED" ]]; then
+                echo "::warning::Auto-merge was not enabled; a fresh run will retry."
+                dispatch_next
+                exit 0
+              fi
+            fi
+          fi
+
+          echo "Background landing is active for $URL at $live_head_sha."
+
+  cleanup:
+    name: Clean exact merged queue branches
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Delete only unchanged heads from merged queue items
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          DEPLOY_KEY: ${{ secrets.CONDUCTOR_AUTOLAND_DEPLOY_KEY }}
+        run: |
+          set -euo pipefail
+
+          owner="${REPOSITORY%%/*}"
+          repository_name="${REPOSITORY#*/}"
+          default_branch="$(gh api "repos/$REPOSITORY" --jq '.default_branch')"
+          if ! git check-ref-format "refs/heads/$default_branch" >/dev/null; then
+            echo "::error::GitHub returned an invalid default branch."
+            exit 1
+          fi
+
+          merged_rows="$(
+            gh pr list \
+              --repo "$REPOSITORY" \
+              --state merged \
+              --label "conductor-autoland" \
+              --limit 100 \
+              --json number,baseRefName,headRefName,headRefOid,headRepository,headRepositoryOwner,isCrossRepository |
+              jq -r \
+                --arg owner "$owner" \
+                --arg repository_name "$repository_name" \
+                --arg default_branch "$default_branch" \
+                '
+                  .[]
+                  | select(.isCrossRepository == false)
+                  | select(.headRepositoryOwner.login == $owner)
+                  | select(.headRepository.name == $repository_name)
+                  | select(.baseRefName == $default_branch)
+                  | select(.headRefName != $default_branch)
+                  | [.number, .headRefName, .headRefOid]
+                  | @tsv
+                '
+          )"
+          if [[ -z "$merged_rows" ]]; then
+            echo "No merged Conductor queue branches need inspection."
+            exit 0
+          fi
+
+          if [[ -z "$DEPLOY_KEY" ]]; then
+            echo "::error::CONDUCTOR_AUTOLAND_DEPLOY_KEY is not configured; merged branch cleanup cannot continue."
+            exit 1
+          fi
+
+          open_head_refs="$(
+            gh api \
+              --method GET \
+              --paginate \
+              "repos/$REPOSITORY/pulls" \
+              -f state="open" \
+              -f per_page=100 \
+              --jq '.[] | select(.head.repo.full_name == env.REPOSITORY) | .head.ref'
+          )"
+
+          clear_queue_label() {
+            local pr_number="$1"
+            if ! gh api \
+              --method DELETE \
+              "repos/$REPOSITORY/issues/$pr_number/labels/conductor-autoland" \
+              >/dev/null
+            then
+              label_still_present="$(
+                gh api \
+                  "repos/$REPOSITORY/issues/$pr_number/labels" \
+                  --jq 'any(.[]; .name == "conductor-autoland")'
+              )"
+              if [[ "$label_still_present" == "false" ]]; then
+                return 0
+              fi
+              echo "::error::Could not terminalize cleanup for PR #$pr_number."
+              exit 1
+            fi
+          }
+
+          task_tmp="$(mktemp -d)"
+          trap 'rm -rf "$task_tmp"' EXIT
+          key_file="$task_tmp/deploy-key"
+          known_hosts="$task_tmp/known-hosts"
+          bare_repo="$task_tmp/repository.git"
+
+          umask 077
+          printf '%s\n' "$DEPLOY_KEY" >"$key_file"
+          chmod 600 "$key_file"
+          if ! ssh-keygen -y -f "$key_file" >/dev/null 2>&1; then
+            echo "::error::CONDUCTOR_AUTOLAND_DEPLOY_KEY is invalid."
+            exit 1
+          fi
+
+          gh api meta --jq '.ssh_keys[] | "github.com " + .' >"$known_hosts"
+          export GIT_SSH_COMMAND="ssh -i $key_file -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$known_hosts"
+
+          git init --bare "$bare_repo" >/dev/null
+          git -C "$bare_repo" remote add origin "git@github.com:$REPOSITORY.git"
+
+          while IFS=$'\t' read -r pr_number head_ref expected_head_sha; do
+            if [[ ! "$pr_number" =~ ^[0-9]+$ ]]; then
+              echo "::error::GitHub returned an invalid merged pull request number."
+              exit 1
+            fi
+            if [[ ! "$expected_head_sha" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "::error::GitHub returned an invalid merged head SHA for PR #$pr_number."
+              exit 1
+            fi
+            if ! git check-ref-format "refs/heads/$head_ref" >/dev/null; then
+              echo "::error::GitHub returned an invalid merged head ref for PR #$pr_number."
+              exit 1
+            fi
+
+            if grep -Fxq "$head_ref" <<<"$open_head_refs"; then
+              echo "::warning::$head_ref from PR #$pr_number is used by an open pull request; preserving it."
+              clear_queue_label "$pr_number"
+              continue
+            fi
+
+            if ! remote_rows="$(
+              git -C "$bare_repo" ls-remote \
+                --heads \
+                origin \
+                "refs/heads/$head_ref"
+            )"
+            then
+              echo "::error::The deploy key could not inspect $head_ref."
+              exit 1
+            fi
+            live_head_sha="$(awk '{print $1}' <<<"$remote_rows")"
+            if [[ -z "$live_head_sha" ]]; then
+              echo "$head_ref from PR #$pr_number is already deleted."
+              clear_queue_label "$pr_number"
+              continue
+            fi
+            if [[ "$live_head_sha" != "$expected_head_sha" ]]; then
+              echo "::warning::$head_ref from PR #$pr_number was reused after merge; preserving its new head."
+              clear_queue_label "$pr_number"
+              continue
+            fi
+
+            if ! git -C "$bare_repo" push \
+              --force-with-lease="refs/heads/$head_ref:$expected_head_sha" \
+              origin \
+              ":refs/heads/$head_ref"
+            then
+              current_head_sha="$(
+                git -C "$bare_repo" ls-remote \
+                  --heads \
+                  origin \
+                  "refs/heads/$head_ref" |
+                  awk '{print $1}'
+              )"
+              if [[ -z "$current_head_sha" ]]; then
+                echo "$head_ref was deleted concurrently."
+                clear_queue_label "$pr_number"
+                continue
+              fi
+              if [[ "$current_head_sha" != "$expected_head_sha" ]]; then
+                echo "::warning::$head_ref moved during cleanup; preserving its new head."
+                clear_queue_label "$pr_number"
+                continue
+              fi
+              echo "::error::Could not delete unchanged merged branch $head_ref."
+              exit 1
+            fi
+
+            remaining_head_sha="$(
+              git -C "$bare_repo" ls-remote \
+                --heads \
+                origin \
+                "refs/heads/$head_ref" |
+                awk '{print $1}'
+            )"
+            if [[ -n "$remaining_head_sha" ]]; then
+              echo "::error::$head_ref still exists after its compare-and-swap delete."
+              exit 1
+            fi
+            echo "Deleted merged branch $head_ref from PR #$pr_number at $expected_head_sha."
+            clear_queue_label "$pr_number"
+          done <<<"$merged_rows"

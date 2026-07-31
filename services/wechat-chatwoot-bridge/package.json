@@ -1,0 +1,23 @@
+{
+  "name": "@ovo/wechat-chatwoot-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm test",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260726.1",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10",
+    "wrangler": "4.114.0"
+  },
+  "dependencies": {
+    "@noble/ciphers": "2.2.0"
+  }
+}

@@ -1,0 +1,70 @@
+#!/bin/bash
+# Discoverable control surface for the automatic Claude account switcher.
+
+set -euo pipefail
+
+SCRIPT_PATH="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$0")"
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+WATCH_LABEL="com.alexweinstein.claude-switcher"
+WATCH_PLIST="$HOME/Library/LaunchAgents/$WATCH_LABEL.plist"
+FIVE_HOUR_DRAIN="${CLAUDE_SWITCHER_FIVE_HOUR_DRAIN:-90}"
+SEVEN_DAY_DRAIN="${CLAUDE_SWITCHER_SEVEN_DAY_DRAIN:-95}"
+
+case "${1:-status}" in
+  status)
+    echo "Claude Switcher"
+    echo "  policy: drain at ${FIVE_HOUR_DRAIN}% five-hour or ${SEVEN_DAY_DRAIN}% seven-day usage"
+    if launchctl print "gui/$(id -u)/$WATCH_LABEL" >/dev/null 2>&1; then
+      echo "  watcher: running"
+    else
+      echo "  watcher: not running (repair with: claude-switcher repair)"
+    fi
+    echo
+    "$SCRIPT_DIR/claude-acct-usage.py"
+    ;;
+  accounts|list)
+    exec "$SCRIPT_DIR/claude-acct" list
+    ;;
+  switch|best)
+    exec "$SCRIPT_DIR/claude-acct" best
+    ;;
+  use)
+    [ "$#" -eq 2 ] || {
+      echo "usage: claude-switcher use <account>" >&2
+      exit 2
+    }
+    exec "$SCRIPT_DIR/claude-acct" use "$2"
+    ;;
+  repair)
+    [ -f "$WATCH_PLIST" ] || {
+      echo "Claude Switcher is not installed; run tools/claude-account-router/install.sh" >&2
+      exit 2
+    }
+    launchctl bootout "gui/$(id -u)" "$WATCH_PLIST" >/dev/null 2>&1 || true
+    launchctl bootstrap "gui/$(id -u)" "$WATCH_PLIST"
+    echo "Claude Switcher watcher restarted"
+    ;;
+  help|-h|--help)
+    cat <<'HELP'
+Claude Switcher automatically drains near-limit Claude subscription accounts
+between turns and resumes new Claude processes on the healthiest account.
+
+Commands:
+  claude-switcher status          show policy, watcher health, and usage
+  claude-switcher accounts        list authenticated account profiles
+  claude-switcher switch          immediately select the healthiest account
+  claude-switcher use ACCOUNT     use an account for the next launch only
+  claude-switcher repair          restart the background watcher
+  claude-switcher help            show this help
+
+Environment:
+  CLAUDE_SWITCHER_FIVE_HOUR_DRAIN  default 90
+  CLAUDE_SWITCHER_SEVEN_DAY_DRAIN  default 95
+  CLAUDE_SWITCHER_QUARANTINE_SECONDS default 21600 (six hours)
+HELP
+    ;;
+  *)
+    echo "unknown command: $1 (run: claude-switcher help)" >&2
+    exit 2
+    ;;
+esac

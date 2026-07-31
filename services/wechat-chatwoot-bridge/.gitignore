@@ -1,0 +1,4 @@
+.dev.vars
+.next/
+.wrangler/
+next-env.d.ts

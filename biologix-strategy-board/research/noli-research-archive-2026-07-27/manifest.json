@@ -1,0 +1,479 @@
+{
+  "manifestVersion": 1,
+  "snapshotDate": "2026-07-28",
+  "capturedThrough": "2026-07-28T21:11:19.867Z",
+  "marketingCapturedAt": "2026-07-28T21:11:19.867Z",
+  "company": "Noli",
+  "purpose": "Reconstruction-grade archive for future review of the July 2026 competitor, catalog, traffic, gross-checkout, payment, forum, UI, marketing, and public ad-source research.",
+  "rollups": {
+    "coreCompetitorDomains": 129,
+    "supplementalCaseProfiles": 2,
+    "supplementalOnlyDomains": 1,
+    "domainsInCommercialDataset": 130,
+    "mainCompanyAdditions": 16,
+    "verifiedDomainAges": 130,
+    "trafficModeledDomains": 56,
+    "publicCatalogsAttempted": 130,
+    "fullyEnumeratedCatalogs": 97,
+    "partialCatalogs": 10,
+    "unknownOrGatedCatalogs": 23,
+    "liveRefreshedCatalogs": 13,
+    "staticRefreshCatalogs": 4,
+    "unresolvedRefreshCatalogs": 1,
+    "archivedCatalogs": 112,
+    "normalizedCatalogOffers": 13310,
+    "pricedCatalogOffers": 12845,
+    "retatrutideOffers": 513,
+    "exactQuantityRecords": 1564,
+    "screenshotReviewedDomains": 112,
+    "screenshotScoredDomains": 95,
+    "marketing": {
+      "companies": 18,
+      "reachable": 12,
+      "partial": 1,
+      "unresolved": 5,
+      "withPromotions": 7,
+      "withPaidSocialPixels": 7,
+      "withGoogleAdsTag": 4,
+      "withAffiliate": 8,
+      "withEmailForm": 11,
+      "withLifecycleSignal": 12,
+      "withSmsCapture": 0,
+      "withPublicContent": 10,
+      "microsoftChecksSucceeded": 18,
+      "snapChecksSucceeded": 18,
+      "companiesWithVerifiedAds": 3,
+      "verifiedAdsObserved": 4
+    }
+  },
+  "modelBoundaries": {
+    "traffic": "Rank.to daily rank converted with 9e10 × rank^-1.05. Public panels are retained where available. Unknown traffic is not zero traffic.",
+    "grossCheckout": "Modeled visits × assumed conversion × modeled AOV. These are scenarios before refunds, disputes, taxes, reserves, settlement loss, or costs—not measured revenue or profit.",
+    "catalog": "Anonymous public GET only. Full, partial, gated, and unresolved coverage remain distinct.",
+    "stock": "Binary stock and public quantity fields are point-in-time storefront observations, not sales or warehouse inventory.",
+    "ui": "Screenshot-reviewed design scores do not establish product quality, legality, traffic, or revenue.",
+    "marketing": "Public scripts, routes, forms, copy, social/content links, and lifecycle tools show observable capability—not spend, CAC, ROAS, attributed visits, traffic-source share, or performance.",
+    "ads": "Automatic ad observations require an exact destination-domain match in official Microsoft/Bing or Snap sources. Coverage is region- and period-limited; no result never means no advertising."
+  },
+  "rebuild": {
+    "builder": "scripts/build-noli-competitor-intelligence.mjs",
+    "marketingCollector": "scripts/collect-noli-marketing-watch.mjs",
+    "refreshSupervisor": "scripts/refresh-noli-intelligence-suite.mjs",
+    "safeCsvHelper": "scripts/lib/safe-csv.mjs",
+    "inputs": [
+      "noli-traffic-revenue-all-2026-07-27.json",
+      "noli-traffic-revenue-main-company-gap-2026-07-28.json",
+      "noli-catalog-wave-a-2026-07-27.csv",
+      "noli-catalog-wave-b-2026-07-27.csv",
+      "noli-catalog-wave-c-2026-07-27.csv",
+      "noli-catalog-supplemental-2026-07-27.csv",
+      "noli-catalog-main-company-gap-2026-07-28.csv",
+      "noli-catalog-summary-wave-a-2026-07-27.csv",
+      "noli-catalog-summary-wave-b-2026-07-27.csv",
+      "noli-catalog-summary-wave-c-2026-07-27.csv",
+      "noli-catalog-summary-supplemental-2026-07-27.csv",
+      "noli-catalog-summary-main-company-gap-2026-07-28.csv",
+      "noli-ui-score-wave-a-2026-07-27.json",
+      "noli-ui-score-wave-b-2026-07-27.json",
+      "noli-ui-score-wave-c-2026-07-27.json"
+    ]
+  },
+  "rawInputs": [
+    {
+      "path": "noli-traffic-revenue-all-2026-07-27.csv",
+      "layer": "traffic-and-gross-checkout-input",
+      "description": "Flat 112-company traffic, domain-age, AOV, CVR, order, and low/base/high gross-checkout model input.",
+      "bytes": 47223,
+      "sha256": "e89b958e7fa4b9e64bf3fb3c62396904fa6f4d922feaa1a168a14d046273dd46",
+      "records": 112,
+      "requiredForNormalizedBuild": false
+    },
+    {
+      "path": "noli-traffic-revenue-all-2026-07-27.json",
+      "layer": "traffic-and-gross-checkout-input",
+      "description": "Machine-readable 112-company traffic and gross-checkout model input with sources and caveats.",
+      "bytes": 141495,
+      "sha256": "05b011275e678244036df110589e9222db78b658cbcef0be9c3390a2f6db9058",
+      "records": 112,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-traffic-revenue-wave-a-2026-07-27.csv",
+      "layer": "raw-public-traffic-capture",
+      "description": "Wave A collector output retaining daily rank history, source dates, price clues, and model inputs.",
+      "bytes": 21693,
+      "sha256": "f8639078d898417a92cf2aac497e3cbe16856ae2e8b0aaf74a5123e1f0ba7218",
+      "records": 36,
+      "requiredForNormalizedBuild": false
+    },
+    {
+      "path": "noli-traffic-revenue-wave-b-2026-07-27.csv",
+      "layer": "raw-public-traffic-capture",
+      "description": "Wave B collector output retaining daily rank history, source dates, price clues, and model inputs.",
+      "bytes": 24986,
+      "sha256": "47aba5f1779c535e0b2f8f2105d47c5077d66c9e7f052431b7888962f1f6eb18",
+      "records": 36,
+      "requiredForNormalizedBuild": false
+    },
+    {
+      "path": "noli-traffic-revenue-wave-c-2026-07-27.csv",
+      "layer": "raw-public-traffic-capture",
+      "description": "Wave C collector output retaining daily rank history, source dates, price clues, and model inputs.",
+      "bytes": 36412,
+      "sha256": "655060e403e6e0f2daf3e5894464ed0ad135d393c3c2f7cf568e8d737fd03e0a",
+      "records": 40,
+      "requiredForNormalizedBuild": false
+    },
+    {
+      "path": "noli-traffic-revenue-wave-a-2026-07-27.raw.json",
+      "layer": "raw-public-traffic-capture",
+      "description": "Wave A registry responses, daily Rank.to observations, public page statuses, byte counts, and extracted price clues.",
+      "bytes": 42475,
+      "sha256": "1490b30148886d87e171ddd44efb97eaa5971378582b3bd19acff3a48e69b1b0",
+      "records": 36,
+      "requiredForNormalizedBuild": false
+    },
+    {
+      "path": "noli-traffic-revenue-main-company-gap-2026-07-28.json",
+      "layer": "traffic-and-gross-checkout-input",
+      "description": "Sixteen newly promoted main-company records plus Northline and Bluum priority refreshes, with daily rank history, domain ages, sources, and model boundaries.",
+      "bytes": 57638,
+      "sha256": "d669ae55d525e847b8581d8fc20bbd27e3c1567efd9c7b5097f77c95b529f7ae",
+      "records": 18,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-wave-a-2026-07-27.csv",
+      "layer": "raw-catalog-capture",
+      "description": "Wave A public catalog offers before cross-wave normalization and deduplication.",
+      "bytes": 1404871,
+      "sha256": "5c6fa99f46dab15e4af85ee0593dfc4e585cd5c07b06ec4b81ce41d05c1bf614",
+      "records": 2653,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-wave-b-2026-07-27.csv",
+      "layer": "raw-catalog-capture",
+      "description": "Wave B public catalog offers before cross-wave normalization and deduplication.",
+      "bytes": 2678157,
+      "sha256": "e8e296d13545afcca48c5e4922ae4fc2f7d75053f75689bfcea893fbcce94cf6",
+      "records": 4620,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-wave-c-2026-07-27.csv",
+      "layer": "raw-catalog-capture",
+      "description": "Wave C public catalog offers and explicit access/transport sentinels before normalization.",
+      "bytes": 1532436,
+      "sha256": "259bdb30549d3d70952f1db08f23c7a003c1180340a8348126935f6b53f07342",
+      "records": 3262,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-supplemental-2026-07-27.csv",
+      "layer": "raw-catalog-capture",
+      "description": "Northline and Biologix supplemental public catalog capture.",
+      "bytes": 96638,
+      "sha256": "31ac50d0837f5727de8b2dd131278b2f3b84f9025e1a0c6c2c05797c013a5aa6",
+      "records": 194,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-main-company-gap-2026-07-28.csv",
+      "layer": "raw-catalog-capture",
+      "description": "Live public WooCommerce and Shopify offers plus clearly labeled partial page captures for 16 main-company additions and the priority Northline/Bluum refreshes.",
+      "bytes": 1281964,
+      "sha256": "3207706446d97953a3d8ca20a4a60414dc13d018acac34c325ba62a14ced62d3",
+      "records": 2747,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-summary-wave-a-2026-07-27.csv",
+      "layer": "raw-catalog-summary",
+      "description": "Wave A collection coverage and extraction summary.",
+      "bytes": 33389,
+      "sha256": "96097575f09e461ab19b2c735e4872a05700a74b5177ffc0786c9f72ad273fa9",
+      "records": 36,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-summary-wave-b-2026-07-27.csv",
+      "layer": "raw-catalog-summary",
+      "description": "Wave B collection coverage and extraction summary.",
+      "bytes": 33088,
+      "sha256": "3984a1e3720e3f5700413fd8eafcfae424ec3dca47cb34f9e75013fb4992b919",
+      "records": 36,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-summary-wave-c-2026-07-27.csv",
+      "layer": "raw-catalog-summary",
+      "description": "Wave C complete, gated, and transport-failure summary.",
+      "bytes": 22949,
+      "sha256": "a54bd0d5977447881888646e4d631ddadd9fda8f4dae710f4168196b7a8c1b0b",
+      "records": 40,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-summary-supplemental-2026-07-27.csv",
+      "layer": "raw-catalog-summary",
+      "description": "Northline and Biologix supplemental collection summary.",
+      "bytes": 4802,
+      "sha256": "02afce4e6df5dc4718770e0137bdfbeeb3e643c5d7df8fa9e76e7db60dba96ea",
+      "records": 2,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-catalog-summary-main-company-gap-2026-07-28.csv",
+      "layer": "raw-catalog-summary",
+      "description": "Coverage, offer counts, methods, timestamps, confidence, and caveats for 16 main-company additions plus Northline and Bluum.",
+      "bytes": 11250,
+      "sha256": "678ad66b493cd39f6982e208bf76b7e0a5d51de7b91645c416877f693e926fe7",
+      "records": 18,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-ui-score-wave-a-2026-07-27.json",
+      "layer": "raw-ui-audit-metadata",
+      "description": "Wave A desktop/mobile scores, access states, findings, evidence URLs, and screenshot references without image binaries.",
+      "bytes": 55903,
+      "sha256": "e8c086837279c1dfdfaaee73611d994752813b6bb5a791dc6111ba4a773a0806",
+      "records": 36,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-ui-score-wave-b-2026-07-27.json",
+      "layer": "raw-ui-audit-metadata",
+      "description": "Wave B desktop/mobile scores, page metrics, access states, findings, and evidence URLs.",
+      "bytes": 206907,
+      "sha256": "01e2e7ae06035c6e78a94c978a1f690c572d31ed7a8a747940662420a4fe80cb",
+      "records": 36,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-ui-score-wave-c-2026-07-27.json",
+      "layer": "raw-ui-audit-metadata",
+      "description": "Wave C desktop/mobile scores, page metrics, access states, findings, and evidence URLs.",
+      "bytes": 211520,
+      "sha256": "4ce5b40c64cd14c141c48df19e2cc0cc8d1494d57f21eb20ad0151f01ce6e1a3",
+      "records": 40,
+      "requiredForNormalizedBuild": true
+    },
+    {
+      "path": "noli-vendor-ui-capture-manifest-2026-07-27.json",
+      "layer": "raw-ui-capture-metadata",
+      "description": "112-domain screenshot-capture status, duration, final URL, and error metadata without image binaries.",
+      "bytes": 232810,
+      "sha256": "d0b618d9036d75dabc794308692b4f176ba6effc71becfb0d08953f392916172",
+      "records": 112,
+      "requiredForNormalizedBuild": false
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "operator-source-matrix.csv",
+      "layer": "operator-and-founder-source-ledger",
+      "description": "42-row operator, founder, affiliate, compliance, growth, payment, and supply evidence matrix, including sources not duplicated elsewhere.",
+      "bytes": 14877,
+      "sha256": "5b900ed4242a09a72fb6c04eb3e0b205acdaec62ef84e9b648c77eca9babe9df",
+      "records": 42
+    },
+    {
+      "path": "noli-research-20260727-competitor-checkout-matrix.md",
+      "layer": "historical-checkout-research",
+      "description": "Historical 20-store checkout evidence matrix retained for provenance. Its low-confidence Sparta revenue scenario is superseded by the later normalized model.",
+      "bytes": 22926,
+      "sha256": "169c2b33095f946922f8c23ca15a8acf4dc7edbaedbdec821fdc0006da4ec883",
+      "records": null
+    }
+  ],
+  "publishedOutputs": [
+    {
+      "path": "../noli-competitor-intelligence-2026-07-27.csv",
+      "description": "Normalized 130-company commercial sheet with model assumptions, sources, caveats, catalog rollups, and UI findings.",
+      "bytes": 196123,
+      "sha256": "016986b7c54dd792e68bd99157eed221903c01f2f6b2381d18faa7d3f8d1f15e",
+      "records": 130
+    },
+    {
+      "path": "../noli-competitor-catalog-2026-07-27.csv",
+      "description": "Normalized and deduplicated offer-level public catalog and pricing export.",
+      "bytes": 6944237,
+      "sha256": "e322694da811a993826c2384f57cee9f502bccdcb8922dd306def2a63912ef51",
+      "records": 13310
+    },
+    {
+      "path": "../noli-competitor-catalog-2026-07-27.json",
+      "description": "Machine-readable normalized catalog grouped by company domain.",
+      "bytes": 11975731,
+      "sha256": "68007447c465afd029a9de34c588eacd72ac101f6b40f3d2069b65b1b1c15c83",
+      "records": null
+    },
+    {
+      "path": "../noli-competitor-intelligence-data.js",
+      "description": "Compact page payload for the searchable commercial viewer.",
+      "bytes": 539517,
+      "sha256": "e97f3ce4d991ffe5c11ee80e87546c3a32aedc0c0af78d5d2c3d3df7907b96fc",
+      "records": null
+    },
+    {
+      "path": "../noli-marketing-watch-2026-07-28.csv",
+      "description": "Eighteen-company public marketing, lifecycle, tracking, content, social, promotion, and official ad-source export.",
+      "bytes": 35660,
+      "sha256": "7a0d7145fbc4fe2394b3c2ab233aa2446fde217f2bdff9d73a6618e894181a13",
+      "records": 18
+    },
+    {
+      "path": "../noli-marketing-watch-2026-07-28.json",
+      "description": "Machine-readable marketing monitor with source scope, freshness, exact evidence URLs, and verified exact-domain public ad observations.",
+      "bytes": 145995,
+      "sha256": "4f256784d6988c69601db719b7424f1d81ee94d73f22f94a20eb964d85e749d8",
+      "records": 18
+    },
+    {
+      "path": "../noli-marketing-watch-data.js",
+      "description": "Compact page payload for the per-company marketing and official ad-source viewer.",
+      "bytes": 103410,
+      "sha256": "0ab7a6d683222cf979251f953e79505323a5a49362b3161301f18519a7603d6a",
+      "records": null
+    },
+    {
+      "path": "../noli-checkout-scan-2026-07-27.json",
+      "description": "Machine-readable 48-store checkout and growth audit.",
+      "bytes": 518297,
+      "sha256": "0c81eb521cedb75f559a7d1f02fc0eaac4946b8512d4603287c1caf11b21991b",
+      "records": null
+    },
+    {
+      "path": "../noli-processor-code-census-2026-07-27.json",
+      "description": "Raw payment-provider code evidence census.",
+      "bytes": 1137277,
+      "sha256": "f65132c6ff80c6c1433602141592c715f725b12b69829fbd006a6ff5fd08c58d",
+      "records": null
+    },
+    {
+      "path": "../noli-forum-founder-sweep-sources-2026-07-27.csv",
+      "description": "Forum and founder source ledger.",
+      "bytes": 18852,
+      "sha256": "ebf006bf80492d9066bee5d6dee569340c994acb7bab04c259097d93e07a5dbe",
+      "records": 43
+    },
+    {
+      "path": "../noli-biologix-public-footprint-2026-07-28.md",
+      "description": "Public-source Braden and Biologix identity, business-contact, forum, reputation, and acquisition scan with explicit attribution boundaries.",
+      "bytes": 5313,
+      "sha256": "e691bf02e3f74f7c5f6f316b58dbcfdecbcfe42a11c8a47020f0451102644af2",
+      "records": null
+    },
+    {
+      "path": "../noli-full-crawl-synthesis-2026-07-27.json",
+      "description": "570-domain public-crawl rollups.",
+      "bytes": 17336,
+      "sha256": "62ec329d15a990b5ff34b3350061be4f9d1b163bb80a5800871d4f06927d5738",
+      "records": null
+    },
+    {
+      "path": "../retatrutide-vendor-audit-data.js",
+      "description": "Complete public crawl evidence ledger.",
+      "bytes": 9321650,
+      "sha256": "119687ed2b0730b93b3b58816be30e4717ae4b2e004b184842d5371136cadc66",
+      "records": null
+    }
+  ],
+  "archiveDocuments": [
+    {
+      "path": "README.md",
+      "layer": "archive-guide",
+      "description": "Human-readable archive index, model boundaries, highest current signals, and rebuild instructions.",
+      "bytes": 11369,
+      "sha256": "c9aedf351995c9be29234dc03139972d5f0653e2931b4d23f02ec275c8b5ea5e",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/build-noli-competitor-intelligence.mjs",
+      "layer": "normalization-code",
+      "description": "Deterministic normalizer that builds the published intelligence and catalog outputs from the archived inputs.",
+      "bytes": 42254,
+      "sha256": "47bac05047081dae1c84a35674d2000a39f9411ac08c8715c3056440ccc44d61",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/collect-noli-main-company-gap.mjs",
+      "layer": "collection-code",
+      "description": "Bounded anonymous-public collector for the 16 main-company additions, including live catalog and traffic refreshes.",
+      "bytes": 27453,
+      "sha256": "598c11a4f05cdf007f22a3cdd060dd525abbef789a04ee50219c2662b388c111",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/refresh-noli-competitor-intelligence.mjs",
+      "layer": "refresh-code",
+      "description": "Guarded refresh orchestrator that validates every expected live feed, writes one immutable versioned snapshot, and atomically switches the page payload only after the snapshot is complete.",
+      "bytes": 14876,
+      "sha256": "541c6a020bffae94460ec40700a64b545b6cf7dbc892642a2207bf84fac87c37",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/collect-noli-marketing-watch.mjs",
+      "layer": "marketing-collection-code",
+      "description": "Bounded public collector for onsite marketing signals plus documented anonymous Microsoft/Bing and Snap ad-transparency APIs.",
+      "bytes": 52609,
+      "sha256": "3b4840848138b932701366e8d940e657389cb7843d2163645a25d282b7daf8d5",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/refresh-noli-marketing-watch.mjs",
+      "layer": "marketing-refresh-code",
+      "description": "Guarded marketing refresh that preserves per-source last-good observations and atomically publishes a versioned snapshot.",
+      "bytes": 17476,
+      "sha256": "602236618ea59863fa1561ef025c00421ca7b2bc1f49a0929cf63c86498f5d8a",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/refresh-noli-intelligence-suite.mjs",
+      "layer": "refresh-supervisor-code",
+      "description": "Fault-isolated supervisor that runs catalog/pricing and marketing refreshes independently on one schedule.",
+      "bytes": 2462,
+      "sha256": "ead92dee7afcf927172891bb34181e07a2ec6c63012a1afe9d91c61d1bf39fcd",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/install-noli-competitor-refresh.mjs",
+      "layer": "refresh-install-code",
+      "description": "Fail-closed macOS LaunchAgent installer that pins the live refresh to one committed source SHA and refuses to replace an existing job.",
+      "bytes": 13031,
+      "sha256": "e1d21a01a0410365577c1b51b0347ce83e972b79f5d5020f91e7e89387efda73",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/build-noli-research-archive-manifest.mjs",
+      "layer": "archive-code",
+      "description": "Manifest and checksum generator for this reconstruction archive.",
+      "bytes": 17867,
+      "sha256": "9bb7b951b4df556f70b1e241579a1640a22d073cc1a8c2f8c3bc63fb371393a7",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/lib/safe-csv.mjs",
+      "layer": "export-safety-code",
+      "description": "CSV serializer that neutralizes spreadsheet-formula prefixes in normalized exports.",
+      "bytes": 493,
+      "sha256": "09e9f72507961114de8182654064ed4a8c496a96cde7507bf97f93fdf741bd36",
+      "records": null
+    },
+    {
+      "path": "../../../scripts/lib/noli-priority-companies.mjs",
+      "layer": "monitor-registry-code",
+      "description": "Shared 18-company identity, alias, catalog, and public marketing-route registry used by both automatic layers.",
+      "bytes": 3886,
+      "sha256": "c35099c22691f28365e7d5acc805541367c603574384224defe0982767ebc3db",
+      "records": null
+    }
+  ],
+  "exclusions": [
+    "Screenshot and contact-sheet image binaries",
+    "Complete HTML or JavaScript response-body dumps",
+    "Cookies, credentials, authorization headers, accounts, carts, orders, and payment attempts",
+    "Redundant captures that add no distinct evidence"
+  ]
+}

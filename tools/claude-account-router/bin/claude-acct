@@ -1,0 +1,224 @@
+#!/bin/bash
+# Select isolated Claude Code accounts without rewriting the shared Keychain.
+
+set -euo pipefail
+umask 077
+
+STORE="${CLAUDE_ACCOUNT_STORE:-$HOME/.claude-accounts}"
+PROFILE_ROOT="${CLAUDE_PROFILE_ROOT:-$HOME/.claude-profiles}"
+SELECTED_FILE="${CLAUDE_ACCOUNT_SELECTED_FILE:-$STORE/.conductor-active}"
+MANUAL_NEXT_FILE="${CLAUDE_ACCOUNT_MANUAL_NEXT_FILE:-$STORE/.conductor-next}"
+GLOBAL_ACTIVE_FILE="$STORE/.active"
+SERVICE="${CLAUDE_KEYCHAIN_SERVICE:-Claude Code-credentials}"
+KC_ACCT="${CLAUDE_KEYCHAIN_ACCOUNT:-$(id -un)}"
+GLOBAL_CRED_FILE="${CLAUDE_GLOBAL_CREDENTIALS:-$HOME/.claude/.credentials.json}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+USAGE_HELPER="${CLAUDE_USAGE_HELPER:-$SCRIPT_DIR/claude-acct-usage.py}"
+
+mkdir -p "$STORE" "$PROFILE_ROOT"
+chmod 700 "$STORE" "$PROFILE_ROOT"
+
+die() {
+  echo "claude-acct: $*" >&2
+  exit 2
+}
+
+valid_name() {
+  case "$1" in
+    ''|.*|-*|*[!A-Za-z0-9@._-]*) return 1 ;;
+    *) return 0 ;;
+  esac
+}
+
+require_name() {
+  local name="${1:-}"
+  valid_name "$name" || die "invalid account name: ${name:-<empty>}"
+  printf '%s' "$name"
+}
+
+profile_exists() {
+  local name="$1"
+  [ -d "$PROFILE_ROOT/$name" ] || [ -f "$STORE/$name.json" ]
+}
+
+profile_state() {
+  "$USAGE_HELPER" --state "$1" 2>/dev/null || true
+}
+
+profile_selectable() {
+  case "$(profile_state "$1")" in
+    ready|refreshable) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+ensure_profile_ready() {
+  local name="$1" state
+  state="$(profile_state "$name")"
+  case "$state" in
+    ready) return 0 ;;
+    refreshable) "$USAGE_HELPER" --ensure "$name" >/dev/null 2>&1 ;;
+    *) return 1 ;;
+  esac
+}
+
+atomic_select() {
+  local name="$1" tmp="$SELECTED_FILE.tmp.$$" next_tmp="$MANUAL_NEXT_FILE.tmp.$$"
+  printf '%s\n' "$name" > "$tmp"
+  chmod 600 "$tmp"
+  mv "$tmp" "$SELECTED_FILE"
+  printf '%s\n' "$name" > "$next_tmp"
+  chmod 600 "$next_tmp"
+  mv "$next_tmp" "$MANUAL_NEXT_FILE"
+}
+
+selected() {
+  [ -f "$SELECTED_FILE" ] && sed -n '1p' "$SELECTED_FILE"
+}
+
+account_names() {
+  {
+    for path in "$STORE"/*.json; do
+      [ -e "$path" ] || continue
+      basename "$path" .json
+    done
+    for path in "$PROFILE_ROOT"/*; do
+      [ -d "$path" ] || continue
+      basename "$path"
+    done
+  } | LC_ALL=C sort -u
+}
+
+select_account() {
+  local name
+  name="$(require_name "${1:-}")"
+  profile_exists "$name" || die "no saved account '$name'"
+  if ! ensure_profile_ready "$name"; then
+    die "'$name' could not refresh safely; retry shortly or run: claude-acct login $name"
+  fi
+  atomic_select "$name"
+  echo "selected '$name' for the next new/restarted Conductor Claude chat"
+  echo "Automatic account selection resumes after that one launch; leave all other Claude and Codex chats running."
+}
+
+kc_read() {
+  security find-generic-password -s "$SERVICE" -w 2>/dev/null
+}
+
+valid_blob() {
+  printf '%s' "$1" | python3 -c '
+import json,sys
+try:
+    token=json.load(sys.stdin).get("claudeAiOauth",{}).get("refreshToken","")
+    raise SystemExit(0 if token.startswith("sk-ant-ort") else 1)
+except Exception:
+    raise SystemExit(1)'
+}
+
+save_snapshot() {
+  local path="$1" blob="$2" tmp="$path.tmp.$$"
+  valid_blob "$blob" || die "refusing to save invalid or empty credentials"
+  printf '%s' "$blob" > "$tmp"
+  chmod 600 "$tmp"
+  [ -f "$path" ] && cp "$path" "$path.bak"
+  mv "$tmp" "$path"
+}
+
+global_use() {
+  local name force="${2:-}"
+  name="$(require_name "${1:-}")"
+  [ -f "$STORE/$name.json" ] || die "no saved account '$name'"
+  if pgrep -f '(^|/)claude( |$)' >/dev/null 2>&1 && [ "$force" != "--force" ]; then
+    die "running Claude sessions detected. Shared-Keychain switching is unsafe. Use 'claude-acct use $name' for Conductor, or rerun 'global-use $name --force' only after every global Claude process is stopped"
+  fi
+  local blob
+  blob="$(sed -n '1p' "$STORE/$name.json")"
+  valid_blob "$blob" || die "snapshot '$name' is invalid"
+  security delete-generic-password -s "$SERVICE" >/dev/null 2>&1 || true
+  security add-generic-password -s "$SERVICE" -a "$KC_ACCT" -w "$blob" -U >/dev/null
+  printf '%s' "$blob" > "$GLOBAL_CRED_FILE"
+  chmod 600 "$GLOBAL_CRED_FILE"
+  printf '%s\n' "$name" > "$GLOBAL_ACTIVE_FILE"
+  echo "switched the legacy global Claude login to '$name'"
+}
+
+case "${1:-}" in
+  use|select)
+    select_account "${2:-}"
+    ;;
+  best)
+    best="$("$USAGE_HELPER" --best)" ||
+      die "no authenticated, non-draining account is available"
+    select_account "$best"
+    ;;
+  next)
+    current="$(selected)"
+    names=()
+    while IFS= read -r name; do
+      profile_selectable "$name" && names+=("$name")
+    done < <(account_names)
+    [ "${#names[@]}" -gt 0 ] || die "no authenticated profiles; run: claude-acct login <account>"
+    target="${names[0]}"
+    for i in "${!names[@]}"; do
+      if [ "${names[$i]}" = "$current" ]; then
+        target="${names[$(( (i + 1) % ${#names[@]} ))]}"
+        break
+      fi
+    done
+    select_account "$target"
+    ;;
+  current)
+    current="$(selected)"
+    [ -n "$current" ] && echo "$current" || die "no Conductor account selected"
+    ;;
+  list)
+    current="$(selected)"
+    while IFS= read -r name; do
+      marker=" "
+      [ "$name" = "$current" ] && marker="*"
+      case "$(profile_state "$name")" in
+        ready) status="ready" ;;
+        refreshable) status="refreshes on next launch" ;;
+        quarantined) status="cooldown after limit" ;;
+        *) status="login required" ;;
+      esac
+      printf '%s %-24s %s\n' "$marker" "$name" "$status"
+    done < <(account_names)
+    ;;
+  login)
+    name="$(require_name "${2:-}")"
+    mkdir -p "$PROFILE_ROOT/$name"
+    chmod 700 "$PROFILE_ROOT/$name"
+    if [ ! -f "$PROFILE_ROOT/$name/.credentials.json" ] && [ -f "$STORE/$name.json" ]; then
+      install -m 600 "$STORE/$name.json" "$PROFILE_ROOT/$name/.credentials.json"
+    fi
+    exec "$SCRIPT_DIR/claude-acct-run" "$name" auth login
+    ;;
+  save)
+    name="$(require_name "${2:-}")"
+    blob="$(kc_read)" || die "no active global Claude login found in Keychain"
+    save_snapshot "$STORE/$name.json" "$blob"
+    echo "saved the current global login as '$name'"
+    ;;
+  global-use)
+    global_use "${2:-}" "${3:-}"
+    ;;
+  usage)
+    exec "$USAGE_HELPER"
+    ;;
+  *)
+    cat >&2 <<'USAGE'
+usage:
+  claude-acct use <name>        select account for the next Conductor Claude launch
+  claude-acct best              select the authenticated account with most headroom
+  claude-acct next              rotate to the next authenticated account
+  claude-acct current           print the selected Conductor account
+  claude-acct list              list profiles and authentication status
+  claude-acct usage             show live/cached usage
+  claude-acct login <name>      authenticate one isolated profile
+  claude-acct save <name>       snapshot the legacy global Keychain login
+  claude-acct global-use <name> legacy shared-Keychain switch (refuses while Claude runs)
+USAGE
+    exit 2
+    ;;
+esac

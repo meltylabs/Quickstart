@@ -1,5 +1,54 @@
 "$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
 
 [scripts]
-setup = "true"
-run = "open index.html"
+archive = ".conductor/scripts/archive-guard.zsh"
+setup = ".conductor/scripts/sync-from-github.zsh"
+
+[scripts.run.app]
+available_in = [ "local" ]
+command = "open index.html"
+default = true
+icon = "globe"
+
+[scripts.run.repository_status]
+available_in = [ "local" ]
+command = "conductor-status --full"
+icon = "git-pull-request"
+
+[git]
+archive_on_merge = true
+branch_prefix_type = "github_username"
+delete_branch_on_archive = true
+worktree_push_auto_setup_remote = true
+
+[prompts]
+general = """
+GitHub source-of-truth policy:
+- Before editing, run the fast PATH-level `conductor-status` command. State its worktree-scoped `TARGET owner/repository`, immutable repository ID, bound remote, feature branch, and default branch. An unbound worktree has no publish authority: leave it unchanged until Alex chooses `conductor-status --bind OWNER/REPOSITORY --remote REMOTE`.
+- Never infer a target from a remote named `origin`. Each worktree must be explicitly bound to one named remote, its verified fetch and push URLs, and GitHub's immutable repository ID. Stop on any missing, partial, shared-config-only, or mismatched binding.
+- Treat the bound remote's default branch on GitHub as canonical. Fetch through the verified URL before editing and reconcile the task branch with the newest verified default branch. Setup must never move a dirty or divergent workspace or a separate canonical checkout.
+- Work on a unique feature branch. Do not push directly to main or master unless Alex explicitly requests it.
+- Automatic post-commit backup and background landing are separate. The backup hook may only copy the exact captured feature-branch SHA to that same branch on the bound remote with a non-force update. It must refuse default, detached, reserved landing, unbound, divergent, or changed-target states; it never creates or expands a pull request.
+- Never leave completed work only on a Mac. After tests pass, commit task-owned changes and run `conductor-status --full`; stop on divergence or identity/protection failure. Then run the PATH-level `conductor-land`.
+- `conductor-land` backs up the exact source SHA, creates an immutable `conductor/land/<full-source-SHA>` ref, and opens or reuses a pull request whose head is that landing ref—not the mutable backup branch. It rereads the PR before and after queue labeling. Any mismatch fails closed.
+- `conductor-land` returns `QUEUED` only after GitHub owns the exact landing SHA and the final receipt names the same repository ID, bound remote, source branch/SHA, landing branch/SHA, base branch, and pull request. Report that URL and end the chat without waiting unless Alex explicitly requested synchronous landing.
+- The repository's Conductor worker serializes queued pull requests, merges the newest default branch into each one, reruns required checks on the combined state, enables squash auto-merge, and advances the next item. Never run a competing local merge loop.
+- Do not claim `MERGED` or `LANDED` unless GitHub actually reports the pull request merged and the remote default branch contains its merge commit. Use `conductor-land --wait` only when synchronous verification was explicitly requested.
+- Preserve unrelated work. Never reset, stash, delete, overwrite, or force-push work owned by another person or workspace.
+- If background landing later finds a conflict, failed required check, permission problem, trusted-workflow change, or unapproved production release, it labels the pull request `conductor-blocked` and leaves a single explanatory comment. Resolve that pull request and rerun `conductor-land`; never silently discard it.
+- Explicit read-only, draft, review-only, or no-merge requests override automatic landing.
+- Installed publishing commands and hooks must resolve to one immutable commit-versioned installation, never directly to mutable files in a checkout. Existing hooks require explicit replacement consent and timestamped backups.
+- After tests pass, use the PATH-level `conductor-land` command so every chat uses the verified global installation. Its visible target and final receipt must name the same worktree binding and exact source/landing SHAs.
+
+Frontend and UI implementation policy:
+- Do not require any specific model or external design authority for frontend and UI work.
+- Never sacrifice functionality, permissions, security, or legal invariants for visual cleanup, and never ship no-op controls as if they work.
+"""
+
+create_pr = """
+Run `conductor-status --full` and state its worktree-bound repository, immutable ID, remote, source branch/SHA, and default branch. Stop on any binding, URL, divergence, protection, hook, or audit failure. After relevant tests pass, run the PATH-level `conductor-land`. Its preflight and final receipt must name the same repository ID, remote, base, source branch/SHA, immutable landing branch/SHA, and pull request. A `QUEUED` result is the intended asynchronous handoff; report the URL without waiting. Use `conductor-land --wait` only if Alex explicitly requests synchronous verification. Do not claim `MERGED` or `LANDED` until GitHub confirms it.
+"""
+
+resolve_merge_conflicts = """
+Resolve conflicts semantically. Inspect the merge base, the feature-branch diff, and the newest default-branch diff. Preserve compatible intent from both Alex and Lucas. Never resolve an entire file or tree wholesale with ours or theirs. After resolving, rerun the relevant tests before pushing or merging.
+"""

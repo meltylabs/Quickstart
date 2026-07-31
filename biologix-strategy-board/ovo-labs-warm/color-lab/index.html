@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Peptide Homepage Color Lab</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#111111">
+    <link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="board.css">
+  </head>
+  <body>
+    <header class="board-header">
+      <div class="board-title">
+        <span class="lab-mark" aria-hidden="true"></span>
+        <div>
+          <p>Internal decision board</p>
+          <h1>Peptide homepage color lab</h1>
+        </div>
+      </div>
+      <div class="board-summary">
+        <span>4 complete directions</span>
+        <strong>Recommendation: B</strong>
+      </div>
+    </header>
+
+    <main>
+      <nav class="controls" aria-label="Homepage variants">
+        <div class="variant-tabs" role="tablist" aria-label="Choose a color direction">
+          <button type="button" role="tab" aria-selected="true" data-variant="gold">
+            <span class="swatches"><i></i><i></i><i></i></span>
+            <span><b>A</b> Gilded Clinical</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-variant="cobalt">
+            <span class="swatches"><i></i><i></i><i></i></span>
+            <span><b>B</b> Cobalt Standard</span>
+            <em>My pick</em>
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-variant="black-label">
+            <span class="swatches"><i></i><i></i><i></i></span>
+            <span><b>C</b> Black Label</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-variant="oxblood">
+            <span class="swatches"><i></i><i></i><i></i></span>
+            <span><b>D</b> Oxblood Editorial</span>
+          </button>
+        </div>
+
+        <div class="device-controls" role="group" aria-label="Preview size">
+          <button type="button" class="is-active" data-device="desktop" aria-pressed="true">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="3" width="16" height="11" rx="1"></rect><path d="M7 17h6M10 14v3"></path></svg>
+            Desktop
+          </button>
+          <button type="button" data-device="mobile" aria-pressed="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="2" width="8" height="16" rx="1.5"></rect><path d="M9 15.5h2"></path></svg>
+            Mobile
+          </button>
+          <a id="open-variant" href="gold/" target="_blank" rel="noopener">Open full page ↗</a>
+        </div>
+      </nav>
+
+      <section class="preview-stage" data-device-state="desktop">
+        <div class="preview-label">
+          <div>
+            <span id="variant-letter">A</span>
+            <div><strong id="variant-name">Gilded Clinical</strong><small id="variant-palette">White · cream · champagne gold · black</small></div>
+          </div>
+          <p id="variant-note">The gold direction you asked for. Expensive when gold stays a detail and the purchase action stays black.</p>
+        </div>
+        <div class="browser-frame">
+          <div class="browser-chrome" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <p id="browser-url">standardlabs.com</p>
+          </div>
+          <div class="frame-shell">
+            <div class="loading-state" aria-hidden="true"><i></i><span>Loading full homepage</span></div>
+            <iframe id="variant-frame" src="gold/" title="Gilded Clinical homepage preview"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="decision-grid">
+        <article class="recommendation">
+          <p class="section-label">What I would ship</p>
+          <h2>B. Cobalt Standard</h2>
+          <p>Cobalt makes the testing system feel native, gives buttons more energy than brown or gold, and stays credible to both women and men. The page can still feel female-leading through photography, casting, copy, and editorial pacing instead of making the entire identity pink.</p>
+          <button type="button" data-jump="cobalt">Show recommendation</button>
+        </article>
+
+        <article class="name-lane">
+          <p class="section-label">Naming reset</p>
+          <h2>Category first. Labs at the end.</h2>
+          <p>The mockups use <strong>Standard Peptide Labs</strong> as a working label, not a final name. These are the naming lanes worth pursuing after removing obvious live vendors such as <a href="https://northlinelabs.org/" target="_blank" rel="noopener">Northline Labs</a> and <a href="https://modernpeptidelabs.com/" target="_blank" rel="noopener">Modern Peptide Labs</a>.</p>
+          <div class="name-list">
+            <span>Standard Peptide Labs</span>
+            <span>Applied Peptide Labs</span>
+            <span>Sterling Peptide Labs</span>
+            <span>Pacific Peptide Labs</span>
+          </div>
+          <small>Direction screen only. Search results are not trademark or domain clearance.</small>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>Use the tabs to compare the same homepage job across four systems.</span>
+      <span>Built for local visual selection · 1440 + 390 responsive</span>
+    </footer>
+
+    <script src="board.js"></script>
+  </body>
+</html>

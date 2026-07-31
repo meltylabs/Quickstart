@@ -1,0 +1,17 @@
+{
+  "name": "biologix-public-intel-vercel",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check api/cron.js && node --check api/observatory-cron.js && node --check 'api/biologix-intel/[route].js' && node --check 'api/observatory/[route].js' && node --check api/public/observatory.js && node --check lib/*.js"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.6.1",
+    "undici": "6.28.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

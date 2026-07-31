@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Standard Peptide Labs · Cobalt Standard</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#1747ff">
+    <meta name="description" content="An internal cobalt color direction for a focused research peptide catalog.">
+    <link rel="preload" href="../assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/datum-hero-vials.webp" as="image" type="image/webp">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="home" data-base="..">
+    <div id="site-root"></div>
+    <script src="base.js"></script>
+    <script>
+      (() => {
+        document.title = "Standard Peptide Labs · Cobalt Standard";
+
+        const replaceText = (value) =>
+          value
+            .replaceAll("OVO Labs", "Standard Peptide Labs")
+            .replaceAll("OVO-", "SPL-");
+
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach((node) => {
+          const next = replaceText(node.nodeValue || "");
+          if (next !== node.nodeValue) node.nodeValue = next;
+        });
+
+        document.querySelectorAll("[aria-label], [alt], [placeholder]").forEach((element) => {
+          ["aria-label", "alt", "placeholder"].forEach((attribute) => {
+            if (element.hasAttribute(attribute)) {
+              element.setAttribute(attribute, replaceText(element.getAttribute(attribute)));
+            }
+          });
+        });
+
+        document.querySelectorAll(".wordmark-mark").forEach((mark) => {
+          mark.textContent = "S";
+        });
+        document.querySelectorAll(".wordmark-name").forEach((name) => {
+          name.textContent = "Standard Labs";
+        });
+        document.querySelectorAll(".wordmark-category").forEach((category) => {
+          category.textContent = "PEPTIDES";
+        });
+
+        const conceptBanner = document.querySelector(".concept-banner");
+        if (conceptBanner) {
+          conceptBanner.textContent = "Internal color study · fictional catalog and lot data · no orders are processed";
+        }
+
+        const eyebrow = document.querySelector(".hero-copy .eyebrow");
+        const title = document.querySelector(".hero-copy h1");
+        const lede = document.querySelector(".hero-copy > p:not(.eyebrow)");
+        const heroImage = document.querySelector(".hero-visual img");
+
+        if (eyebrow) eyebrow.textContent = "Current-lot peptide catalog";
+        if (title) title.innerHTML = "Clear compounds. <span>Current evidence.</span>";
+        if (lede) lede.textContent = "A focused research catalog where molecule, strength, current lot, purity, and testing scope stay visible from first click to cart.";
+        if (heroImage) {
+          heroImage.src = "../assets/datum-hero-vials.webp";
+          heroImage.alt = "Three clear research vials with white labels, silver collars, and a cobalt verification mark";
+        }
+
+        const catalog = document.querySelector(".product-grid")?.closest("section");
+        const testing = document.querySelector(".testing-feature")?.closest("section");
+        const sets = document.querySelector(".bundle-grid")?.closest("section");
+        const education = document.querySelector(".education-grid")?.closest("section");
+        if (catalog) catalog.id = "catalog";
+        if (testing) testing.id = "testing";
+        if (sets) sets.id = "sets";
+        if (education) education.id = "education";
+
+        const sectionFor = (href) => {
+          if (!href || !href.startsWith("../")) return href;
+          if (href.includes("testing") || href.includes("lot-record")) return "#testing";
+          if (href.includes("notes") || href.includes("faq")) return "#education";
+          if (href.includes("bundles")) return "#sets";
+          if (href.includes("index.html")) return "#main-content";
+          return "#catalog";
+        };
+
+        const remapLink = (link) => {
+          const href = link.getAttribute("href");
+          const mapped = sectionFor(href);
+          if (mapped !== href) link.setAttribute("href", mapped);
+        };
+
+        document.querySelectorAll("a[href]").forEach(remapLink);
+        document.querySelectorAll("a[href*='checkout']").forEach((link) => {
+          link.href = "#catalog";
+          link.textContent = "Continue browsing";
+        });
+
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest("a[href]");
+          if (!link) return;
+          const href = link.getAttribute("href");
+          const mapped = sectionFor(href);
+          if (mapped === href) return;
+          event.preventDefault();
+          link.setAttribute("href", mapped);
+          document.querySelector(mapped)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      })();
+    </script>
+  </body>
+</html>

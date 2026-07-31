@@ -1,0 +1,192 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+if [[ -n "${FAKE_GH_LOG:-}" ]]; then
+  print -r -- "$*" >>"$FAKE_GH_LOG"
+fi
+
+label_state_file="${FAKE_GH_LABEL_STATE_FILE:-}"
+blocked_state_file="${FAKE_GH_BLOCKED_STATE_FILE:-}"
+
+regular_pr_json() {
+  local head_sha="${FAKE_HEAD_SHA:?}"
+  local labels='[]'
+
+  if [[ -n "$label_state_file" && -f "$label_state_file" ]]; then
+    labels='[{"name":"conductor-autoland"}]'
+    if [[ "${FAKE_LABEL_RACE:-false}" == "true" ]]; then
+      head_sha="${FAKE_RACE_SHA:?}"
+    fi
+  fi
+  if [[ -n "$blocked_state_file" && -f "$blocked_state_file" ]]; then
+    if [[ "$labels" == "[]" ]]; then
+      labels='[{"name":"conductor-blocked"}]'
+    else
+      labels='[{"name":"conductor-autoland"},{"name":"conductor-blocked"}]'
+    fi
+  fi
+
+  jq -cn \
+    --arg head_ref "${FAKE_LANDING_BRANCH:?}" \
+    --arg head_sha "$head_sha" \
+    --argjson labels "$labels" \
+    '{
+      number: 1,
+      url: "https://github.com/example/repo/pull/1",
+      state: "OPEN",
+      isDraft: false,
+      baseRefName: "main",
+      headRefName: $head_ref,
+      headRefOid: $head_sha,
+      headRepository: {name: "repo"},
+      headRepositoryOwner: {login: "example"},
+      isCrossRepository: false,
+      autoMergeRequest: null,
+      labels: $labels
+    }'
+}
+
+case "${1:-} ${2:-}" in
+  "repo view")
+    if [[ "$*" == *viewerPermission* ]]; then
+      print "WRITE"
+    else
+      print "main"
+    fi
+    ;;
+  "pr list")
+    if [[ "${FAKE_GH_MODE:-land}" == "archive" ]]; then
+      archive_labels='[{"name":"conductor-autoland"}]'
+      if [[ "${FAKE_ARCHIVE_LABELLED:-true}" != "true" ]]; then
+        archive_labels='[]'
+      fi
+      jq -cn \
+        --arg head_ref "${FAKE_ARCHIVE_HEAD_REF:?}" \
+        --arg head_sha "${FAKE_PR_HEAD_SHA:?}" \
+        --argjson labels "$archive_labels" \
+        --argjson cross_repository "${FAKE_ARCHIVE_CROSS:-false}" \
+        '[{
+          number: 42,
+          url: "https://github.com/example/repo/pull/42",
+          state: "MERGED",
+          baseRefName: "main",
+          headRefName: $head_ref,
+          headRefOid: $head_sha,
+          headRepository: {name: "repo"},
+          headRepositoryOwner: {login: "example"},
+          isCrossRepository: $cross_repository,
+          labels: $labels,
+          mergeCommit: {oid: env.FAKE_ARCHIVE_MERGE_SHA}
+        }]'
+    else
+      if [[ "$*" != *"--head ${FAKE_LANDING_BRANCH:?}"* ||
+        "$*" == *"--head example:${FAKE_LANDING_BRANCH:?}"* ]]
+      then
+        print -u2 "invalid gh pr list head filter: $*"
+        exit 65
+      fi
+      if [[ "${FAKE_EXISTING_PR:-false}" == "true" ]]; then
+        print "https://github.com/example/repo/pull/1"
+      fi
+    fi
+    ;;
+  "pr create")
+    if [[ "$*" != *"--head example:${FAKE_LANDING_BRANCH:?}"* ]]; then
+      print -u2 "invalid gh pr create head: $*"
+      exit 65
+    fi
+    if [[ "$*" == *"--fill"* || "$*" != *"--title "* ||
+      "$*" != *"--body "* ]]
+    then
+      print -u2 "landing PR must use explicit title/body, not local-ref inference: $*"
+      exit 65
+    fi
+    print "https://github.com/example/repo/pull/1"
+    ;;
+  "pr view")
+    if [[ "$*" == *"--json state,mergeCommit,labels"* ]]; then
+      print -r -- "{\"state\":\"${FAKE_PR_STATE:-MERGED}\",\"mergeCommit\":{\"oid\":\"${FAKE_MERGE_SHA:?}\"},\"labels\":[]}"
+    else
+      regular_pr_json
+    fi
+    ;;
+  "pr merge")
+    ;;
+  "label create")
+    ;;
+  "api "*)
+    if [[ "$*" == *"actions/workflows/conductor-autoland.yml"* ]]; then
+      print "active"
+    elif [[ "$*" == *"/branches/main/protection"* ]]; then
+      if [[ "${FAKE_PROTECTION_MODE:-safe}" == "unsafe" ]]; then
+        print '{"required_status_checks":{"strict":false,"checks":[]},"required_pull_request_reviews":null,"enforce_admins":{"enabled":false},"allow_force_pushes":{"enabled":true},"allow_deletions":{"enabled":true}}'
+      else
+        print '{"required_status_checks":{"strict":true,"checks":[{"context":"Verify combined branch","app_id":null}],"contexts":[]},"required_pull_request_reviews":{},"enforce_admins":{"enabled":true},"allow_force_pushes":{"enabled":false},"allow_deletions":{"enabled":false}}'
+      fi
+    elif [[ "$*" == *"repos/example/repo/git/refs"* &&
+      "$*" == *"--method POST"* ]]
+    then
+      requested_ref="refs/heads/${FAKE_LANDING_BRANCH:?}"
+      requested_sha="${FAKE_HEAD_SHA:?}"
+      if [[ "$*" != *"ref=$requested_ref"* || "$*" != *"sha=$requested_sha"* ]]; then
+        print -u2 "invalid atomic ref request: $*"
+        exit 65
+      fi
+      if [[ "${FAKE_REF_CREATE_RACE:-false}" == "true" ]]; then
+        git --git-dir="${FAKE_BARE_REPO:?}" update-ref \
+          "$requested_ref" "${FAKE_REF_RACE_SHA:?}" "" 2>/dev/null || true
+        print -u2 "reference already exists"
+        exit 67
+      fi
+      if ! git --git-dir="${FAKE_BARE_REPO:?}" update-ref \
+        "$requested_ref" "$requested_sha" "" 2>/dev/null
+      then
+        print -u2 "reference already exists"
+        exit 67
+      fi
+      jq -cn \
+        --arg ref "$requested_ref" \
+        --arg sha "$requested_sha" \
+        '{ref: $ref, object: {sha: $sha}}'
+    elif [[ "$*" == *"repos/example/repo/issues/42/events?per_page=100"* ]]; then
+      if [[ "${FAKE_ARCHIVE_HISTORY_ERROR:-false}" == "true" ]]; then
+        print -u2 "history unavailable"
+        exit 66
+      fi
+      print "${FAKE_ARCHIVE_HISTORY_LABELLED:-false}"
+    elif [[ "$*" == "api repos/example/repo/labels/conductor-autoland"* ||
+      "$*" == "api repos/example/repo/labels/conductor-blocked"* ]]
+    then
+      print '{"name":"verified bootstrap label"}'
+    elif [[ "$*" == *"labels[]=conductor-autoland"* ]]; then
+      if [[ -n "$label_state_file" ]]; then
+        : >"$label_state_file"
+      fi
+      if [[ "${FAKE_BLOCKED_AFTER_LABEL:-false}" == "true" &&
+        -n "$blocked_state_file" ]]
+      then
+        : >"$blocked_state_file"
+      fi
+    elif [[ "$*" == *"--method DELETE"* &&
+      "$*" == *"/labels/conductor-blocked"* ]]
+    then
+      if [[ "${FAKE_BLOCKED_REMOVAL_FAIL:-false}" == "true" ]]; then
+        exit 68
+      fi
+      if [[ -n "$blocked_state_file" ]]; then
+        rm -f "$blocked_state_file"
+      fi
+    elif [[ "$*" == *"--method DELETE"* &&
+      "$*" == *"/labels/conductor-autoland"* ]]
+    then
+      if [[ -n "$label_state_file" ]]; then
+        rm -f "$label_state_file"
+      fi
+    fi
+    ;;
+  *)
+    print -u2 "unexpected fake gh invocation: $*"
+    exit 64
+    ;;
+esac

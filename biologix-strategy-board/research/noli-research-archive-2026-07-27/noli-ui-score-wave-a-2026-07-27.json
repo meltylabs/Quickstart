@@ -1,0 +1,1268 @@
+{
+  "adaptpeptides.com": {
+    "domain": "adaptpeptides.com",
+    "name": "Adapt Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://adaptpeptides.com/",
+    "productUrl": "https://adaptpeptides.com/product/retatrutide/",
+    "scores": {
+      "mobileUsability": 4,
+      "visualPolish": 7.5,
+      "productClarity": 8,
+      "trustPresentation": 7,
+      "conversionUX": 4,
+      "performance": 6
+    },
+    "overall": 6.08,
+    "reasons": [
+      "The PDP presents the product image, price range, strength choices, quantity tiers, and purchase action in one view.",
+      "The mobile menu is open by default in the captured state and clips the left edge of the page.",
+      "A fixed payment outage notice covers content and announces that card payments are unavailable."
+    ],
+    "strongestDesignLesson": "Keep strength and quantity economics adjacent to the primary action.",
+    "biggestUXFailure": "Two persistent overlays obstruct the mobile storefront and reduce purchase confidence.",
+    "evidenceUrls": [
+      "https://adaptpeptides.com/",
+      "https://adaptpeptides.com/product/retatrutide/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/adaptpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/adaptpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/adaptpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/adaptpeptides.com-pdp-mobile.png"
+    }
+  },
+  "advancedresearchpep.com": {
+    "domain": "advancedresearchpep.com",
+    "name": "Advanced Research",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "security-challenge",
+    "homepageUrl": "https://advancedresearchpep.com/",
+    "productUrl": "https://advancedresearchpep.com/product/retatrutide/",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Desktop homepage and PDP requests were held on a SiteGround connection-security challenge.",
+      "One mobile homepage pass rendered only a sparse hero, while the mobile PDP became blank.",
+      "No challenge was solved and no store state was inferred."
+    ],
+    "strongestDesignLesson": "Security controls need a reliable path for legitimate browsers on every viewport.",
+    "biggestUXFailure": "Public product discovery is inconsistent across desktop and mobile.",
+    "evidenceUrls": [
+      "https://advancedresearchpep.com/",
+      "https://advancedresearchpep.com/product/retatrutide/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/advancedresearchpep.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/advancedresearchpep.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/advancedresearchpep.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/advancedresearchpep.com-pdp-mobile.png"
+    }
+  },
+  "agelessvitalitypeptides.com": {
+    "domain": "agelessvitalitypeptides.com",
+    "name": "Ageless Vitality Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://agelessvitalitypeptides.com/",
+    "productUrl": "https://agelessvitalitypeptides.com/product/retatrutide-10mg/",
+    "scores": {
+      "mobileUsability": 8.5,
+      "visualPolish": 8,
+      "productClarity": 9,
+      "trustPresentation": 9.5,
+      "conversionUX": 8.5,
+      "performance": 7.5
+    },
+    "overall": 8.5,
+    "reasons": [
+      "The mobile PDP keeps product name, price, strength, stock action, and research-only status easy to scan.",
+      "A complete COA is embedded directly below the core product block.",
+      "The mobile page becomes very long because the full footer and related products are expanded."
+    ],
+    "strongestDesignLesson": "Put the actual analytical report in the PDP instead of relying on a generic testing claim.",
+    "biggestUXFailure": "The mobile page is longer than necessary and buries policy navigation in a large footer.",
+    "evidenceUrls": [
+      "https://agelessvitalitypeptides.com/",
+      "https://agelessvitalitypeptides.com/product/retatrutide-10mg/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/agelessvitalitypeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/agelessvitalitypeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/agelessvitalitypeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/agelessvitalitypeptides.com-pdp-mobile.png"
+    }
+  },
+  "alphacarbonlabs.com": {
+    "domain": "alphacarbonlabs.com",
+    "name": "Alpha Carbon Labs",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "blank",
+    "homepageUrl": "https://alphacarbonlabs.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Both desktop and mobile navigations resolved to an empty white page.",
+      "No product page could be observed."
+    ],
+    "strongestDesignLesson": "A branded error or maintenance state is better than a silent blank page.",
+    "biggestUXFailure": "The storefront renders no usable public interface.",
+    "evidenceUrls": [
+      "https://alphacarbonlabs.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/alphacarbonlabs.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/alphacarbonlabs.com-home-mobile.png"
+    }
+  },
+  "alphaomegapeptide.com": {
+    "domain": "alphaomegapeptide.com",
+    "name": "Alpha Omega Peptide",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "product-login-required",
+    "homepageUrl": "https://alphaomegapeptide.com/",
+    "productUrl": "https://alphaomegapeptide.com/?p=15806",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The public homepage has a clean responsive hero and testing narrative.",
+      "The indexed GLP-3RT product URL redirected to account login and registration.",
+      "No account was created, so product and purchase states were not scored."
+    ],
+    "strongestDesignLesson": "A focused scientific hero can communicate quality without crowding the page.",
+    "biggestUXFailure": "A search-visible product route resolves to account registration instead of the product.",
+    "evidenceUrls": [
+      "https://alphaomegapeptide.com/",
+      "https://alphaomegapeptide.com/?p=15806",
+      "https://alphaomegapeptide.com/?s=%22GLP-3RT%22&post_type=product&dgwt_wcas=1"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/alphaomegapeptide.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/alphaomegapeptide.com-home-mobile.png",
+      "productRouteDesktop": ".context/noli-ui-score-wave-a-screenshots/alphaomegapeptide.com-pdp-desktop.png",
+      "productRouteMobile": ".context/noli-ui-score-wave-a-screenshots/alphaomegapeptide.com-pdp-mobile.png"
+    }
+  },
+  "americanpeptides.us": {
+    "domain": "americanpeptides.us",
+    "name": "American Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "research-confirmation-gate",
+    "homepageUrl": "https://www.americanpeptides.us/",
+    "productUrl": "https://www.americanpeptides.us/products/retatrutide",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Both homepage and PDP are covered by a researcher and age confirmation modal.",
+      "The gate is responsive and clearly explains the research-only boundary.",
+      "The confirmation control was not activated."
+    ],
+    "strongestDesignLesson": "A compliance gate should clearly state who may enter and why.",
+    "biggestUXFailure": "The public product experience cannot be compared without affirming the gate.",
+    "evidenceUrls": [
+      "https://www.americanpeptides.us/",
+      "https://www.americanpeptides.us/products/retatrutide"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/americanpeptides.us-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/americanpeptides.us-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/americanpeptides.us-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/americanpeptides.us-pdp-mobile.png"
+    }
+  },
+  "aminoclub.com": {
+    "domain": "aminoclub.com",
+    "name": "Amino Club",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": false,
+    "accessStatus": "researcher-verification-gate",
+    "homepageUrl": "https://www.aminoclub.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The only public state is a polished researcher-verification screen.",
+      "It requires two affirmative checkboxes before entry.",
+      "No attestation was made."
+    ],
+    "strongestDesignLesson": "Verification can be concise, legible, and responsive without looking improvised.",
+    "biggestUXFailure": "No public product detail is available for comparison.",
+    "evidenceUrls": [
+      "https://www.aminoclub.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/aminoclub.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/aminoclub.com-home-mobile.png"
+    }
+  },
+  "aminosequence.com": {
+    "domain": "aminosequence.com",
+    "name": "Amino Sequence",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "products-login-required",
+    "homepageUrl": "https://aminosequence.com/",
+    "productUrl": "https://aminosequence.com/products/",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The public homepage is responsive but visually dated.",
+      "The products route says Login to View Products.",
+      "No account was created and no PDP was available."
+    ],
+    "strongestDesignLesson": "A direct product CTA should lead to useful catalog content or explain the access requirement first.",
+    "biggestUXFailure": "The main product CTA creates a login dead end for a new visitor.",
+    "evidenceUrls": [
+      "https://aminosequence.com/",
+      "https://aminosequence.com/products/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/aminosequence.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/aminosequence.com-home-mobile.png"
+    }
+  },
+  "apollopeptidesciences.com": {
+    "domain": "apollopeptidesciences.com",
+    "name": "Apollo Peptide Sciences",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://apollopeptidesciences.com/",
+    "productUrl": "https://apollopeptidesciences.com/product/glp-3-r-30mg/",
+    "scores": {
+      "mobileUsability": 7,
+      "visualPolish": 7,
+      "productClarity": 8.5,
+      "trustPresentation": 7.5,
+      "conversionUX": 8,
+      "performance": 6.5
+    },
+    "overall": 7.42,
+    "reasons": [
+      "The PDP keeps identity, price, stock, quantity, RUO notice, image, and add-to-cart action together.",
+      "A COA thumbnail is visible in the product gallery.",
+      "The homepage is overloaded with a very long product grid and the PDP puts a review form before related items."
+    ],
+    "strongestDesignLesson": "Pair a product photo with a readable identity panel and a nearby analytical document.",
+    "biggestUXFailure": "Long grids and forms make the experience feel heavier than the purchase task requires.",
+    "evidenceUrls": [
+      "https://apollopeptidesciences.com/",
+      "https://apollopeptidesciences.com/product/glp-3-r-30mg/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/apollopeptidesciences.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/apollopeptidesciences.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/apollopeptidesciences.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/apollopeptidesciences.com-pdp-mobile.png"
+    }
+  },
+  "arcticlabsupply.com": {
+    "domain": "arcticlabsupply.com",
+    "name": "Arctic Lab Supply",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "research-gate",
+    "homepageUrl": "https://arcticlabsupply.com/",
+    "productUrl": "https://arcticlabsupply.com/products/retatrutide-10mg",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Homepage and PDP both resolve to the same research-use gate.",
+      "Multiple gate images are visibly broken.",
+      "The entry action was not used."
+    ],
+    "strongestDesignLesson": "A gate should be treated as a production page with the same asset QA as checkout.",
+    "biggestUXFailure": "Broken icons make the first compliance interaction look unmaintained.",
+    "evidenceUrls": [
+      "https://arcticlabsupply.com/",
+      "https://arcticlabsupply.com/products/retatrutide-10mg"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/arcticlabsupply.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/arcticlabsupply.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/arcticlabsupply.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/arcticlabsupply.com-pdp-mobile.png"
+    }
+  },
+  "ascendingpeptides.co": {
+    "domain": "ascendingpeptides.co",
+    "name": "Ascending Peptides",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://ascendingpeptides.co/",
+    "productUrl": "https://ascendingpeptides.co/products/retatrutide",
+    "scores": {
+      "mobileUsability": 8,
+      "visualPolish": 8.8,
+      "productClarity": 8,
+      "trustPresentation": 9,
+      "conversionUX": 6,
+      "performance": 8.5
+    },
+    "overall": 8.05,
+    "reasons": [
+      "The PDP is visually distinct and pairs the product with a certificate summary and verification key.",
+      "The responsive layout remains coherent and readable.",
+      "Price and purchase action are not visible in the initial mobile viewport."
+    ],
+    "strongestDesignLesson": "A restrained brand system can make analytical evidence feel central instead of bolted on.",
+    "biggestUXFailure": "The mobile PDP prioritizes a large image over price and action.",
+    "evidenceUrls": [
+      "https://ascendingpeptides.co/",
+      "https://ascendingpeptides.co/products/retatrutide"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/ascendingpeptides.co-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/ascendingpeptides.co-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/ascendingpeptides.co-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/ascendingpeptides.co-pdp-mobile.png"
+    }
+  },
+  "ascensionlabs.bio": {
+    "domain": "ascensionlabs.bio",
+    "name": "Ascension Labs",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": false,
+    "accessStatus": "age-and-research-gate",
+    "homepageUrl": "https://ascensionlabs.bio/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "A research-compliance gate covers the storefront.",
+      "The retatrutide search route did not produce a product result.",
+      "No attestation was made."
+    ],
+    "strongestDesignLesson": "Compliance language is easier to absorb when it is grouped into one clear panel.",
+    "biggestUXFailure": "The search URL repeats the homepage state and provides no product-level feedback.",
+    "evidenceUrls": [
+      "https://ascensionlabs.bio/",
+      "https://ascensionlabs.bio/?s=retatrutide&post_type=product#available-now"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/ascensionlabs.bio-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/ascensionlabs.bio-home-mobile.png",
+      "productSearchDesktop": ".context/noli-ui-score-wave-a-screenshots/ascensionlabs.bio-pdp-desktop.png",
+      "productSearchMobile": ".context/noli-ui-score-wave-a-screenshots/ascensionlabs.bio-pdp-mobile.png"
+    }
+  },
+  "ascensionlabsusa.com": {
+    "domain": "ascensionlabsusa.com",
+    "name": "Ascension Labs USA",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": false,
+    "accessStatus": "cloudflare-block",
+    "homepageUrl": "https://ascensionlabsusa.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Both viewports remained on Cloudflare security verification.",
+      "The mobile challenge content overflows horizontally.",
+      "No challenge was solved."
+    ],
+    "strongestDesignLesson": "Security interstitials must be included in mobile QA.",
+    "biggestUXFailure": "The only observable mobile state is both blocked and horizontally clipped.",
+    "evidenceUrls": [
+      "https://ascensionlabsusa.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/ascensionlabsusa.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/ascensionlabsusa.com-home-mobile.png"
+    }
+  },
+  "ascensionpeptides.com": {
+    "domain": "ascensionpeptides.com",
+    "name": "Ascension Peptides",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-home-no-reta-pdp",
+    "homepageUrl": "https://ascensionpeptides.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": 8,
+      "visualPolish": 7.5,
+      "productClarity": 6,
+      "trustPresentation": 5.5,
+      "conversionUX": 7,
+      "performance": 4.5
+    },
+    "overall": 6.42,
+    "reasons": [
+      "The mobile hero is responsive, readable, and has an obvious shop action.",
+      "The homepage presents lab-testing and purity claims with a direct COA navigation item.",
+      "No public retatrutide PDP was found and the initial load was slow."
+    ],
+    "strongestDesignLesson": "One strong value proposition plus one clear CTA works well on mobile.",
+    "biggestUXFailure": "Generic testing claims are not connected to a visible batch or product result.",
+    "evidenceUrls": [
+      "https://ascensionpeptides.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/ascensionpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/ascensionpeptides.com-home-mobile.png"
+    }
+  },
+  "behemothlabz.com": {
+    "domain": "behemothlabz.com",
+    "name": "Behemoth Labz",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-mobile-broken",
+    "homepageUrl": "https://behemothlabz.com/",
+    "productUrl": "https://behemothlabz.com/product/retatrutide-peptide/",
+    "scores": {
+      "mobileUsability": 1,
+      "visualPolish": 4,
+      "productClarity": 6,
+      "trustPresentation": 8,
+      "conversionUX": 5,
+      "performance": 8
+    },
+    "overall": 5.33,
+    "reasons": [
+      "The desktop PDP includes price, strengths, delivery claims, first-party COA, third-party COA, and add-to-cart action.",
+      "The mobile PDP collapses into a narrow fixed-width column with most of the viewport left blank.",
+      "The homepage navigation and promotional artwork also crowd the mobile viewport."
+    ],
+    "strongestDesignLesson": "Put concrete quality and shipping assurances near the product controls.",
+    "biggestUXFailure": "The PDP is effectively unusable on a 390px mobile screen.",
+    "evidenceUrls": [
+      "https://behemothlabz.com/",
+      "https://behemothlabz.com/product/retatrutide-peptide/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/behemothlabz.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/behemothlabz.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/behemothlabz.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/behemothlabz.com-pdp-mobile.png"
+    }
+  },
+  "biolongevitylabs.com": {
+    "domain": "biolongevitylabs.com",
+    "name": "Biolongevity Labs",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": false,
+    "accessStatus": "blank",
+    "homepageUrl": "https://biolongevitylabs.com/product-category/peptides/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Both captured viewports were empty white pages.",
+      "No current public product state could be inspected."
+    ],
+    "strongestDesignLesson": "A fail-safe access page should explain whether the store is gated or unavailable.",
+    "biggestUXFailure": "The public category route silently renders blank.",
+    "evidenceUrls": [
+      "https://biolongevitylabs.com/product-category/peptides/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/biolongevitylabs.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/biolongevitylabs.com-home-mobile.png"
+    }
+  },
+  "biopepstore.com": {
+    "domain": "biopepstore.com",
+    "name": "BioPep Research Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "age-verification-gate",
+    "homepageUrl": "https://biopepstore.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "A long age and research-use confirmation form covers the storefront.",
+      "The mobile modal extends well below the initial viewport before any completion action is visible.",
+      "The gate was not completed."
+    ],
+    "strongestDesignLesson": "Compliance text should be progressive and the action should remain visible.",
+    "biggestUXFailure": "The mobile gate is too long to scan and obscures its own completion controls.",
+    "evidenceUrls": [
+      "https://biopepstore.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/biopepstore.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/biopepstore.com-home-mobile.png"
+    }
+  },
+  "biopepusa.com": {
+    "domain": "biopepusa.com",
+    "name": "BioPep USA",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "age-gate",
+    "homepageUrl": "https://biopepusa.com/",
+    "productUrl": "https://biopepusa.com/product/glp-reta/",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Homepage and PDP are covered by a 21-plus entry gate.",
+      "The mobile PDP can be seen behind the overlay but was not treated as an accessible state.",
+      "The entry action was not used."
+    ],
+    "strongestDesignLesson": "A short gate with separate enter and exit choices is easier to understand than a legal wall.",
+    "biggestUXFailure": "The product cannot be fairly scored without affirming the gate.",
+    "evidenceUrls": [
+      "https://biopepusa.com/",
+      "https://biopepusa.com/product/glp-reta/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/biopepusa.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/biopepusa.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/biopepusa.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/biopepusa.com-pdp-mobile.png"
+    }
+  },
+  "bluumpeptides.com": {
+    "domain": "bluumpeptides.com",
+    "name": "Bluum Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "age-gate",
+    "homepageUrl": "https://bluumpeptides.com/",
+    "productUrl": "https://bluumpeptides.com/products/retatrutide",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Homepage and PDP both show the same full-screen age gate.",
+      "The gate is visually polished and responsive.",
+      "The Yes action was not used, so product and checkout states remain unobserved."
+    ],
+    "strongestDesignLesson": "A gate can preserve premium brand quality on desktop and mobile.",
+    "biggestUXFailure": "No public product evidence is visible without interaction.",
+    "evidenceUrls": [
+      "https://bluumpeptides.com/",
+      "https://bluumpeptides.com/products/retatrutide"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/bluumpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/bluumpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/bluumpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/bluumpeptides.com-pdp-mobile.png"
+    }
+  },
+  "bulkglp.com": {
+    "domain": "bulkglp.com",
+    "name": "BulkGLP",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-mobile-overflow",
+    "homepageUrl": "https://bulkglp.com/",
+    "productUrl": "https://bulkglp.com/product/retatrutide-ly3437943-glp1r-glp3/",
+    "scores": {
+      "mobileUsability": 4,
+      "visualPolish": 8,
+      "productClarity": 9,
+      "trustPresentation": 9.5,
+      "conversionUX": 6,
+      "performance": 7.5
+    },
+    "overall": 7.33,
+    "reasons": [
+      "The PDP exposes actual mass, purity, lot, endotoxin, microbial, and fentanyl results by strength.",
+      "Official COA actions are adjacent to the quality table.",
+      "The mobile PDP overflows horizontally and a floating cart covers the price area."
+    ],
+    "strongestDesignLesson": "Translate every lab report into an immediate, strength-specific proof summary.",
+    "biggestUXFailure": "Horizontal overflow and floating controls damage an otherwise strong mobile product page.",
+    "evidenceUrls": [
+      "https://bulkglp.com/",
+      "https://bulkglp.com/product/retatrutide-ly3437943-glp1r-glp3/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/bulkglp.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/bulkglp.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/bulkglp.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/bulkglp.com-pdp-mobile.png"
+    }
+  },
+  "bulkpeptides.com": {
+    "domain": "bulkpeptides.com",
+    "name": "Bulk Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "research-gate",
+    "homepageUrl": "https://bulkpeptides.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The public page is covered by a research-use disclaimer and qualified-researcher attestation.",
+      "The gate was not accepted.",
+      "No product state was scored."
+    ],
+    "strongestDesignLesson": "A gate should have clear agree and disagree actions.",
+    "biggestUXFailure": "The modal is text-heavy and blocks product comparison.",
+    "evidenceUrls": [
+      "https://bulkpeptides.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/bulkpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/bulkpeptides.com-home-mobile.png"
+    }
+  },
+  "compoundsciences.com": {
+    "domain": "compoundsciences.com",
+    "name": "Compound Sciences",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://compoundsciences.com/",
+    "productUrl": "https://compoundsciences.com/product/glp-3-rt-20/",
+    "scores": {
+      "mobileUsability": 9,
+      "visualPolish": 6.5,
+      "productClarity": 8.5,
+      "trustPresentation": 3.5,
+      "conversionUX": 8.5,
+      "performance": 9
+    },
+    "overall": 7.5,
+    "reasons": [
+      "The mobile PDP clearly presents image, strength, price, short specification list, stock, and add-to-cart action.",
+      "The layout is fast and uncluttered.",
+      "No batch identity, lab, test date, or COA is surfaced in the product view."
+    ],
+    "strongestDesignLesson": "A simple mobile product stack can outperform a heavily decorated catalog.",
+    "biggestUXFailure": "The purchase case lacks visible analytical evidence.",
+    "evidenceUrls": [
+      "https://compoundsciences.com/",
+      "https://compoundsciences.com/product/glp-3-rt-20/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/compoundsciences.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/compoundsciences.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/compoundsciences.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/compoundsciences.com-pdp-mobile.png"
+    }
+  },
+  "corepeptides.com": {
+    "domain": "corepeptides.com",
+    "name": "Core Peptides",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-home-no-reta-pdp",
+    "homepageUrl": "https://www.corepeptides.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": 8,
+      "visualPolish": 8,
+      "productClarity": 5.5,
+      "trustPresentation": 4.5,
+      "conversionUX": 6.5,
+      "performance": 7.5
+    },
+    "overall": 6.67,
+    "reasons": [
+      "The hero is visually coherent and responsive with a clear buy action.",
+      "Shipping and support benefits are easy to scan.",
+      "No public retatrutide PDP or batch-specific testing evidence was found."
+    ],
+    "strongestDesignLesson": "A compact benefits row can answer the first shipping, quality, and support questions quickly.",
+    "biggestUXFailure": "The strongest quality claim is generic and not tied to a visible product or lot.",
+    "evidenceUrls": [
+      "https://www.corepeptides.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/corepeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/corepeptides.com-home-mobile.png"
+    }
+  },
+  "crushresearch.com": {
+    "domain": "crushresearch.com",
+    "name": "Crush Research Supply Company",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "redirected-to-active-storefront",
+    "homepageUrl": "https://crushresearch.com/",
+    "productUrl": "https://crushresearch.shop/product/triple-agonist-30mg",
+    "observedFinalHomepageUrl": "https://crushresearch.shop/",
+    "scores": {
+      "mobileUsability": 8.5,
+      "visualPolish": 8.5,
+      "productClarity": 9.5,
+      "trustPresentation": 9,
+      "conversionUX": 9,
+      "performance": 8.5
+    },
+    "overall": 8.83,
+    "reasons": [
+      "The mobile PDP makes total price, price per mg, pack economics, current stock, COA access, add-to-cart, and buy-now actions immediately legible.",
+      "The site exposes batch pages with lab, date, tested vial count, mass, purity, endotoxin result, and COA.",
+      "The fixed mobile navigation overlaps part of the pack selector."
+    ],
+    "strongestDesignLesson": "Show per-unit economics, current availability, and the exact proof path before asking for the order.",
+    "biggestUXFailure": "A fixed mobile navigation bar partially covers product options.",
+    "evidenceUrls": [
+      "https://crushresearch.com/",
+      "https://crushresearch.shop/",
+      "https://crushresearch.shop/product/triple-agonist-30mg",
+      "https://crushresearch.shop/testing/CRRT-30-0310-1"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/crushresearch.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/crushresearch.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/crushresearch.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/crushresearch.com-pdp-mobile.png"
+    }
+  },
+  "epic-pep.com": {
+    "domain": "epic-pep.com",
+    "name": "Epic Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-single-page-catalog",
+    "homepageUrl": "https://epic-pep.com/",
+    "productUrl": "https://epic-pep.com/",
+    "scores": {
+      "mobileUsability": 8.5,
+      "visualPolish": 9,
+      "productClarity": 7,
+      "trustPresentation": 9,
+      "conversionUX": 7.5,
+      "performance": 6.5
+    },
+    "overall": 7.92,
+    "reasons": [
+      "The hero combines product identity, visible lot, purity result, lab accreditation claim, shipping promise, and catalog action.",
+      "The public page includes product pricing and add-to-cart actions in a single-page catalog.",
+      "No dedicated retatrutide PDP was located in this pass."
+    ],
+    "strongestDesignLesson": "Make lot and analytical proof part of the hero, not a footer promise.",
+    "biggestUXFailure": "The single-page structure limits product-specific depth and comparison.",
+    "evidenceUrls": [
+      "https://epic-pep.com/",
+      "https://www.epic-pep.com/retatrutide-research-overview"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/epic-pep.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/epic-pep.com-home-mobile.png"
+    }
+  },
+  "eternaaminos.com": {
+    "domain": "eternaaminos.com",
+    "name": "Eterna Aminos",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "ordering-disabled",
+    "homepageUrl": "https://eternaaminos.com/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The site explicitly says reference catalog open and ordering disabled.",
+      "The responsive page clearly explains that access, documentation, account, and fulfillment systems are still being built.",
+      "It is not a comparable active storefront."
+    ],
+    "strongestDesignLesson": "Be explicit when commerce is not live instead of presenting nonfunctional controls.",
+    "biggestUXFailure": "There is no active purchase path to evaluate.",
+    "evidenceUrls": [
+      "https://eternaaminos.com/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/eternaaminos.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/eternaaminos.com-home-mobile.png"
+    }
+  },
+  "evopeptidesus.com": {
+    "domain": "evopeptidesus.com",
+    "name": "Evo Peptides",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-broken-product-media",
+    "homepageUrl": "https://evopeptidesus.com/",
+    "productUrl": "https://evopeptidesus.com/product/ep-3rt-15mg-2-pack/",
+    "scores": {
+      "mobileUsability": 6,
+      "visualPolish": 7,
+      "productClarity": 7.5,
+      "trustPresentation": 7,
+      "conversionUX": 7.5,
+      "performance": 6.5
+    },
+    "overall": 6.92,
+    "reasons": [
+      "The product card clearly shows identity, price, stock, rewards, and add-to-cart action.",
+      "Research-use status is prominent above the PDP.",
+      "The main product media area is blank on both viewports and pushes the mobile action far below the fold."
+    ],
+    "strongestDesignLesson": "Separate compliance, price, availability, and action into a compact decision card.",
+    "biggestUXFailure": "Broken or missing primary media consumes the most valuable PDP space.",
+    "evidenceUrls": [
+      "https://evopeptidesus.com/",
+      "https://evopeptidesus.com/product/ep-3rt-15mg-2-pack/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/evopeptidesus.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/evopeptidesus.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/evopeptidesus.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/evopeptidesus.com-pdp-mobile.png"
+    }
+  },
+  "expertpeptides.com": {
+    "domain": "expertpeptides.com",
+    "name": "Expert Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-mobile-broken",
+    "homepageUrl": "https://expertpeptides.com/",
+    "productUrl": "https://expertpeptides.com/retatrutide-12mg/",
+    "scores": {
+      "mobileUsability": 1,
+      "visualPolish": 3,
+      "productClarity": 6,
+      "trustPresentation": 2.5,
+      "conversionUX": 4.5,
+      "performance": 7
+    },
+    "overall": 4,
+    "reasons": [
+      "The desktop PDP has a conventional image, price, stock, quantity, and add-to-cart block.",
+      "The mobile layout renders as a narrow desktop column with a large empty area to the right.",
+      "The page promotes a mixing help line while providing little visible product-level analytical proof."
+    ],
+    "strongestDesignLesson": "Stock and same-day shipping are useful decision signals when kept close to the price.",
+    "biggestUXFailure": "The responsive layout is broken across the homepage and PDP.",
+    "evidenceUrls": [
+      "https://expertpeptides.com/",
+      "https://expertpeptides.com/retatrutide-12mg/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/expertpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/expertpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/expertpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/expertpeptides.com-pdp-mobile.png"
+    }
+  },
+  "geneticpeptide.com": {
+    "domain": "geneticpeptide.com",
+    "name": "Genetic Peptide",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://geneticpeptide.com/",
+    "productUrl": "https://geneticpeptide.com/product/glp-r-vial-2/",
+    "scores": {
+      "mobileUsability": 8,
+      "visualPolish": 7.5,
+      "productClarity": 7,
+      "trustPresentation": 7,
+      "conversionUX": 8.5,
+      "performance": 5.5
+    },
+    "overall": 7.25,
+    "reasons": [
+      "The mobile PDP presents vial images, strength chips, selected price, quantity, CTA, RUO notice, and analytical thumbnails coherently.",
+      "The homepage and product page preserve one consistent design system.",
+      "The displayed price range is reversed from $750.00 to $155.00, creating avoidable ambiguity."
+    ],
+    "strongestDesignLesson": "Strength selection and the resulting price should update in one compact block.",
+    "biggestUXFailure": "The reversed price range undermines otherwise clear product economics.",
+    "evidenceUrls": [
+      "https://geneticpeptide.com/",
+      "https://geneticpeptide.com/product/glp-r-vial-2/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/geneticpeptide.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/geneticpeptide.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/geneticpeptide.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/geneticpeptide.com-pdp-mobile.png"
+    }
+  },
+  "getprimelabs.com": {
+    "domain": "getprimelabs.com",
+    "name": "Get Prime Labs",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "redirected-to-licensed-peptides",
+    "homepageUrl": "https://getprimelabs.com/",
+    "productUrl": "https://licensedpeptides.com/product/glp3-retatrutide/?attribute_select-mg=50mg",
+    "observedFinalHomepageUrl": "https://licensedpeptides.com/",
+    "scores": {
+      "mobileUsability": 8.5,
+      "visualPolish": 8,
+      "productClarity": 9,
+      "trustPresentation": 8.5,
+      "conversionUX": 9.5,
+      "performance": 6.5
+    },
+    "overall": 8.33,
+    "reasons": [
+      "The current destination gives a clear strength matrix, vial-count economics, per-vial price, subscription option, savings, CTA, and testing summary.",
+      "Analytical report thumbnails and purity, endotoxin, manufacturing, form, use, and storage summaries are visible.",
+      "The original domain redirects to a differently named store and the page presents many simultaneous choices."
+    ],
+    "strongestDesignLesson": "Make bundle economics visual and show the best ongoing and best one-time options side by side.",
+    "biggestUXFailure": "Brand redirection plus choice density can make identity and selection harder than necessary.",
+    "evidenceUrls": [
+      "https://getprimelabs.com/",
+      "https://licensedpeptides.com/",
+      "https://licensedpeptides.com/product/glp3-retatrutide/?attribute_select-mg=50mg"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/getprimelabs.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/getprimelabs.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/getprimelabs.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/getprimelabs.com-pdp-mobile.png"
+    }
+  },
+  "glacieraminos.shop": {
+    "domain": "glacieraminos.shop",
+    "name": "Glacier Aminos",
+    "sourceRetailStatus": "Probable or gated US storefront",
+    "comparable": false,
+    "accessStatus": "ssl-protocol-error",
+    "homepageUrl": "https://glacieraminos.shop/",
+    "productUrl": null,
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "Both browser passes failed with ERR_SSL_PROTOCOL_ERROR.",
+      "The captured viewport was blank.",
+      "No retry bypass or exception was used."
+    ],
+    "strongestDesignLesson": "TLS availability is a prerequisite for every other conversion optimization.",
+    "biggestUXFailure": "The public store was unreachable over HTTPS during the audit.",
+    "evidenceUrls": [
+      "https://glacieraminos.shop/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/glacieraminos.shop-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/glacieraminos.shop-home-mobile.png"
+    }
+  },
+  "greatestpeptides.com": {
+    "domain": "greatestpeptides.com",
+    "name": "Greatest Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable-cookie-obstruction",
+    "homepageUrl": "https://greatestpeptides.com/",
+    "productUrl": "https://greatestpeptides.com/product/retatrutide-40-mg/",
+    "scores": {
+      "mobileUsability": 6,
+      "visualPolish": 8,
+      "productClarity": 8.5,
+      "trustPresentation": 10,
+      "conversionUX": 8,
+      "performance": 8
+    },
+    "overall": 8.08,
+    "reasons": [
+      "The PDP presents current-lot batch number, test date, lab, identity, purity, mass, endotoxin, residual solvent, and water-content results.",
+      "Price, stock, delivery, shipping protection, and CTA are visible in the purchase block.",
+      "A cookie panel obscures primary mobile content and several product images fail to appear in the long capture."
+    ],
+    "strongestDesignLesson": "A current-lot proof card is more credible than a general COA badge.",
+    "biggestUXFailure": "The cookie panel and lazy media obstruct the initial mobile decision state.",
+    "evidenceUrls": [
+      "https://greatestpeptides.com/",
+      "https://greatestpeptides.com/product/retatrutide-40-mg/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/greatestpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/greatestpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/greatestpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/greatestpeptides.com-pdp-mobile.png"
+    }
+  },
+  "heartlandbiolabs.com": {
+    "domain": "heartlandbiolabs.com",
+    "name": "Heartland Bio Labs",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://heartlandbiolabs.com/",
+    "productUrl": "https://heartlandbiolabs.com/product/retatrutide/",
+    "scores": {
+      "mobileUsability": 8.5,
+      "visualPolish": 8.5,
+      "productClarity": 8.5,
+      "trustPresentation": 8.5,
+      "conversionUX": 7,
+      "performance": 7.5
+    },
+    "overall": 8.08,
+    "reasons": [
+      "The homepage turns verification, location, shipping, review volume, and sample COAs into a concise mobile trust story.",
+      "The PDP clearly presents product identity, RUO status, HPLC, mass-spec, COA, US-lab, and review signals.",
+      "Price and the purchase action sit below the initial mobile viewport and a fixed bottom bar reduces space."
+    ],
+    "strongestDesignLesson": "Use the homepage to compress proof, fulfillment, and reputation into one decision frame.",
+    "biggestUXFailure": "The mobile PDP delays price and action after a large product image.",
+    "evidenceUrls": [
+      "https://heartlandbiolabs.com/",
+      "https://heartlandbiolabs.com/product/retatrutide/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/heartlandbiolabs.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/heartlandbiolabs.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/heartlandbiolabs.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/heartlandbiolabs.com-pdp-mobile.png"
+    }
+  },
+  "hydroresearchpeptides.com": {
+    "domain": "hydroresearchpeptides.com",
+    "name": "Hydro Research",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": false,
+    "accessStatus": "account-required-and-product-blocked",
+    "homepageUrl": "https://hydroresearchpeptides.com/",
+    "productUrl": "https://hydroresearchpeptides.com/product/r40/",
+    "scores": {
+      "mobileUsability": null,
+      "visualPolish": null,
+      "productClarity": null,
+      "trustPresentation": null,
+      "conversionUX": null,
+      "performance": null
+    },
+    "overall": null,
+    "reasons": [
+      "The homepage requires account sign-in or creation before product information can be browsed.",
+      "The product route was blocked by Cloudflare.",
+      "No account was created and no challenge was solved."
+    ],
+    "strongestDesignLesson": "If access must be restricted, explain the requirement before collecting credentials.",
+    "biggestUXFailure": "The account wall and security block prevent anonymous product evaluation.",
+    "evidenceUrls": [
+      "https://hydroresearchpeptides.com/",
+      "https://hydroresearchpeptides.com/product/r40/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/hydroresearchpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/hydroresearchpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/hydroresearchpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/hydroresearchpeptides.com-pdp-mobile.png"
+    }
+  },
+  "ignitepeptides.com": {
+    "domain": "ignitepeptides.com",
+    "name": "Ignite Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://ignitepeptides.com/",
+    "productUrl": "https://ignitepeptides.com/product/glp-3-rt-10mg/",
+    "scores": {
+      "mobileUsability": 8,
+      "visualPolish": 7,
+      "productClarity": 8.5,
+      "trustPresentation": 7,
+      "conversionUX": 8.5,
+      "performance": 4
+    },
+    "overall": 7.17,
+    "reasons": [
+      "The active 10mg PDP has clear product identity, price, quantity, add-to-cart action, RUO notice, and report thumbnails.",
+      "The mobile layout is coherent and preserves the primary decision block.",
+      "The site loaded slowly and analytical evidence is represented mainly as small gallery thumbnails."
+    ],
+    "strongestDesignLesson": "Keep the active variant, price, quantity, and CTA together in the first mobile decision block.",
+    "biggestUXFailure": "Testing proof is too small to inspect without opening gallery media.",
+    "evidenceUrls": [
+      "https://ignitepeptides.com/",
+      "https://ignitepeptides.com/product/glp-3-rt-10mg/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/ignitepeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/ignitepeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/ignitepeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/ignitepeptides.com-pdp-mobile.png"
+    }
+  },
+  "labtrustpeptides.com": {
+    "domain": "labtrustpeptides.com",
+    "name": "Lab Trust Peptides",
+    "sourceRetailStatus": "Confirmed US storefront",
+    "comparable": true,
+    "accessStatus": "reachable",
+    "homepageUrl": "https://labtrustpeptides.com/",
+    "productUrl": "https://labtrustpeptides.com/product/retatrutide/",
+    "scores": {
+      "mobileUsability": 7.5,
+      "visualPolish": 6.5,
+      "productClarity": 8,
+      "trustPresentation": 8,
+      "conversionUX": 8,
+      "performance": 7.5
+    },
+    "overall": 7.58,
+    "reasons": [
+      "The PDP presents sale price, stock framing, quantity discounts, COA gallery media, review signal, and add-to-cart action near the top.",
+      "The quality section specifies LCMS, heavy metals, endotoxin, sterility, and batch consistency expectations.",
+      "The mobile page is text-dense and several homepage product images are blank in the capture."
+    ],
+    "strongestDesignLesson": "Use a quality-comparison table to show exactly how verification differs from a generic market claim.",
+    "biggestUXFailure": "Dense copy and lazy image gaps reduce scan speed on mobile.",
+    "evidenceUrls": [
+      "https://labtrustpeptides.com/",
+      "https://labtrustpeptides.com/product/retatrutide/"
+    ],
+    "capturedAt": "2026-07-27T22:31:43Z",
+    "screenshots": {
+      "homeDesktop": ".context/noli-ui-score-wave-a-screenshots/labtrustpeptides.com-home-desktop.png",
+      "homeMobile": ".context/noli-ui-score-wave-a-screenshots/labtrustpeptides.com-home-mobile.png",
+      "pdpDesktop": ".context/noli-ui-score-wave-a-screenshots/labtrustpeptides.com-pdp-desktop.png",
+      "pdpMobile": ".context/noli-ui-score-wave-a-screenshots/labtrustpeptides.com-pdp-mobile.png"
+    }
+  }
+}

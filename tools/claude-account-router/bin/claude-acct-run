@@ -1,0 +1,25 @@
+#!/bin/bash
+# Run one Claude command with a persistent, isolated account profile.
+
+set -euo pipefail
+umask 077
+
+usage() {
+  echo "usage: claude-acct-run <account-name> [claude arguments...]" >&2
+  exit 2
+}
+
+[ "$#" -ge 1 ] || usage
+account="$1"
+shift
+
+case "$account" in
+  ''|.*|-*|*[!A-Za-z0-9@._-]*) usage ;;
+esac
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+export CLAUDE_ACCOUNT_OVERRIDE="$account"
+if [ -n "${CLAUDE_BIN:-}" ]; then
+  export CONDUCTOR_CLAUDE_BIN="$CLAUDE_BIN"
+fi
+exec "$script_dir/conductor-claude" "$@"

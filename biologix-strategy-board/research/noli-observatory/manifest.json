@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-30T05:30:13.191Z",
+  "registry": {
+    "version": "2026-07-29.top25.v1",
+    "validFrom": "2026-07-29",
+    "lockedUntil": "2026-10-27",
+    "domains": [
+      "biologixlabsresearch.com",
+      "northlinelabs.org",
+      "bluumpeptides.com",
+      "spartalabs.net",
+      "royal-peptides.com",
+      "northwestpeptides.com",
+      "lifelinkresearch.com",
+      "adaptpeptides.com",
+      "geneticpeptide.com",
+      "onyxbiolabs.com",
+      "umbrellalabs.is",
+      "riptidewellness.com",
+      "rivnpeptides.com",
+      "nurevpeptides.com",
+      "orionpeptide.com",
+      "researchchemhq.co",
+      "polarispeptides.com",
+      "peptide.partners",
+      "skyepeptides.com",
+      "simplepeptide.com",
+      "myoasislabs.com",
+      "peptalabs.com",
+      "peptidehackers.com",
+      "greatestpeptides.com",
+      "peptira.com"
+    ]
+  },
+  "retentionDays": 90,
+  "latestSnapshotId": "20260730T053013191Z",
+  "latestPath": "./snapshots/2026-07-30/20260730T053013191Z.json",
+  "eventsPath": "./events.json",
+  "snapshots": [
+    {
+      "snapshotId": "bootstrap-20260728T204344412Z",
+      "capturedAt": "2026-07-28T20:43:44.412Z",
+      "bootstrap": true,
+      "path": "./snapshots/2026-07-28/bootstrap-20260728T204344412Z.json",
+      "summary": {
+        "companies": 25,
+        "fullyFresh": 0,
+        "withFreshCatalog": 24,
+        "withStaleCatalog": 0,
+        "withUnknownCatalog": 1,
+        "reachableStorefronts": 0,
+        "retainedStaleStorefronts": 0,
+        "offers": 3232,
+        "retatrutideOffers": 167,
+        "caveat": "This baseline is imported from the prior public census. The first live snapshot establishes current freshness; no changes before that live comparison are invented."
+      }
+    },
+    {
+      "snapshotId": "20260730T053013191Z",
+      "capturedAt": "2026-07-30T05:30:13.191Z",
+      "bootstrap": false,
+      "path": "./snapshots/2026-07-30/20260730T053013191Z.json",
+      "summary": {
+        "companies": 25,
+        "fullyFresh": 5,
+        "withFreshCatalog": 12,
+        "withStaleCatalog": 12,
+        "withUnknownCatalog": 1,
+        "reachableStorefronts": 8,
+        "retainedStaleStorefronts": 0,
+        "offers": 3233,
+        "retatrutideOffers": 167
+      }
+    }
+  ],
+  "boundary": "Only retained immutable public-observation snapshots are listed. Missing days mean no successful scheduled publication, not no market activity."
+}
