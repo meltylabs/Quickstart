@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" id="theme-color" content="#fbfbfa" />
     <meta
       name="description"
       content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
@@ -15,13 +15,62 @@
     <title>welcome to conductor</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
         --ink: #151515;
         --muted: #7a7a7a;
         --faint: #d9d9d9;
         --paper: #fbfbfa;
         --panel: rgba(255, 255, 255, 0.72);
+        --panel-hover: #fff;
+        --panel-hover-border: #b8b8b8;
         --accent: #111;
+        --steam: #c9c9c7;
+        --background-counter: #111;
+        --background-counter-opacity: 0.045;
+        --background-counter-bump-opacity: 0.075;
+        --track: rgba(17, 17, 17, 0.08);
+        --track-active: rgba(17, 17, 17, 0.22);
+        --flow: rgba(17, 17, 17, 0.52);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --ink: #f0f0ee;
+        --muted: #9a9a9a;
+        --faint: #333332;
+        --paper: #111110;
+        --panel: rgba(30, 30, 30, 0.78);
+        --panel-hover: rgba(44, 44, 44, 0.92);
+        --panel-hover-border: #555554;
+        --accent: #f0f0ee;
+        --steam: #4a4a48;
+        --background-counter: #f5f5f3;
+        --background-counter-opacity: 0.06;
+        --background-counter-bump-opacity: 0.1;
+        --track: rgba(245, 245, 243, 0.1);
+        --track-active: rgba(245, 245, 243, 0.26);
+        --flow: rgba(245, 245, 243, 0.58);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          color-scheme: dark;
+          --ink: #f0f0ee;
+          --muted: #9a9a9a;
+          --faint: #333332;
+          --paper: #111110;
+          --panel: rgba(30, 30, 30, 0.78);
+          --panel-hover: rgba(44, 44, 44, 0.92);
+          --panel-hover-border: #555554;
+          --accent: #f0f0ee;
+          --steam: #4a4a48;
+          --background-counter: #f5f5f3;
+          --background-counter-opacity: 0.06;
+          --background-counter-bump-opacity: 0.1;
+          --track: rgba(245, 245, 243, 0.1);
+          --track-active: rgba(245, 245, 243, 0.26);
+          --flow: rgba(245, 245, 243, 0.58);
+        }
       }
 
       * {
@@ -64,6 +113,7 @@
       .hero {
         position: absolute;
         inset: 0;
+        z-index: 2;
         display: grid;
         place-items: center;
         gap: 18px;
@@ -107,7 +157,7 @@
       .train {
         position: fixed;
         left: 0;
-        z-index: 1;
+        z-index: 4;
         font-size: clamp(38px, 6vw, 56px);
         line-height: 1;
         pointer-events: none;
@@ -124,32 +174,119 @@
         animation-name: train-rtl;
       }
 
+      .track-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .track-lane {
+        position: absolute;
+        right: 24px;
+        left: 24px;
+        height: 16px;
+        opacity: 0.72;
+        transform: translateY(20px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+
+      .track-lane::before,
+      .track-lane::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: 2px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, transparent, var(--track), transparent),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 22px,
+            var(--track) 22px 26px
+          );
+        content: "";
+      }
+
+      .track-lane::before {
+        top: 3px;
+      }
+
+      .track-lane::after {
+        bottom: 3px;
+      }
+
+      .track-lane.active {
+        opacity: 1;
+        transform: translateY(20px) scaleX(1.01);
+      }
+
+      .track-lane.active::before,
+      .track-lane.active::after {
+        background:
+          linear-gradient(90deg, transparent, var(--track-active), transparent),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 22px,
+            var(--track-active) 22px 26px
+          );
+      }
+
+      .flow-trail {
+        position: fixed;
+        left: 0;
+        z-index: 3;
+        width: min(280px, 28vw);
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, var(--flow));
+        opacity: 0;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+
+      .flow-trail.ltr {
+        animation-name: flow-ltr;
+      }
+
+      .flow-trail.rtl {
+        animation-name: flow-rtl;
+        background: linear-gradient(270deg, transparent, var(--flow));
+      }
+
       .steam {
         position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
+        z-index: 3;
+        color: var(--steam);
         font-size: 18px;
         pointer-events: none;
         animation: puff 1400ms ease-out forwards;
         will-change: transform, opacity;
       }
 
-      .mute-toggle {
+      .top-controls {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .theme-toggle,
+      .sound-select,
+      .mute-toggle {
         display: inline-flex;
-        width: 38px;
         height: 38px;
         align-items: center;
         justify-content: center;
         border: 1px solid var(--faint);
-        border-radius: 999px;
         background: var(--panel);
         color: var(--ink);
         cursor: pointer;
-        font-size: 16px;
         backdrop-filter: blur(14px);
         transition:
           border-color 150ms ease,
@@ -157,12 +294,43 @@
           transform 150ms ease;
       }
 
+      .theme-toggle,
+      .mute-toggle {
+        width: 38px;
+        border-radius: 999px;
+        font-size: 16px;
+      }
+
+      .sound-select {
+        max-width: min(44vw, 180px);
+        border-radius: 999px;
+        padding: 0 34px 0 14px;
+        appearance: none;
+        background-image:
+          linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+          linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+        background-position:
+          calc(100% - 17px) 16px,
+          calc(100% - 12px) 16px;
+        background-size:
+          5px 5px,
+          5px 5px;
+        background-repeat: no-repeat;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .theme-toggle:hover,
+      .sound-select:hover,
       .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
+        background: var(--panel-hover);
+        border-color: var(--panel-hover-border);
         transform: translateY(-1px);
       }
 
+      .theme-toggle:focus-visible,
+      .sound-select:focus-visible,
       .mute-toggle:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
@@ -178,6 +346,31 @@
         font-weight: 450;
         letter-spacing: 0;
         pointer-events: none;
+      }
+
+      .background-counter {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        display: grid;
+        place-items: center;
+        color: var(--background-counter);
+        font-size: clamp(180px, 42vw, 760px);
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 0.78;
+        opacity: var(--background-counter-opacity);
+        pointer-events: none;
+        text-align: center;
+        transform: translateY(-1.5vh);
+        transition:
+          opacity 180ms ease,
+          transform 240ms ease;
+      }
+
+      .background-counter.bump {
+        opacity: var(--background-counter-bump-opacity);
+        transform: translateY(-1.5vh) scale(1.025);
       }
 
       @keyframes wiggle {
@@ -215,6 +408,40 @@
         }
       }
 
+      @keyframes flow-ltr {
+        0% {
+          opacity: 0;
+          transform: translateX(-30vw);
+        }
+
+        12%,
+        76% {
+          opacity: 0.8;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(130vw);
+        }
+      }
+
+      @keyframes flow-rtl {
+        0% {
+          opacity: 0;
+          transform: translateX(130vw);
+        }
+
+        12%,
+        76% {
+          opacity: 0.8;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(-30vw);
+        }
+      }
+
       @keyframes puff {
         0% {
           opacity: 0.7;
@@ -235,6 +462,10 @@
         }
 
         .steam {
+          display: none;
+        }
+
+        .flow-trail {
           display: none;
         }
 
@@ -273,16 +504,32 @@
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <div class="track-layer" id="tracks" aria-hidden="true"></div>
 
+      <div class="top-controls" role="group" aria-label="Train controls">
+        <button
+          class="theme-toggle"
+          id="theme"
+          type="button"
+          aria-label="Switch to dark mode"
+        >
+          🌙
+        </button>
+
+        <select class="sound-select" id="sound" aria-label="Train sound"></select>
+
+        <button
+          class="mute-toggle"
+          id="mute"
+          type="button"
+          aria-label="Mute"
+          aria-pressed="false"
+        >
+          🔊
+        </button>
+      </div>
+
+      <div class="background-counter" id="background-counter" aria-hidden="true">0</div>
       <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
     </main>
 
@@ -294,23 +541,72 @@
       const PUFF_COUNT = 4;
       const MIN_DURATION_MS = 4500;
       const MAX_DURATION_MS = 7500;
+      const TRAIN_SOUNDS = [
+        {
+          id: "choo-choo",
+          label: "Choo choo",
+          src: "./public/choo-choo.mp3",
+          volume: 0.28,
+        },
+        {
+          id: "sf-muni",
+          label: "SF Muni chime",
+          src: "./public/sf-muni-inbound-train-chime.mp3",
+          volume: 0.55,
+        },
+      ];
 
       const dispatcher = document.querySelector("#dispatcher");
       const hero = document.querySelector("#hero");
+      const themeButton = document.querySelector("#theme");
+      const themeColorMeta = document.querySelector("#theme-color");
       const muteButton = document.querySelector("#mute");
+      const soundSelect = document.querySelector("#sound");
       const counter = document.querySelector("#counter");
-      const choo = new Audio("./public/choo-choo.mp3");
-      choo.preload = "auto";
+      const backgroundCounter = document.querySelector("#background-counter");
+      const tracks = document.querySelector("#tracks");
+      const sounds = new Map(
+        TRAIN_SOUNDS.map((sound) => {
+          const audio = new Audio(sound.src);
+          audio.preload = "auto";
+          return [sound.id, { ...sound, audio }];
+        }),
+      );
 
       let count = 0;
       let nextId = 1;
       let lastDispatch = 0;
       let lastLane = -1;
       let lastDirection = "rtl";
+      let backgroundCounterPulseTimer;
       let muted = localStorage.getItem("wtc:muted") === "1";
+      let selectedSoundId = sounds.has(localStorage.getItem("wtc:sound"))
+        ? localStorage.getItem("wtc:sound")
+        : TRAIN_SOUNDS[0].id;
+      let theme = localStorage.getItem("wtc:theme");
 
       function pick(items) {
         return items[Math.floor(Math.random() * items.length)];
+      }
+
+      function resolveTheme() {
+        if (theme === "light" || theme === "dark") return theme;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+
+      function syncTheme() {
+        const resolved = resolveTheme();
+        document.documentElement.dataset.theme = resolved;
+        themeButton.textContent = resolved === "dark" ? "☀️" : "🌙";
+        themeButton.setAttribute(
+          "aria-label",
+          resolved === "dark" ? "Switch to light mode" : "Switch to dark mode",
+        );
+        if (themeColorMeta) {
+          themeColorMeta.content = resolved === "dark" ? "#111110" : "#fbfbfa";
+        }
       }
 
       function syncMuteButton() {
@@ -320,17 +616,57 @@
         localStorage.setItem("wtc:muted", muted ? "1" : "0");
       }
 
+      function syncSoundSelect() {
+        soundSelect.value = selectedSoundId;
+        localStorage.setItem("wtc:sound", selectedSoundId);
+      }
+
+      function isControlElement(element) {
+        return element instanceof Element
+          && Boolean(element.closest("button, select, input, textarea, a"));
+      }
+
       function updateCounter() {
         const noun = count === 1 ? "train" : "trains";
         counter.textContent = `${count} ${noun} dispatched`;
+        backgroundCounter.textContent = count;
         document.title =
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
       }
 
-      function playChoo() {
+      function buildTracks() {
+        for (let lane = 0; lane < LANE_COUNT; lane += 1) {
+          const track = document.createElement("span");
+          track.className = "track-lane";
+          track.dataset.lane = String(lane);
+          track.style.top = `${10 + lane * 16}vh`;
+          tracks.append(track);
+        }
+      }
+
+      function pulseTrack(lane) {
+        const track = tracks.querySelector(`[data-lane="${lane}"]`);
+        if (!track) return;
+        track.classList.add("active");
+        window.setTimeout(() => {
+          track.classList.remove("active");
+        }, 900);
+      }
+
+      function createFlowTrail(train) {
+        const trail = document.createElement("span");
+        trail.className = `flow-trail ${train.direction}`;
+        trail.style.top = `${10 + train.lane * 16}vh`;
+        trail.style.animationDuration = `${train.durationMs}ms`;
+        trail.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(trail);
+      }
+
+      function playTrainSound() {
         if (muted) return;
-        const node = choo.cloneNode(true);
-        node.volume = 0.28;
+        const sound = sounds.get(selectedSoundId) ?? sounds.get(TRAIN_SOUNDS[0].id);
+        const node = sound.audio.cloneNode(true);
+        node.volume = sound.volume;
         node.play().catch(() => {});
       }
 
@@ -386,11 +722,20 @@
         trainNode.style.animationDuration = `${durationMs}ms`;
         trainNode.addEventListener("animationend", removeNode, { once: true });
         dispatcher.append(trainNode);
+        createFlowTrail(train);
 
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
-        playChoo();
+        pulseTrack(lane);
+        backgroundCounter.classList.remove("bump");
+        void backgroundCounter.offsetWidth;
+        backgroundCounter.classList.add("bump");
+        window.clearTimeout(backgroundCounterPulseTimer);
+        backgroundCounterPulseTimer = window.setTimeout(() => {
+          backgroundCounter.classList.remove("bump");
+        }, 260);
+        playTrainSound();
 
         for (let i = 0; i < PUFF_COUNT; i += 1) {
           createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
@@ -398,13 +743,29 @@
       }
 
       dispatcher.addEventListener("click", dispatchTrain);
+      themeButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        theme = resolveTheme() === "dark" ? "light" : "dark";
+        localStorage.setItem("wtc:theme", theme);
+        syncTheme();
+      });
       muteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         muted = !muted;
         syncMuteButton();
       });
+      soundSelect.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+      soundSelect.addEventListener("change", (event) => {
+        event.stopPropagation();
+        selectedSoundId = event.currentTarget.value;
+        syncSoundSelect();
+      });
 
       window.addEventListener("keydown", (event) => {
+        if (isControlElement(event.target)) return;
+
         if (event.code === "Space" || event.code === "Enter") {
           event.preventDefault();
           dispatchTrain();
@@ -414,7 +775,23 @@
         }
       });
 
+      for (const sound of TRAIN_SOUNDS) {
+        const option = document.createElement("option");
+        option.value = sound.id;
+        option.textContent = sound.label;
+        soundSelect.append(option);
+      }
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+          if (theme !== "light" && theme !== "dark") syncTheme();
+        });
+
+      buildTracks();
+      syncTheme();
       syncMuteButton();
+      syncSoundSelect();
       updateCounter();
     </script>
   </body>

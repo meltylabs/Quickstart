@@ -28,6 +28,13 @@ open index.html
 
 Edit `index.html`, then refresh the browser.
 
+### Train Sounds
+
+Train dispatch sounds are configured in the `TRAIN_SOUNDS` array in `index.html`.
+Add new sound files to `public/`, then add another object with an `id`, `label`,
+`src`, and `volume`. The selected sound is saved in the browser with
+`localStorage`, so it persists after refreshes.
+
 ## Project Structure
 
 - `index.html` contains the UI, styling, and interaction logic.
