@@ -28,6 +28,9 @@
         --background-counter: #111;
         --background-counter-opacity: 0.045;
         --background-counter-bump-opacity: 0.075;
+        --track: rgba(17, 17, 17, 0.08);
+        --track-active: rgba(17, 17, 17, 0.22);
+        --flow: rgba(17, 17, 17, 0.52);
       }
 
       :root[data-theme="dark"] {
@@ -44,6 +47,9 @@
         --background-counter: #f5f5f3;
         --background-counter-opacity: 0.06;
         --background-counter-bump-opacity: 0.1;
+        --track: rgba(245, 245, 243, 0.1);
+        --track-active: rgba(245, 245, 243, 0.26);
+        --flow: rgba(245, 245, 243, 0.58);
       }
 
       @media (prefers-color-scheme: dark) {
@@ -61,6 +67,9 @@
           --background-counter: #f5f5f3;
           --background-counter-opacity: 0.06;
           --background-counter-bump-opacity: 0.1;
+          --track: rgba(245, 245, 243, 0.1);
+          --track-active: rgba(245, 245, 243, 0.26);
+          --flow: rgba(245, 245, 243, 0.58);
         }
       }
 
@@ -163,6 +172,88 @@
 
       .train.rtl {
         animation-name: train-rtl;
+      }
+
+      .track-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .track-lane {
+        position: absolute;
+        right: 24px;
+        left: 24px;
+        height: 16px;
+        opacity: 0.72;
+        transform: translateY(20px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+
+      .track-lane::before,
+      .track-lane::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        height: 2px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, transparent, var(--track), transparent),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 22px,
+            var(--track) 22px 26px
+          );
+        content: "";
+      }
+
+      .track-lane::before {
+        top: 3px;
+      }
+
+      .track-lane::after {
+        bottom: 3px;
+      }
+
+      .track-lane.active {
+        opacity: 1;
+        transform: translateY(20px) scaleX(1.01);
+      }
+
+      .track-lane.active::before,
+      .track-lane.active::after {
+        background:
+          linear-gradient(90deg, transparent, var(--track-active), transparent),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 22px,
+            var(--track-active) 22px 26px
+          );
+      }
+
+      .flow-trail {
+        position: fixed;
+        left: 0;
+        z-index: 3;
+        width: min(280px, 28vw);
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, var(--flow));
+        opacity: 0;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+
+      .flow-trail.ltr {
+        animation-name: flow-ltr;
+      }
+
+      .flow-trail.rtl {
+        animation-name: flow-rtl;
+        background: linear-gradient(270deg, transparent, var(--flow));
       }
 
       .steam {
@@ -317,6 +408,40 @@
         }
       }
 
+      @keyframes flow-ltr {
+        0% {
+          opacity: 0;
+          transform: translateX(-30vw);
+        }
+
+        12%,
+        76% {
+          opacity: 0.8;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(130vw);
+        }
+      }
+
+      @keyframes flow-rtl {
+        0% {
+          opacity: 0;
+          transform: translateX(130vw);
+        }
+
+        12%,
+        76% {
+          opacity: 0.8;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateX(-30vw);
+        }
+      }
+
       @keyframes puff {
         0% {
           opacity: 0.7;
@@ -337,6 +462,10 @@
         }
 
         .steam {
+          display: none;
+        }
+
+        .flow-trail {
           display: none;
         }
 
@@ -374,6 +503,8 @@
           <span class="tagline">Click anywhere to dispatch a train.</span>
         </div>
       </div>
+
+      <div class="track-layer" id="tracks" aria-hidden="true"></div>
 
       <div class="top-controls" role="group" aria-label="Train controls">
         <button
@@ -433,6 +564,7 @@
       const soundSelect = document.querySelector("#sound");
       const counter = document.querySelector("#counter");
       const backgroundCounter = document.querySelector("#background-counter");
+      const tracks = document.querySelector("#tracks");
       const sounds = new Map(
         TRAIN_SOUNDS.map((sound) => {
           const audio = new Audio(sound.src);
@@ -502,6 +634,34 @@
           count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
       }
 
+      function buildTracks() {
+        for (let lane = 0; lane < LANE_COUNT; lane += 1) {
+          const track = document.createElement("span");
+          track.className = "track-lane";
+          track.dataset.lane = String(lane);
+          track.style.top = `${10 + lane * 16}vh`;
+          tracks.append(track);
+        }
+      }
+
+      function pulseTrack(lane) {
+        const track = tracks.querySelector(`[data-lane="${lane}"]`);
+        if (!track) return;
+        track.classList.add("active");
+        window.setTimeout(() => {
+          track.classList.remove("active");
+        }, 900);
+      }
+
+      function createFlowTrail(train) {
+        const trail = document.createElement("span");
+        trail.className = `flow-trail ${train.direction}`;
+        trail.style.top = `${10 + train.lane * 16}vh`;
+        trail.style.animationDuration = `${train.durationMs}ms`;
+        trail.addEventListener("animationend", removeNode, { once: true });
+        dispatcher.append(trail);
+      }
+
       function playTrainSound() {
         if (muted) return;
         const sound = sounds.get(selectedSoundId) ?? sounds.get(TRAIN_SOUNDS[0].id);
@@ -562,10 +722,12 @@
         trainNode.style.animationDuration = `${durationMs}ms`;
         trainNode.addEventListener("animationend", removeNode, { once: true });
         dispatcher.append(trainNode);
+        createFlowTrail(train);
 
         count += 1;
         hero.classList.add("dispatched");
         updateCounter();
+        pulseTrack(lane);
         backgroundCounter.classList.remove("bump");
         void backgroundCounter.offsetWidth;
         backgroundCounter.classList.add("bump");
@@ -626,6 +788,7 @@
           if (theme !== "light" && theme !== "dark") syncTheme();
         });
 
+      buildTracks();
       syncTheme();
       syncMuteButton();
       syncSoundSelect();
