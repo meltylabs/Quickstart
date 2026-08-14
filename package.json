@@ -1,0 +1,33 @@
+{
+  "name": "biologix-decision-board-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "biologix-affiliate-passport-site"
+  ],
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "npm run build:passport && vinext build && node scripts/package-sites-build.mjs",
+    "build:passport": "npm --workspace biologix-affiliate-passport-site run build",
+    "start": "vinext start",
+    "test:gateway": "node --test test/biologix-gateway.test.mjs",
+    "test:intel": "node --test test/biologix-intel.test.mjs",
+    "test:passport": "npm --workspace biologix-affiliate-passport-site run test"
+  },
+  "dependencies": {
+    "jose": "^6.1.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.47.0",
+    "@vitejs/plugin-react": "6.0.4",
+    "vinext": "1.0.0-beta.3",
+    "vite": "8.1.5",
+    "wrangler": "4.114.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

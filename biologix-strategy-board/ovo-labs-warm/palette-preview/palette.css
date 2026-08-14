@@ -1,0 +1,80 @@
+/*
+ * Isolated female-first color pilot.
+ *
+ * The production layout and behavior remain untouched. This route inherits the
+ * Fable-authored storefront and changes only its color tokens.
+ *
+ * Every text pairing below clears WCAG AA:
+ *   espresso on ivory   13.86:1
+ *   secondary on ivory   6.18:1
+ *   berry on porcelain   5.06:1
+ *   sage on porcelain    5.40:1
+ *   warm white on berry  4.95:1
+ */
+:root {
+  color-scheme: light;
+
+  /* 65%: warm mineral paper */
+  --bg: #f5efe6;
+  --surface: #fffcf7;
+  --surface-soft: #efe5dc;
+  --line: #ded2c7;
+  --line-strong: #c7b6aa;
+
+  /* 25%: espresso typography and authority */
+  --ink: #2b201b;
+  --text-2: #66554d;
+  --text-3: #76655d;
+  --slate: #2e211d;
+
+  /* 8%: berry coral, with enough red to feel alive rather than earthen */
+  --cobalt: #b34a5d;
+  --cobalt-deep: #8e3348;
+  --cobalt-tint: #fbf2f4;
+
+  /* 2%: sage, reserved for reported testing and evidence states */
+  --success: #4f705b;
+  --success-tint: #e7efe9;
+  --danger: #99434a;
+
+  --on-dark: #fff9f1;
+  --on-dark-2: rgba(255, 249, 241, 0.76);
+  --on-dark-3: rgba(255, 249, 241, 0.58);
+
+  /* Amber glass and brass remain product materials, not interface colors. */
+  --gold: #a77b47;
+  --gold-bright: #d3af7d;
+
+  --shadow: 0 18px 50px rgba(62, 39, 31, 0.12);
+}
+
+.site-header {
+  background: rgba(255, 252, 247, 0.97);
+  box-shadow:
+    0 1px 0 var(--line),
+    0 8px 24px rgba(62, 39, 31, 0.045);
+}
+
+.primary-nav a,
+.category-nav a {
+  color: #493a33;
+}
+
+.hero-product-chip,
+.hero-coa-card {
+  background: rgba(255, 252, 247, 0.96);
+  box-shadow: 0 10px 30px rgba(62, 39, 31, 0.11);
+}
+
+.testing-feature-copy .eyebrow {
+  color: #b4c7b8;
+}
+
+.document-tag {
+  color: var(--success) !important;
+  background: var(--success-tint);
+}
+
+.newsletter p {
+  color: var(--cobalt-tint);
+}

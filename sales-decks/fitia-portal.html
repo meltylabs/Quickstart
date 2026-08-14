@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090909">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="Interactive Fitia campaign operations demo for OVO Talent presentations.">
+  <title>Fitia Campaign Workspace · OVO Talent</title>
+  <link rel="icon" href="assets/logos/site-favicon.png" type="image/png">
+  <link rel="stylesheet" href="fitia-portal.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace-main">Skip to campaign workspace</a>
+
+  <div class="loading-shell" data-loading-shell aria-label="Loading Fitia workspace">
+    <div class="loading-rail"></div>
+    <div class="loading-content">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="portal-app" data-portal-app hidden>
+    <aside class="side-nav" aria-label="Campaign navigation">
+      <div class="side-nav__head">
+        <a class="ovo-lockup" href="index.html" aria-label="Back to OVO Talent presentation room">
+          <img src="assets/logos/ovotalent-wordmark@2x.png" alt="OVO Talent">
+        </a>
+        <div class="client-lockup">
+          <span class="client-logo"><img src="assets/brands/fitia.png" alt="Fitia"></span>
+          <span><strong>Fitia</strong><small>Campaign demo</small></span>
+        </div>
+      </div>
+
+      <nav class="primary-nav" data-primary-nav aria-label="Workspace pages">
+        <button type="button" data-route="overview" data-label="Overview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z"/></svg>
+          <span>Overview</span>
+        </button>
+        <button type="button" data-route="deliverables" data-label="Deliverables">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5-5 1.7-1.7L9 14.6l9.3-9.3L20 7 9 18Z"/></svg>
+          <span>Deliverables</span><i data-nav-count></i>
+        </button>
+        <button type="button" data-route="calendar" data-label="Calendar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v3h6V2h2v3h3v17H4V5h3V2Zm11 9H6v9h12v-9ZM6 7v2h12V7H6Z"/></svg>
+          <span>Calendar</span>
+        </button>
+        <button type="button" data-route="creators" data-label="Creators">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-9 9a9 9 0 0 1 18 0v1H3v-1Z"/></svg>
+          <span>Creators</span>
+        </button>
+        <button type="button" data-route="performance" data-label="Performance">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4h2v14h14v2H4Zm4-5 4-4 3 3 5-6v4l-5 6-3-3-4 4v-4Z"/></svg>
+          <span>Performance</span>
+        </button>
+        <button type="button" data-route="brief" data-label="Campaign brief">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H4V2h2Zm8 2H6v16h12V8h-4V4Zm-5 8h6v2H9v-2Zm0 4h6v2H9v-2Z"/></svg>
+          <span>Campaign brief</span>
+        </button>
+      </nav>
+
+      <div class="side-nav__footer">
+        <p>Demo · statuses &amp; comments simulated</p>
+        <div class="reset-control" data-reset-control></div>
+      </div>
+    </aside>
+
+    <main class="workspace-main" id="workspace-main" tabindex="-1">
+      <header class="workspace-topbar">
+        <div class="mobile-lockup" aria-hidden="true">
+          <img src="assets/brands/fitia.png" alt="">
+          <span>Fitia <small>× OVO</small></span>
+        </div>
+        <span class="topbar-honesty">Demo · statuses &amp; comments simulated</span>
+        <div class="campaign-pulse">
+          <span class="status status--on-track"><i></i> On schedule</span>
+          <span data-clearance-summary>6 of 10 cleared</span>
+          <span class="campaign-pulse__bar" aria-hidden="true"><i data-clearance-bar></i></span>
+        </div>
+        <a class="deck-return" href="brands.html#10">Pitch deck <span>↗</span></a>
+      </header>
+
+      <div class="page-root" data-page-root></div>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Mobile campaign navigation">
+      <button type="button" data-route="overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z"/></svg><span>Overview</span></button>
+      <button type="button" data-route="deliverables"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5-5 1.7-1.7L9 14.6l9.3-9.3L20 7 9 18Z"/></svg><span>Deliverables</span></button>
+      <button type="button" data-route="calendar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v3h6V2h2v3h3v17H4V5h3V2Zm11 9H6v9h12v-9ZM6 7v2h12V7H6Z"/></svg><span>Calendar</span></button>
+      <button type="button" data-route="creators"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-9 9a9 9 0 0 1 18 0v1H3v-1Z"/></svg><span>Creators</span></button>
+      <button type="button" data-action="open-more"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/></svg><span>More</span></button>
+    </nav>
+  </div>
+
+  <div class="sheet-backdrop" data-more-backdrop hidden>
+    <section class="more-sheet" data-more-sheet aria-label="More campaign options" aria-modal="true" role="dialog">
+      <div class="sheet-grip" aria-hidden="true"></div>
+      <div class="more-sheet__head"><strong>More</strong><button type="button" data-action="close-more" aria-label="Close more menu">×</button></div>
+      <button type="button" data-route="performance"><span>Performance</span><i>→</i></button>
+      <button type="button" data-route="brief"><span>Campaign brief</span><i>→</i></button>
+      <p>Demo · statuses &amp; comments simulated</p>
+      <div class="reset-control" data-reset-control></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" data-change-modal hidden>
+    <section class="change-modal" role="dialog" aria-modal="true" aria-labelledby="change-modal-title" tabindex="-1">
+      <div class="change-modal__head">
+        <div><span>Return to OVO</span><h2 id="change-modal-title">Request changes</h2></div>
+        <button type="button" data-action="close-change-modal" aria-label="Close request changes dialog">×</button>
+      </div>
+      <form data-change-form>
+        <label for="change-request">What needs to change?</label>
+        <textarea id="change-request" name="change_request" rows="5" required placeholder="Be specific about the frame, copy, or CTA…"></textarea>
+        <label class="timecode-check"><input type="checkbox" name="include_timecode" checked><span>Attach current timecode</span><i data-modal-timecode>00:00</i></label>
+        <div class="change-modal__actions">
+          <button class="button button--quiet" type="button" data-action="close-change-modal">Cancel</button>
+          <button class="button button--danger" type="submit">Send to OVO</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="sr-only" aria-live="polite" data-live-region></div>
+  <script src="fitia-portal.js" defer></script>
+</body>
+</html>

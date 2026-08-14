@@ -1,0 +1,988 @@
+{
+  "source": "hand-collected prior research, structured verbatim from markdown",
+  "provenance_class": "hand_collected",
+  "source_files": [
+    ".context/retatrutide-social-recon.md",
+    ".context/peptide-affiliate-offers.md"
+  ],
+  "collected_at_original": "2026-07-24",
+  "collection_caveats": [
+    "The configured ScrapeCreators accounts were out of credits, so this report uses public-page evidence instead of API enrichment. No account login was used. No private post, hidden audience data, email list, personal contact information, or private analytics was accessed. (retatrutide-social-recon.md:86)",
+    "Metrics are snapshots and can change. 'Not captured' means the metric was not reliably available during collection. It does not mean zero. (retatrutide-social-recon.md:84)",
+    "Canonical handle for Braden Peters is reported as @kingclavicular; a reliable direct public profile snapshot was blocked. (retatrutide-social-recon.md:92)",
+    "@mikeknowspeps: referenced by a Reddit commenter, but no reliable public profile snapshot was resolved. Keep in the blocked-data appendix, not the benchmark set. (retatrutide-social-recon.md:118)",
+    "The sample does not support a causal claim that any single hook generated the views. It supports directional observations only. (retatrutide-social-recon.md:155)"
+  ],
+  "accounts": [
+    {
+      "n": 1,
+      "name": "Braden Peters / \"Clavicular\"",
+      "handle": "kingclavicular",
+      "platform": "TikTok and cross-platform",
+      "classification": "Creator and seller personality",
+      "demonstrates": "Celebrity authority, clips, supplier association, provocative peptide claims",
+      "biologix_disposition": "REJECT substance. Study attention mechanics only.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 2,
+      "name": "Jacob Nachinson",
+      "handle": "jacobnach",
+      "platform": "Instagram, TikTok, YouTube",
+      "classification": "Creator and telehealth lead generator",
+      "demonstrates": "Personal protocol framing, confessional short form, consult funnel",
+      "biologix_disposition": "ADAPT structure. Reject exact protocols and human-use claims.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 3,
+      "name": "David Prochaska / DPRO Health",
+      "handle": "davidp_ifbbpro",
+      "platform": "Instagram, YouTube",
+      "classification": "Creator, coach, affiliate aggregator",
+      "demonstrates": "Timeline content, calculator, many supplier links and codes, paid custom protocol",
+      "biologix_disposition": "REJECT commerce and protocol. Adapt hub organization only.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 4,
+      "name": "Warren English",
+      "handle": "thewarenglish",
+      "platform": "TikTok, Instagram, YouTube",
+      "classification": "Creator, coach, affiliate",
+      "demonstrates": "Repeated single CTA, calculator lead magnet, supplier code",
+      "biologix_disposition": "ADAPT persistent CTA mechanics. Reject dose calculator and product sourcing.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 5,
+      "name": "Nicholas Trigili",
+      "handle": "realnicktrigili",
+      "platform": "Instagram, YouTube",
+      "classification": "Creator and coach",
+      "demonstrates": "Beginner-guide framing, keyword DM to assessment-call funnel",
+      "biologix_disposition": "ADAPT guide and qualification structure. Reject unapproved-product guidance.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 6,
+      "name": "Dr. Ashley Froese / This Is Not Covered",
+      "handle": "ThisIsNotCovered",
+      "platform": "YouTube",
+      "classification": "Clinician creator, educator, course seller",
+      "demonstrates": "High-authority hooks, long-form education, owned-course value ladder, visible affiliate disclosure",
+      "biologix_disposition": "ADAPT education ladder. Claims require medical and legal review.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 7,
+      "name": "Nick Norwitz, MD, PhD",
+      "handle": "nicknorwitzPhD",
+      "platform": "YouTube",
+      "classification": "Scientist creator",
+      "demonstrates": "First-person experiment, biomarkers, evidence discussion, disclosed unrelated affiliate offer",
+      "biologix_disposition": "ADAPT evidence structure. Reject human-use demonstration for unapproved products.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 8,
+      "name": "Josh Holyfield",
+      "handle": "josh.holyfield",
+      "platform": "Instagram, TikTok, YouTube",
+      "classification": "Creator and community seller",
+      "demonstrates": "Mechanism explainer plus personal outcome story and free-community CTA",
+      "biologix_disposition": "REJECT outcome claims. Adapt community invitation only.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 9,
+      "name": "Hunter Williams",
+      "handle": "hunterwilliamscoaching",
+      "platform": "YouTube and owned site",
+      "classification": "Creator, coach, education-product seller",
+      "demonstrates": "Deep library, masterclass chapters, cheat sheets, guide sales",
+      "biologix_disposition": "ADAPT library architecture. Reject dosing, injection, and stacking content.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 10,
+      "name": "Dr. Amin Hedayat",
+      "handle": "DrAminHedayatMD",
+      "platform": "YouTube",
+      "classification": "Physician creator",
+      "demonstrates": "Expert identity plus strong scientific contrast and metaphor",
+      "biologix_disposition": "ADAPT authority framing. Avoid overstating evidence or implying treatment.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 11,
+      "name": "Dr. Jones DC",
+      "handle": "drjonesdc",
+      "platform": "YouTube and owned site",
+      "classification": "Clinician creator and consultation funnel",
+      "demonstrates": "Extreme result framing into a free discovery call",
+      "biologix_disposition": "REJECT stacking and outcome promise. Adapt scheduled consultation only for eligible services.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 12,
+      "name": "Kait Malthaner",
+      "handle": null,
+      "platform": "YouTube",
+      "classification": "Large creator",
+      "demonstrates": "\"Why I quit\" risk-reversal story with a secondary affiliate product",
+      "biologix_disposition": "ADAPT caution-story format. Do not convert to individualized advice.",
+      "verdict": "ADAPT"
+    },
+    {
+      "n": 13,
+      "name": "@clipgawwd7",
+      "handle": "clipgawwd7",
+      "platform": "TikTok",
+      "classification": "Clip aggregator",
+      "demonstrates": "Short celebrity-answer clip, high-claim compression, no visible disclosure",
+      "biologix_disposition": "REJECT claims and undisclosed clipping.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 14,
+      "name": "@kickpersonal",
+      "handle": "kickpersonal",
+      "platform": "TikTok",
+      "classification": "Clip aggregator",
+      "demonstrates": "Direct supplier plug packaged as a celebrity clip",
+      "biologix_disposition": "REJECT.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 15,
+      "name": "PeptiDex",
+      "handle": null,
+      "platform": "Web and social-led SEO",
+      "classification": "Affiliate aggregator and tool",
+      "demonstrates": "Educational SEO, comparison, coupon code, email lead magnet, visible affiliate disclosure",
+      "biologix_disposition": "REJECT direct unapproved-product sourcing. Adapt transparent comparison UI only for eligible offers.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 16,
+      "name": "BodyHackGuide",
+      "handle": null,
+      "platform": "Web and social-led SEO",
+      "classification": "Affiliate aggregator",
+      "demonstrates": "Age gate, daily deal table, coupon codes, vendor links, free guide",
+      "biologix_disposition": "REJECT direct commerce and dosing.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 17,
+      "name": "PeptideScouter",
+      "handle": null,
+      "platform": "Web and Reddit",
+      "classification": "Comparison aggregator and affiliate",
+      "demonstrates": "Search utility, price normalization, alerts, explicit affiliate disclosure",
+      "biologix_disposition": "REJECT retatrutide marketplace. Adapt data transparency and disclosure.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 18,
+      "name": "Project Better Man / Peptide Party",
+      "handle": null,
+      "platform": "TikTok-led web funnel",
+      "classification": "Creator affiliate funnel",
+      "demonstrates": "Creator persona, code, vendor redirection, transformation story, scarcity",
+      "biologix_disposition": "REJECT claims, urgency, and sourcing.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 19,
+      "name": "Arcane Peptides",
+      "handle": null,
+      "platform": "Web",
+      "classification": "Seller",
+      "demonstrates": "Domestic-vs-China positioning, self-attested researcher gate, direct add to cart, COA display",
+      "biologix_disposition": "REJECT as an affiliate destination pending counsel.",
+      "verdict": "REJECT"
+    },
+    {
+      "n": 20,
+      "name": "PureUS / PepPushers network",
+      "handle": null,
+      "platform": "Web and creator recruitment",
+      "classification": "Seller plus multi-level affiliate program",
+      "demonstrates": "High commission, audience discount, two-level override, alternative payout methods",
+      "biologix_disposition": "REJECT program design.",
+      "verdict": "REJECT"
+    }
+  ],
+  "observed_posts": [
+    {
+      "platform": "youtube",
+      "creator": "Dr. Ashley Froese",
+      "title": "Dr. Explains Why Retatrutide is KING of Fat Loss Peptides",
+      "url": "https://www.youtube.com/watch?v=ukCySPXN0WU",
+      "date": "2026-03-05",
+      "views": 692387,
+      "comments": 1300,
+      "likes": null,
+      "channel_followers": 246000,
+      "hook_and_structure": "Clinician authority, extreme comparator, mechanism, risks, course-style explanation",
+      "cta_and_disclosure": "Course, Hume code, other affiliate links; description includes affiliate and educational disclosures",
+      "disposition": "ADAPT authority and chaptering; REJECT superiority and human-outcome framing",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Dr. Ashley Froese",
+      "title": "Retatrutide Side Effects - Dr Reveals the BAD, The UGLY",
+      "url": "https://www.youtube.com/watch?v=MZyDYMWbmmw",
+      "date": "2026-05-21",
+      "views": 535594,
+      "comments": 1800,
+      "likes": null,
+      "channel_followers": 246000,
+      "hook_and_structure": "Fear and curiosity hook, adverse effects, market warning, education",
+      "cta_and_disclosure": "Sponsored electrolyte link, course, affiliate links; description warns viewers not to buy online research peptides",
+      "disposition": "COPY candid risk framing; keep source-led and reviewed",
+      "verdict": "COPY"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Dr. Amin Hedayat",
+      "title": "I'm a Pathologist. Retatrutide is NOT Ozempic. It's Biological Overdrive",
+      "url": "https://www.youtube.com/watch?v=Eyb_JZaPMlU",
+      "date": "2026-03-28",
+      "views": 688046,
+      "comments": 2700,
+      "likes": null,
+      "channel_followers": 133000,
+      "hook_and_structure": "Credential first, contrast with known category, dramatic scientific metaphor",
+      "cta_and_disclosure": "No commerce CTA captured in this pass",
+      "disposition": "ADAPT credential plus contrast; REJECT overstatement",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Nicholas Trigili",
+      "title": "Retatrutide is Changing Fat-Loss in 2026: Beginners Guide",
+      "url": "https://www.youtube.com/watch?v=PcZYGw4D3aw",
+      "date": "2026-01-22",
+      "views": 510461,
+      "comments": 1000,
+      "likes": null,
+      "channel_followers": 70500,
+      "hook_and_structure": "Category-change claim, beginner guide, structured explanation",
+      "cta_and_disclosure": "Instagram DM keyword \"EXIT STRATEGY\" to assessment call; description says educational and refers to licensed professionals",
+      "disposition": "ADAPT guide and qualification; REJECT unapproved-product instructions",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Dr. Jones DC",
+      "title": "Doctor Explains What to Stack with Retatrutide To MAXIMIZE Weight Loss",
+      "url": "https://www.youtube.com/watch?v=NdGKQ4aH7hI",
+      "date": "2026-03-10",
+      "views": 314013,
+      "comments": 2600,
+      "likes": null,
+      "channel_followers": 257000,
+      "hook_and_structure": "Doctor authority, stacking, maximization promise",
+      "cta_and_disclosure": "Free discovery call at drjonesdc.com/yt1d",
+      "disposition": "REJECT stacking and result maximization",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Nick Norwitz, MD, PhD",
+      "title": "I Tried Retatrutide: Here's What Happened",
+      "url": "https://www.youtube.com/watch?v=9HaFrUmzpNE",
+      "date": "2026-06-10",
+      "views": 257472,
+      "comments": 1300,
+      "likes": null,
+      "channel_followers": 1170000,
+      "hook_and_structure": "First-person experiment, biomarkers, evidence, paradoxes",
+      "cta_and_disclosure": "Substack; Hundred Health affiliate code disclosed",
+      "disposition": "ADAPT evidence walk-through; REJECT self-experiment replication",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Warren English",
+      "title": "How To Take Retatrutide the RIGHT WAY",
+      "url": "https://www.youtube.com/watch?v=JXZIZH70eyQ",
+      "date": "2025-11-24",
+      "views": 213067,
+      "comments": 642,
+      "likes": null,
+      "channel_followers": 3040,
+      "hook_and_structure": "Direct how-to and \"right way\" promise",
+      "cta_and_disclosure": "Free calculator, supplier affiliate link and code, coaching",
+      "disposition": "REJECT human-use instruction and sourcing",
+      "verdict": "REJECT",
+      "note_outlier": "213,067 views from a 3.04K-subscriber channel at capture - roughly 70x subscriber count. Cited in the source doc as proof that follower count was not required."
+    },
+    {
+      "platform": "youtube",
+      "creator": "David Prochaska",
+      "title": "Retatrutide Week 1-12: The Honest Timeline",
+      "url": "https://www.youtube.com/watch?v=0RAzV6B5Bj8",
+      "date": "2026-02-11",
+      "views": 195819,
+      "comments": 579,
+      "likes": null,
+      "channel_followers": 25700,
+      "hook_and_structure": "Contrarian opening: before-and-after photos are the wrong way to judge; chronological story",
+      "cta_and_disclosure": "Linktree to calculators, suppliers, guides, custom protocol, coaching",
+      "disposition": "ADAPT chronological storytelling; REJECT outcome and sourcing funnel",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Josh Holyfield",
+      "title": "What Is Retatrutide? How It Works + My 5-Week Results",
+      "url": "https://www.youtube.com/watch?v=KU4CgAIw584",
+      "date": "2025-09-03",
+      "views": 138990,
+      "comments": 707,
+      "likes": null,
+      "channel_followers": 62600,
+      "hook_and_structure": "Mechanism explainer plus specific personal transformation claim",
+      "cta_and_disclosure": "Free Skool community",
+      "disposition": "REJECT outcome claim; ADAPT community CTA only",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Hunter Williams",
+      "title": "Retatrutide Masterclass: Complete Researcher's Guide (2026)",
+      "url": "https://www.youtube.com/watch?v=oLq5vDClS-g",
+      "date": "2026-05-19",
+      "views": 94486,
+      "comments": 474,
+      "likes": null,
+      "channel_followers": 15500,
+      "hook_and_structure": "Exhaustive 51-minute masterclass with detailed chapters",
+      "cta_and_disclosure": "Owned link hub hunterwilliamshealth.com/links, cheat sheet, guide sales, library",
+      "disposition": "ADAPT searchable learning library; REJECT dosing, injection, protocol, and stacking instruction",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Peptide Couple",
+      "title": "Reconstitution Retatrutide",
+      "url": "https://www.youtube.com/watch?v=u2UZ6uVz6VI",
+      "date": "2025-11-26",
+      "views": 117885,
+      "comments": 317,
+      "likes": null,
+      "channel_followers": 1010,
+      "hook_and_structure": "Procedural demonstration",
+      "cta_and_disclosure": "Private Skool community",
+      "disposition": "REJECT",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Peptide Advantage",
+      "title": "How to Dose Retatrutide",
+      "url": "https://www.youtube.com/watch?v=BJh1t_faurM",
+      "date": "2025-06-25",
+      "views": 68611,
+      "comments": 399,
+      "likes": null,
+      "channel_followers": 5290,
+      "hook_and_structure": "Direct dosing tutorial",
+      "cta_and_disclosure": "Private Skool",
+      "disposition": "REJECT",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Physionic",
+      "title": "Retatrutide Is Insane... But Is It Actually Better?",
+      "url": "https://www.youtube.com/watch?v=t4IehpoRqBs",
+      "date": "2026-04-04",
+      "views": 68151,
+      "comments": 530,
+      "likes": null,
+      "channel_followers": 379000,
+      "hook_and_structure": "Dramatic hook followed by evidence-question framing",
+      "cta_and_disclosure": "Premium and free community, course, email",
+      "disposition": "ADAPT evidence-question format; avoid \"insane\" or superiority without support",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Adrian Crook",
+      "title": "Retatrutide Nearly Hospitalized Me: Here's What I Learned",
+      "url": "https://www.youtube.com/watch?v=U88w5tgQmMQ",
+      "date": "2025-06-18",
+      "views": 91810,
+      "comments": 479,
+      "likes": 1259,
+      "channel_followers": null,
+      "hook_and_structure": "Near-ER story, investigation, physician input, viewer and Reddit examples, lessons",
+      "cta_and_disclosure": "No product-commerce CTA captured; long-form cautionary education",
+      "disposition": "COPY risk narrative form only with medical review; do not turn into advice",
+      "verdict": "COPY"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Kait Malthaner",
+      "title": "Why I quit retatrutide even though it was working",
+      "url": "https://www.youtube.com/watch?v=6Wn8-ZBOIfA",
+      "date": "2026-07-20",
+      "views": 19163,
+      "comments": 188,
+      "likes": null,
+      "channel_followers": 645000,
+      "hook_and_structure": "Timely \"why I quit\" reversal and personal narrative",
+      "cta_and_disclosure": "Electrolyte affiliate offer",
+      "disposition": "ADAPT candid reversal structure; reject unverified personal-use recommendations",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "youtube",
+      "creator": "Jacob Nachinson",
+      "title": "I Hacked Retatrutide: My Exact Protocol",
+      "url": "https://www.youtube.com/watch?v=gcL9JxP7Pro",
+      "date": "2026-06-28",
+      "views": 37756,
+      "comments": 303,
+      "likes": null,
+      "channel_followers": 41000,
+      "hook_and_structure": "Optimization and exact-protocol promise",
+      "cta_and_disclosure": "otmens.com, free consultation, Instagram and TikTok",
+      "disposition": "REJECT protocol; ADAPT owned consultation funnel for lawful services only",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "tiktok",
+      "creator": "@kickpersonal",
+      "title": "Clav announces his peptide brand",
+      "url": "https://www.tiktok.com/@kickpersonal/video/7606095445747649806",
+      "date": "2026-02-12",
+      "views": 75900,
+      "likes": 1929,
+      "comments": 15,
+      "reposts": 184,
+      "duration": 11.9,
+      "hook_and_structure": "11.9-second celebrity clip. Direct supplier plug plus \"US domestic\" vs. foreign drop-ship contrast",
+      "cta_and_disclosure": "Supplier named in speech. No affiliate or commercial disclosure visible in the caption captured",
+      "disposition": "REJECT",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "tiktok",
+      "creator": "@jacobnach",
+      "title": "Reta rebounds?",
+      "url": "https://www.tiktok.com/@jacobnach/video/7622808923355024670",
+      "date": "2026-03-29",
+      "views": 65000,
+      "likes": 2392,
+      "comments": 52,
+      "reposts": 79,
+      "hook_and_structure": "Personal confessional about appetite after stopping, then an open-ended rebound hypothesis",
+      "cta_and_disclosure": "No CTA or disclosure visible in the captured caption",
+      "disposition": "ADAPT vulnerable question format; REJECT unreviewed medical inference",
+      "verdict": "ADAPT"
+    },
+    {
+      "platform": "tiktok",
+      "creator": "@clipgawwd7",
+      "title": "Clav drops his top three peptides",
+      "url": "https://www.tiktok.com/@clipgawwd7/video/7632901127893191967",
+      "date": "2026-04-26",
+      "views": 8608,
+      "likes": 161,
+      "comments": 2,
+      "reposts": 15,
+      "hook_and_structure": "Interviewer asks for a top-three list; celebrity gives compressed recommendations and human-health claims",
+      "cta_and_disclosure": "No disclosure or CTA visible in the captured caption",
+      "disposition": "REJECT",
+      "verdict": "REJECT"
+    },
+    {
+      "platform": "tiktok",
+      "creator": "@thewarenglish",
+      "title": "Recent example (2026-07-17)",
+      "url": "https://www.tiktok.com/@thewarenglish/video/7663514102358117646",
+      "date": "2026-07-17",
+      "views": 34000,
+      "likes": 110,
+      "comments": 4,
+      "hook_and_structure": "Topic varies, but the account repeats a consistent CTA across posts",
+      "cta_and_disclosure": "\"Link in bio to book your free coaching call\"",
+      "disposition": "COPY CTA consistency for an eligible offer",
+      "verdict": "COPY"
+    },
+    {
+      "platform": "tiktok",
+      "creator": "@thewarenglish",
+      "title": "Recent example (2026-07-06)",
+      "url": "https://www.tiktok.com/@thewarenglish/video/7659462399442865421",
+      "date": "2026-07-06",
+      "views": 68600,
+      "likes": 130,
+      "comments": 2,
+      "hook_and_structure": "Repetition demonstrates campaign memory across an account",
+      "cta_and_disclosure": "Same free-call CTA",
+      "disposition": "COPY campaign consistency; separately review content",
+      "verdict": "COPY"
+    }
+  ],
+  "directional_observations": [
+    "Credential-led and high-contrast titles repeatedly reached hundreds of thousands of views.",
+    "Large follower count was not required. Warren's 213,067-view YouTube video came from a channel with 3.04K subscribers at capture. DPRO's 195,819-view video came from a 25.7K-subscriber channel.",
+    "Controversial utility such as \"right way,\" \"exact protocol,\" and week-by-week expectations can substantially outperform channel size."
+  ],
+  "content_patterns": [
+    {
+      "rank": 1,
+      "pattern_name": "Credential plus high-stakes contrast",
+      "observed": "\"I'm a pathologist,\" \"doctor explains,\" \"not Ozempic,\" \"king,\" \"bad and ugly.\"",
+      "why_it_works": "It establishes a reason to listen in the first line, connects the unfamiliar product to a known category, and opens an information gap.",
+      "biologix_adaptation": [
+        "A compliance reviewer explains what a COA can and cannot prove",
+        "This document is not FDA approval. Here is the difference",
+        "Three claims that fail our content review"
+      ],
+      "verdict": "ADAPT"
+    },
+    {
+      "rank": 2,
+      "pattern_name": "First-person timeline",
+      "observed": "\"I tried,\" \"week 1 to 12,\" \"my five-week results,\" \"why I quit.\"",
+      "why_it_works": "Chronology creates narrative tension and repeatable episodes.",
+      "biologix_adaptation": [
+        "My first 30 days as a Biologix affiliate",
+        "What happened from draft to approved post",
+        "Week one: identity and disclosure setup; week two: first approved campaign"
+      ],
+      "constraint": "The story must concern the affiliate workflow, not human consumption or outcomes.",
+      "verdict": "ADAPT"
+    },
+    {
+      "rank": 3,
+      "pattern_name": "Risk reversal and caution",
+      "observed": "adverse experience, side-effect breakdown, and quitting despite perceived benefit.",
+      "why_it_works": "It counters the audience's expectation of hype and earns attention through honesty.",
+      "biologix_adaptation": [
+        "Five things an affiliate cannot say",
+        "Why we rejected this viral hook",
+        "What happens when a creator forgets disclosure"
+      ],
+      "verdict": "COPY"
+    },
+    {
+      "rank": 4,
+      "pattern_name": "Beginner guide and masterclass",
+      "observed": "beginner guide, researcher's guide, long-form chapters, content library.",
+      "why_it_works": "It captures high-intent search and signals completeness.",
+      "biologix_adaptation": [
+        "Affiliate Compliance 101",
+        "How to read batch documents",
+        "Disclosure examples by platform",
+        "Content approval from brief to publication",
+        "Link and code troubleshooting"
+      ],
+      "verdict": "COPY"
+    },
+    {
+      "rank": 5,
+      "pattern_name": "Confessional question",
+      "observed": "a creator opens with a vulnerable statement, then asks viewers to interpret a change.",
+      "why_it_works": "The post feels less scripted and invites comments.",
+      "biologix_adaptation": [
+        "I thought disclosure would kill the post. Here is what actually happened.",
+        "My first draft failed review. Can you spot why?"
+      ],
+      "constraint": "Do not use the open question to crowdsource medical advice.",
+      "verdict": "ADAPT"
+    },
+    {
+      "rank": 6,
+      "pattern_name": "Celebrity or podcast clip",
+      "observed": "an interviewer asks for a top-three list; the answer is cut into a short, provocative clip.",
+      "why_it_works": "Borrowed authority and compressed controversy.",
+      "biologix_adaptation": [
+        "Clip verified operators explaining process, documentation, or compliance. Preserve context and commercial disclosure."
+      ],
+      "verdict": "ADAPT"
+    },
+    {
+      "rank": 7,
+      "pattern_name": "Tool-first funnel",
+      "observed": "calculator, cheat sheet, comparison engine, protocol library.",
+      "why_it_works": "The viewer receives immediate utility before being asked to convert.",
+      "biologix_adaptation": [
+        "Disclosure generator",
+        "Post preflight checker",
+        "Approved-claim lookup",
+        "COA-document explainer that clearly states its limitations",
+        "Campaign-link tester"
+      ],
+      "verdict": "COPY"
+    },
+    {
+      "rank": 8,
+      "pattern_name": "One code and one CTA",
+      "observed": "recurring code in descriptions; identical free-call CTA across many posts.",
+      "why_it_works": "Low cognitive load and cleaner attribution.",
+      "biologix_adaptation": [
+        "One creator ID, one approved campaign link, one disclosure block, one desired next action."
+      ],
+      "verdict": "COPY"
+    },
+    {
+      "rank": 9,
+      "pattern_name": "Coded aliases and filter evasion",
+      "observed": "\"ratatouille,\" \"r3ta,\" \"GLP-3,\" and other aliases.",
+      "why_it_works": "Evades platform moderation.",
+      "biologix_adaptation": [],
+      "constraint": "Do not replicate. Evasion is itself evidence of knowing the content violates platform policy.",
+      "verdict": "REJECT"
+    }
+  ],
+  "affiliate_programs": [
+    {
+      "n": 1,
+      "brand": "Apollo Peptide Sciences",
+      "domains": [
+        "apollopeptidesciences.com",
+        "apollopeptides.refersion.com"
+      ],
+      "commission": "20% base, tiers to 30%, lifetime rebills",
+      "customer_incentive": "10% off first order",
+      "attribution": "120 days (Refersion field); body copy says 90 days - internal contradiction",
+      "payout": "PayPal; cadence/threshold not stated",
+      "platform": "Refersion",
+      "application": "Retail account 2+ months old plus a purchase; management approval; 18+",
+      "restrictions": "Requires 'Paid ad'/'#Paid'; fraud monitoring; unpaid commissions forfeitable",
+      "sells_retatrutide": true,
+      "risk_note": "Public 'GLP-3 R' retatrutide products"
+    },
+    {
+      "n": 2,
+      "brand": "Research Peptides",
+      "domains": [
+        "researchpeptides.io"
+      ],
+      "commission": "25% of valid paid product revenue",
+      "customer_incentive": "5% off first coupon use",
+      "attribution": "Coupon immediate; cookie not stated",
+      "payout": "Manual PayPal after review",
+      "platform": "WooCommerce portal",
+      "application": "Open, immediate coupon",
+      "restrictions": "RUO only. No human/animal consumption, dosing, medical, weight-loss, before/after or 'I used this' claims. Disclosure required",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 3,
+      "brand": "Bastion Peptides",
+      "domains": [
+        "bastionpeptides.com",
+        "zhyoeixwmcqo.goaffpro.com"
+      ],
+      "commission": "Flat 20%",
+      "customer_incentive": null,
+      "attribution": "90-day first-click cookie",
+      "payout": "Monthly USDT-TRC20, $50 min",
+      "platform": "GoAffPro",
+      "application": "Manual review 5 business days; audience size/relevance required",
+      "restrictions": "No paid Google/Meta/TikTok ads; no human-use, dosing, before/after, coupon stuffing",
+      "sells_retatrutide": null,
+      "risk_note": "No financial-disclosure language surfaced publicly"
+    },
+    {
+      "n": 4,
+      "brand": "GLP-1 Research Lab",
+      "domains": [
+        "glp1researchlab.com"
+      ],
+      "commission": "30% qualified sale + 5% second-tier",
+      "customer_incentive": null,
+      "attribution": "90-day cookie",
+      "payout": "Monthly; threshold not stated",
+      "platform": "First-party",
+      "application": "Free; review 24-48h",
+      "restrictions": "RUO disclaimer; disclosure wording not surfaced",
+      "sells_retatrutide": true,
+      "risk_note": "Second-tier commission = downline structure; ~$275 AOV claimed"
+    },
+    {
+      "n": 5,
+      "brand": "Promino",
+      "domains": [
+        "promino-usa.com"
+      ],
+      "commission": "20% first order, 10% repeat",
+      "customer_incentive": "10% off",
+      "attribution": "Link + coupon; cookie deferred to private agreement",
+      "payout": "Monthly regardless of earnings",
+      "platform": "First-party",
+      "application": "US research/lab publishers, educators, creators",
+      "restrictions": "Approved messaging only; RUO; clear FTC disclosure; no trademark bidding",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 6,
+      "brand": "Lone Star Peptide Co.",
+      "domains": [
+        "lonestarpeptideco.com"
+      ],
+      "commission": "Flat 20%",
+      "customer_incentive": null,
+      "attribution": "90-day first-click cookie",
+      "payout": "Rolling 14-day; ACH/Zelle/crypto; $50 threshold",
+      "platform": "First-party",
+      "application": "Manual 2-3 day; prioritises licensed clinicians and evidence-led creators",
+      "restrictions": "No human administration/dosing audience, medical claims, before/after, trademark bidding, bots",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 7,
+      "brand": "Core Labs / Viora Healthcare",
+      "domains": [
+        "viorahealthcare.com",
+        "viora-healthcare.leaddyno.com"
+      ],
+      "commission": "Flat 20% of approved orders",
+      "customer_incentive": null,
+      "attribution": "30-day",
+      "payout": "PayPal monthly NET-30, $50 min",
+      "platform": "LeadDyno",
+      "application": "Manual RUO-compliance review; ORCID/LinkedIn; referrals must be researchers/clinicians 21+",
+      "restrictions": "Human-use, before/after, dosing or therapeutic claims trigger termination AND clawback",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 8,
+      "brand": "Everwell Medical",
+      "domains": [
+        "everwellmedical.store"
+      ],
+      "commission": "20% first order, 10% lifetime recurring",
+      "customer_incentive": "20% off first order",
+      "attribution": "30-day cookie + unique code; self-code prohibited",
+      "payout": "Bank transfer on the 1st, $1 min",
+      "platform": "First-party",
+      "application": "Instant, no follower minimum, no review",
+      "restrictions": "RUO 'where appropriate'",
+      "sells_retatrutide": null,
+      "risk_note": "HIGH RISK: markets 'injection systems', anonymous earnings testimonials, unsubstantiated 15% conversion / 80% retention claims"
+    },
+    {
+      "n": 9,
+      "brand": "Polygon Peptides",
+      "domains": [
+        "polygonpeptides.co.uk"
+      ],
+      "commission": "Flat 10% of discounted net",
+      "customer_incentive": null,
+      "attribution": "14-day first-click",
+      "payout": "Monthly UK bank transfer, \u00a350 threshold",
+      "platform": "First-party",
+      "application": "Manual review 3 business days",
+      "restrictions": "UK ad standards; RUO; no human-use implication; no self-referral",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 10,
+      "brand": "Based Research",
+      "domains": [
+        "based-research.com"
+      ],
+      "commission": "Negotiated one-to-one",
+      "customer_incentive": null,
+      "attribution": "30-day cookie + personal code",
+      "payout": "PayPal on the 1st after $20 balance",
+      "platform": "First-party",
+      "application": "Manual review 48h",
+      "restrictions": "RUO language required with supplied copy",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 11,
+      "brand": "Blank Peptides",
+      "domains": [
+        "blankpeptides.com"
+      ],
+      "commission": "20% first order, 10% lifetime reorders",
+      "customer_incentive": "Private",
+      "attribution": "30-day cookie; code works across device/browser",
+      "payout": "Monthly on the 1st, Zelle/ACH/wire, no threshold",
+      "platform": "First-party",
+      "application": "Email OTP, instant approval",
+      "restrictions": "No medical/therapeutic or before/after claims",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 12,
+      "brand": "LiveWell Peptides",
+      "domains": [
+        "livewellpeptides.com"
+      ],
+      "commission": "15/18/20/22% permanent tiers by lifetime commission; product credit at 1.5x",
+      "customer_incentive": null,
+      "attribution": "30-day cookie + code",
+      "payout": "Monthly NET-30 ACH/check, $50 threshold",
+      "platform": "First-party",
+      "application": "Manual review 5 business days",
+      "restrictions": "Explicit FTC disclosure; RUO; no health/dosage/therapeutic claims; approved language only",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 13,
+      "brand": "Peak Performance Peptides",
+      "domains": [
+        "pppepz.com"
+      ],
+      "commission": "10% <$1k/mo, 15% $1k-4,999, 20% $5k+",
+      "customer_incentive": null,
+      "attribution": "30-day first-contact",
+      "payout": "Monthly bank/PayPal, no threshold",
+      "platform": "First-party",
+      "application": "Manual 2-3 days, no follower minimum",
+      "restrictions": "No brand-term paid search or coupon sites without approval",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 14,
+      "brand": "CertaPeptides",
+      "domains": [
+        "certapeptides.com"
+      ],
+      "commission": "15% base, 20% after EUR10k, 25% after EUR25k",
+      "customer_incentive": "10% off first order over EUR25",
+      "attribution": "90-day last-click; ?ref=AFF-HANDLE",
+      "payout": "Monthly NET-30 SEPA, EUR50 threshold",
+      "platform": "First-party",
+      "application": "Manual 24-48h",
+      "restrictions": "RUO/no-medical-claims on application",
+      "sells_retatrutide": true,
+      "risk_note": "Sells a retatrutide bundle WITH bacteriostatic water and syringes - conflicts with fail-closed posture"
+    },
+    {
+      "n": 15,
+      "brand": "Journey Peptides",
+      "domains": [
+        "journeypeptides.com"
+      ],
+      "commission": "Flat 15%",
+      "customer_incentive": null,
+      "attribution": "120-day link cookie",
+      "payout": "Monthly PayPal, $20 threshold",
+      "platform": "First-party",
+      "application": "Instant registration, no audience minimum",
+      "restrictions": "No public financial-disclosure or content-restriction language found",
+      "sells_retatrutide": null,
+      "risk_note": "Affiliate gets permanent 30% personal discount"
+    },
+    {
+      "n": 16,
+      "brand": "IDUN Peptides",
+      "domains": [
+        "idunpeptides.com"
+      ],
+      "commission": "20% base, 22% after $2k, 25% after $5k; first 50 permanent 25%; 10% lifetime repeats",
+      "customer_incentive": "10% off with LAUNCH10",
+      "attribution": "90-day cookie",
+      "payout": "Monthly, no public threshold",
+      "platform": "First-party",
+      "application": "Instant approval, no minimum audience",
+      "restrictions": "Explicit FTC disclosure in every promotion; RUO; supplied guidelines",
+      "sells_retatrutide": null,
+      "risk_note": null
+    },
+    {
+      "n": 17,
+      "brand": "LyzeLabs",
+      "domains": [
+        "lyzelabs.com"
+      ],
+      "commission": "15% first order + 5% reorders",
+      "customer_incentive": "5% off",
+      "attribution": "Personal link + memorable code (e.g. NICK10); cookie not stated",
+      "payout": "PayPal/UPI/crypto/bank after short hold",
+      "platform": "Private dashboard",
+      "application": "Manual review 48h",
+      "restrictions": "Applicant promises no health claims or before/after",
+      "sells_retatrutide": null,
+      "risk_note": "Free sample kit up to $200 after a live post - incompatible with strict no-human-use"
+    },
+    {
+      "n": 18,
+      "brand": "Pinnacle Peptide Labs",
+      "domains": [
+        "pinnaclepeptidelabs.com"
+      ],
+      "commission": "Flat 20% of net",
+      "customer_incentive": null,
+      "attribution": "60-day link cookie + optional code",
+      "payout": "Monthly after refund window; threshold not public",
+      "platform": "SliceWP",
+      "application": "Manual review for fitness/biohacking/research channels",
+      "restrictions": "No human consumption/injection/therapeutic use, disease claims, fake testimonials, before/after, trademark bidding",
+      "sells_retatrutide": true,
+      "risk_note": "'GLP-3RT' product in public creative"
+    }
+  ],
+  "other_seller_domains": [
+    {
+      "brand": "Arcane Peptides",
+      "domain": "arcanepeptides.com",
+      "note": "Domestic-vs-China positioning, self-attested researcher gate, COA display"
+    },
+    {
+      "brand": "PureUS Peptide",
+      "domain": "pureuspeptide.com",
+      "note": "Paired with PepPushers two-level override program"
+    },
+    {
+      "brand": "PepPushers",
+      "domain": "peppushers.com",
+      "note": "Multi-level affiliate: high commission, audience discount, two-level override"
+    },
+    {
+      "brand": "Pink Pony Peptides",
+      "domain": "pinkponypeptides.com",
+      "note": "Login, age and self-attested research-lab gates"
+    },
+    {
+      "brand": "PeptiDex",
+      "domain": "peptidex.app",
+      "note": "Affiliate aggregator + tool; coupon codes, email lead magnet"
+    },
+    {
+      "brand": "BodyHackGuide",
+      "domain": "bodyhackguide.co",
+      "note": "Age gate, daily deal table, coupon codes, vendor links"
+    },
+    {
+      "brand": "PeptideScouter",
+      "domain": "peptidescouter.com",
+      "note": "Price comparison aggregator with explicit affiliate disclosure"
+    },
+    {
+      "brand": "Peptide Panda",
+      "domain": "peptidepanda.com",
+      "note": "Creator affiliate funnel, code, vendor redirection, scarcity"
+    },
+    {
+      "brand": "PeptidePal",
+      "domain": "peptidepalapp.com",
+      "note": "SOFTWARE affiliate program - cleanest mechanics reference in the sample because the product is software, not a compound"
+    }
+  ]
+}

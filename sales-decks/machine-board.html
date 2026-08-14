@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>OVO Talent — The Outbound Machine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root {
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #374151;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --blue: #4361EE;
+    --purple: #7209B7;
+    --pink: #F72585;
+    --orange: #FF6B35;
+    --sky: #3A86FF;
+    --red: #E63946;
+    --indigo: #6A4C93;
+    --navy: #2C3E50;
+    --cyan: #00ACC1;
+    --amber: #FF9800;
+    --gold: #F59E0B;
+    --emerald: #06D6A0;
+    --green: #22C55E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    background: var(--bg);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  body.grabbing { cursor: grabbing; }
+
+  /* Toolbar — auto-hides, hover top edge or press T to toggle */
+  #toolbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 52px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex; align-items: center;
+    padding: 0 16px; z-index: 1000; gap: 6px;
+    transform: translateY(-100%);
+    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #toolbar.visible { transform: translateY(0); }
+  /* Floating logo watermark — visible when toolbar hidden */
+  #logo-watermark {
+    position: fixed; top: 14px; left: 20px; z-index: 998;
+    font-family: 'Inter', Arial Narrow, sans-serif;
+    font-weight: 900; font-size: 15px; color: var(--text);
+    letter-spacing: -0.5px; text-transform: uppercase;
+    font-stretch: condensed;
+    opacity: 0.18;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #logo-watermark sup { font-size: 10px; vertical-align: super; }
+  #toolbar.pinned ~ #logo-watermark,
+  #toolbar:hover ~ #logo-watermark { opacity: 0; }
+  /* Hover trigger zone at top of screen */
+  #toolbar-trigger {
+    position: fixed; top: 0; left: 0; right: 0; height: 6px; z-index: 999;
+  }
+  #toolbar-trigger:hover ~ #logo-watermark { opacity: 0; }
+  #toolbar.pinned { transform: translateY(0) !important; }
+  #toolbar:hover { transform: translateY(0) !important; }
+  #toolbar-trigger:hover + #toolbar { transform: translateY(0) !important; }
+  #toolbar .logo {
+    font-weight: 900; font-size: 16px; color: var(--text);
+    letter-spacing: -0.5px; margin-right: 16px; white-space: nowrap;
+    text-transform: uppercase;
+    font-stretch: condensed;
+    font-family: 'Inter', Arial Narrow, sans-serif;
+  }
+  .nav-pills { display: flex; gap: 3px; overflow-x: auto; flex: 1; scrollbar-width: none; }
+  .nav-pills::-webkit-scrollbar { display: none; }
+  .nav-pill {
+    padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 700;
+    cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    color: var(--text-secondary); background: transparent; border: none;
+  }
+  .nav-pill:hover { background: rgba(0,0,0,0.05); color: var(--text); }
+  .nav-pill.active { color: #fff; }
+  .toolbar-controls { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+  .zoom-display { font-size: 11px; font-weight: 700; color: var(--text-secondary); min-width: 40px; text-align: center; }
+  .tool-btn {
+    width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);
+    background: #fff; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; transition: all 0.15s; color: var(--text-secondary);
+  }
+  .tool-btn:hover { background: #f8f9fa; }
+  .present-btn {
+    padding: 5px 14px; border-radius: 8px; border: none; background: var(--blue);
+    color: #fff; font-size: 11px; font-weight: 800; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.5px;
+  }
+  .present-btn:hover { background: #3451d1; }
+
+  /* Viewport */
+  #viewport {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden; background: var(--bg);
+    background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  #canvas {
+    position: absolute; transform-origin: 0 0; will-change: transform;
+    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #canvas.no-transition { transition: none; }
+
+  /* SVG */
+  #connections { position: absolute; top: 0; left: 0; width: 9700px; height: 7200px; pointer-events: none; z-index: 1; }
+
+  /* Zone backgrounds */
+  .zone-bg {
+    position: absolute; border-radius: 32px; z-index: 0;
+  }
+
+  /* Title card */
+  .title-card {
+    position: absolute; width: 860px; text-align: center;
+    padding: 44px 52px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 24px; color: #fff;
+    box-shadow: 0 8px 40px rgba(15,23,42,0.35); z-index: 10;
+  }
+  .title-card h1 {
+    font-size: 44px; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 6px;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .title-card .subtitle { font-size: 17px; font-weight: 500; color: #94a3b8; margin-bottom: 24px; }
+  .title-card .hero-stat { display: inline-flex; gap: 40px; }
+  .title-card .stat-item { text-align: center; }
+  .title-card .stat-num { font-size: 30px; font-weight: 900; color: #818cf8; }
+  .title-card .stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+  .title-card .by-line { margin-top: 20px; font-size: 12px; color: #64748b; }
+  .title-card .by-line strong { color: #a5b4fc; }
+
+  /* Section label */
+  .section-label {
+    position: absolute; font-size: 13px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 5px; z-index: 5;
+    padding: 6px 16px; border-radius: 8px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    white-space: nowrap;
+  }
+
+  /* Module card */
+  .module-card {
+    position: absolute; width: 380px; background: var(--card-bg);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    overflow: hidden; z-index: 10; cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .module-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+  .module-card .card-accent { height: 5px; width: 100%; }
+  .module-card .card-body { padding: 22px 24px 24px; }
+  .module-card .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .module-card .card-icon {
+    width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .module-card .card-num { font-size: 10px; font-weight: 800; letter-spacing: 1px; opacity: 0.7; }
+  .module-card .card-timestamp { display: none; }
+  .module-card .card-title { font-size: 16px; font-weight: 800; text-transform: none; letter-spacing: -0.3px; color: var(--text); line-height: 1.2; }
+  .module-card .card-points { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .module-card .card-points li {
+    font-size: 13px; color: #111827; font-weight: 600; text-transform: none; line-height: 1.5;
+    padding-left: 18px; position: relative;
+  }
+  .module-card .card-points li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+
+  /* Stat highlight */
+  .card-stat {
+    margin-top: 14px; padding: 10px 14px; border-radius: var(--radius-sm);
+    background: #f8fafc; text-align: center;
+  }
+  .card-stat .stat-value { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
+  .card-stat .stat-desc { font-size: 10px; color: var(--text-secondary); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Sticky notes */
+  .sticky-note {
+    position: absolute; width: 220px; padding: 14px 16px; border-radius: 4px;
+    font-size: 12px; font-weight: 600; line-height: 1.5; color: #1a1a2e;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); z-index: 8;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .sticky-note:hover { transform: scale(1.03) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .sticky-note .sticky-icon { font-size: 16px; margin-bottom: 4px; display: block; }
+  .sticky-yellow { background: #FFF9C4; transform: rotate(-1.5deg); }
+  .sticky-pink { background: #FCE4EC; transform: rotate(1deg); }
+  .sticky-blue { background: #E3F2FD; transform: rotate(-0.5deg); }
+  .sticky-green { background: #E8F5E9; transform: rotate(1.5deg); }
+  .sticky-purple { background: #F3E5F5; transform: rotate(-1deg); }
+  .sticky-orange { background: #FFF3E0; transform: rotate(0.5deg); }
+
+  /* Special: Math Card */
+  .math-card {
+    position: absolute; width: 480px; padding: 32px 36px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 20px; color: #fff; z-index: 10;
+    box-shadow: 0 8px 32px rgba(15,23,42,0.3);
+  }
+  .math-card h3 { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; margin-bottom: 16px; }
+  .math-eq { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .math-eq span { color: #818cf8; }
+  .math-result { font-size: 42px; font-weight: 900; background: linear-gradient(135deg, #06D6A0, #22C55E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 12px 0; }
+  .math-note { font-size: 13px; color: #64748b; font-weight: 500; }
+
+  /* CTA card */
+  .cta-card {
+    position: absolute; width: 500px; padding: 40px 44px;
+    background: linear-gradient(135deg, #4361EE 0%, #7209B7 50%, #F72585 100%);
+    border-radius: 24px; color: #fff; text-align: center;
+    box-shadow: 0 8px 40px rgba(114,9,183,0.3); z-index: 10;
+    cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(114,9,183,0.4); }
+  .cta-card h2 { font-size: 30px; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px; }
+  .cta-card p { font-size: 14px; opacity: 0.85; line-height: 1.6; }
+  .cta-card .cta-features { text-align: left; margin: 16px 0; display: flex; flex-direction: column; gap: 8px; }
+  .cta-card .cta-feat { font-size: 13px; font-weight: 600; opacity: 0.9; padding-left: 24px; position: relative; }
+  .cta-card .cta-feat::before { content: ''; position: absolute; left: 0; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+  .cta-card .cta-btn {
+    display: inline-block; margin-top: 16px; padding: 14px 40px;
+    background: #fff; color: var(--blue); font-size: 14px; font-weight: 900;
+    border-radius: 12px; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+
+  /* Start marker */
+  .start-marker {
+    position: absolute; z-index: 15; display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 900; color: var(--emerald);
+    text-transform: uppercase; letter-spacing: 2px;
+  }
+  .start-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--emerald); position: relative; }
+  .start-dot::after {
+    content: ''; position: absolute; inset: -6px; border-radius: 50%;
+    border: 3px solid var(--emerald); opacity: 0.3; animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:0.3} 50%{transform:scale(1.3);opacity:0} }
+
+  /* Minimap — hidden by default, show when toolbar pinned */
+  #minimap {
+    position: fixed; bottom: 16px; right: 16px; width: 140px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06); z-index: 1000; overflow: hidden; cursor: pointer;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  #toolbar.pinned ~ #logo-watermark ~ #viewport ~ #minimap,
+  #minimap.visible { opacity: 1; pointer-events: auto; }
+  #minimap-viewport { position: absolute; border: 2px solid var(--blue); background: rgba(67,97,238,0.08); border-radius: 2px; pointer-events: none; }
+  .minimap-dot { position: absolute; width: 5px; height: 5px; border-radius: 50%; pointer-events: none; }
+
+  .shortcuts-hint {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(15,23,42,0.92); backdrop-filter: blur(16px);
+    padding: 16px 24px; border-radius: 12px; font-size: 11px;
+    color: #e2e8f0; z-index: 9999; line-height: 2;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .shortcuts-hint.visible { opacity: 1; pointer-events: auto; }
+  .shortcuts-hint kbd {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+  }
+
+  /* Indented sub-points */
+  .module-card .card-points li.indent {
+    padding-left: 34px; font-size: 12px; opacity: 0.85;
+  }
+  .module-card .card-points li.indent::before {
+    left: 16px; width: 5px; height: 5px;
+  }
+  .module-card .card-points li.subhead {
+    font-weight: 700; color: var(--text); padding-left: 18px; margin-top: 4px;
+  }
+
+  /* Minimap: collapsible */
+  #minimap { width: 140px; transition: all 0.3s ease; }
+  #minimap.collapsed { width: 36px; height: 36px !important; border-radius: 10px; overflow: hidden; }
+  #minimap.collapsed .minimap-dot,
+  #minimap.collapsed #minimap-viewport { display: none; }
+  .minimap-toggle {
+    position: absolute; top: 4px; right: 4px; width: 24px; height: 24px;
+    border-radius: 6px; border: none; background: rgba(0,0,0,0.06);
+    cursor: pointer; font-size: 12px; z-index: 2; display: flex;
+    align-items: center; justify-content: center; color: var(--text-secondary);
+    transition: background 0.15s;
+  }
+  .minimap-toggle:hover { background: rgba(0,0,0,0.1); }
+  #minimap.collapsed .minimap-toggle {
+    top: 6px; right: 6px; width: 24px; height: 24px;
+    background: none; font-size: 14px;
+  }
+
+  /* Drawing toolbar */
+  #draw-toolbar {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: none; align-items: center; gap: 4px;
+    padding: 6px 10px; background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(20px); border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1); z-index: 1001;
+  }
+  #draw-toolbar.active { display: flex; }
+  .draw-btn {
+    width: 34px; height: 34px; border-radius: 8px; border: none;
+    background: transparent; cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; color: #64748b; position: relative;
+  }
+  .draw-btn:hover { background: #f1f5f9; color: var(--text); }
+  .draw-btn.active { background: #eef2ff; color: #4361EE; }
+  .draw-sep { width: 1px; height: 24px; background: #e2e8f0; margin: 0 4px; }
+  .draw-swatch {
+    width: 20px; height: 20px; border-radius: 50%; border: 2px solid transparent;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .draw-swatch:hover { transform: scale(1.15); }
+  .draw-swatch.active { border-color: #1a1a2e; transform: scale(1.15); }
+  .draw-label {
+    font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 0.5px;
+    text-transform: uppercase; margin: 0 4px;
+  }
+
+  /* Drawing layer */
+  #draw-layer {
+    position: absolute; top: 0; left: 0; width: 9700px; height: 7200px;
+    pointer-events: none; z-index: 50;
+  }
+  body.drawing #draw-layer { pointer-events: auto; cursor: crosshair; }
+  body.drawing { cursor: crosshair; }
+  body.drawing .module-card,
+  body.drawing .sticky-note,
+  body.drawing .cta-card { pointer-events: none; }
+  body.draw-highlighter #draw-layer { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Crect x='8' y='2' width='8' height='20' rx='2' fill='%23fbbf24' opacity='0.6'/%3E%3C/svg%3E") 12 12, crosshair; }
+
+  /* Laser pointer */
+  #laser-dot {
+    display: none; position: fixed; width: 12px; height: 12px;
+    border-radius: 50%; background: #ff3333;
+    box-shadow: 0 0 12px 4px rgba(255,50,50,0.5), 0 0 30px 8px rgba(255,50,50,0.2);
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+    transition: opacity 0.1s;
+  }
+  body.laser-mode #laser-dot { display: block; }
+  body.laser-mode { cursor: none; }
+  body.laser-mode .module-card,
+  body.laser-mode .sticky-note,
+  body.laser-mode .cta-card { pointer-events: none; }
+
+  /* Draw open button (when toolbar hidden) */
+  #draw-open-btn {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    padding: 6px 14px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    cursor: pointer; font-size: 11px; font-weight: 700; color: #64748b;
+    z-index: 1000; display: none; align-items: center; gap: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.2s;
+  }
+  #draw-open-btn.visible { display: flex; }
+  #draw-open-btn:hover { background: #fff; color: var(--text); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  body.presenting #draw-open-btn { display: none !important; }
+  body.presenting #draw-toolbar { display: none !important; }
+
+  /* ============================================
+     AUDIT MODE: sticky notes, status, spotlight, panel
+     ============================================ */
+
+  /* Audit sticky notes (placed on canvas) */
+  .audit-note {
+    position: absolute; min-width: 160px; max-width: 260px;
+    padding: 10px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; line-height: 1.5;
+    color: #1a1a2e; z-index: 55; cursor: move;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-left: 4px solid;
+  }
+  .audit-note[contenteditable="true"] { outline: none; cursor: text; }
+  .audit-note .audit-note-delete {
+    position: absolute; top: -8px; right: -8px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #E63946; color: #fff; border: 2px solid #fff;
+    font-size: 11px; cursor: pointer; display: none;
+    align-items: center; justify-content: center; line-height: 1;
+  }
+  .audit-note:hover .audit-note-delete { display: flex; }
+  .audit-note.note-yellow { background: #FFF9C4; border-left-color: #F59E0B; }
+  .audit-note.note-red { background: #FEE2E2; border-left-color: #E63946; }
+  .audit-note.note-blue { background: #DBEAFE; border-left-color: #4361EE; }
+  .audit-note.note-green { background: #DCFCE7; border-left-color: #22C55E; }
+
+  /* Module status badges */
+  .module-status {
+    position: absolute; top: 10px; right: 10px;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    font-size: 14px; z-index: 20; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.15s;
+  }
+  .module-status:hover { transform: scale(1.15); }
+  .module-status.visible { display: flex; }
+  .module-status.status-approved { background: #DCFCE7; }
+  .module-status.status-needs-work { background: #FEF3C7; }
+  .module-status.status-rejected { background: #FEE2E2; }
+
+  /* Spotlight overlay */
+  .spotlight-overlay {
+    display: none; position: absolute; inset: 0;
+    width: 9700px; height: 7200px;
+    background: rgba(0,0,0,0.6); z-index: 40;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 500px 400px at var(--sx) var(--sy), transparent 0%, black 100%);
+    -webkit-mask-image: radial-gradient(ellipse 500px 400px at var(--sx) var(--sy), transparent 0%, black 100%);
+    transition: mask-image 0.3s, -webkit-mask-image 0.3s;
+  }
+  body.spotlight-active .spotlight-overlay { display: block; }
+
+  /* Audit panel (right side) */
+  #audit-panel {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 320px;
+    background: #fff; border-left: 1px solid rgba(0,0,0,0.06);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.06);
+    z-index: 1000; transform: translateX(100%);
+    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); overflow-y: auto;
+    font-size: 13px;
+  }
+  #audit-panel.open { transform: translateX(0); }
+  .audit-panel-header {
+    padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; background: #fff; z-index: 1;
+  }
+  .audit-panel-header h3 { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; }
+  .audit-panel-actions { display: flex; gap: 6px; }
+  .audit-panel-btn {
+    padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08);
+    background: #fff; font-size: 11px; font-weight: 700; cursor: pointer;
+    transition: all 0.15s; color: #64748b;
+  }
+  .audit-panel-btn:hover { background: #f8f9fa; color: var(--text); }
+  .audit-panel-btn.primary { background: #4361EE; color: #fff; border-color: #4361EE; }
+  .audit-panel-btn.primary:hover { background: #3451d1; }
+  .audit-panel-body { padding: 16px 20px; }
+  .audit-item {
+    padding: 10px 0; border-bottom: 1px solid #f1f5f9;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .audit-item-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .audit-item-text { flex: 1; }
+  .audit-item-title { font-weight: 700; font-size: 12px; color: var(--text); margin-bottom: 2px; }
+  .audit-item-desc { font-size: 11px; color: #64748b; line-height: 1.5; }
+  .audit-empty { color: #94a3b8; font-size: 12px; text-align: center; padding: 40px 20px; }
+
+  /* Audit mode toolbar addition */
+  .draw-btn[data-tool="sticky"] .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #F59E0B;
+    position: absolute; top: 5px; right: 5px;
+  }
+</style>
+<link rel="stylesheet" href="/board-tools.css">
+
+<style id="clean-skin">
+  /* ---- dark canvas ---- */
+  body, #viewport {
+    background: #0C0D12 !important;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px) !important;
+    background-size: 26px 26px !important;
+  }
+  #canvas { color: #F2F3F6; }
+
+  /* ---- cards ---- */
+  .module-card {
+    width: 380px; background: #16181F; border: 1px solid rgba(255,255,255,0.09); border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px rgba(0,0,0,0.45);
+  }
+  .module-card:hover { box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.55); transform: translateY(-2px); }
+  .card-body { padding: 18px 20px 16px; }
+  .card-eyebrow {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 9.5px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase;
+    color: #7E8794; margin-bottom: 6px;
+  }
+  .card-title { font-size: 15.5px; font-weight: 800; letter-spacing: -0.2px; color: #F2F3F6; line-height: 1.25; }
+  .card-points { margin: 10px 0 0; padding: 0; list-style: none; }
+  .card-points li {
+    position: relative; padding-left: 14px; margin: 5px 0;
+    font-size: 12px; line-height: 1.45; color: #A6ADB8; font-weight: 500;
+  }
+  .card-points li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 4px; height: 4px; border-radius: 1px; background: #4E5560 !important;
+  }
+  .card-stat { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .card-stat .stat-value { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; color: #F2F3F6; }
+  .card-stat .stat-desc { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #7E8794; margin-top: 2px; }
+
+  /* ---- zones + labels ---- */
+  .zone-bg { border-radius: 14px; box-shadow: none; }
+  .section-label {
+    background: transparent !important; border: none !important; padding: 0 !important;
+    box-shadow: none !important; color: #8A93A0 !important;
+    font-size: 15px !important; font-weight: 700 !important; letter-spacing: 2.5px !important;
+  }
+
+  /* ---- stickies ---- */
+  .sticky-note {
+    width: 190px; padding: 14px 15px; background: #EFE187 !important; color: #3B3C40 !important;
+    border: none; border-radius: 2px; font-size: 11.5px; line-height: 1.45; font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transform: rotate(-0.6deg);
+  }
+  .sticky-note .sticky-icon { display: none; }
+
+  /* ---- title card ---- */
+  .title-card {
+    width: 1080px; box-sizing: border-box; padding: 52px 60px !important;
+    background: #16181F !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 24px 60px rgba(0,0,0,0.5) !important;
+    text-align: left !important;
+  }
+  .title-card h1 { font-size: 56px !important; font-weight: 900 !important; letter-spacing: -1.5px !important; color: #F5F6F8 !important; background: none !important; -webkit-text-fill-color: #F5F6F8 !important; }
+  .title-rule { width: 64px; height: 4px; background: #FF0031; margin: 18px 0 16px; }
+  .title-card .subtitle { font-size: 19px !important; color: #A6ADB8 !important; font-weight: 500 !important; margin-bottom: 26px !important; }
+  .title-card .stat-num { font-size: 34px !important; font-weight: 800 !important; color: #F5F6F8 !important; letter-spacing: -0.5px; }
+  .title-card .stat-label { font-size: 11px !important; color: #7E8794 !important; }
+  .title-card .hero-stat { gap: 52px !important; }
+  .title-card .by-line { font-size: 13px !important; color: #7E8794 !important; margin-top: 20px !important; }
+  .title-card .by-line strong { color: #F5F6F8 !important; }
+  .face-pile { display: flex; align-items: center; margin-top: 26px; }
+  .face-pile img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+    border: 2px solid #16181F; margin-left: -9px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+  .face-pile img:first-child { margin-left: 0; }
+  .pile-more { margin-left: 14px; font-size: 12px; font-weight: 600; color: #7E8794; }
+  .face-pile .pile-init { width: 38px; height: 38px; border-radius: 50%; margin-left: -9px;
+    border: 2px solid #16181F; background: #22242C; color: #fff; font-weight: 800; font-size: 14px;
+    display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+  .mgmt-crew { position: absolute; display: flex; gap: 26px; align-items: center; z-index: 10; }
+  .mgmt-crew .crew-p { display: flex; gap: 9px; align-items: center; }
+  .mgmt-crew img, .mgmt-crew .pile-init { width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.16); margin: 0; box-shadow: none; }
+  .mgmt-crew .pile-init { background: #22242C; color: #fff; font-weight: 800; font-size: 14px;
+    display: inline-flex; align-items: center; justify-content: center; }
+
+  /* ---- math card ---- */
+  .math-card {
+    width: 480px; box-sizing: border-box; padding: 26px 30px !important;
+    background: #16181F !important; border: 1px solid rgba(255,255,255,0.09) !important; border-radius: 12px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px rgba(0,0,0,0.45) !important;
+  }
+  .math-card h3 { color: #7E8794 !important; font-size: 10px !important; letter-spacing: 1.8px !important; text-transform: uppercase; font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+  .math-card .math-eq { color: #A6ADB8 !important; font-size: 14px !important; }
+  .math-card .math-eq span { color: #F2F3F6 !important; font-weight: 800; }
+  .math-card .math-result { color: #FF2449 !important; font-size: 26px !important; font-weight: 800 !important; letter-spacing: -0.5px; }
+  .math-card .math-note { color: #7E8794 !important; font-size: 11px !important; line-height: 1.5; }
+
+  /* ---- CTA: dark focal with red edge ---- */
+  .cta-card {
+    width: 500px; box-sizing: border-box; padding: 36px 40px !important;
+    background: #101116 !important; border: 1px solid rgba(255,0,49,0.55) !important; border-radius: 14px !important;
+    box-shadow: 0 0 70px rgba(255,0,49,0.16), 0 24px 60px rgba(0,0,0,0.55) !important; text-align: left !important;
+  }
+  .cta-card h2 { font-size: 30px !important; font-weight: 900 !important; letter-spacing: -0.8px; color: #FFFFFF; margin: 0 0 10px; }
+  .cta-card p { font-size: 13px !important; line-height: 1.55 !important; color: #9BA1AC !important; margin: 0 0 16px; }
+  .cta-card .cta-btn {
+    display: inline-block; background: #FF0031 !important; color: #fff !important;
+    font-size: 12px !important; font-weight: 800 !important; letter-spacing: 1px;
+    padding: 12px 22px !important; border-radius: 8px !important;
+  }
+  .cta-pile { display: flex; align-items: center; margin: 0 0 18px; }
+  .cta-pile img, .cta-k { width: 30px; height: 30px; border-radius: 50%; object-fit: cover;
+    border: 2px solid #101116; margin-left: -7px; }
+  .cta-pile img:first-child, .cta-pile .cta-k:first-child { margin-left: 0; }
+  .cta-k { background: #22242C; color: #fff; font-weight: 800; font-size: 12px;
+    display: inline-flex; align-items: center; justify-content: center; }
+  .cta-pile-label { margin-left: 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: #7E8794; }
+
+  /* ---- platform source badges ---- */
+  .src-badges { display: flex; gap: 10px; margin: 14px 0 4px; flex-wrap: wrap; }
+  .src-badge { position: relative; width: 34px; height: 34px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    animation: srcPulse 2.4s ease-out infinite; }
+  .src-badge svg { width: 18px; height: 18px; display: block; }
+  @keyframes srcPulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.28); } 70% { box-shadow: 0 0 0 11px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+  .b-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+  .b-tt { background: #000; border: 1px solid rgba(255,255,255,0.25); }
+  .b-yt { background: #FF0000; }
+  .b-x { background: #000; border: 1px solid rgba(255,255,255,0.25); }
+  .b-rd { background: #FF4500; }
+  .b-li { background: #0A66C2; }
+  .b-pin { background: #E60023; }
+  .b-sc { background: #FFFC00; }
+
+  /* ---- AI crawler swarm ---- */
+  .swarm { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 14px;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .swarm i { width: 8px; height: 8px; border-radius: 2px; background: #22C55E; display: block;
+    animation: swarmPulse 1.8s ease-in-out infinite; }
+  .swarm i.amber { background: #F59E0B; }
+  @keyframes swarmPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+  /* ---- live activity row ---- */
+  .ig-live { display: flex; align-items: center; gap: 9px; padding: 10px 2px 9px;
+    border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; flex: 0 0 8px;
+    animation: setterPulse 2s infinite; }
+  .live-meta { display: flex; align-items: baseline; gap: 6px; }
+  .live-meta b { font-size: 16px; font-weight: 800; color: #F2F3F6; letter-spacing: -0.3px; }
+  .live-meta span { font-size: 10px; font-weight: 600; color: #7E8794; }
+  .eq { display: flex; align-items: flex-end; gap: 2px; height: 13px; margin-left: auto; padding-right: 2px; }
+  .eq i { display: block; width: 3px; background: #22C55E; border-radius: 1px; opacity: 0.85;
+    transform-origin: bottom; animation: eqBounce 1.5s ease-in-out infinite alternate; }
+  @keyframes eqBounce { from { transform: scaleY(0.55); } to { transform: scaleY(1); } }
+
+  /* ---- account lead strip ---- */
+  .ig-lead { display: flex; align-items: center; gap: 9px; margin-top: 10px; padding-top: 9px;
+    border-top: 1px solid rgba(255,255,255,0.08); }
+  .ig-lead img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.14); flex: 0 0 26px; display: block; }
+
+  /* ---- chips ---- */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip { font-size: 10.5px; font-weight: 600; color: #C4CAD4; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; padding: 4px 11px; }
+
+  /* ---- accept/reject examples ---- */
+  .ex-rows { margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .ex { display: flex; align-items: baseline; gap: 8px; padding: 6px 0 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.05); font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 10.5px; color: #A6ADB8; }
+  .ex:last-child { border-bottom: none; padding-bottom: 0; }
+  .ex .tick { font-weight: 800; flex: 0 0 12px; }
+  .ex .tick.ok { color: #4ADE80; }
+  .ex .tick.no { color: #F87181; }
+
+  /* ---- people rows ---- */
+  .people { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .people-label { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8.5px;
+    font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: #7E8794; margin-bottom: 7px; }
+  .person { display: flex; align-items: center; gap: 9px; padding: 4px 0; }
+  .person img, .p-initial { width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.14); flex: 0 0 32px; display: block; box-sizing: border-box; }
+  .p-initial { background: #22242C; color: #fff; font-weight: 800; font-size: 13px;
+    display: flex; align-items: center; justify-content: center; }
+  .p-meta b { display: block; font-size: 11.5px; font-weight: 700; color: #F2F3F6; letter-spacing: -0.1px; }
+  .p-meta span { font-size: 9.5px; color: #7E8794; font-weight: 600; }
+
+  /* ---- IG profile cards ---- */
+  .ig-card { width: 380px; }
+  .ig-body { padding: 18px 20px 16px; }
+  .ig-header { display: flex; align-items: center; gap: 14px; margin-top: 2px; }
+  .ig-ring { width: 64px; height: 64px; border-radius: 50%; padding: 2.5px; flex: 0 0 64px;
+    background: conic-gradient(from 210deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5,#feda75); }
+  .ig-ring img, .ig-initial { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #16181F; object-fit: cover; display: block; box-sizing: border-box; }
+  .ig-initial { background: #22242C; color: #fff; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+  .ig-handle { font-size: 15px; font-weight: 800; letter-spacing: -0.2px; color: #F2F3F6; display: flex; align-items: center; gap: 5px; }
+  .ig-verify { width: 14px; height: 14px; flex: 0 0 14px; }
+  .ig-name { font-size: 12px; color: #7E8794; font-weight: 600; margin-top: 2px; }
+  .ig-stats { display: flex; justify-content: space-around; padding: 13px 4px 11px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .ig-stats div { text-align: center; }
+  .ig-stats b { font-size: 15px; font-weight: 800; color: #F2F3F6; display: block; letter-spacing: -0.3px; }
+  .ig-stats span { font-size: 10px; color: #7E8794; }
+  .ig-setters { padding-top: 11px; }
+  .ig-setters-label { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8.5px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: #7E8794; margin-bottom: 7px; }
+  .setter { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #C4CAD4; font-weight: 600; padding: 3px 0; }
+  .setter em { font-style: normal; font-size: 9.5px; color: #7E8794; font-weight: 600; }
+  .setter .shift { margin-left: auto; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9.5px; font-weight: 600; color: #A6ADB8; background: rgba(255,255,255,0.07); padding: 2px 8px; border-radius: 4px; }
+  .s-ava { width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.14); flex: 0 0 22px; display: block; }
+  .s-ava.on { border: 1.5px solid #22C55E; animation: setterPulse 2s infinite; }
+  @keyframes setterPulse { 0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.2); } 50% { box-shadow: 0 0 0 7px rgba(34,197,94,0.05); } }
+
+  /* ---- specificity overrides vs template ---- */
+  .module-card .card-title, .module-card .card-header .card-title { color: #F2F3F6 !important; }
+  .module-card .card-points li { color: #A6ADB8 !important; }
+  .module-card .card-num { color: #7E8794 !important; }
+  .module-card .card-stat {
+    background: rgba(255,255,255,0.05) !important; border: none !important;
+    border-radius: 8px !important; padding: 10px 14px !important;
+    margin-top: 12px !important; border-top: none !important;
+  }
+  .module-card .card-stat .stat-value { color: #F2F3F6 !important; }
+  .module-card .card-stat .stat-desc { color: #7E8794 !important; }
+
+  /* ---- agent console (crawlers) ---- */
+  .agent-matrix { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 14px;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .agent { display: flex; align-items: center; gap: 4px;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8px; font-weight: 600;
+    color: #7FDCA0; background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.22);
+    border-radius: 4px; padding: 3px 5px; animation: swarmPulse 2.2s ease-in-out infinite; }
+  .agent i { width: 4px; height: 4px; border-radius: 50%; background: #22C55E; flex: 0 0 4px; }
+  .agent.amber { color: #F5C169; background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.3); }
+  .agent.amber i { background: #F59E0B; }
+  .crawler-feed { margin-top: 10px; padding: 8px 10px; background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; }
+  .feed-line { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px;
+    color: #6EE7A0; padding: 2px 0; animation: feedGlow 6s ease-in-out infinite; }
+  .feed-caret { color: #22C55E; margin-right: 6px; font-weight: 700; }
+  @keyframes feedGlow { 0%, 100% { opacity: 0.45; } 15%, 35% { opacity: 1; } }
+  .crawler-stats { margin-top: 9px; font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 8.5px; font-weight: 600; letter-spacing: 1.4px; color: #7E8794; }
+
+  /* ---- intake pipeline (scraping hub) ---- */
+  .flow { display: flex; align-items: center; gap: 10px; margin-top: 14px;
+    padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .f-srcs { display: flex; gap: 4px; }
+  .f-srcs span { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 8px; font-weight: 700;
+    color: #A6ADB8; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px; padding: 3px 6px; }
+  .f-track { position: relative; flex: 1; height: 2px; background: rgba(255,255,255,0.09); border-radius: 1px; }
+  .f-track i { position: absolute; top: -2px; left: 0; width: 6px; height: 6px; border-radius: 50%;
+    background: #22C55E; animation: flowMove 2.4s linear infinite; }
+  @keyframes flowMove { 0% { left: 0; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { left: calc(100% - 6px); opacity: 0; } }
+  .f-core { width: 16px; height: 16px; border-radius: 5px; background: #22C55E;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.15); animation: setterPulse 2s infinite; }
+  .f-progress { margin-top: 10px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; }
+  .f-progress i { display: block; height: 100%; width: 40%; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #22C55E, transparent);
+    animation: shimmer 2.8s linear infinite; }
+  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
+
+  /* ---- analytics example rows ---- */
+  .ex { display: block; }
+  .ex-top { display: flex; align-items: baseline; gap: 8px; }
+  .ex-head { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10.5px; color: #C4CAD4; font-weight: 600; }
+  .ex-bar { display: flex; gap: 1px; height: 4px; margin: 6px 0 4px 20px; border-radius: 1px; overflow: hidden; }
+  .ex-bar i { height: 100%; }
+  .ex-bar .lead-ok { background: #22C55E; }
+  .ex-bar .lead-no { background: #F87181; }
+  .ex-bar .seg2 { background: #7E8794; }
+  .ex-bar .seg3 { background: #565D68; }
+  .ex-bar .seg4 { background: #33383F; }
+  .ex-sub { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 9px; color: #7E8794; margin-left: 20px; padding-bottom: 2px; }
+
+  /* ---- presenter chrome, darkened ---- */
+  #toolbar, #minimap, #draw-open-btn, #shortcuts {
+    background: rgba(18,20,26,0.94) !important; color: #C4CAD4 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  #toolbar .logo { color: #F2F3F6 !important; }
+  .nav-pill { color: #8A93A0; }
+  .nav-pill:hover { background: rgba(255,255,255,0.06); color: #F2F3F6; }
+  .nav-pill.active { background: #FF0031 !important; color: #fff !important; }
+  .tool-btn, .present-btn { color: #C4CAD4 !important; }
+  #zoomDisplay { color: #C4CAD4 !important; }
+  #logo-watermark { opacity: 0.95; }
+</style>
+</head>
+<body>
+
+<div id="toolbar-trigger"></div>
+<div id="toolbar">
+  <a href="/" class="logo" style="text-decoration:none;color:inherit">OVO TALENT</div>
+  <div class="nav-pills" id="navPills"></div>
+  <div class="toolbar-controls">
+    <button class="tool-btn" onclick="zoomTo(scale-0.15)" title="Zoom Out">-</button>
+    <span class="zoom-display" id="zoomDisplay">100%</span>
+    <button class="tool-btn" onclick="zoomTo(scale+0.15)" title="Zoom In">+</button>
+    <button class="tool-btn" onclick="fitAll()" title="Fit All (0)">&#x2610;</button>
+    <button class="tool-btn" onclick="toggleAuditPanel()" title="Audit Panel (A)" style="font-size:13px;">&#128203;</button>
+    <button class="tool-btn" onclick="openDrawToolbar()" title="Annotate (D)" style="font-size:13px;">&#9998;</button>
+    <a href="/" class="present-btn" style="text-decoration:none;">DASHBOARD</a>
+  </div>
+</div>
+<a id="logo-watermark" href="/" style="text-decoration:none;pointer-events:auto;cursor:pointer"><img src="assets/logos/ovotalent-wordmark@2x.png" alt="OVO Talent" style="height:24px;display:block"></a>
+
+<div id="viewport">
+  <div id="canvas">
+    <svg id="connections" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="journeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#4361EE" />
+          <stop offset="50%" style="stop-color:#7209B7" />
+          <stop offset="100%" style="stop-color:#06D6A0" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+    </svg>
+    <svg id="draw-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="spotlight-overlay" id="spotlight-overlay"></div>
+  </div>
+</div>
+
+<div id="minimap"><button class="minimap-toggle" onclick="toggleMinimap()" title="Toggle minimap">&#9723;</button></div>
+
+<div class="shortcuts-hint">
+  <strong style="color:var(--text);display:block;margin-bottom:4px;font-size:11px;">Keyboard Shortcuts</strong>
+  <kbd>?</kbd> This menu &nbsp; <kbd>T</kbd> Toolbar + minimap &nbsp; <kbd>0</kbd> Overview &nbsp; <kbd>&#8592;&#8594;</kbd> Navigate modules<br>
+  <kbd>D</kbd> Annotate mode &nbsp; <kbd>1</kbd> Pen &nbsp; <kbd>2</kbd> Highlight &nbsp; <kbd>3</kbd> Sticky &nbsp; <kbd>4</kbd> Laser &nbsp; <kbd>5</kbd> Spotlight<br>
+  <kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd> Colors &nbsp; <kbd>F</kbd> Normal pointer &nbsp; <kbd>Z</kbd> Undo &nbsp; <kbd>X</kbd> Clear &nbsp; <kbd>A</kbd> Audit &nbsp; <kbd>S</kbd> Export &nbsp; <kbd>Esc</kbd> Close
+</div>
+
+<div id="draw-open-btn" class="visible" onclick="openDrawToolbar()">&#9998; Annotate</div>
+
+<div id="draw-toolbar">
+  <span class="draw-label">Tools</span>
+  <button class="draw-btn active" data-tool="pen" onclick="setDrawTool('pen')" title="Pen (freehand)">&#9998;</button>
+  <button class="draw-btn" data-tool="highlighter" onclick="setDrawTool('highlighter')" title="Highlighter">&#9618;</button>
+  <button class="draw-btn" data-tool="sticky" onclick="setDrawTool('sticky')" title="Drop sticky note">&#128205;</button>
+  <button class="draw-btn" data-tool="laser" onclick="setDrawTool('laser')" title="Laser pointer">&#9673;</button>
+  <button class="draw-btn" data-tool="spotlight" onclick="toggleSpotlight()" title="Spotlight focus">&#128161;</button>
+  <div class="draw-sep"></div>
+  <div class="draw-swatch active" style="background:#E63946" data-color="#E63946" onclick="setDrawColor(this)"></div>
+  <div class="draw-swatch" style="background:#4361EE" data-color="#4361EE" onclick="setDrawColor(this)"></div>
+  <div class="draw-swatch" style="background:#22C55E" data-color="#22C55E" onclick="setDrawColor(this)"></div>
+  <div class="draw-swatch" style="background:#F59E0B" data-color="#F59E0B" onclick="setDrawColor(this)"></div>
+  <div class="draw-sep"></div>
+  <button class="draw-btn" onclick="drawUndo()" title="Undo (Ctrl+Z)">&#8617;</button>
+  <button class="draw-btn" onclick="drawClear()" title="Clear all">&#128465;</button>
+  <button class="draw-btn" onclick="toggleAuditPanel()" title="Audit panel">&#128203;</button>
+  <div class="draw-sep"></div>
+  <button class="draw-btn" onclick="closeDrawToolbar()" title="Close">&#10005;</button>
+</div>
+
+<!-- Audit panel -->
+<div id="audit-panel">
+  <div class="audit-panel-header">
+    <h3>Audit Notes</h3>
+    <div class="audit-panel-actions">
+      <button class="audit-panel-btn" onclick="exportAudit()">Export</button>
+      <button class="audit-panel-btn" onclick="toggleAuditPanel()">&#10005;</button>
+    </div>
+  </div>
+  <div class="audit-panel-body" id="audit-panel-body">
+    <div class="audit-empty">No notes yet. Drop sticky notes on the board or double-click modules to set status.</div>
+  </div>
+</div>
+
+<div id="laser-dot"></div>
+
+<script>
+// ============================================================
+// LAYOUT: 3 rows for Outbound Flow
+// Row 1 (y~520):  DISCOVER & QUALIFY — Hashtag Scrape, AI Qualify, Email Extract, Prospect List
+// Row 2 (y~1700): OUTREACH — DM Send, Email Outreach, Response Handle, Pipeline Orchestrator
+// Row 3 (y~2900): CONVERT — iClosed, Discovery Call, Sign Fitia, Sign OVO
+// ============================================================
+
+const CANVAS_W = 9600;
+const CANVAS_H = 7000;
+
+const MODULES = [
+  {"id": "sig-sources", "num": "STEP 01", "title": "SIGNAL SOURCES", "shortTitle": "Signal Sources", "color": "#5B6472", "timestamp": "", "x": 2450, "y": 480, "points": ["Every platform mined, around the clock"], "chips": ["Viral Reels Miner", "Hashtag Graph Crawl", "Competitor Audience Pulls", "Sound & Trend Velocity", "TikTok Crossover Radar", "YouTube Shorts Scan", "Brand Collab Tag Watch", "Niche & Location Packs", "Creator Lookalikes", "Engagement Spike Alerts"], "w": 460, "badges": [{"cls": "b-ig", "svg": "<svg viewBox='0 0 24 24' fill='none' stroke='#fff' stroke-width='2'><rect x='3' y='3' width='18' height='18' rx='5'/><circle cx='12' cy='12' r='4.2'/><circle cx='17.4' cy='6.6' r='1.3' fill='#fff' stroke='none'/></svg>"}, {"cls": "b-tt", "svg": "<svg viewBox='0 0 24 24' fill='#fff'><path d='M14 3v9.2a3.4 3.4 0 1 1-2.6-3.3V6.4A6.4 6.4 0 1 0 17 12.7V8.9c1 .8 2.2 1.3 3.6 1.4V7.2C18.6 7 17 5.3 16.7 3H14z'/></svg>"}, {"cls": "b-yt", "svg": "<svg viewBox='0 0 24 24'><path fill='#fff' d='M9.5 8v8l7-4-7-4z'/></svg>"}, {"cls": "b-x", "svg": "<svg viewBox='0 0 24 24' stroke='#fff' stroke-width='2.6' stroke-linecap='round'><path d='M5 5l14 14M19 5L5 19'/></svg>"}, {"cls": "b-rd", "svg": "<svg viewBox='0 0 24 24' fill='#fff'><ellipse cx='12' cy='14.5' rx='7' ry='4.8'/><circle cx='9.4' cy='13.9' r='1.2' fill='#FF4500'/><circle cx='14.6' cy='13.9' r='1.2' fill='#FF4500'/><circle cx='18.4' cy='8' r='1.6'/><path d='M12 9.7l1-4.2 3.4 1' stroke='#fff' stroke-width='1.4' fill='none'/></svg>"}, {"cls": "b-li", "svg": "<svg viewBox='0 0 24 24'><text x='12' y='16.5' text-anchor='middle' font-size='12' font-weight='800' fill='#fff' font-family='Arial'>in</text></svg>"}, {"cls": "b-pin", "svg": "<svg viewBox='0 0 24 24'><text x='12' y='17' text-anchor='middle' font-size='14' font-weight='800' fill='#fff' font-family='Georgia'>P</text></svg>"}, {"cls": "b-sc", "svg": "<svg viewBox='0 0 24 24' fill='#1A1A1A'><path d='M12 4c2.6 0 4.4 1.9 4.4 4.6 0 .9-.1 1.7-.2 2.3.5.4 1.5.5 2.3.6-.2.8-1.2 1.3-2.2 1.6.5 1 1.6 1.8 2.7 2-.7 1-2.2 1.4-3.5 1.5-.6.8-1.9 1.4-3.5 1.4s-2.9-.6-3.5-1.4c-1.3-.1-2.8-.5-3.5-1.5 1.1-.2 2.2-1 2.7-2-1-.3-2-.8-2.2-1.6.8-.1 1.8-.2 2.3-.6-.1-.6-.2-1.4-.2-2.3C7.6 5.9 9.4 4 12 4z'/></svg>"}]},
+  {"id": "scrape-hub", "num": "STEP 02", "title": "CENTRAL SCRAPING SYSTEM", "shortTitle": "Scraping", "color": "#5B6472", "timestamp": "", "x": 3300, "y": 520, "points": ["One engine feeds every lane", "Runs around the clock, unattended", "Self-heals and dedupes automatically"], "stat": {"value": "24,000+/mo", "desc": "qualified profiles scraped monthly"}, "pill": true, "flow": true},
+  {"id": "qualify", "num": "STEP 03", "title": "QUALIFICATION ENGINE", "shortTitle": "Qualification Engine", "color": "#5B6472", "timestamp": "", "x": 4150, "y": 520, "points": ["Follower band + engagement floor, set per campaign brief", "View-to-follower + comment-authenticity screens", "Region, niche and brand-safety filters", "Thresholds re-tuned every campaign — nothing is generic"], "examples": [{"ok": true, "head": "82K · 6.1% ER · auth 94 → supplement brief", "bar": [["us", 71, "lead-ok"], ["uk", 9, "seg2"], ["ca", 6, "seg3"], ["rest", 14, "seg4"]], "sub": "US 71% · UK 9% · CA 6% · core W 25–34 58% · M 21%"}, {"ok": true, "head": "148K · 4.4% ER · auth 91 → app launch", "bar": [["uk", 64, "lead-ok"], ["us", 18, "seg2"], ["eu", 11, "seg3"], ["rest", 7, "seg4"]], "sub": "UK 64% · US 18% · EU 11% · core 18–24 47% · F 62%"}, {"ok": false, "head": "210K · 0.3% ER · auth 31 → rejected", "bar": [["farm", 55, "lead-no"], ["mixed", 45, "seg4"]], "sub": "geo fragmented · comment clusters flagged · engagement farms"}, {"ok": false, "head": "64K · 5.8% ER · auth 89 → parked", "bar": [["us", 52, "lead-no"], ["latam", 31, "seg3"], ["rest", 17, "seg4"]], "sub": "audience fits · niche mismatch for THIS brief · queued for next"}], "w": 520},
+  {"id": "enrich", "num": "STEP 04", "title": "ENRICHMENT & SCORING", "shortTitle": "Enrichment & Scoring", "color": "#5B6472", "timestamp": "", "x": 5000, "y": 560, "points": ["Contact + profile enrichment", "Fit score on every prospect", "Priority tiers set the queue"], "stat": {"value": "31 fields", "desc": "appended per accepted profile"}},
+  {"id": "router", "num": "STEP 05", "title": "LANE ROUTER", "shortTitle": "Router", "color": "#5B6472", "timestamp": "", "x": 5850, "y": 520, "points": ["Splits every prospect into a lane", "IG fleet or verified email", "Load-balanced across 15 accounts"], "stat": {"value": "2 lanes", "desc": "IG DMs + verified email"}, "pill": true},
+  {"id": "crawlers", "num": "STEP 01B · ALWAYS ON", "title": "36 CUSTOM AI SOURCING AGENTS", "shortTitle": "AI Crawlers", "color": "#5B6472", "timestamp": "", "x": 2450, "y": 960, "points": ["Custom-coded crawlers, built in-house", "Scanning web + social 24/7 for sourcing signals", "Self-directed — they find pockets we never briefed"], "stat": {"value": "24/7", "desc": "never sleeps, never stops crawling"}, "pill": true, "w": 460, "swarm": 36, "feed": ["A14 · surfaced 212 profiles · pilates micro-niche", "A29 · new pocket: marathon-prep creators, UK", "A07 · 3,041 pages crawled last hour · 0 dupes"], "cstats": "36 ACTIVE · 61K PAGES / DAY · 14 NICHES LIVE"},
+  {"id": "ig-1", "num": "INSTAGRAM 01", "title": "ALEX", "shortTitle": "IG Fleet", "color": "#B0566E", "timestamp": "", "x": 380, "y": 1780, "points": [], "pill": true, "ig": {"name": "Alex", "handle": "@imalexgunnar", "verified": true, "posts": 214, "followers": "96.2K", "following": 486, "setters": [{"name": "Maya R.", "shift": "00–08", "img": "assets/board/team/setter01.jpg", "live": false}, {"name": "Tomas K.", "shift": "08–16", "img": "assets/board/team/setter02.jpg", "live": false}, {"name": "Lena P.", "shift": "16–24", "img": "assets/board/team/setter03.jpg", "live": true}], "active": 17, "bars": [4, 9, 5, 10, 6, 11], "lead": {"name": "Elena V.", "img": "assets/board/team/elena.jpg"}, "img": "assets/creators/alex.jpg"}},
+  {"id": "dm-1", "num": "IG 01 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 380, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-1", "num": "IG 01 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 380, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-1", "num": "IG 01 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 380, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-2", "num": "INSTAGRAM 02", "title": "KENNEDY", "shortTitle": "Kennedy", "color": "#B0566E", "timestamp": "", "x": 890, "y": 1780, "points": [], "ig": {"name": "Kennedy", "handle": "@kennedy.gaynor", "verified": true, "posts": 183, "followers": "74.8K", "following": 312, "setters": [{"name": "Diego S.", "shift": "00–08", "img": "assets/board/team/setter04.jpg", "live": false}, {"name": "Aisha B.", "shift": "08–16", "img": "assets/board/team/setter05.jpg", "live": false}, {"name": "Noel V.", "shift": "16–24", "img": "assets/board/team/setter06.jpg", "live": true}], "active": 23, "bars": [11, 7, 12, 8, 4, 9], "lead": {"name": "Josh T.", "img": "assets/board/team/josh.jpg"}, "initial": "K"}},
+  {"id": "dm-2", "num": "IG 02 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 890, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-2", "num": "IG 02 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 890, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-2", "num": "IG 02 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 890, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-3", "num": "INSTAGRAM 03", "title": "JC", "shortTitle": "Jc", "color": "#B0566E", "timestamp": "", "x": 1400, "y": 1780, "points": [], "ig": {"name": "JC", "handle": "@jc.creates", "verified": false, "posts": 327, "followers": "58.1K", "following": 540, "setters": [{"name": "Priya D.", "shift": "06–14", "img": "assets/board/team/setter07.jpg", "live": false}, {"name": "Marcus J.", "shift": "14–22", "img": "assets/board/team/setter08.jpg", "live": true}], "active": 11, "bars": [9, 5, 10, 6, 11, 7], "lead": {"name": "Nadia R.", "img": "assets/board/team/nadia.jpg"}, "img": "assets/creator-proof/juan.jpg"}},
+  {"id": "dm-3", "num": "IG 03 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 1400, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-3", "num": "IG 03 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 1400, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-3", "num": "IG 03 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 1400, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-4", "num": "INSTAGRAM 04", "title": "MARIA", "shortTitle": "Maria", "color": "#B0566E", "timestamp": "", "x": 1910, "y": 1780, "points": [], "ig": {"name": "Maria", "handle": "@maria.inmotion", "verified": false, "posts": 402, "followers": "112K", "following": 618, "setters": [{"name": "Ivy C.", "shift": "00–08", "img": "assets/board/team/setter09.jpg", "live": false}, {"name": "Owen F.", "shift": "08–16", "img": "assets/board/team/setter10.jpg", "live": false}, {"name": "Sofia M.", "shift": "16–24", "img": "assets/board/team/setter11.jpg", "live": true}], "active": 19, "bars": [7, 12, 8, 4, 9, 5], "lead": {"name": "Chris P.", "img": "assets/board/team/chris.jpg"}, "img": "assets/creators/maria.jpg"}},
+  {"id": "dm-4", "num": "IG 04 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 1910, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"], "stickies": [{"text": "No reply in 48h → the next touch fires on its own.", "color": "yellow", "dx": 60, "dy": 250}]},
+  {"id": "fu2-4", "num": "IG 04 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 1910, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-4", "num": "IG 04 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 1910, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-5", "num": "INSTAGRAM 05", "title": "SAMANTHA", "shortTitle": "Samantha", "color": "#B0566E", "timestamp": "", "x": 2420, "y": 1780, "points": [], "ig": {"name": "Samantha", "handle": "@sam.antha.co", "verified": false, "posts": 156, "followers": "41.7K", "following": 289, "setters": [{"name": "Felix G.", "shift": "06–14", "img": "assets/board/team/setter12.jpg", "live": false}, {"name": "Nora W.", "shift": "14–22", "img": "assets/board/team/setter13.jpg", "live": true}], "active": 8, "bars": [5, 10, 6, 11, 7, 12], "lead": {"name": "Yara S.", "img": "assets/board/team/yara.jpg"}, "img": "assets/creators/samantha.jpg"}},
+  {"id": "dm-5", "num": "IG 05 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 2420, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-5", "num": "IG 05 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 2420, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-5", "num": "IG 05 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 2420, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-6", "num": "INSTAGRAM 06", "title": "COLBY", "shortTitle": "Colby", "color": "#B0566E", "timestamp": "", "x": 2930, "y": 1780, "points": [], "ig": {"name": "Colby", "handle": "@colby.online", "verified": true, "posts": 268, "followers": "134K", "following": 402, "setters": [{"name": "Andre L.", "shift": "00–08", "img": "assets/board/team/setter14.jpg", "live": false}, {"name": "Tessa H.", "shift": "08–16", "img": "assets/board/team/setter15.jpg", "live": false}, {"name": "Kai N.", "shift": "16–24", "img": "assets/board/team/setter16.jpg", "live": true}], "active": 26, "bars": [12, 8, 4, 9, 5, 10], "lead": {"name": "Elena V.", "img": "assets/board/team/elena.jpg"}, "img": "assets/creators/colby.jpg"}},
+  {"id": "dm-6", "num": "IG 06 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 2930, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-6", "num": "IG 06 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 2930, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-6", "num": "IG 06 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 2930, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-7", "num": "INSTAGRAM 07", "title": "MILAN", "shortTitle": "Milan", "color": "#B0566E", "timestamp": "", "x": 3440, "y": 1780, "points": [], "ig": {"name": "Milan", "handle": "@milan.dailys", "verified": false, "posts": 311, "followers": "87.9K", "following": 522, "setters": [{"name": "Ruby T.", "shift": "06–14", "img": "assets/board/team/setter17.jpg", "live": false}, {"name": "Dario M.", "shift": "14–22", "img": "assets/board/team/setter18.jpg", "live": true}], "active": 14, "bars": [10, 6, 11, 7, 12, 8], "lead": {"name": "Josh T.", "img": "assets/board/team/josh.jpg"}, "img": "assets/creators/milan.jpg"}},
+  {"id": "dm-7", "num": "IG 07 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 3440, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-7", "num": "IG 07 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 3440, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-7", "num": "IG 07 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 3440, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-8", "num": "INSTAGRAM 08", "title": "BRENDA", "shortTitle": "Brenda", "color": "#B0566E", "timestamp": "", "x": 3950, "y": 1780, "points": [], "stickies": [{"text": "Accounts warmed 4–6 weeks before entering rotation.", "color": "yellow", "dx": 120, "dy": -120}], "ig": {"name": "Brenda", "handle": "@itsbrenda.k", "verified": false, "posts": 145, "followers": "29.4K", "following": 356, "setters": [{"name": "Elif A.", "shift": "00–08", "img": "assets/board/team/setter19.jpg", "live": false}, {"name": "Jonas Q.", "shift": "08–16", "img": "assets/board/team/setter20.jpg", "live": false}, {"name": "Mira S.", "shift": "16–24", "img": "assets/board/team/setter21.jpg", "live": true}], "active": 21, "bars": [8, 4, 9, 5, 10, 6], "lead": {"name": "Nadia R.", "img": "assets/board/team/nadia.jpg"}, "img": "assets/creators/brenda.jpg"}},
+  {"id": "dm-8", "num": "IG 08 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 3950, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-8", "num": "IG 08 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 3950, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-8", "num": "IG 08 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 3950, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-9", "num": "INSTAGRAM 09", "title": "DENISE", "shortTitle": "Denise", "color": "#B0566E", "timestamp": "", "x": 4460, "y": 1780, "points": [], "ig": {"name": "Denise", "handle": "@denise.daily", "verified": false, "posts": 233, "followers": "52.6K", "following": 431, "setters": [{"name": "Cole B.", "shift": "06–14", "img": "assets/board/team/setter22.jpg", "live": false}, {"name": "Dana E.", "shift": "14–22", "img": "assets/board/team/setter23.jpg", "live": true}], "active": 12, "bars": [6, 11, 7, 12, 8, 4], "lead": {"name": "Chris P.", "img": "assets/board/team/chris.jpg"}, "img": "assets/creators/denise.jpg"}},
+  {"id": "dm-9", "num": "IG 09 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 4460, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-9", "num": "IG 09 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 4460, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-9", "num": "IG 09 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 4460, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-10", "num": "INSTAGRAM 10", "title": "PAULA", "shortTitle": "Paula", "color": "#B0566E", "timestamp": "", "x": 4970, "y": 1780, "points": [], "ig": {"name": "Paula", "handle": "@paula.onair", "verified": false, "posts": 189, "followers": "63.3K", "following": 377, "setters": [{"name": "Hugo Z.", "shift": "00–08", "img": "assets/board/team/setter24.jpg", "live": false}, {"name": "Isla D.", "shift": "08–16", "img": "assets/board/team/setter25.jpg", "live": false}, {"name": "Rafi O.", "shift": "16–24", "img": "assets/board/team/setter26.jpg", "live": true}], "active": 16, "bars": [4, 9, 5, 10, 6, 11], "lead": {"name": "Yara S.", "img": "assets/board/team/yara.jpg"}, "img": "assets/creator-proof/paula.jpg"}},
+  {"id": "dm-10", "num": "IG 10 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 4970, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-10", "num": "IG 10 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 4970, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-10", "num": "IG 10 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 4970, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-11", "num": "INSTAGRAM 11", "title": "DARIA", "shortTitle": "Daria", "color": "#B0566E", "timestamp": "", "x": 5480, "y": 1780, "points": [], "ig": {"name": "Daria", "handle": "@daria.moves", "verified": true, "posts": 297, "followers": "121K", "following": 264, "setters": [{"name": "Wren C.", "shift": "06–14", "img": "assets/board/team/setter27.jpg", "live": false}, {"name": "Luca V.", "shift": "14–22", "img": "assets/board/team/setter28.jpg", "live": true}], "active": 24, "bars": [11, 7, 12, 8, 4, 9], "lead": {"name": "Elena V.", "img": "assets/board/team/elena.jpg"}, "img": "assets/creator-proof/daria.jpg"}},
+  {"id": "dm-11", "num": "IG 11 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 5480, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-11", "num": "IG 11 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 5480, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-11", "num": "IG 11 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 5480, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"], "stickies": [{"text": "Same playbook on every account — scripts versioned centrally.", "color": "yellow", "dx": 40, "dy": 240}]},
+  {"id": "ig-12", "num": "INSTAGRAM 12", "title": "GIO", "shortTitle": "Gio", "color": "#B0566E", "timestamp": "", "x": 5990, "y": 1780, "points": [], "ig": {"name": "Gio", "handle": "@gio.grams", "verified": false, "posts": 342, "followers": "45.9K", "following": 598, "setters": [{"name": "Petra J.", "shift": "00–08", "img": "assets/board/team/setter29.jpg", "live": false}, {"name": "Sam H.", "shift": "08–16", "img": "assets/board/team/setter30.jpg", "live": false}, {"name": "Nia K.", "shift": "16–24", "img": "assets/board/team/setter31.jpg", "live": true}], "active": 9, "bars": [9, 5, 10, 6, 11, 7], "lead": {"name": "Josh T.", "img": "assets/board/team/josh.jpg"}, "img": "assets/creator-proof/gio.jpg"}},
+  {"id": "dm-12", "num": "IG 12 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 5990, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-12", "num": "IG 12 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 5990, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-12", "num": "IG 12 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 5990, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-13", "num": "INSTAGRAM 13", "title": "ANGEL", "shortTitle": "Angel", "color": "#B0566E", "timestamp": "", "x": 6500, "y": 1780, "points": [], "ig": {"name": "Angel", "handle": "@angel.actives", "verified": false, "posts": 176, "followers": "38.2K", "following": 305, "setters": [{"name": "Theo R.", "shift": "06–14", "img": "assets/board/team/setter32.jpg", "live": false}, {"name": "Vera L.", "shift": "14–22", "img": "assets/board/team/setter33.jpg", "live": true}], "active": 18, "bars": [7, 12, 8, 4, 9, 5], "lead": {"name": "Nadia R.", "img": "assets/board/team/nadia.jpg"}, "img": "assets/creators/angel.jpg"}},
+  {"id": "dm-13", "num": "IG 13 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 6500, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-13", "num": "IG 13 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 6500, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-13", "num": "IG 13 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 6500, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-14", "num": "INSTAGRAM 14", "title": "GRANT", "shortTitle": "Grant", "color": "#B0566E", "timestamp": "", "x": 7010, "y": 1780, "points": [], "ig": {"name": "Grant", "handle": "@grantgoes", "verified": false, "posts": 254, "followers": "69.5K", "following": 447, "setters": [{"name": "Milo P.", "shift": "00–08", "img": "assets/board/team/setter34.jpg", "live": false}, {"name": "Zara F.", "shift": "08–16", "img": "assets/board/team/setter35.jpg", "live": false}, {"name": "Enzo G.", "shift": "16–24", "img": "assets/board/team/setter36.jpg", "live": true}], "active": 13, "bars": [5, 10, 6, 11, 7, 12], "lead": {"name": "Chris P.", "img": "assets/board/team/chris.jpg"}, "img": "assets/creators/grant.jpg"}},
+  {"id": "dm-14", "num": "IG 14 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 7010, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-14", "num": "IG 14 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 7010, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-14", "num": "IG 14 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 7010, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "ig-15", "num": "INSTAGRAM 15", "title": "MACKENZIE", "shortTitle": "Mackenzie", "color": "#B0566E", "timestamp": "", "x": 7520, "y": 1780, "points": [], "ig": {"name": "Mackenzie", "handle": "@mackenzie.social", "verified": false, "posts": 208, "followers": "83.1K", "following": 391, "setters": [{"name": "Lila M.", "shift": "06–14", "img": "assets/board/team/setter37.jpg", "live": false}, {"name": "Oskar N.", "shift": "14–22", "img": "assets/board/team/setter38.jpg", "live": true}], "active": 22, "bars": [12, 8, 4, 9, 5, 10], "lead": {"name": "Yara S.", "img": "assets/board/team/yara.jpg"}, "img": "assets/creators/mackenzie.jpg"}},
+  {"id": "dm-15", "num": "IG 15 · TOUCH 1", "title": "DM 1 · OPENER", "shortTitle": "Dm 1 · Opener", "color": "#9A5B77", "timestamp": "", "x": 7520, "y": 2560, "points": ["Personalized opener, written per profile", "Sent from a warmed, aged account"]},
+  {"id": "fu2-15", "num": "IG 15 · TOUCH 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#83607F", "timestamp": "", "x": 7520, "y": 3010, "points": ["Fires at 48h of silence", "New angle — never a bump"]},
+  {"id": "fu3-15", "num": "IG 15 · TOUCH 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#6D6588", "timestamp": "", "x": 7520, "y": 3460, "points": ["Direct ask — book the call", "No reply → recycled to nurture pool"]},
+  {"id": "email-list", "num": "EMAIL · SOURCE", "title": "SCRAPED EMAIL LIST", "shortTitle": "Email", "color": "#8A6B4F", "timestamp": "", "x": 8500, "y": 1780, "points": ["Built by the same scraping engine", "Every address verified pre-send", "Zero purchased lists"], "stat": {"value": "150K+", "desc": "verified addresses on rotation"}, "pill": true, "live": {"count": "240", "label": "email threads active now", "bars": [7, 4, 10, 6, 11, 5]}},
+  {"id": "wave1", "num": "EMAIL · WAVE 1", "title": "PERSONALIZED FIRST TOUCH", "shortTitle": "Personalized First Touch", "color": "#8A6B4F", "timestamp": "", "x": 8500, "y": 2560, "points": ["Written against their actual content", "One clear ask per send"], "stat": {"value": "4,000+/day", "desc": "personalized sends"}},
+  {"id": "efu2", "num": "EMAIL · WAVE 2", "title": "FOLLOW-UP 2", "shortTitle": "Follow-Up 2", "color": "#8A6B4F", "timestamp": "", "x": 8500, "y": 3010, "points": ["New proof point per send", "Auto-paused the moment they reply"]},
+  {"id": "efu3", "num": "EMAIL · WAVE 3", "title": "FOLLOW-UP 3", "shortTitle": "Follow-Up 3", "color": "#8A6B4F", "timestamp": "", "x": 8500, "y": 3460, "points": ["Final direct ask", "Clean exit — no list burn"]},
+  {"id": "triage", "num": "EMAIL · REPLIES", "title": "REPLY TRIAGE", "shortTitle": "Reply Triage", "color": "#8A6B4F", "timestamp": "", "x": 8500, "y": 3910, "points": ["Replies pushed to talent managers", "Hot leads flagged in minutes"], "stat": {"value": "< 1h", "desc": "reply response time"}, "stickies": [{"text": "Every reply answered inside one business hour.", "color": "yellow", "dx": -260, "dy": 30}], "people": [{"name": "Noa S.", "role": "Inbox Manager", "img": "assets/board/team/noa.jpg"}], "peopleLabel": "INBOX MANAGERS"},
+  {"id": "qual-call", "num": "CLOSE 01", "title": "QUALIFICATION CALL", "shortTitle": "Qualification Call", "color": "#5B7A65", "timestamp": "", "x": 4750, "y": 4560, "points": ["Run by trained account executives", "Graded against the closer script", "No-show → auto-rebook sequence"], "stat": {"value": "84%", "desc": "show rate on booked calls"}, "people": [{"name": "Kennedy", "role": "Lead Closer", "initial": "K"}, {"name": "JC", "role": "Closer", "img": "assets/creator-proof/juan.jpg"}, {"name": "Dane W.", "role": "Account Executive", "img": "assets/board/team/dane.jpg"}, {"name": "Mia F.", "role": "Account Executive", "img": "assets/board/team/mia.jpg"}], "peopleLabel": "CLOSING TEAM"},
+  {"id": "proposal", "num": "CLOSE 02", "title": "STRATEGY & PROPOSAL", "shortTitle": "Strategy & Proposal", "color": "#5B7A65", "timestamp": "", "x": 5600, "y": 4560, "points": ["Custom roadmap per creator", "Terms aligned on the call"], "stat": {"value": "48h", "desc": "brief → proposal turnaround"}},
+  {"id": "signed", "num": "CLOSE 03", "title": "CONTRACT SIGNED", "shortTitle": "Close", "color": "#5B7A65", "timestamp": "", "x": 6450, "y": 4560, "points": ["E-sign in session", "Handed to management same day"], "stat": {"value": "Same day", "desc": "signed → onboarded, no gap"}, "pill": true},
+  {"id": "setter-qa", "num": "MGMT 01", "title": "SETTER QA & TRAINING", "shortTitle": "Setter Qa & Training", "color": "#5F6486", "timestamp": "", "x": 3050, "y": 5480, "points": ["Every conversation reviewed weekly", "Setters graded and coached", "Scripts versioned centrally"]},
+  {"id": "talent-desk", "num": "MGMT 02", "title": "TALENT MANAGEMENT DESK", "shortTitle": "Talent Management Desk", "color": "#5F6486", "timestamp": "", "x": 3950, "y": 5480, "points": ["Email replies land here", "Owns the relationship end-to-end"]},
+  {"id": "patricia", "num": "MGMT 03", "title": "PATRICIA · DEAL MANAGEMENT", "shortTitle": "Patricia", "color": "#5F6486", "timestamp": "", "x": 4850, "y": 5480, "points": ["Runs the deal desk end-to-end", "Every term logged before signature", "Nothing moves without her sign-off"], "stickies": [{"text": "Every deal term logged before signature.", "color": "yellow", "dx": 400, "dy": 20}], "pill": true},
+  {"id": "pipeline", "num": "MGMT 04", "title": "CENTRAL PIPELINE", "shortTitle": "Central Pipeline", "color": "#5F6486", "timestamp": "", "x": 5750, "y": 5480, "points": ["Every touch on every lane logged", "One record per human — no dupes"], "stat": {"value": "0 lost", "desc": "nothing slips, nothing forgotten"}},
+  {"id": "roster", "num": "DELIVERY 01", "title": "SIGNED CREATOR ROSTER", "shortTitle": "Creators", "color": "#57748A", "timestamp": "", "x": 2550, "y": 6240, "points": ["Every signed creator onboarded here", "Deliverables mapped to the deal"], "stat": {"value": "200+", "desc": "creators under management"}, "pill": true, "people": [{"name": "Lina F.", "role": "Creator Success", "img": "assets/board/team/lina.jpg"}], "peopleLabel": "CREATOR SUCCESS"},
+  {"id": "drafts", "num": "DELIVERY 02", "title": "DRAFT UPLOADS", "shortTitle": "Draft Uploads", "color": "#57748A", "timestamp": "", "x": 3450, "y": 6240, "points": ["Creators push drafts into the system", "Auto-collected — nothing lost in DMs"]},
+  {"id": "review", "num": "DELIVERY 03", "title": "CENTRAL REVIEW SYSTEM", "shortTitle": "Review", "color": "#57748A", "timestamp": "", "x": 4350, "y": 6240, "points": ["Every draft reviewed before it ships", "Brand-safety + hook quality pass", "One-click approve or revise"], "stat": {"value": "100%", "desc": "content reviewed before it ships"}, "stickies": [{"text": "Nothing goes live without review sign-off.", "color": "yellow", "dx": -40, "dy": -135}], "pill": true, "people": [{"name": "Rico B.", "role": "Content Review", "img": "assets/board/team/rico.jpg"}, {"name": "Anna L.", "role": "Brand Safety", "img": "assets/board/team/anna.jpg"}], "peopleLabel": "REVIEW DESK"},
+  {"id": "approvals", "num": "DELIVERY 04", "title": "APPROVALS & REVISIONS", "shortTitle": "Approvals & Revisions", "color": "#57748A", "timestamp": "", "x": 5250, "y": 6240, "points": ["Feedback loops in-system", "Version history on every asset"]},
+  {"id": "live", "num": "DELIVERY 05", "title": "LIVE POSTS & REPORTING", "shortTitle": "Live Posts & Reporting", "color": "#57748A", "timestamp": "", "x": 6150, "y": 6240, "points": ["Posts go live on schedule", "Performance reported back weekly"], "stat": {"value": "Weekly", "desc": "performance reports to brand"}, "people": [{"name": "Ava J.", "role": "Reporting Analyst", "img": "assets/board/team/ava.jpg"}], "peopleLabel": "REPORTING"}
+];
+const CTA = { id: 'cta', x: 3810, y: 4520, color: '#101218' };
+
+// Math card (scaling math)
+const MATH_CARD = { x: 2420, y: 4560 };
+
+// Section config
+const SECTIONS = [
+  { text: 'DISCOVERY & SCRAPING ENGINE', x: 2240, y: 355, color: '#697077',
+    zone: { x: 2200, y: 400, w: 4400, h: 990, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }},
+  { text: 'INSTAGRAM FLEET \u2014 15 ACCOUNTS \u00B7 38 FULL-TIME SETTERS \u00B7 24/7', x: 220, y: 1515, color: '#697077',
+    zone: { x: 180, y: 1560, w: 7920, h: 2600, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }},
+  { text: 'EMAIL OUTBOUND · 4,000+ SENDS / DAY', x: 8240, y: 1515, color: '#697077',
+    zone: { x: 8200, y: 1560, w: 1240, h: 2780, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }},
+  { text: 'BOOK-A-CALL \u2192 CLOSE', x: 2340, y: 4315, color: '#697077',
+    zone: { x: 2300, y: 4360, w: 4900, h: 850, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }},
+  { text: 'MANAGEMENT LAYER', x: 2940, y: 5275, color: '#697077',
+    zone: { x: 2900, y: 5320, w: 3800, h: 700, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }},
+  { text: 'CREATOR DELIVERY & CENTRAL REVIEW', x: 2390, y: 6075, color: '#697077',
+    zone: { x: 2350, y: 6120, w: 4400, h: 760, bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.08)' }}
+];
+
+// ============================================================
+// RENDER
+// ============================================================
+const canvas = document.getElementById('canvas');
+const svgEl = document.getElementById('connections');
+
+// Zone backgrounds
+SECTIONS.forEach(s => {
+  if (s.zone) {
+    const z = s.zone;
+    canvas.insertAdjacentHTML('beforeend',
+      `<div class="zone-bg" style="left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px;background:${z.bg};border:1px solid ${z.border}"></div>`
+    );
+  }
+  canvas.insertAdjacentHTML('beforeend',
+    `<div class="section-label" style="left:${s.x}px;top:${s.y}px;color:${s.color}">${s.text}</div>`
+  );
+});
+
+canvas.insertAdjacentHTML('beforeend', `
+  <div class="mgmt-crew" style="left:3560px;top:5228px;">
+    <div class="crew-p"><span class="pile-init">P</span><div class="p-meta"><b>Patricia</b><span>runs management</span></div></div>
+    <div class="crew-p"><img src="assets/board/team/elena.jpg" alt=""><div class="p-meta"><b>Elena V.</b><span>Ops</span></div></div>
+    <div class="crew-p"><img src="assets/board/team/ben.jpg" alt=""><div class="p-meta"><b>Ben C.</b><span>Fleet</span></div></div>
+  </div>
+`);
+
+// Title
+canvas.insertAdjacentHTML('beforeend', `
+  <div class="title-card" style="left:4300px;top:40px;">
+    <h1>THE OVO OUTBOUND MACHINE</h1>
+    <div class="title-rule"></div>
+    <div class="subtitle">Every account, every setter, every touch — one connected system. This runs under every OVO campaign.</div>
+    <div class="hero-stat">
+      <div class="stat-item"><div class="stat-num">15</div><div class="stat-label">IG Accounts</div></div>
+      <div class="stat-item"><div class="stat-num">38</div><div class="stat-label">Full-time Setters</div></div>
+      <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Coverage</div></div>
+      <div class="stat-item"><div class="stat-num">600+</div><div class="stat-label">Convos / day</div></div>
+    </div>
+    <div class="face-pile">
+      <img src="assets/creators/alex.jpg"><span class="pile-init">P</span><img src="assets/creator-proof/juan.jpg"><span class="pile-init">K</span><img src="assets/board/team/elena.jpg"><img src="assets/board/team/dane.jpg"><img src="assets/board/team/mia.jpg"><img src="assets/board/team/nadia.jpg"><img src="assets/board/team/josh.jpg"><img src="assets/board/team/ava.jpg">
+      <span class="pile-more">the floor behind every campaign</span>
+    </div>
+    <div class="by-line">by <strong>OVO Talent</strong> &nbsp;|&nbsp; Master Architecture &nbsp;|&nbsp; Confidential — shown live only</div>
+  </div>
+`);
+
+// Module cards
+MODULES.forEach((m, i) => {
+  let statHTML = '';
+  if (m.stat) {
+    statHTML = `<div class="card-stat"><div class="stat-value">${m.stat.value}</div><div class="stat-desc">${m.stat.desc}</div></div>`;
+  }
+  const card = document.createElement('div');
+  card.className = m.ig ? 'module-card ig-card' : 'module-card';
+  card.id = m.id;
+  card.style.left = m.x + 'px';
+  card.style.top = m.y + 'px';
+  if (m.w) card.style.width = m.w + 'px';
+  card.dataset.index = i;
+  if (m.ig) {
+    const g = m.ig;
+    const avatar = g.img ? `<img src="${g.img}" alt="">` : `<div class="ig-initial">${g.initial}</div>`;
+    const badge = g.verified ? `<svg class="ig-verify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#3897F0"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>` : '';
+    card.innerHTML = `
+      <div class="ig-body">
+        <div class="card-eyebrow">${m.num}</div>
+        <div class="ig-header">
+          <div class="ig-ring">${avatar}</div>
+          <div class="ig-id">
+            <div class="ig-handle">${g.handle}${badge}</div>
+            <div class="ig-name">${g.name}</div>
+          </div>
+        </div>
+        <div class="ig-stats">
+          <div><b>${g.posts}</b><span>posts</span></div>
+          <div><b>${g.followers}</b><span>followers</span></div>
+          <div><b>${g.following}</b><span>following</span></div>
+        </div>
+        <div class="ig-live">
+          <span class="live-dot"></span>
+          <div class="live-meta"><b>${g.active}</b><span>convos active now</span></div>
+          <div class="eq">${g.bars.map((h, k) => `<i style="height:${h}px;animation-delay:${k * 0.22}s"></i>`).join('')}</div>
+        </div>
+        <div class="ig-setters">
+          <div class="ig-setters-label">Setters · full-time · 24/7</div>
+          ${g.setters.map(s => `<div class="setter"><img class="s-ava${s.live ? ' on' : ''}" src="${s.img}" alt=""><span class="s-name">${s.name}</span><em>full-time</em><span class="shift">${s.shift}</span></div>`).join('')}
+        </div>
+        <div class="ig-lead">
+          <img src="${g.lead.img}" alt="">
+          <div class="p-meta"><b>${g.lead.name}</b><span>Account Lead · manages this account</span></div>
+        </div>
+      </div>
+    `;
+  } else {
+    card.innerHTML = `
+      <div class="card-body">
+        <div class="card-eyebrow">${m.num}</div>
+        <div class="card-title">${m.title}</div>
+        <ul class="card-points">${m.points.map(p => typeof p === 'string' ? `<li>${p}</li>` : `<li class="${p.class || ''}">${p.text}</li>`).join('')}</ul>
+        ${m.badges ? `<div class="src-badges">${m.badges.map((b, k) => `<span class="src-badge ${b.cls}" style="animation-delay:${k * 0.28}s">${b.svg}</span>`).join('')}</div>` : ''}
+        ${m.swarm ? `<div class="agent-matrix">${Array.from({length: m.swarm}, (_, k) => `<span class="agent${[7, 19, 29].includes(k) ? ' amber' : ''}" style="animation-delay:${(k * 0.13) % 2.2}s"><i></i>A${String(k + 1).padStart(2, '0')}</span>`).join('')}</div>${m.feed ? `<div class="crawler-feed">${m.feed.map((f, k) => `<div class="feed-line" style="animation-delay:${k * 2}s"><span class="feed-caret">›</span>${f}</div>`).join('')}</div>` : ''}${m.cstats ? `<div class="crawler-stats">${m.cstats}</div>` : ''}` : ''}
+        ${m.flow ? `<div class="flow"><div class="f-srcs"><span>IG</span><span>TT</span><span>YT</span><span>WEB</span></div><div class="f-track"><i style="animation-delay:0s"></i><i style="animation-delay:0.6s"></i><i style="animation-delay:1.2s"></i><i style="animation-delay:1.8s"></i></div><div class="f-core"></div></div><div class="f-progress"><i></i></div>` : ''}
+        ${m.live ? `<div class="ig-live"><span class="live-dot"></span><div class="live-meta"><b>${m.live.count}</b><span>${m.live.label}</span></div><div class="eq">${m.live.bars.map((h, k) => `<i style="height:${h}px;animation-delay:${k * 0.22}s"></i>`).join('')}</div></div>` : ''}
+        ${m.chips ? `<div class="chip-grid">${m.chips.map(c => `<div class="chip">${c}</div>`).join('')}</div>` : ''}
+        ${m.examples ? `<div class="ex-rows">${m.examples.map(e => `<div class="ex"><div class="ex-top"><span class="tick ${e.ok ? 'ok' : 'no'}">${e.ok ? '✓' : '✕'}</span><span class="ex-head">${e.head}</span></div>${e.bar ? `<div class="ex-bar">${e.bar.map(s => `<i class="${s[2]}" style="width:${s[1]}%"></i>`).join('')}</div>` : ''}${e.sub ? `<div class="ex-sub">${e.sub}</div>` : ''}</div>`).join('')}</div>` : ''}
+        ${statHTML}
+        ${m.people ? `<div class="people"><div class="people-label">${m.peopleLabel || 'TEAM'}</div>${m.people.map(p => `<div class="person">${p.img ? `<img src="${p.img}" alt="">` : `<div class="p-initial">${p.initial}</div>`}<div class="p-meta"><b>${p.name}</b><span>${p.role}</span></div></div>`).join('')}</div>` : ''}
+      </div>
+    `;
+  }
+  canvas.appendChild(card);
+
+  (m.stickies || []).forEach(s => {
+    const sticky = document.createElement('div');
+    sticky.className = `sticky-note sticky-${s.color}`;
+    sticky.style.left = (m.x + s.dx) + 'px';
+    sticky.style.top = (m.y + s.dy) + 'px';
+    sticky.textContent = s.text;
+    canvas.appendChild(sticky);
+  });
+});
+
+// Bullet dot colors
+const dotStyle = document.createElement('style');
+dotStyle.textContent = MODULES.map(m => `#${m.id} .card-points li::before{background:${m.color}}`).join('\n');
+document.head.appendChild(dotStyle);
+
+// Math card (scaling)
+canvas.insertAdjacentHTML('beforeend', `
+  <div class="math-card" style="left:${MATH_CARD.x}px;top:${MATH_CARD.y}px;">
+    <h3>Fleet Math</h3>
+    <div class="math-eq"><span>15</span> accounts x <span>38</span> setters, around the clock</div>
+    <div class="math-result">600+ convos/day</div>
+    <div class="math-note">Every one logged to the central pipeline. No conversation, reply, or deal term lives in one person's head.</div>
+  </div>
+`);
+
+// CTA card
+canvas.insertAdjacentHTML('beforeend', `
+  <div class="cta-card" id="cta" style="left:${CTA.x}px;top:${CTA.y}px;">
+    <h2>BOOK-A-CALL</h2>
+    <p>Every DM chain and the email lane converge on one calendar — routed by timezone and deal size, protected by reminder sequences.</p>
+    <div class="cta-pile"><span class="cta-k">K</span><img src="assets/creator-proof/juan.jpg"><img src="assets/board/team/dane.jpg"><img src="assets/board/team/mia.jpg"><span class="cta-pile-label">closed by humans, every deal</span></div>
+    <div class="cta-btn">CALL BOOKED → CLOSE TEAM</div>
+  </div>
+`);
+
+// ============================================================
+// CONNECTION ARROWS
+// ============================================================
+let gradCount = 0;
+const defsEl = svgEl.querySelector('defs');
+defsEl.insertAdjacentHTML('beforeend', `
+  <marker id="arr" markerWidth="10" markerHeight="9" refX="7" refY="4.5" orient="auto">
+    <path d="M0,1 L7,4.5 L0,8" fill="none" stroke="#4E5560" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </marker>
+  <marker id="arr-ink" markerWidth="10" markerHeight="9" refX="7" refY="4.5" orient="auto">
+    <path d="M0,1 L7,4.5 L0,8" fill="none" stroke="#828B98" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </marker>`);
+
+function edgePath(pts) {
+  const r = 12;
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let k = 1; k < pts.length - 1; k++) {
+    const [px, py] = pts[k - 1], [cx, cy] = pts[k], [nx, ny] = pts[k + 1];
+    const inLen = Math.hypot(cx - px, cy - py), outLen = Math.hypot(nx - cx, ny - cy);
+    const ri = Math.min(r, inLen / 2, outLen / 2);
+    const ix = cx - Math.sign(cx - px) * ri, iy = cy - Math.sign(cy - py) * ri;
+    const ox = cx + Math.sign(nx - cx) * ri, oy = cy + Math.sign(ny - cy) * ri;
+    d += ` L${ix},${iy} Q${cx},${cy} ${ox},${oy}`;
+  }
+  const last = pts[pts.length - 1];
+  d += ` L${last[0]},${last[1]}`;
+  return d;
+}
+
+function drawEdge(pts, ink) {
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', edgePath(pts));
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', ink ? '#646A74' : '#AEB3BC');
+  path.setAttribute('stroke-width', '2');
+  path.setAttribute('stroke-linecap', 'round');
+  path.setAttribute('marker-end', `url(#${ink ? 'arr-ink' : 'arr'})`);
+  svgEl.appendChild(path);
+}
+
+const cardW = 380;
+function getCardH(m) {
+  const el = document.getElementById(m.id);
+  return el ? el.offsetHeight : 300;
+}
+function getCardW(m) {
+  const el = document.getElementById(m.id);
+  return el ? el.offsetWidth : cardW;
+}
+
+const NODE = {};
+MODULES.forEach(m => { NODE[m.id] = m; });
+NODE['cta'] = CTA;
+
+const EDGES = [
+  {"from": "sig-sources", "to": "crawlers"},
+  {"from": "crawlers", "to": "scrape-hub"},
+  {"from": "scrape-hub", "to": "qualify"},
+  {"from": "qualify", "to": "enrich"},
+  {"from": "enrich", "to": "router"},
+  {"from": "router", "to": "ig-1", "mode": "v", "bus": 1450},
+  {"from": "ig-1", "to": "dm-1"},
+  {"from": "dm-1", "to": "fu2-1"},
+  {"from": "fu2-1", "to": "fu3-1"},
+  {"from": "fu3-1", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-2", "mode": "v", "bus": 1450},
+  {"from": "ig-2", "to": "dm-2"},
+  {"from": "dm-2", "to": "fu2-2"},
+  {"from": "fu2-2", "to": "fu3-2"},
+  {"from": "fu3-2", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-3", "mode": "v", "bus": 1450},
+  {"from": "ig-3", "to": "dm-3"},
+  {"from": "dm-3", "to": "fu2-3"},
+  {"from": "fu2-3", "to": "fu3-3"},
+  {"from": "fu3-3", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-4", "mode": "v", "bus": 1450},
+  {"from": "ig-4", "to": "dm-4"},
+  {"from": "dm-4", "to": "fu2-4"},
+  {"from": "fu2-4", "to": "fu3-4"},
+  {"from": "fu3-4", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-5", "mode": "v", "bus": 1450},
+  {"from": "ig-5", "to": "dm-5"},
+  {"from": "dm-5", "to": "fu2-5"},
+  {"from": "fu2-5", "to": "fu3-5"},
+  {"from": "fu3-5", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-6", "mode": "v", "bus": 1450},
+  {"from": "ig-6", "to": "dm-6"},
+  {"from": "dm-6", "to": "fu2-6"},
+  {"from": "fu2-6", "to": "fu3-6"},
+  {"from": "fu3-6", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-7", "mode": "v", "bus": 1450},
+  {"from": "ig-7", "to": "dm-7"},
+  {"from": "dm-7", "to": "fu2-7"},
+  {"from": "fu2-7", "to": "fu3-7"},
+  {"from": "fu3-7", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-8", "mode": "v", "bus": 1450},
+  {"from": "ig-8", "to": "dm-8"},
+  {"from": "dm-8", "to": "fu2-8"},
+  {"from": "fu2-8", "to": "fu3-8"},
+  {"from": "fu3-8", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-9", "mode": "v", "bus": 1450},
+  {"from": "ig-9", "to": "dm-9"},
+  {"from": "dm-9", "to": "fu2-9"},
+  {"from": "fu2-9", "to": "fu3-9"},
+  {"from": "fu3-9", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-10", "mode": "v", "bus": 1450},
+  {"from": "ig-10", "to": "dm-10"},
+  {"from": "dm-10", "to": "fu2-10"},
+  {"from": "fu2-10", "to": "fu3-10"},
+  {"from": "fu3-10", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-11", "mode": "v", "bus": 1450},
+  {"from": "ig-11", "to": "dm-11"},
+  {"from": "dm-11", "to": "fu2-11"},
+  {"from": "fu2-11", "to": "fu3-11"},
+  {"from": "fu3-11", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-12", "mode": "v", "bus": 1450},
+  {"from": "ig-12", "to": "dm-12"},
+  {"from": "dm-12", "to": "fu2-12"},
+  {"from": "fu2-12", "to": "fu3-12"},
+  {"from": "fu3-12", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-13", "mode": "v", "bus": 1450},
+  {"from": "ig-13", "to": "dm-13"},
+  {"from": "dm-13", "to": "fu2-13"},
+  {"from": "fu2-13", "to": "fu3-13"},
+  {"from": "fu3-13", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-14", "mode": "v", "bus": 1450},
+  {"from": "ig-14", "to": "dm-14"},
+  {"from": "dm-14", "to": "fu2-14"},
+  {"from": "fu2-14", "to": "fu3-14"},
+  {"from": "fu3-14", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "ig-15", "mode": "v", "bus": 1450},
+  {"from": "ig-15", "to": "dm-15"},
+  {"from": "dm-15", "to": "fu2-15"},
+  {"from": "fu2-15", "to": "fu3-15"},
+  {"from": "fu3-15", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "router", "to": "email-list", "mode": "v", "bus": 1450},
+  {"from": "email-list", "to": "wave1"},
+  {"from": "wave1", "to": "efu2"},
+  {"from": "efu2", "to": "efu3"},
+  {"from": "efu3", "to": "triage"},
+  {"from": "triage", "to": "cta", "mode": "v", "bus": 4260, "ink": true},
+  {"from": "triage", "to": "talent-desk", "mode": "v", "bus": 5265},
+  {"from": "cta", "to": "qual-call"},
+  {"from": "qual-call", "to": "proposal"},
+  {"from": "proposal", "to": "signed"},
+  {"from": "signed", "to": "patricia", "mode": "v", "bus": 5265},
+  {"from": "setter-qa", "to": "talent-desk"},
+  {"from": "talent-desk", "to": "patricia"},
+  {"from": "patricia", "to": "pipeline"},
+  {"from": "pipeline", "to": "roster", "mode": "v", "bus": 6065},
+  {"from": "roster", "to": "drafts"},
+  {"from": "drafts", "to": "review"},
+  {"from": "review", "to": "approvals"},
+  {"from": "approvals", "to": "live"}
+];
+
+EDGES.forEach(e => {
+  const a = NODE[e.from], b = NODE[e.to];
+  if (!a || !b) return;
+  const aW = getCardW(a), aH = getCardH(a);
+  const bW = getCardW(b), bH = getCardH(b);
+  const acx = a.x + aW / 2, acy = a.y + aH / 2;
+  const bcx = b.x + bW / 2, bcy = b.y + bH / 2;
+  const dx = bcx - acx, dy = bcy - acy;
+  let pts;
+  if (e.mode === 'v' && e.bus !== undefined) {
+    pts = Math.abs(acx - bcx) < 2
+      ? [[acx, a.y + aH + 2], [bcx, b.y - 2]]
+      : [[acx, a.y + aH + 2], [acx, e.bus], [bcx, e.bus], [bcx, b.y - 2]];
+  } else if (Math.abs(dy) >= Math.abs(dx)) {
+    if (Math.abs(acx - bcx) < 2) {
+      pts = dy > 0 ? [[acx, a.y + aH + 2], [bcx, b.y - 2]]
+                   : [[acx, a.y - 2], [bcx, b.y + bH + 2]];
+    } else {
+      const my = dy > 0 ? (a.y + aH + b.y) / 2 : (b.y + bH + a.y) / 2;
+      pts = dy > 0 ? [[acx, a.y + aH + 2], [acx, my], [bcx, my], [bcx, b.y - 2]]
+                   : [[acx, a.y - 2], [acx, my], [bcx, my], [bcx, b.y + bH + 2]];
+    }
+  } else if (dx > 0) {
+    if (Math.abs(acy - bcy) < 8) {
+      pts = [[a.x + aW + 2, acy], [b.x - 2, bcy]];
+    } else {
+      const mx = (a.x + aW + b.x) / 2;
+      pts = [[a.x + aW + 2, acy], [mx, acy], [mx, bcy], [b.x - 2, bcy]];
+    }
+  } else {
+    if (Math.abs(acy - bcy) < 8) {
+      pts = [[a.x - 2, acy], [b.x + bW + 2, bcy]];
+    } else {
+      const mx = (a.x + b.x + bW) / 2;
+      pts = [[a.x - 2, acy], [mx, acy], [mx, bcy], [b.x + bW + 2, bcy]];
+    }
+  }
+  drawEdge(pts, e.ink);
+});
+
+// ============================================================
+// NAV PILLS
+// ============================================================
+const navPills = document.getElementById('navPills');
+const allTargets = [
+  { id: 'overview', shortTitle: 'Overview', color: '#101218', x: CANVAS_W / 2 - 190, y: CANVAS_H / 2 - 200, isOverview: true, pill: true },
+  ...MODULES.map((m, i) => ({ ...m, _idx: i })),
+  { id: 'cta', shortTitle: 'Book-a-Call', color: '#101218', x: CTA.x, y: CTA.y, pill: true }
+];
+
+allTargets.forEach((t, i) => {
+  if (!t.pill) return;
+  const pill = document.createElement('div');
+  pill.className = 'nav-pill';
+  pill.dataset.idx = i;
+  pill.textContent = t.shortTitle || t.title;
+  pill.addEventListener('click', () => focusModule(i));
+  navPills.appendChild(pill);
+});
+
+// ============================================================
+// ZOOM & PAN
+// ============================================================
+let scale = 0.3, panX = 0, panY = 0;
+let isPanning = false, startX, startY, startPanX, startPanY;
+const viewport = document.getElementById('viewport');
+
+function updateTransform(animate = true) {
+  if (!animate) canvas.classList.add('no-transition');
+  else canvas.classList.remove('no-transition');
+  canvas.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
+  document.getElementById('zoomDisplay').textContent = Math.round(scale * 100) + '%';
+  updateMinimap();
+  const counterScale = 1 / scale;
+  document.querySelectorAll('.section-label, .start-marker').forEach(el => {
+    el.style.transform = `scale(${counterScale})`;
+    el.style.transformOrigin = 'left center';
+  });
+}
+
+function zoomTo(newScale, cx, cy) {
+  const oldScale = scale;
+  newScale = Math.max(0.08, Math.min(2, newScale));
+  if (cx !== undefined && cy !== undefined) {
+    panX = cx - (cx - panX) * (newScale / oldScale);
+    panY = cy - (cy - panY) * (newScale / oldScale);
+  }
+  scale = newScale;
+  updateTransform(cx === undefined);
+}
+
+function fitAll() {
+  const vw = viewport.clientWidth, vh = viewport.clientHeight, pad = 60;
+  scale = Math.min((vw - pad * 2) / CANVAS_W, (vh - pad * 2) / CANVAS_H);
+  panX = (vw - CANVAS_W * scale) / 2;
+  panY = (vh - CANVAS_H * scale) / 2;
+  updateTransform();
+  clearActivePill();
+}
+
+function focusModule(index) {
+  const t = allTargets[index];
+  if (t.isOverview) {
+    fitAll();
+    setActivePill(index);
+    return;
+  }
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const targetScale = Math.min((vw * 0.85) / 380, 1.5);
+  const cx = t.x + 190, cy = t.y + 200;
+  scale = targetScale;
+  panX = vw / 2 - cx * scale;
+  panY = vh / 2 - cy * scale;
+  updateTransform();
+  setActivePill(index);
+}
+
+function setActivePill(index) {
+  document.querySelectorAll('.nav-pill').forEach(p => {
+    const isActive = +p.dataset.idx === index;
+    p.classList.toggle('active', isActive);
+    p.style.background = isActive ? (allTargets[+p.dataset.idx].color || '#101218') : '';
+  });
+}
+function clearActivePill() {
+  document.querySelectorAll('.nav-pill').forEach(p => { p.classList.remove('active'); p.style.background = ''; });
+}
+
+// Pan
+viewport.addEventListener('mousedown', e => {
+  if (drawMode) return;
+  if (e.target.closest('.module-card,.sticky-note,.cta-card,.nav-pill,.tool-btn,.present-btn,#minimap,.math-card,#draw-toolbar')) return;
+  isPanning = true; startX = e.clientX; startY = e.clientY;
+  startPanX = panX; startPanY = panY;
+  document.body.classList.add('grabbing');
+  canvas.classList.add('no-transition');
+});
+window.addEventListener('mousemove', e => {
+  if (!isPanning) return;
+  panX = startPanX + (e.clientX - startX);
+  panY = startPanY + (e.clientY - startY);
+  updateTransform(false);
+});
+window.addEventListener('mouseup', () => {
+  isPanning = false; document.body.classList.remove('grabbing'); canvas.classList.remove('no-transition');
+});
+
+// Scroll zoom
+viewport.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = viewport.getBoundingClientRect();
+  const cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+  const delta = e.deltaY > 0 ? -0.08 : 0.08;
+  canvas.classList.add('no-transition');
+  zoomTo(scale + delta * scale, cx, cy);
+}, { passive: false });
+
+// Click card to focus (offset by 1 for Overview at index 0)
+document.querySelectorAll('.module-card').forEach(card => {
+  card.addEventListener('click', () => focusModule(parseInt(card.dataset.index) + 1));
+});
+
+// ============================================================
+// KEYBOARD
+// ============================================================
+let currentFocus = -1;
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (e.target.isContentEditable) {
+      e.target.blur();
+      drawMode = false;
+      drawToolbar.classList.remove('active');
+      document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode', 'spotlight-active');
+      return;
+    }
+    const ap = document.getElementById('audit-panel');
+    if (ap.classList.contains('open')) { ap.classList.remove('open'); return; }
+    document.querySelector('.shortcuts-hint').classList.remove('visible');
+    if (drawMode) {
+      drawMode = false;
+      drawToolbar.classList.remove('active');
+      document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode', 'spotlight-active');
+    }
+    return;
+  }
+  if (e.target.isContentEditable || e.target.tagName === 'INPUT') return;
+  if (e.key === '?' || e.key === '/' || (e.key === '/' && e.shiftKey)) {
+    document.querySelector('.shortcuts-hint').classList.toggle('visible');
+    return;
+  }
+  if ((e.key === 't' || e.key === 'T') && !drawMode) {
+    const tb = document.getElementById('toolbar');
+    tb.classList.toggle('pinned');
+    document.getElementById('minimap').classList.toggle('visible', tb.classList.contains('pinned'));
+    return;
+  }
+  if (e.key === '0' && !drawMode) fitAll();
+  else if (e.key >= '1' && e.key <= '5') {
+    const toolMap = { '1':'pen', '2':'highlighter', '3':'sticky', '4':'laser', '5':'spotlight' };
+    const target = toolMap[e.key];
+    if (drawMode && drawTool === target) {
+      drawMode = false;
+      drawToolbar.classList.remove('active');
+      document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode', 'spotlight-active');
+    } else {
+      if (!drawMode) drawMode = true;
+      if (e.key === '5') toggleSpotlight();
+      else setDrawTool(target);
+    }
+  }
+  else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    const idx = findNearestInDirection(e.key);
+    if (idx !== null) { currentFocus = idx; focusModule(idx); }
+  }
+  else if (e.key === 'Escape' && drawMode) {
+    drawMode = false;
+    drawToolbar.classList.remove('active');
+    document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode', 'spotlight-active');
+  }
+  else if (e.key === 'x' || e.key === 'X') drawClear();
+  else if (e.key === 'a' || e.key === 'A') toggleAuditPanel();
+  else if (e.key === '+' || e.key === '=') zoomTo(scale + 0.1);
+  else if (e.key === '-') zoomTo(scale - 0.1);
+});
+
+// Spatial navigation
+function findNearestInDirection(dir) {
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const cx = (vw / 2 - panX) / scale;
+  const cy = (vh / 2 - panY) / scale;
+
+  let currentIdx = 0, closestDist = Infinity;
+  allTargets.forEach((t, i) => {
+    if (t.isOverview) return;
+    const d = Math.hypot(t.x + 190 - cx, t.y + 150 - cy);
+    if (d < closestDist) { closestDist = d; currentIdx = i; }
+  });
+
+  let best = null, bestScore = Infinity;
+  allTargets.forEach((t, i) => {
+    if (t.isOverview || i === currentIdx) return;
+    const tx = t.x + 190, ty = t.y + 150;
+    const dx = tx - cx, dy = ty - cy;
+
+    if (dir === 'ArrowRight' && dx < 80) return;
+    if (dir === 'ArrowLeft' && dx > -80) return;
+    if (dir === 'ArrowDown' && dy < 80) return;
+    if (dir === 'ArrowUp' && dy > -80) return;
+
+    // For horizontal nav, reject cards in a different row (dy > 600)
+    if ((dir === 'ArrowRight' || dir === 'ArrowLeft') && Math.abs(dy) > 600) return;
+
+    let score;
+    if (dir === 'ArrowRight' || dir === 'ArrowLeft') {
+      score = Math.abs(dx) + Math.abs(dy) * 3;
+    } else {
+      score = Math.abs(dy) + Math.abs(dx) * 3;
+    }
+    if (score < bestScore) { bestScore = score; best = i; }
+  });
+
+  if (best === null) {
+    if (dir === 'ArrowRight' || dir === 'ArrowDown') {
+      best = currentIdx < allTargets.length - 1 ? currentIdx + 1 : null;
+    } else {
+      best = currentIdx > 1 ? currentIdx - 1 : null;
+    }
+  }
+  return best;
+}
+
+// ============================================================
+// MINIMAP
+// ============================================================
+const minimap = document.getElementById('minimap');
+const mmScale = 140 / CANVAS_W;
+minimap.style.height = (CANVAS_H * mmScale) + 'px';
+
+allTargets.forEach(t => {
+  const dot = document.createElement('div');
+  dot.className = 'minimap-dot';
+  dot.style.left = (t.x * mmScale + 2) + 'px';
+  dot.style.top = (t.y * mmScale + 2) + 'px';
+  dot.style.background = t.color || '#F72585';
+  minimap.appendChild(dot);
+});
+
+const mmViewport = document.createElement('div');
+mmViewport.id = 'minimap-viewport';
+minimap.appendChild(mmViewport);
+
+function updateMinimap() {
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  mmViewport.style.left = (-panX / scale * mmScale) + 'px';
+  mmViewport.style.top = (-panY / scale * mmScale) + 'px';
+  mmViewport.style.width = (vw / scale * mmScale) + 'px';
+  mmViewport.style.height = (vh / scale * mmScale) + 'px';
+}
+
+minimap.addEventListener('click', e => {
+  const rect = minimap.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) / mmScale, my = (e.clientY - rect.top) / mmScale;
+  panX = viewport.clientWidth / 2 - mx * scale;
+  panY = viewport.clientHeight / 2 - my * scale;
+  updateTransform();
+});
+
+// ============================================================
+// TOUCH
+// ============================================================
+let lastTouchDist = 0;
+viewport.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    isPanning = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    startPanX = panX; startPanY = panY; canvas.classList.add('no-transition');
+  } else if (e.touches.length === 2) {
+    lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+  }
+}, { passive: false });
+viewport.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 1 && isPanning) {
+    panX = startPanX + (e.touches[0].clientX - startX);
+    panY = startPanY + (e.touches[0].clientY - startY);
+    updateTransform(false);
+  } else if (e.touches.length === 2) {
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - 52;
+    if (lastTouchDist) { canvas.classList.add('no-transition'); zoomTo(scale * (dist / lastTouchDist), cx, cy); }
+    lastTouchDist = dist;
+  }
+}, { passive: false });
+viewport.addEventListener('touchend', () => { isPanning = false; lastTouchDist = 0; });
+
+// ============================================================
+// MINIMAP TOGGLE
+// ============================================================
+function toggleMinimap() {
+  minimap.classList.toggle('collapsed');
+  const btn = minimap.querySelector('.minimap-toggle');
+  btn.textContent = minimap.classList.contains('collapsed') ? '\u25FB' : '\u25BE';
+}
+
+// ============================================================
+// DRAWING MODE
+// ============================================================
+const drawLayer = document.getElementById('draw-layer');
+const laserDot = document.getElementById('laser-dot');
+const drawToolbar = document.getElementById('draw-toolbar');
+const drawOpenBtn = document.getElementById('draw-open-btn');
+
+let drawMode = false;
+let drawTool = 'pen';
+let drawColor = '#E63946';
+let drawPaths = [];
+let isDrawing = false;
+let currentPath = null;
+let pathPoints = '';
+
+function openDrawToolbar() {
+  drawMode = true;
+  drawToolbar.classList.add('active');
+  drawOpenBtn.style.display = 'none';
+  document.querySelector('.shortcuts-hint').style.display = 'none';
+  if (drawTool !== 'laser') document.body.classList.add('drawing');
+}
+
+function closeDrawToolbar() {
+  drawMode = false;
+  drawToolbar.classList.remove('active');
+  drawOpenBtn.style.display = '';
+  document.querySelector('.shortcuts-hint').style.display = '';
+  document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode');
+}
+
+function setDrawTool(tool) {
+  drawTool = tool;
+  document.querySelectorAll('.draw-btn[data-tool]').forEach(b => b.classList.toggle('active', b.dataset.tool === tool));
+  document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode');
+  if (tool === 'laser') {
+    document.body.classList.add('laser-mode');
+  } else if (tool === 'highlighter') {
+    document.body.classList.add('drawing', 'draw-highlighter');
+  } else if (tool === 'spotlight') {
+    // spotlight is a toggle, handled separately
+  } else {
+    document.body.classList.add('drawing');
+  }
+}
+
+function setDrawColor(el) {
+  drawColor = el.dataset.color;
+  document.querySelectorAll('.draw-swatch').forEach(s => s.classList.toggle('active', s === el));
+}
+
+function drawUndo() {
+  if (drawPaths.length) {
+    const p = drawPaths.pop();
+    p.remove();
+  }
+}
+
+function drawClear() {
+  drawPaths.forEach(p => p.remove());
+  drawPaths = [];
+  auditNotes.forEach(n => n.el.remove());
+  auditNotes = [];
+  moduleStatuses = {};
+  document.querySelectorAll('.module-status').forEach(b => { b.textContent = ''; b.className = 'module-status'; });
+  refreshAuditPanel();
+  try { localStorage.removeItem('outbound-board-annotations'); } catch(e) {}
+}
+
+function screenToCanvas(clientX, clientY) {
+  const rect = viewport.getBoundingClientRect();
+  return {
+    x: (clientX - rect.left - panX) / scale,
+    y: (clientY - rect.top - panY) / scale
+  };
+}
+
+viewport.addEventListener('mousedown', e => {
+  if (!drawMode || drawTool === 'laser' || drawTool === 'sticky') return;
+  if (e.target.closest('#draw-toolbar')) return;
+  const pt = screenToCanvas(e.clientX, e.clientY);
+  isDrawing = true;
+  drawPoints = [{ x: pt.x, y: pt.y }];
+
+  currentPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  currentPath.setAttribute('fill', 'none');
+  currentPath.setAttribute('stroke-linecap', 'round');
+  currentPath.setAttribute('stroke-linejoin', 'round');
+
+  if (drawTool === 'highlighter') {
+    currentPath.setAttribute('stroke', drawColor);
+    currentPath.setAttribute('stroke-width', (20 / scale).toFixed(1));
+    currentPath.setAttribute('opacity', '0.3');
+  } else {
+    currentPath.setAttribute('stroke', drawColor);
+    currentPath.setAttribute('stroke-width', (3 / scale).toFixed(1));
+  }
+
+  drawLayer.appendChild(currentPath);
+  e.preventDefault();
+  e.stopPropagation();
+}, true);
+
+let drawPoints = [];
+function smoothPath(pts) {
+  if (pts.length < 2) return `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  if (pts.length === 2) {
+    d += ` L${pts[1].x.toFixed(1)},${pts[1].y.toFixed(1)}`;
+    return d;
+  }
+  for (let i = 1; i < pts.length - 1; i++) {
+    const mx = (pts[i].x + pts[i+1].x) / 2;
+    const my = (pts[i].y + pts[i+1].y) / 2;
+    d += ` Q${pts[i].x.toFixed(1)},${pts[i].y.toFixed(1)} ${mx.toFixed(1)},${my.toFixed(1)}`;
+  }
+  const last = pts[pts.length - 1];
+  d += ` L${last.x.toFixed(1)},${last.y.toFixed(1)}`;
+  return d;
+}
+
+window.addEventListener('mousemove', e => {
+  if (drawMode && drawTool === 'laser') {
+    laserDot.style.left = e.clientX + 'px';
+    laserDot.style.top = e.clientY + 'px';
+  }
+  if (!isDrawing || !currentPath) return;
+  const pt = screenToCanvas(e.clientX, e.clientY);
+  drawPoints.push({ x: pt.x, y: pt.y });
+  currentPath.setAttribute('d', smoothPath(drawPoints));
+});
+
+window.addEventListener('mouseup', () => {
+  if (isDrawing && currentPath) {
+    drawPaths.push(currentPath);
+    currentPath = null;
+    isDrawing = false;
+    drawPoints = [];
+    triggerSave();
+  }
+});
+
+// D = toggle annotate mode, Q/W/E/R = colors, Z = undo, etc.
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+  const k = e.key.toLowerCase();
+
+  if (k === 'd') {
+    if (drawMode) closeDrawToolbar(); else openDrawToolbar();
+    return;
+  }
+
+  // Tool switching: 1-5 (auto-opens draw mode if not open)
+  if (k === '1' || k === '2' || k === '3' || k === '4' || k === '5') {
+    if (!drawMode) openDrawToolbar();
+    if (k === '1') setDrawTool('pen');
+    else if (k === '2') setDrawTool('highlighter');
+    else if (k === '3') setDrawTool('sticky');
+    else if (k === '4') setDrawTool('laser');
+    else if (k === '5') toggleSpotlight();
+    return;
+  }
+
+  // A = audit panel (works without draw mode)
+  if (k === 'a') { toggleAuditPanel(); return; }
+
+  // Everything below only works when draw mode is open
+  if (!drawMode) return;
+
+  // Color switching: Q W E R
+  if (k === 'q') { drawColor = '#E63946'; document.querySelectorAll('.draw-swatch').forEach((s,i) => s.classList.toggle('active', i===0)); }
+  else if (k === 'w') { drawColor = '#4361EE'; document.querySelectorAll('.draw-swatch').forEach((s,i) => s.classList.toggle('active', i===1)); }
+  else if (k === 'e') { drawColor = '#22C55E'; document.querySelectorAll('.draw-swatch').forEach((s,i) => s.classList.toggle('active', i===2)); }
+  else if (k === 'r') { drawColor = '#F59E0B'; document.querySelectorAll('.draw-swatch').forEach((s,i) => s.classList.toggle('active', i===3)); }
+
+  else if (k === 'z' && (e.ctrlKey || e.metaKey)) { drawUndo(); e.preventDefault(); }
+  else if (k === 'z' && !e.ctrlKey && !e.metaKey) drawUndo();
+  else if (k === 'x') drawClear();
+  else if (k === 'f') {
+    drawMode = false;
+    drawToolbar.classList.remove('active');
+    document.body.classList.remove('drawing', 'draw-highlighter', 'laser-mode', 'spotlight-active');
+  }
+  else if (k === 's') { exportAudit(); e.preventDefault(); }
+  else if (k === 'escape') closeDrawToolbar();
+});
+
+// ============================================================
+// AUDIT: STICKY NOTES
+// ============================================================
+let auditNotes = [];
+let auditNoteColor = 'yellow';
+const noteColorMap = { '#E63946': 'red', '#4361EE': 'blue', '#22C55E': 'green', '#F59E0B': 'yellow', '#1a1a2e': 'yellow' };
+
+viewport.addEventListener('click', e => {
+  if (!drawMode || drawTool !== 'sticky') return;
+  if (e.target.closest('#draw-toolbar,.audit-note')) return;
+  const pt = screenToCanvas(e.clientX, e.clientY);
+  const colorClass = 'note-' + (noteColorMap[drawColor] || 'yellow');
+  const note = document.createElement('div');
+  note.className = 'audit-note ' + colorClass;
+  note.contentEditable = 'true';
+  note.style.left = pt.x + 'px';
+  note.style.top = pt.y + 'px';
+  note.textContent = '';
+  note.innerHTML += '<span class="audit-note-delete" onclick="deleteAuditNote(this)">&#10005;</span>';
+  canvas.appendChild(note);
+  note.focus();
+  const noteData = { el: note, x: pt.x, y: pt.y, color: colorClass, text: '' };
+  auditNotes.push(noteData);
+  note.addEventListener('blur', () => { noteData.text = note.textContent.replace('\u2715','').trim(); refreshAuditPanel(); });
+  let dragging = false, dragOx, dragOy;
+  note.addEventListener('mousedown', ev => {
+    if (ev.target.classList.contains('audit-note-delete')) return;
+    if (document.activeElement === note && window.getSelection().toString()) return;
+    dragging = true; dragOx = ev.offsetX; dragOy = ev.offsetY;
+    ev.stopPropagation();
+  });
+  window.addEventListener('mousemove', ev => {
+    if (!dragging) return;
+    const p = screenToCanvas(ev.clientX, ev.clientY);
+    note.style.left = (p.x - dragOx) + 'px';
+    note.style.top = (p.y - dragOy) + 'px';
+    noteData.x = p.x - dragOx; noteData.y = p.y - dragOy;
+  });
+  window.addEventListener('mouseup', () => { dragging = false; });
+  refreshAuditPanel();
+  e.stopPropagation();
+}, true);
+
+function deleteAuditNote(btn) {
+  const note = btn.parentElement;
+  auditNotes = auditNotes.filter(n => n.el !== note);
+  note.remove();
+  refreshAuditPanel();
+}
+
+// ============================================================
+// AUDIT: MODULE STATUS BADGES
+// ============================================================
+const statusCycle = ['', 'approved', 'needs-work', 'rejected'];
+const statusIcons = { '': '', 'approved': '\u2705', 'needs-work': '\u26A0\uFE0F', 'rejected': '\u274C' };
+let moduleStatuses = {};
+
+document.querySelectorAll('.module-card').forEach(card => {
+  const badge = document.createElement('div');
+  badge.className = 'module-status';
+  badge.title = 'Double-click to set status';
+  card.style.position = 'absolute';
+  card.appendChild(badge);
+
+  card.addEventListener('dblclick', e => {
+    if (!drawMode) return;
+    const id = card.id;
+    const current = moduleStatuses[id] || '';
+    const idx = (statusCycle.indexOf(current) + 1) % statusCycle.length;
+    const next = statusCycle[idx];
+    moduleStatuses[id] = next;
+    badge.textContent = statusIcons[next];
+    badge.className = 'module-status' + (next ? ' visible status-' + next : '');
+    refreshAuditPanel();
+    e.stopPropagation();
+  });
+});
+
+// ============================================================
+// AUDIT: SPOTLIGHT
+// ============================================================
+const spotlightEl = document.getElementById('spotlight-overlay');
+let spotlightActive = false;
+
+function toggleSpotlight() {
+  spotlightActive = !spotlightActive;
+  document.body.classList.toggle('spotlight-active', spotlightActive);
+  document.querySelector('[data-tool="spotlight"]').classList.toggle('active', spotlightActive);
+}
+
+viewport.addEventListener('mousemove', e => {
+  if (!spotlightActive) return;
+  const pt = screenToCanvas(e.clientX, e.clientY);
+  spotlightEl.style.setProperty('--sx', pt.x + 'px');
+  spotlightEl.style.setProperty('--sy', pt.y + 'px');
+});
+
+// ============================================================
+// AUDIT: PANEL
+// ============================================================
+function toggleAuditPanel() {
+  document.getElementById('audit-panel').classList.toggle('open');
+  refreshAuditPanel();
+}
+
+function refreshAuditPanel() {
+  const body = document.getElementById('audit-panel-body');
+  let html = '';
+
+  const statusEntries = Object.entries(moduleStatuses).filter(([,v]) => v);
+  if (statusEntries.length) {
+    html += '<div style="font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Module Status</div>';
+    statusEntries.forEach(([id, status]) => {
+      const mod = MODULES.find(m => m.id === id);
+      html += `<div class="audit-item"><span class="audit-item-icon">${statusIcons[status]}</span><div class="audit-item-text"><div class="audit-item-title">${mod ? mod.title : id}</div><div class="audit-item-desc">${status.replace('-',' ')}</div></div></div>`;
+    });
+  }
+
+  const notesWithText = auditNotes.filter(n => n.text);
+  if (notesWithText.length) {
+    html += '<div style="font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin: 16px 0 8px;">Sticky Notes</div>';
+    notesWithText.forEach(n => {
+      html += `<div class="audit-item"><span class="audit-item-icon">\u{1F4CC}</span><div class="audit-item-text"><div class="audit-item-desc">${n.text}</div></div></div>`;
+    });
+  }
+
+  if (drawPaths.length) {
+    html += `<div style="font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin: 16px 0 8px;">Drawings</div>`;
+    html += `<div class="audit-item"><span class="audit-item-icon">\u270F\uFE0F</span><div class="audit-item-text"><div class="audit-item-desc">${drawPaths.length} annotation(s) on board</div></div></div>`;
+  }
+
+  if (!html) html = '<div class="audit-empty">No notes yet. Drop sticky notes on the board or double-click modules to set status.</div>';
+  body.innerHTML = html;
+}
+
+// ============================================================
+// AUDIT: EXPORT
+// ============================================================
+function exportAudit() {
+  let md = '# Board Audit \u2014 ' + new Date().toLocaleDateString() + '\n\n';
+
+  const statusEntries = Object.entries(moduleStatuses).filter(([,v]) => v);
+  if (statusEntries.length) {
+    md += '## Module Status\n\n';
+    statusEntries.forEach(([id, status]) => {
+      const mod = MODULES.find(m => m.id === id);
+      const icon = status === 'approved' ? '\u2705' : status === 'needs-work' ? '\u26A0\uFE0F' : '\u274C';
+      md += `- ${icon} **${mod ? mod.title : id}** \u2014 ${status.replace('-',' ')}\n`;
+    });
+    md += '\n';
+  }
+
+  const notesWithText = auditNotes.filter(n => n.text);
+  if (notesWithText.length) {
+    md += '## Notes\n\n';
+    notesWithText.forEach((n, i) => { md += `${i+1}. ${n.text}\n`; });
+    md += '\n';
+  }
+
+  if (drawPaths.length) {
+    md += `## Annotations\n\n- ${drawPaths.length} freehand annotation(s) on board\n\n`;
+  }
+
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'outbound-board-audit-' + new Date().toISOString().split('T')[0] + '.md';
+  a.click();
+}
+
+// ============================================================
+// AUTO-SAVE: persist annotations to localStorage
+// ============================================================
+const SAVE_KEY = 'outbound-board-annotations';
+
+function saveAnnotations() {
+  const data = {
+    notes: auditNotes.map(n => ({ x: n.x, y: n.y, color: n.color, text: n.el.textContent.replace('\u2715','').trim() })),
+    statuses: moduleStatuses,
+    paths: drawPaths.map(p => ({ d: p.getAttribute('d'), stroke: p.getAttribute('stroke'), width: p.getAttribute('stroke-width'), opacity: p.getAttribute('opacity') || '1' }))
+  };
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadAnnotations() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    (data.notes || []).forEach(n => {
+      if (!n.text) return;
+      const note = document.createElement('div');
+      note.className = 'audit-note ' + n.color;
+      note.contentEditable = 'true';
+      note.style.left = n.x + 'px';
+      note.style.top = n.y + 'px';
+      note.textContent = n.text;
+      note.innerHTML += '<span class="audit-note-delete" onclick="deleteAuditNote(this)">\u2715</span>';
+      canvas.appendChild(note);
+      const nd = { el: note, x: n.x, y: n.y, color: n.color, text: n.text };
+      auditNotes.push(nd);
+      note.addEventListener('blur', () => { nd.text = note.textContent.replace('\u2715','').trim(); saveAnnotations(); refreshAuditPanel(); });
+    });
+    if (data.statuses) {
+      moduleStatuses = data.statuses;
+      Object.entries(moduleStatuses).forEach(([id, status]) => {
+        if (!status) return;
+        const card = document.getElementById(id);
+        if (!card) return;
+        const badge = card.querySelector('.module-status');
+        if (badge) { badge.textContent = statusIcons[status]; badge.className = 'module-status visible status-' + status; }
+      });
+    }
+    (data.paths || []).forEach(p => {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', p.d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', p.stroke);
+      path.setAttribute('stroke-width', p.width);
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      if (p.opacity !== '1') path.setAttribute('opacity', p.opacity);
+      drawLayer.appendChild(path);
+      drawPaths.push(path);
+    });
+    refreshAuditPanel();
+  } catch(e) {}
+}
+
+let saveTimer;
+function triggerSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveAnnotations, 500); }
+const _origDrawClear = drawClear;
+window._drawClearOrig = function() { _origDrawClear(); localStorage.removeItem(SAVE_KEY); };
+
+const _origDeleteNote = window.deleteAuditNote;
+const _patchedDelete = function(btn) { _origDeleteNote(btn); triggerSave(); };
+window.deleteAuditNote = _patchedDelete;
+
+window.addEventListener('mouseup', () => { if (drawPaths.length) triggerSave(); });
+
+// INIT
+loadAnnotations();
+focusModule(1);
+</script>
+<script src="/board-tools.js"></script>
+</body>
+</html>

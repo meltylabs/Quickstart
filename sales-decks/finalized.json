@@ -1,0 +1,62 @@
+{
+  "mode": "freeform",
+  "framework": "vanilla-html-css-js",
+  "pretext_tier": "simple",
+  "presentations": [
+    {
+      "screen": "creator-partnership",
+      "html_file": "creator.html",
+      "slides": 13,
+      "personalized": true,
+      "profile_source": "server-side ScrapeCreators Instagram profile + recent-post sample",
+      "profile_level_fallback": true,
+      "signed_link_lifetime_days": 90
+    },
+    {
+      "screen": "brand-campaigns",
+      "html_file": "brands.html",
+      "slides": 12,
+      "personalized": true,
+      "personalization_scope": "cover, presentation chrome, operating layer, casting context, creator service, specialist legal-partner workflow, branded workspace illustration, value ledger, and close",
+      "signed_link_lifetime_days": 90
+    },
+    {
+      "screen": "fitia-client-workspace-demo",
+      "html_file": "fitia-portal.html",
+      "views": 6,
+      "interactive": true,
+      "state_storage": "fitia-portal-demo-v1",
+      "official_source_posts": 10,
+      "public_snapshot_date": "2026-08-08",
+      "simulated_scope": "creator roster labels, campaign brief, dates, statuses, versions, comments, approvals, and targets"
+    }
+  ],
+  "shared_entrypoint": "index.html",
+  "creator_generator_endpoint": "/api/create-proposal-link",
+  "brand_generator_endpoint": "/api/brand-presentation",
+  "creator_profile_endpoint": "/api/instagram-profile",
+  "creator_image_endpoint": "/api/instagram-image",
+  "personalized_url_shape": "/creator.html?ig=<handle>&exp=<unix>&sig=<hmac>&p=<signed-proposal>#1",
+  "personalized_brand_url_shape": "/brands.html?b=<signed-brand-payload>&exp=<unix>&sig=<hmac>#1",
+  "production_url": "https://decks.ovotalent.com/",
+  "vercel_project": "ovotalent/ovo-sales-decks",
+  "brand_identity": {
+    "wordmark": "ovotalent.",
+    "source": "live OVO site CSS wordmark",
+    "style": "lowercase italic Boska with #ff0031 period",
+    "creator_display_font": "DM Sans Variable",
+    "creator_accent_font": "Boska Bold Italic",
+    "creator_utility_font": "DM Mono"
+  },
+  "security": {
+    "operator_gated_generation": true,
+    "server_only_api_key": true,
+    "canonical_signed_profile_requests": true,
+    "canonical_signed_brand_presentations": true,
+    "signed_same_origin_instagram_images": true,
+    "noindex": true
+  },
+  "responsive": true,
+  "offline_fallback_ready": true,
+  "finalized_on": "2026-08-09"
+}

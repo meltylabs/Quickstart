@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Presentation Room · OVO Talent</title>
+  <link rel="icon" href="assets/logos/site-favicon.png" type="image/png">
+  <style>
+    @font-face{font-family:"Boska";src:url("assets/fonts/boska-bold-italic.woff2") format("woff2");font-style:italic;font-weight:700;font-display:swap}
+    @font-face{font-family:"DM Sans";src:url("assets/fonts/dm-sans-var.woff2") format("woff2");font-style:normal;font-weight:100 1000;font-display:swap}
+    @font-face{font-family:"DM Mono";src:url("assets/fonts/dm-mono-400.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+    @font-face{font-family:"DM Mono";src:url("assets/fonts/dm-mono-500.woff2") format("woff2");font-style:normal;font-weight:500;font-display:swap}
+    :root{color-scheme:dark;--red:#ff0031;--bone:#f5f1e8;--line:rgba(255,255,255,.12);--muted:rgba(255,255,255,.46)}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#000;color:#fff}
+    body{font-family:"DM Mono",monospace;-webkit-font-smoothing:antialiased}
+    body::after{position:fixed;inset:0;z-index:10;content:"";pointer-events:none;opacity:.3;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
+    button,input,textarea{font:inherit}
+    button,a{color:inherit}
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+    main{width:min(1540px,100%);margin:0 auto;padding:30px clamp(20px,4.8vw,74px) 64px}
+    header{display:flex;align-items:center;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid var(--line)}
+    .wordmark{display:inline-block;color:var(--bone);font-family:"Boska",Georgia,serif;font-size:clamp(34px,3.6vw,56px);font-style:italic;font-weight:700;line-height:.78;letter-spacing:-.065em;text-transform:lowercase}
+    .wordmark i{color:var(--red);font-style:inherit;text-shadow:0 0 10px rgba(255,0,49,.88),0 0 26px rgba(255,0,49,.42)}
+    .private{color:rgba(255,255,255,.38);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+    .intro{display:grid;padding:clamp(56px,7vw,108px) 0 clamp(44px,6vw,88px);grid-template-columns:1.1fr .9fr;gap:50px;align-items:end}
+    h1{max-width:9ch;margin:0;color:var(--bone);font-family:"DM Sans","Helvetica Neue",sans-serif;font-size:clamp(62px,8.4vw,132px);font-weight:580;line-height:.84;letter-spacing:-.07em}
+    h1 em{color:var(--red);font-family:"Boska",Georgia,serif;font-style:italic;font-weight:700}
+    .intro-copy{display:grid;gap:24px}
+    .intro p{max-width:44ch;margin:0;color:var(--muted);font-size:clamp(11px,.95vw,15px);line-height:1.72}
+    .live-chip{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.55);font-size:8px;letter-spacing:.08em;text-transform:uppercase}
+    .live-chip::before{width:7px;height:7px;content:"";border-radius:50%;background:var(--red);box-shadow:0 0 14px var(--red)}
+    .rooms{display:grid;border-top:1px solid var(--line);border-left:1px solid var(--line);grid-template-columns:1fr 1fr}
+    .room{min-width:0;padding:clamp(20px,2.7vw,42px);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .room-kicker{margin-bottom:12px;color:var(--red);font-size:8px;letter-spacing:.11em;text-transform:uppercase}
+    .room h2{margin:0;color:var(--bone);font-family:"DM Sans","Helvetica Neue",sans-serif;font-size:clamp(26px,2.8vw,44px);font-weight:570;line-height:1;letter-spacing:-.05em}
+    .room p{max-width:56ch;margin:16px 0 0;color:var(--muted);font-size:10px;line-height:1.65}
+    .preview{position:relative;display:block;overflow:hidden;margin-bottom:24px;aspect-ratio:16/9;background:#090909}
+    .preview::after{position:absolute;inset:0;content:"";border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 0 100px rgba(0,0,0,.2)}
+    .preview img{width:100%;height:100%;object-fit:cover;transition:transform 700ms cubic-bezier(.16,1,.3,1)}
+    .preview:hover img{transform:scale(1.018)}
+    .generator{display:grid;margin-top:30px;padding-top:26px;border-top:1px solid var(--line);gap:16px}
+    .generator-head{display:flex;align-items:end;justify-content:space-between;gap:20px}
+    .generator-head strong{color:var(--bone);font-family:"DM Sans","Helvetica Neue",sans-serif;font-size:14px;font-weight:650;letter-spacing:-.015em}
+    .generator-head span{color:rgba(255,255,255,.35);font-size:8px;text-transform:uppercase}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:grid;gap:7px}
+    .field.wide{grid-column:1/-1}
+    label{color:rgba(255,255,255,.48);font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+    input,textarea{width:100%;min-width:0;min-height:44px;padding:13px 14px;color:#fff;border:1px solid var(--line);border-radius:0;background:#070707;font-size:11px}
+    textarea{min-height:70px;resize:vertical;line-height:1.5}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.24)}
+    .generator-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .primary,.secondary{min-height:44px;padding:0 18px;border:1px solid transparent;cursor:pointer;font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+    .primary{color:#fff;background:var(--red)}
+    .primary:hover{background:#ff2851}
+    .primary[disabled]{cursor:wait;opacity:.55}
+    .secondary{border-color:var(--line);background:transparent}
+    .secondary:hover{border-color:rgba(255,255,255,.32)}
+    .form-note{color:rgba(255,255,255,.3);font-size:8px;line-height:1.55}
+    .form-status{min-height:15px;color:rgba(255,255,255,.55);font-size:9px}
+    .form-status.error{color:#ff6b86}
+    .brand-room{display:grid;align-content:start}
+    .brand-open{display:flex;margin-top:30px;padding:18px 0;align-items:center;justify-content:space-between;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.08em;text-decoration:none;text-transform:uppercase}
+    .brand-open span:last-child{color:var(--red);font-size:20px}
+    .brand-open.portal-direct{margin-top:0;color:#facc15;border-top:0}
+    .brand-open.portal-direct span:last-child{color:#facc15}
+    .brand-generator{margin-top:24px}
+    .brand-preview-strip{display:grid;padding:14px;border:1px solid var(--line);background:#070707;grid-template-columns:42px 1fr;gap:12px;align-items:center}
+    .brand-preview-mark{display:grid;width:42px;height:42px;color:var(--red);border:1px solid rgba(255,0,49,.4);font-size:12px;font-weight:500;letter-spacing:.08em;place-items:center}
+    .brand-preview-copy{display:grid;min-width:0;gap:4px}
+    .brand-preview-copy strong{overflow:hidden;color:var(--bone);font-family:"DM Sans","Helvetica Neue",sans-serif;font-size:13px;font-weight:650;letter-spacing:-.015em;text-overflow:ellipsis;white-space:nowrap}
+    .brand-preview-copy span{overflow:hidden;color:rgba(255,255,255,.35);font-size:8px;text-overflow:ellipsis;white-space:nowrap;text-transform:uppercase}
+    .controls{display:flex;margin-top:30px;gap:20px;flex-wrap:wrap;color:rgba(255,255,255,.38);font-size:8px;letter-spacing:.06em;text-transform:uppercase}
+    kbd{padding:4px 7px;color:#fff;border:1px solid rgba(255,255,255,.18);font-family:inherit;font-size:8px}
+    footer{display:flex;margin-top:52px;padding-top:20px;align-items:center;justify-content:space-between;color:rgba(255,255,255,.28);border-top:1px solid rgba(255,255,255,.08);font-size:8px;text-transform:uppercase}
+    @media(max-width:1024px){.intro{grid-template-columns:1fr}.rooms{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.wide{grid-column:auto}}
+    @media(max-width:560px){header{align-items:flex-start;flex-direction:column;gap:16px}.intro{padding-top:48px}.generator-head{align-items:flex-start;flex-direction:column}input,textarea{font-size:16px}.primary,.secondary{width:100%}footer{align-items:flex-start;flex-direction:column;gap:8px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:1ms!important;animation-duration:1ms!important;animation-iteration-count:1!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="wordmark" aria-label="OVO Talent">ovotalent<i>.</i></span>
+      <div class="private">Private presentation room · 2026</div>
+    </header>
+
+    <section class="intro">
+      <h1>Build the <em>room.</em></h1>
+      <div class="intro-copy">
+        <p>Generate a creator proposal from one Instagram handle or build a brand-specific buyer deck with a branded preview of OVO’s client approval workspace.</p>
+        <div class="live-chip">Live on the OVO presentation URL</div>
+      </div>
+    </section>
+
+    <section class="rooms" aria-label="Available presentations">
+      <article class="room creator-room">
+        <a class="preview" href="creator.html#1" aria-label="Preview the creator partnership presentation"><img src="assets/previews/creator.webp" alt="Preview of the creator partnership deck"></a>
+        <div class="room-kicker">13 slides · Personalized creator close</div>
+        <h2>Creator partnership</h2>
+        <p>Live public profile, OVO contact-email preview, three real roster examples, selected content, two first outbound campaigns, 30-day launch plan and the close, curated for one creator.</p>
+
+        <form class="generator" data-generator>
+          <div class="generator-head"><strong>Generate a private creator deck</strong><span>Signed link · 90 days</span></div>
+          <div class="fields">
+            <div class="field">
+              <label for="access-code">Presentation access code</label>
+              <input id="access-code" name="access_code" type="password" autocomplete="current-password" required placeholder="OVO operator code">
+            </div>
+            <div class="field">
+              <label for="instagram-handle">Instagram handle or URL</label>
+              <input id="instagram-handle" name="handle" inputmode="url" autocomplete="off" required placeholder="@creator">
+            </div>
+            <div class="field">
+              <label for="campaign-one">Campaign 01 · optional</label>
+              <input id="campaign-one" name="campaign_one" autocomplete="off" maxlength="30" placeholder="e.g. Performance apparel">
+            </div>
+            <div class="field">
+              <label for="campaign-two">Campaign 02 · optional</label>
+              <input id="campaign-two" name="campaign_two" autocomplete="off" maxlength="30" placeholder="e.g. Sports nutrition">
+            </div>
+            <div class="field wide">
+              <label for="why-invited">Why OVO invited them · optional</label>
+              <textarea id="why-invited" name="why" maxlength="155" placeholder="One specific sentence about the creator’s commercial edge."></textarea>
+            </div>
+          </div>
+          <div class="generator-actions">
+            <button class="primary" type="submit" data-generate>Generate + open live deck</button>
+            <button class="secondary" type="button" data-copy hidden>Copy shareable URL</button>
+          </div>
+          <div class="form-status" data-form-status aria-live="polite"></div>
+          <div class="form-note">The access code stays in this browser tab and never appears in the shareable proposal URL. The Instagram API key remains server-side.</div>
+        </form>
+      </article>
+
+      <article class="room brand-room">
+        <a class="preview" href="brands.html#1" aria-label="Open the brand campaign presentation"><img src="assets/previews/brands.webp" alt="Preview of the brand campaign deck"></a>
+        <div class="room-kicker">12 slides · Personalized brand close</div>
+        <h2>Brand campaigns</h2>
+        <p>OVO’s campaign operating model, direct client relationships, creator experience, delivery system, and a branded preview of the client approval workspace.</p>
+        <a class="brand-open" href="brands.html#11"><span>Open the portal pitch-deck slide</span><span>→</span></a>
+        <a class="brand-open portal-direct" href="fitia-portal.html#overview"><span>Launch the full Fitia workspace</span><span>↗</span></a>
+
+        <form class="generator brand-generator" data-brand-generator>
+          <div class="generator-head"><strong>Generate a private brand deck</strong><span>Signed link · 90 days</span></div>
+          <div class="brand-preview-strip" aria-live="polite">
+            <span class="brand-preview-mark" data-brand-preview-monogram>BR</span>
+            <span class="brand-preview-copy"><strong data-brand-preview-name>Your brand × OVO</strong><span data-brand-preview-domain>Private client-workspace preview</span></span>
+          </div>
+          <div class="fields">
+            <div class="field">
+              <label for="brand-access-code">Presentation access code</label>
+              <input id="brand-access-code" name="access_code" type="password" autocomplete="current-password" required placeholder="OVO operator code">
+            </div>
+            <div class="field">
+              <label for="brand-name">Brand name</label>
+              <input id="brand-name" name="brand_name" autocomplete="organization" required maxlength="48" placeholder="e.g. Fitia">
+            </div>
+            <div class="field">
+              <label for="brand-domain">Website or domain · optional</label>
+              <input id="brand-domain" name="brand_domain" inputmode="url" autocomplete="url" maxlength="180" placeholder="e.g. fitia.app">
+            </div>
+            <div class="field">
+              <label for="brand-campaign">Campaign label · optional</label>
+              <input id="brand-campaign" name="campaign_name" autocomplete="off" maxlength="72" placeholder="e.g. Performance creator campaign">
+            </div>
+          </div>
+          <div class="generator-actions">
+            <button class="primary" type="submit" data-brand-generate>Generate + open live deck</button>
+            <button class="secondary" type="button" data-brand-copy hidden>Copy shareable URL</button>
+          </div>
+          <div class="form-status" data-brand-form-status aria-live="polite"></div>
+          <div class="form-note">The generated deck brands the cover, client workspace, presentation chrome, and close. Unknown logos fall back cleanly to a monogram.</div>
+        </form>
+        <div class="controls">
+          <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span><span><kbd>F</kbd> Fullscreen</span><span><kbd>N</kbd> Notes</span><span><kbd>O</kbd> Index</span>
+        </div>
+      </article>
+    </section>
+
+    <footer><span>Less noise. More impact.</span><span>Miami · San Diego · Stockholm</span></footer>
+  </main>
+
+  <script>
+    (() => {
+      const form = document.querySelector("[data-generator]");
+      const button = document.querySelector("[data-generate]");
+      const copy = document.querySelector("[data-copy]");
+      const status = document.querySelector("[data-form-status]");
+      const accessInput = document.querySelector("#access-code");
+      let generatedUrl = "";
+
+      try {
+        accessInput.value = window.sessionStorage.getItem("ovo-proposal-access") || "";
+      } catch (_) {}
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        status.classList.remove("error");
+        status.textContent = "Signing the private link…";
+        button.disabled = true;
+        copy.hidden = true;
+        generatedUrl = "";
+
+        const popup = window.open("", "_blank");
+        if (popup) {
+          popup.document.title = "Building OVO proposal…";
+          popup.document.body.style.cssText = "margin:0;background:#000;color:#fff;display:grid;min-height:100vh;place-items:center;font:12px monospace";
+          popup.document.body.textContent = "Building private OVO proposal…";
+        }
+
+        const data = new FormData(form);
+        const body = Object.fromEntries(data.entries());
+        try {
+          const response = await fetch("/api/create-proposal-link", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(body),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || !payload.path) throw new Error(payload.error || "Could not generate the proposal.");
+
+          generatedUrl = new URL(payload.path, window.location.href).href;
+          try {
+            window.sessionStorage.setItem("ovo-proposal-access", body.access_code);
+          } catch (_) {}
+          status.textContent = `Ready for @${payload.handle} · signed link expires in 90 days`;
+          copy.hidden = false;
+          if (popup) popup.location.replace(generatedUrl);
+          else window.location.href = generatedUrl;
+        } catch (error) {
+          if (popup) popup.close();
+          status.classList.add("error");
+          status.textContent = error.message || "Could not generate the proposal.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+
+      copy.addEventListener("click", async () => {
+        if (!generatedUrl) return;
+        try {
+          await navigator.clipboard.writeText(generatedUrl);
+          copy.textContent = "Copied";
+          window.setTimeout(() => { copy.textContent = "Copy shareable URL"; }, 1400);
+        } catch (_) {
+          window.prompt("Copy this proposal URL:", generatedUrl);
+        }
+      });
+
+      const brandForm = document.querySelector("[data-brand-generator]");
+      const brandButton = document.querySelector("[data-brand-generate]");
+      const brandCopy = document.querySelector("[data-brand-copy]");
+      const brandStatus = document.querySelector("[data-brand-form-status]");
+      const brandAccessInput = document.querySelector("#brand-access-code");
+      const brandNameInput = document.querySelector("#brand-name");
+      const brandDomainInput = document.querySelector("#brand-domain");
+      const brandPreviewName = document.querySelector("[data-brand-preview-name]");
+      const brandPreviewDomain = document.querySelector("[data-brand-preview-domain]");
+      const brandPreviewMonogram = document.querySelector("[data-brand-preview-monogram]");
+      let generatedBrandUrl = "";
+
+      try {
+        brandAccessInput.value = window.sessionStorage.getItem("ovo-proposal-access") || "";
+      } catch (_) {}
+
+      accessInput.addEventListener("input", () => {
+        brandAccessInput.value = accessInput.value;
+      });
+      brandAccessInput.addEventListener("input", () => {
+        accessInput.value = brandAccessInput.value;
+      });
+
+      function brandMonogram(value) {
+        const words = String(value || "").trim().split(/\s+/).filter(Boolean);
+        if (!words.length) return "BR";
+        return (words.length > 1 ? `${words[0][0]}${words[1][0]}` : words[0].slice(0, 2)).toUpperCase();
+      }
+
+      function updateBrandPreview() {
+        const name = brandNameInput.value.trim();
+        const domain = brandDomainInput.value.trim().replace(/^https?:\/\//i, "").replace(/^www\./i, "").split("/")[0];
+        brandPreviewName.textContent = name ? `${name} × OVO` : "Your brand × OVO";
+        brandPreviewDomain.textContent = domain || "Private client-workspace preview";
+        brandPreviewMonogram.textContent = brandMonogram(name);
+      }
+
+      brandNameInput.addEventListener("input", updateBrandPreview);
+      brandDomainInput.addEventListener("input", updateBrandPreview);
+
+      brandForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        brandStatus.classList.remove("error");
+        brandStatus.textContent = "Signing the private brand deck…";
+        brandButton.disabled = true;
+        brandCopy.hidden = true;
+        generatedBrandUrl = "";
+
+        const popup = window.open("", "_blank");
+        if (popup) {
+          popup.document.title = "Building OVO brand deck…";
+          popup.document.body.style.cssText = "margin:0;background:#000;color:#fff;display:grid;min-height:100vh;place-items:center;font:12px monospace";
+          popup.document.body.textContent = "Building private OVO brand deck…";
+        }
+
+        const data = new FormData(brandForm);
+        const body = Object.fromEntries(data.entries());
+        try {
+          const response = await fetch("/api/brand-presentation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(body),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || !payload.path) throw new Error(payload.error || "Could not generate the brand deck.");
+
+          generatedBrandUrl = new URL(payload.path, window.location.href).href;
+          try {
+            window.sessionStorage.setItem("ovo-proposal-access", body.access_code);
+            accessInput.value = body.access_code;
+          } catch (_) {}
+          brandStatus.textContent = `Ready for ${payload.brand_name} · signed link expires in 90 days`;
+          brandCopy.hidden = false;
+          if (popup) popup.location.replace(generatedBrandUrl);
+          else window.location.href = generatedBrandUrl;
+        } catch (error) {
+          if (popup) popup.close();
+          brandStatus.classList.add("error");
+          brandStatus.textContent = error.message || "Could not generate the brand deck.";
+        } finally {
+          brandButton.disabled = false;
+        }
+      });
+
+      brandCopy.addEventListener("click", async () => {
+        if (!generatedBrandUrl) return;
+        try {
+          await navigator.clipboard.writeText(generatedBrandUrl);
+          brandCopy.textContent = "Copied";
+          window.setTimeout(() => { brandCopy.textContent = "Copy shareable URL"; }, 1400);
+        } catch (_) {
+          window.prompt("Copy this brand deck URL:", generatedBrandUrl);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

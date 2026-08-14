@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Content Intel — Biologix / Decision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../board.css">
+<link rel="stylesheet" href="./intel.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="page-shell site-header-inner">
+    <div class="internal-mark">Biologix / Decision Board — Internal</div>
+    <nav class="route-tabs" aria-label="Board views">
+      <a href="../index.html">Decision</a>
+      <a href="../deal-structure.html">Deal</a>
+      <a href="../operating-reference.html">Operating</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../venture-model.html">Venture</a>
+      <a href="../affiliate-flywheel.html">Flywheel</a>
+      <a href="../control-tower/index.html">Control Tower</a>
+      <a href="../research/index.html">Research</a>
+      <a class="active" href="./index.html" aria-current="page">Intel</a>
+      <a href="./videos.html">Videos</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <div class="intel-masthead">
+    <p class="view-kicker">View 09</p>
+    <h1>What to replicate</h1>
+    <p class="lede">
+      Peptide and GLP&#8209;1 affiliate content ranked by how much of its performance a Biologix
+      affiliate could actually reproduce. Outliers are measured against each creator's own
+      median, not against the whole set, so a breakout from a small account outranks a
+      routine post from a large one.
+    </p>
+    <dl class="coverage-strip" id="coverage-strip" aria-label="Collection coverage"></dl>
+    <details class="method-note">
+      <summary>How this was collected, and what is missing</summary>
+      <div class="method-body" id="method-body"></div>
+    </details>
+  </div>
+
+  <section class="intel-section" aria-labelledby="pb-h" id="playbook-section">
+    <div class="section-head">
+      <h2 id="pb-h">Tell the army to post this</h2>
+      <p class="section-note" id="pb-basis"></p>
+    </div>
+    <p class="lede" style="margin-bottom:18px">
+      Derived from real posts by regular people who already promote peptides with an
+      affiliate link. Every post scored against its own creator's median, so a breakout
+      from a 1.4k account is not buried by a routine post from a 350k account.
+    </p>
+    <div class="findings-list" id="pb-directives"></div>
+
+    <h3 class="sub-h">Promising but not yet a pattern</h3>
+    <p class="basis-note" style="margin-bottom:12px">Below the evidence bar of 8 posts across 3 creators. Test these, do not brief them as fact.</p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Thin-evidence angles</caption>
+        <thead><tr><th scope="col">Angle</th><th scope="col" class="num">Outlier</th><th scope="col" class="num">Posts</th><th scope="col" class="num">Creators</th><th scope="col">Example</th></tr></thead>
+        <tbody id="pb-leads"></tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h">Coded aliases in live use</h3>
+    <p class="basis-note" style="margin-bottom:12px">TikTok returns zero results for the compound names, so the cohort tags posts with these instead.</p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Coded alias hashtags</caption>
+        <thead><tr><th scope="col">Tag</th><th scope="col" class="num">Posts</th><th scope="col" class="num">Creators</th><th scope="col" class="num">Median outlier</th></tr></thead>
+        <tbody id="pb-alias"></tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h">Their actual breakout posts</h3>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Breakout posts from the civilian cohort</caption>
+        <thead><tr><th scope="col">Creator</th><th scope="col" class="num">Plays</th><th scope="col" class="num">Outlier</th><th scope="col">Angle</th><th scope="col">Caption</th></tr></thead>
+        <tbody id="pb-breakouts"></tbody>
+      </table>
+    </div>
+    <p class="basis-note" id="pb-compliance" style="margin-top:16px"></p>
+  </section>
+
+  <section class="intel-section" aria-labelledby="cohort-h" id="cohort-section">
+    <div class="section-head">
+      <h2 id="cohort-h">The scan target</h2>
+      <p class="section-note" id="cohort-count"></p>
+    </div>
+    <p class="lede" style="margin-bottom:6px">
+      Individual people posting their own peptide experience who carry an affiliate link.
+      Not companies, not vendor accounts, not clinicians, not coaches.
+    </p>
+    <p class="basis-note" id="cohort-note" style="max-width:78ch;margin-bottom:18px"></p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Civilian creators with a verified peptide affiliate link</caption>
+        <thead>
+          <tr>
+            <th scope="col">Creator</th>
+            <th scope="col" class="num">Followers</th>
+            <th scope="col">Bio</th>
+            <th scope="col">Affiliate destination</th>
+            <th scope="col">Evidence</th>
+          </tr>
+        </thead>
+        <tbody id="cohort-body"></tbody>
+      </table>
+    </div>
+    <details class="method-note" style="margin-top:26px">
+      <summary>Probed and excluded, with the reason for each</summary>
+    <div class="table-wrap" style="margin-top:14px">
+      <table class="rollup-table">
+        <caption class="sr-only">Accounts probed and excluded</caption>
+        <thead>
+          <tr><th scope="col">Handle</th><th scope="col" class="num">Followers</th><th scope="col">Why excluded</th></tr>
+        </thead>
+        <tbody id="cohort-excluded"></tbody>
+      </table>
+    </div>
+    </details>
+  </section>
+
+  <section class="intel-section" aria-labelledby="findings-h">
+    <div class="section-head">
+      <h2 id="findings-h">What the data says</h2>
+      <p class="section-note">Computed from the measured set. Every number is read back out of the dataset.</p>
+    </div>
+    <div class="findings-list" id="findings-list"></div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="board-h">
+    <div class="section-head">
+      <h2 id="board-h">Replication board</h2>
+      <p class="section-note" id="result-count" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="controls" role="group" aria-label="Filter and sort the replication board">
+      <div class="control-row">
+        <span class="control-label" id="lbl-platform">Platform</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-platform" id="filter-platform"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-topic">Topic</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-topic" id="filter-topic"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-verdict">Verdict</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-verdict" id="filter-verdict"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-hook">Hook</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-hook" id="filter-hook"></div>
+      </div>
+      <div class="control-row control-row-inline">
+        <label class="control-label" for="sort-by">Sort</label>
+        <select id="sort-by">
+          <option value="score">Replication score</option>
+          <option value="views">Views</option>
+          <option value="outlier">Outlier multiple</option>
+          <option value="recent">Most recent</option>
+          <option value="fit">Replication fit</option>
+        </select>
+        <label class="control-label" for="q">Search</label>
+        <input type="search" id="q" placeholder="hook, creator, code…" autocomplete="off">
+        <button type="button" class="btn-reset" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <ol class="post-list" id="post-list"></ol>
+    <p class="empty-state" id="empty-state" hidden>
+      No posts match these filters. <button type="button" class="link-btn" id="empty-reset">Clear all filters</button>
+    </p>
+  </section>
+
+  <section class="intel-section" aria-labelledby="patterns-h">
+    <div class="section-head">
+      <h2 id="patterns-h">What wins, by pattern</h2>
+      <p class="section-note">Grouped over API-collected posts only. Groups under five posts are marked thin.</p>
+    </div>
+    <div class="rollup-tabs" role="tablist" aria-label="Rollup dimension" id="rollup-tabs"></div>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Performance by pattern</caption>
+        <thead>
+          <tr>
+            <th scope="col">Group</th>
+            <th scope="col" class="num">Posts</th>
+            <th scope="col" class="num">Median views</th>
+            <th scope="col" class="num">Median outlier</th>
+            <th scope="col">Verdicts</th>
+            <th scope="col">Best example</th>
+          </tr>
+        </thead>
+        <tbody id="rollup-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="topic-h" id="topic-section">
+    <div class="section-head">
+      <h2 id="topic-h">Does the reach transfer to the topic?</h2>
+      <p class="section-note">Same account, its peptide posts vs its general posts. Median views.</p>
+    </div>
+    <p class="lede" style="margin-bottom:18px">
+      Borrowed reach is only worth borrowing if it follows the subject. For every collected
+      account that posted both, this compares what its on&#8209;topic content did against what
+      the rest of its feed did.
+    </p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">On-topic versus off-topic performance per account</caption>
+        <thead>
+          <tr>
+            <th scope="col">Account</th>
+            <th scope="col">Platform</th>
+            <th scope="col" class="num">On-topic median</th>
+            <th scope="col" class="num">General median</th>
+            <th scope="col" class="num">Ratio</th>
+            <th scope="col">Reading</th>
+          </tr>
+        </thead>
+        <tbody id="topic-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="mech-h">
+    <div class="section-head">
+      <h2 id="mech-h">How they link</h2>
+      <p class="section-note">Every affiliate URL, code and bio pointer observed verbatim in a collected caption, description or bio.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Affiliate mechanics observed</caption>
+        <thead>
+          <tr>
+            <th scope="col">Mechanic</th>
+            <th scope="col">Value</th>
+            <th scope="col" class="num">Seen</th>
+            <th scope="col">Platforms</th>
+            <th scope="col">Creators</th>
+          </tr>
+        </thead>
+        <tbody id="mech-body"></tbody>
+      </table>
+    </div>
+    <h3 class="sub-h">Bio-link funnels resolved</h3>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Bio link resolution chains</caption>
+        <thead>
+          <tr>
+            <th scope="col">Handle</th>
+            <th scope="col">Bio link</th>
+            <th scope="col">Resolves to</th>
+            <th scope="col" class="num">Status</th>
+          </tr>
+        </thead>
+        <tbody id="funnel-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="brands-h" id="brands-section">
+    <div class="section-head">
+      <h2 id="brands-h">Who they are affiliates for</h2>
+      <p class="section-note">Every link resolved to a domain, then matched against the 18 documented programs and 9 known sellers.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Vendors and brands promoted</caption>
+        <thead>
+          <tr>
+            <th scope="col">Domain</th>
+            <th scope="col">Classification</th>
+            <th scope="col" class="num">Times</th>
+            <th scope="col">Creators linking it</th>
+          </tr>
+        </thead>
+        <tbody id="brands-body"></tbody>
+      </table>
+    </div>
+    <h3 class="sub-h">Creator monetisation posture</h3>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">How each creator monetises</caption>
+        <thead>
+          <tr>
+            <th scope="col">Creator</th>
+            <th scope="col">Posture</th>
+            <th scope="col">Vendors / suspected vendors</th>
+            <th scope="col">Codes</th>
+            <th scope="col">Own offer</th>
+          </tr>
+        </thead>
+        <tbody id="posture-body"></tbody>
+      </table>
+    </div>
+    <h3 class="sub-h">The 18 documented affiliate programs</h3>
+    <p class="section-note" style="margin-bottom:12px" id="program-match-note"></p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Documented peptide affiliate programs</caption>
+        <thead>
+          <tr>
+            <th scope="col">Brand</th>
+            <th scope="col">Commission</th>
+            <th scope="col">Attribution</th>
+            <th scope="col">Restrictions</th>
+            <th scope="col">Risk</th>
+          </tr>
+        </thead>
+        <tbody id="program-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="creators-h">
+    <div class="section-head">
+      <h2 id="creators-h">Who is doing it</h2>
+      <p class="section-note">Follower counts are null where the platform blocked the account-level fetch. Never estimated.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Creators collected</caption>
+        <thead>
+          <tr>
+            <th scope="col">Creator</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Lane</th>
+            <th scope="col" class="num">Followers</th>
+            <th scope="col" class="num">Posts</th>
+            <th scope="col" class="num">Median views</th>
+            <th scope="col">Best post</th>
+          </tr>
+        </thead>
+        <tbody id="creator-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="playbook-h">
+    <div class="section-head">
+      <h2 id="playbook-h">Ranked patterns and the Biologix substitution</h2>
+      <p class="section-note">Carried from the hand-collected recon. Each pattern states what transfers and what must change.</p>
+    </div>
+    <div class="pattern-grid" id="pattern-grid"></div>
+  </section>
+</div>
+
+<div class="drawer-scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+  <div class="drawer-head">
+    <p class="drawer-kicker" id="drawer-kicker"></p>
+    <button type="button" class="drawer-close" id="drawer-close" aria-label="Close detail">Close</button>
+  </div>
+  <div class="drawer-body" id="drawer-body">
+    <h2 id="drawer-title" class="sr-only">Post detail</h2>
+  </div>
+</aside>
+
+<footer class="site-footer">
+  <div class="page-shell">
+    <p class="footer-label">Biologix / OVO — internal content intelligence</p>
+    <p class="footer-note" id="footer-note"></p>
+  </div>
+</footer>
+
+<script src="./intel-data.js"></script>
+<script src="./intel.js"></script>
+</body>
+</html>

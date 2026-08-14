@@ -1,0 +1,15 @@
+# Local-only values for the standalone Biologix Worker.
+# Copy to .dev.vars and use distinct random values. Never commit .dev.vars.
+BIOLOGIX_ALLOW_BREAK_GLASS=true
+BIOLOGIX_GATEWAY_KEY_ID=primary-local
+BIOLOGIX_GATEWAY_SECRET=
+BIOLOGIX_OPERATOR_SESSION_SECRET=
+BIOLOGIX_OPERATOR_ACCESS_CODE=
+BIOLOGIX_BREAK_GLASS_OPERATOR_EMAIL=
+BIOLOGIX_TRACKING_REDIRECT_HOSTS=biologixlabsresearch.com,www.biologixlabsresearch.com
+BIOLOGIX_UPSTREAM_ORIGIN=https://ovo.academy
+
+# Configure these after Cloudflare Access is provisioned. Access takes
+# precedence over the break-glass session.
+CF_ACCESS_TEAM_DOMAIN=
+CF_ACCESS_AUD=

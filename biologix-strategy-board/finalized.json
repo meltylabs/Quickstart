@@ -1,0 +1,21 @@
+{
+  "source_mockup": null,
+  "source_plan": null,
+  "mode": "freeform-with-existing-board-reference",
+  "html_files": [
+    "index.html",
+    "deal-structure.html",
+    "operating-reference.html",
+    "execution.html",
+    "venture-model.html",
+    "risk-on-venture-plan.html"
+  ],
+  "pretext_tier": "card-grid",
+  "framework": "vanilla",
+  "iterations": 4,
+  "date": "2026-07-23",
+  "screen": "biologix-strategy-board",
+  "branch": "scaling-strategy",
+  "visual_authority": "claude-fable-5",
+  "visual_review": "approved-by-claude-fable-5"
+}

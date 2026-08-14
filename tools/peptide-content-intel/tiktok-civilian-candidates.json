@@ -1,0 +1,598 @@
+{
+  "source": "Apify clockworks/tiktok-scraper search on the query vectors that TikTok actually serves (glp1 journey, ozempic, peptides, ratatouille weight loss). The compound names retatrutide and tirzepatide return ZERO results and cannot be used for discovery.",
+  "probed": 46,
+  "civilians": 27,
+  "creators": [
+    {
+      "handle": "b_faith12",
+      "fans": 833200,
+      "bio": "Photographer | Psychology Student | SAHM",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 417000,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "drabby6",
+      "fans": 562000,
+      "bio": "Yale MD Dermatologist, FAAD, FACMS Harvard Associate Professor Views my own",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 226000,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "clinician / credentialed"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "christianpoulos",
+      "fans": 216800,
+      "bio": "I coach people and own medical clinics  @Inno Supps ⚡️ \"DrCP\"",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 47500,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "company / brand account",
+        "coach / program seller"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "chanelica.r",
+      "fans": 115700,
+      "bio": "Health 🫶🏾 Wellness chanelicarobinson@gmail.com ATL",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 576800,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "hopiedopiee1",
+      "fans": 112600,
+      "bio": "GLP1 & Weightloss✨💉 - 135 lbs✨ 💌:hg045042@gmail.com 📍West Texas  Sign up for Amble below ⬇️",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 40300,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "sarahlostweight",
+      "fans": 112000,
+      "bio": "Teacher 🤍 Certified Personal Trainer 90 lbs down naturally 🫶 🗽 From NYC, with love 1 on 1 coaching ↓ ↓ ↓",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 85300,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "coach / program seller"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "brooklynstlaurent",
+      "fans": 110900,
+      "bio": "girl mom x3 💫 motherhood & daily life ✨🤍🌸🧚‍♀️ 💌 brooklynstlaurentcollabs@gmail.com",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 161300,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "kaylakayyy0",
+      "fans": 110300,
+      "bio": "Hair | MakeUp | Outfits Founder @RedHeadEdit  Natural 👩🏼‍🦰✨ LA📍 Links⤵️",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 161300,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "michellenewyen",
+      "fans": 102500,
+      "bio": "in a silly goofy mood 💌michellenewyen@gmail.com",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 4300000,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "middleagemuse",
+      "fans": 94000,
+      "bio": "🔥 Helping you balance hormones & manage weight loss naturally",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 263200,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "coach / program seller"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "maicyrobison",
+      "fans": 85000,
+      "bio": "just a girl on a health journey🫶🏻  sharing my tips & tricks 🔗 to start the 💉 ⬇️",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 935800,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "formerlyoutofbreath",
+      "fans": 61200,
+      "bio": "Documenting 89lbs lost to gain life!  SW: 504lbs • CW 415lbs Relatable Weight Loss & Lifestyle Auntie | Author | Reseller  📧 formerlyoutofbreath@gmail.com",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 31900,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "smoneyyz",
+      "fans": 51800,
+      "bio": "NYC/Philly 📍glow up hacks for the girlies",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 263900,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "kiingkeni",
+      "fans": 51800,
+      "bio": "",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 6063,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "medspainowerriandlagos",
+      "fans": 51200,
+      "bio": "❌TikTok DMS @Aestheticsbylozik  📍LAGOS/OWERRI @LozikAesthetics  WhatsApp:07038839142 ✉️ Aestheticsbylozik@gmail.com",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 84800,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "sabrinamiraya",
+      "fans": 40600,
+      "bio": "los angeles 💋    skincare • makeup • hair 💌 collabs@sabrinamiraya.com shop my recs below ↓",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 7300000,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "champagnefart",
+      "fans": 39200,
+      "bio": "🇧🇦 💙 🇵🇸",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 48300,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "ahleesahhh",
+      "fans": 23500,
+      "bio": "Just a girly becoming her best version🦋🐅 Biohacking Lover 🧬 Backup: @Thegirlahleesah 📱 IG: Thatgirlahleesah 📞 07377 855422 ⬇️If you wanna lose 30kg+⬇️",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 392500,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "jessigoberr",
+      "fans": 23400,
+      "bio": "Mom to Windsor, Georgia and Duke 🩷🩵 Link to my weightloss 💉 online provider ⬇️",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 1900000,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "samahri.miller",
+      "fans": 17900,
+      "bio": "Fitness Coach | VA📍 wife | fitness | lifestyle",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 85500,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "coach / program seller"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "yourmarketingirlie",
+      "fans": 13400,
+      "bio": "workwithamrdrey@gmail.com",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 585,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "peptidecentre",
+      "fans": 13400,
+      "bio": "The Worlds Best Research Peptides 🧬 Helping You Achieve Your Potential 🔬 99% Purity Guaranteed 🚢 Shipping. (3 days) 👇",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 85800,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "coach / program seller"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "alexisthepeptidegirl",
+      "fans": 12300,
+      "bio": "Mom & Wife  R3ta is GLP-3Rț 🧪 📌Code alexism15 📌  📱512-882-7980 entertainment purposes only - not medical advice",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 132200,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "mimiii0514",
+      "fans": 11700,
+      "bio": "The only love I truly believe in is a mother's love 4 her children $Mimiiii0514",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 81,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "david_padilla86",
+      "fans": 8366,
+      "bio": "California 📍 Gym, Concerts, Coffee, Peps Dpadilla0613@gmail.com",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 200500,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "isabelladefonte",
+      "fans": 5152,
+      "bio": "@skyhausagency 🤍 24 🇺🇸✝️ Seton Hall Swim Alum @bellabooboo",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 174600,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "primalxgains",
+      "fans": 4168,
+      "bio": "Unbig your back.  Get in shape. Live happy.",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 3467,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "snapoutofitbabe",
+      "fans": 3096,
+      "bio": "Tennessee",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 122,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "moosejj",
+      "fans": 1811,
+      "bio": "FITNESS | LIFESTYLE | GROWTH",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 7701,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "izzyflosesit",
+      "fans": 1745,
+      "bio": "📉 GLP-1 weight loss journey 1st wegovy jab: 27/8/25 | 1st MJ jab 10/7/26 SW: 170.7kg CW: 145.3kg GW: 92kg",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 557600,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "novalyxresearch",
+      "fans": 1455,
+      "bio": "🧬 Novalyx Research France 🔬 Advanced Research Compounds 🧪 Certificats d’analyse (COA) inclus 👇 Commander ici / Order here 🌐 https://novalyxresearch.com/",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 456900,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "lazygirlreseach2.0",
+      "fans": 1309,
+      "bio": "Chynna💕 📍NC ✨2.0 OFFICIAL NEW ACCT✨ Wellness Journey with 🌶️s💕 Reach out to Mrs Calla my Chinese supplier  ➡️WHATSAPP ➡️+85293111540",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 55900,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "charlie.healthy",
+      "fans": 783,
+      "bio": "in my early 30s in perimenopause. Youngest in every support group | Not crazy 🔥",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 494900,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "kenisonak",
+      "fans": 669,
+      "bio": "I had a marvelous time ruining everything",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 512,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "katie2themax",
+      "fans": 649,
+      "bio": "Optimizing my body & my life 🧬 Peptides 🧘🏼‍♀️ Wellness ✈️ Travel",
+      "queries": [
+        "glp1 journey"
+      ],
+      "max_play": 20600,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "just_jensine",
+      "fans": 455,
+      "bio": "🏳️‍🌈",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 44300,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "hooppppee",
+      "fans": 406,
+      "bio": "Healing with Hope🫶🏼 Single mama to 3 beautiful babies🤍 PCOS/ Weight Loss Journey",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 2645,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "chrisinstylee",
+      "fans": 323,
+      "bio": "Fitness | Lifestyle | Outfits  Back up acct @Chris R",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 22800,
+      "civilian_voice": false,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "noelle.chelsea",
+      "fans": 273,
+      "bio": "Boy Mom x 2 💙💚  Breast Cancer + Induced Menopause GLP 1 Journey 💉⬇️ 30lbs 🔗 https://elliemd.com/noellechelsea",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 12600,
+      "civilian_voice": true,
+      "exclusion_reasons": [],
+      "is_civilian": true
+    },
+    {
+      "handle": "margot.june",
+      "fans": 272,
+      "bio": "Hey it's Margot 💗 ~melb~ @ATLABS ambassador ~ use code M10 for 10% off 🫶",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 286700,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "company / brand account"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "someones.auntie4",
+      "fans": 234,
+      "bio": "✨ The 40+ Comeback   Getting my body, health & glow back   ↓ Watch the transformation in real time John 3:16!",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 102,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "only 234 followers"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "eddychavezz",
+      "fans": 187,
+      "bio": "🇧🇴 x 🇺🇸  Micro niche influencer?",
+      "queries": [
+        "peptides"
+      ],
+      "max_play": 185600,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "only 187 followers"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "halfofhannah",
+      "fans": 179,
+      "bio": "Lost 100lbs in 10 months on GLP1 💉",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 97700,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "only 179 followers"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "noahjones38",
+      "fans": 172,
+      "bio": "Getting leaner without extreme diets | AI INFLUENCER",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 288700,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "only 172 followers"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "topangaalverson",
+      "fans": 124,
+      "bio": "WIFE.MAMA",
+      "queries": [
+        "ratatouille weight loss"
+      ],
+      "max_play": 7563,
+      "civilian_voice": true,
+      "exclusion_reasons": [
+        "only 124 followers"
+      ],
+      "is_civilian": false
+    },
+    {
+      "handle": "minervasingh7",
+      "fans": 92,
+      "bio": "Science meets self-care 🧪 Best hacks for beauty, nutrition & overall wellness",
+      "queries": [
+        "ozempic"
+      ],
+      "max_play": 74800,
+      "civilian_voice": false,
+      "exclusion_reasons": [
+        "only 92 followers"
+      ],
+      "is_civilian": false
+    }
+  ]
+}

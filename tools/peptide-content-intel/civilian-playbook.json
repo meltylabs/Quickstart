@@ -1,0 +1,1883 @@
+{
+  "generated_from": {
+    "creators": 49,
+    "posts_total": 487,
+    "posts_scored": 487,
+    "excluded_no_baseline": 0,
+    "note": "Only posts from creators with at least 5 measurable posts are scored, so an outlier multiple always has a real baseline behind it."
+  },
+  "rollups": {
+    "by_hook": [
+      {
+        "key": "myth-or-regain-defense",
+        "dimension": "hook",
+        "n_posts": 2,
+        "n_creators": 2,
+        "median_outlier": 219.255,
+        "median_plays": 1100450,
+        "median_engagement_rate": 4.535,
+        "median_share_rate": 0.047,
+        "share_of_breakouts": 0.5,
+        "best": {
+          "url": "https://www.tiktok.com/@mediocre_mama_3/video/7493240955684818207",
+          "handle": "mediocre_mama_3",
+          "plays": 2200492,
+          "outlier": 437.65,
+          "desc": "Subway order as I’m working on losing that regain. Always bring your own dressing!!! #bariatriccommunity #subwayorder #weightgain #weightlos"
+        },
+        "thin": true
+      },
+      {
+        "key": "question-to-audience",
+        "dimension": "hook",
+        "n_posts": 1,
+        "n_creators": 1,
+        "median_outlier": 19.76,
+        "median_plays": 48456,
+        "median_engagement_rate": 2.73,
+        "median_share_rate": 0.144,
+        "share_of_breakouts": 1,
+        "best": {
+          "url": "https://www.tiktok.com/@kellystaraminos/video/7610639350941961486",
+          "handle": "kellystaraminos",
+          "plays": 48456,
+          "outlier": 19.76,
+          "desc": "Feel free to share your update below! Or if you have any questions! #peptideliptreatment #peptidetherapy #tirz "
+        },
+        "thin": true
+      },
+      {
+        "key": "food-or-day-of-eating",
+        "dimension": "hook",
+        "n_posts": 8,
+        "n_creators": 7,
+        "median_outlier": 6.74,
+        "median_plays": 8458.5,
+        "median_engagement_rate": 3.15,
+        "median_share_rate": 0.0955,
+        "share_of_breakouts": 0.5,
+        "best": {
+          "url": "https://www.tiktok.com/@wellness.with.chr/video/7648393497304665374",
+          "handle": "wellness.with.chr",
+          "plays": 860785,
+          "outlier": 819.8,
+          "desc": "Mark my words…in 20 years there will be Netflix documentaries about perimenopause + GLPs … And they’ll go something like this 👇 She goes to"
+        },
+        "thin": false
+      },
+      {
+        "key": "journey-milestone",
+        "dimension": "hook",
+        "n_posts": 4,
+        "n_creators": 4,
+        "median_outlier": 6.300000000000001,
+        "median_plays": 7269.5,
+        "median_engagement_rate": 3.01,
+        "median_share_rate": 0.056999999999999995,
+        "share_of_breakouts": 0.75,
+        "best": {
+          "url": "https://www.tiktok.com/@chrisriosss/video/7665719727989329183",
+          "handle": "chrisriosss",
+          "plays": 13566,
+          "outlier": 11.45,
+          "desc": "18 weeks on Ratatouille. #ratatouille #peptalk #GymTok #r3t4 #retaa "
+        },
+        "thin": true
+      },
+      {
+        "key": "non-scale-victory",
+        "dimension": "hook",
+        "n_posts": 4,
+        "n_creators": 4,
+        "median_outlier": 4.005,
+        "median_plays": 2712,
+        "median_engagement_rate": 2.745,
+        "median_share_rate": 0.378,
+        "share_of_breakouts": 0.5,
+        "best": {
+          "url": "https://www.tiktok.com/@kaylee.glow.up/video/7618094601462713613",
+          "handle": "kaylee.glow.up",
+          "plays": 4851,
+          "outlier": 9.06,
+          "desc": "👉 I’m experiencing normal hormonal cycles Let me explain: For years I had: 👎 Heavy periods 👎 Painful PMS 👎 Unpredictable periods 👎 Inte"
+        },
+        "thin": true
+      },
+      {
+        "key": "before-after-reveal",
+        "dimension": "hook",
+        "n_posts": 7,
+        "n_creators": 6,
+        "median_outlier": 3.98,
+        "median_plays": 4683,
+        "median_engagement_rate": 3.74,
+        "median_share_rate": 0.267,
+        "share_of_breakouts": 0.57,
+        "best": {
+          "url": "https://www.tiktok.com/@oliviaraglp1/video/7618350310796446990",
+          "handle": "oliviaraglp1",
+          "plays": 603430,
+          "outlier": 900.64,
+          "desc": "GHKCU BEFORE / AFTER"
+        },
+        "thin": true
+      },
+      {
+        "key": "cost-or-source-talk",
+        "dimension": "hook",
+        "n_posts": 3,
+        "n_creators": 2,
+        "median_outlier": 2.17,
+        "median_plays": 2473,
+        "median_engagement_rate": 3.42,
+        "median_share_rate": 0.081,
+        "share_of_breakouts": 0.67,
+        "best": {
+          "url": "https://www.tiktok.com/@papi.peptide/video/7656249359993982239",
+          "handle": "papi.peptide",
+          "plays": 7661,
+          "outlier": 6.71,
+          "desc": "Replying to @papi.peptide DM me SOURCE for high quality peppers. once a week or twice a week? What’s you’re preferred administration of your"
+        },
+        "thin": true
+      },
+      {
+        "key": "dose-or-protocol-talk",
+        "dimension": "hook",
+        "n_posts": 9,
+        "n_creators": 6,
+        "median_outlier": 1.59,
+        "median_plays": 3241,
+        "median_engagement_rate": 2.24,
+        "median_share_rate": 0.101,
+        "share_of_breakouts": 0.44,
+        "best": {
+          "url": "https://www.tiktok.com/@therewellnessmomera/video/7641782543515192583",
+          "handle": "therewellnessmomera",
+          "plays": 287079,
+          "outlier": 606.93,
+          "desc": "This weeks contender: NG P & Nuove.co yallill - that #peptideserum overnight mask was ELITE • I can't wait to order their whole line. I beli"
+        },
+        "thin": false
+      },
+      {
+        "key": "alias-tag-only",
+        "dimension": "hook",
+        "n_posts": 11,
+        "n_creators": 3,
+        "median_outlier": 1.27,
+        "median_plays": 5542,
+        "median_engagement_rate": 3.9,
+        "median_share_rate": 0.131,
+        "share_of_breakouts": 0.45,
+        "best": {
+          "url": "https://www.tiktok.com/@theslickric/video/7607983044716137758",
+          "handle": "theslickric",
+          "plays": 114538,
+          "outlier": 237.38,
+          "desc": "#peppers #ghkcu #peptide "
+        },
+        "thin": false
+      },
+      {
+        "key": "off-topic-personal-life",
+        "dimension": "hook",
+        "n_posts": 66,
+        "n_creators": 28,
+        "median_outlier": 1.0950000000000002,
+        "median_plays": 1005.5,
+        "median_engagement_rate": 4.165,
+        "median_share_rate": 0.0845,
+        "share_of_breakouts": 0.26,
+        "best": {
+          "url": "https://www.tiktok.com/@angieb127/video/7538929527829843214",
+          "handle": "angieb127",
+          "plays": 20538,
+          "outlier": 140.19,
+          "desc": "#glp1community #glp1forweightloss #over50women #over50women "
+        },
+        "thin": false
+      },
+      {
+        "key": "vendor-tagged-journey",
+        "dimension": "hook",
+        "n_posts": 13,
+        "n_creators": 2,
+        "median_outlier": 1.06,
+        "median_plays": 312,
+        "median_engagement_rate": 2.66,
+        "median_share_rate": 0.296,
+        "share_of_breakouts": 0.38,
+        "best": {
+          "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+          "handle": "fitjourneyem",
+          "plays": 2107637,
+          "outlier": 7193.3,
+          "desc": "And feeling so much better!! @galaglp1 "
+        },
+        "thin": false
+      },
+      {
+        "key": "product-or-tool-rec",
+        "dimension": "hook",
+        "n_posts": 6,
+        "n_creators": 1,
+        "median_outlier": 0.93,
+        "median_plays": 378.5,
+        "median_engagement_rate": 7.375,
+        "median_share_rate": 0.2685,
+        "share_of_breakouts": 0,
+        "best": {
+          "url": "https://www.tiktok.com/@franklyjacqueline/video/7585372183967452471",
+          "handle": "franklyjacqueline",
+          "plays": 743,
+          "outlier": 1.82,
+          "desc": "My weight no longer holds me back. @Zappy Health is who I use and if you use my code:JC150 you will get one hundred and fifty dollars off. G"
+        },
+        "thin": true
+      },
+      {
+        "key": "weight-number-reveal",
+        "dimension": "hook",
+        "n_posts": 1,
+        "n_creators": 1,
+        "median_outlier": 0.92,
+        "median_plays": 85,
+        "median_engagement_rate": 12.94,
+        "median_share_rate": 1.176,
+        "share_of_breakouts": 0,
+        "best": {
+          "url": "https://www.tiktok.com/@dailydoseofamberdean/video/7663316784551906574",
+          "handle": "dailydoseofamberdean",
+          "plays": 85,
+          "outlier": 0.92,
+          "desc": "Last night was a literally DREAM COME TRUE. What a show! Highly recommend 🙌 the biggest slay is being down 70lb thanks to zappy! See the 🔗"
+        },
+        "thin": true
+      }
+    ],
+    "by_duration": [
+      {
+        "key": "180s+",
+        "dimension": "duration",
+        "n_posts": 9,
+        "n_creators": 6,
+        "median_outlier": 4.35,
+        "median_plays": 5542,
+        "median_engagement_rate": 3.9,
+        "median_share_rate": 0.217,
+        "share_of_breakouts": 0.56,
+        "best": {
+          "url": "https://www.tiktok.com/@caylapepz/video/7641612536478960927",
+          "handle": "caylapepz",
+          "plays": 311603,
+          "outlier": 71.44,
+          "desc": "#ratatouille #biohacking #research "
+        },
+        "thin": false
+      },
+      {
+        "key": "15-30s",
+        "dimension": "duration",
+        "n_posts": 12,
+        "n_creators": 11,
+        "median_outlier": 1.5,
+        "median_plays": 754.5,
+        "median_engagement_rate": 5.19,
+        "median_share_rate": 0.326,
+        "share_of_breakouts": 0.33,
+        "best": {
+          "url": "https://www.tiktok.com/@oliviaraglp1/video/7618350310796446990",
+          "handle": "oliviaraglp1",
+          "plays": 603430,
+          "outlier": 900.64,
+          "desc": "GHKCU BEFORE / AFTER"
+        },
+        "thin": false
+      },
+      {
+        "key": "<15s",
+        "dimension": "duration",
+        "n_posts": 51,
+        "n_creators": 25,
+        "median_outlier": 1.12,
+        "median_plays": 928,
+        "median_engagement_rate": 2.43,
+        "median_share_rate": 0.081,
+        "share_of_breakouts": 0.31,
+        "best": {
+          "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+          "handle": "fitjourneyem",
+          "plays": 2107637,
+          "outlier": 7193.3,
+          "desc": "And feeling so much better!! @galaglp1 "
+        },
+        "thin": false
+      },
+      {
+        "key": "30-60s",
+        "dimension": "duration",
+        "n_posts": 14,
+        "n_creators": 9,
+        "median_outlier": 1.07,
+        "median_plays": 840,
+        "median_engagement_rate": 6.16,
+        "median_share_rate": 0.4585,
+        "share_of_breakouts": 0.29,
+        "best": {
+          "url": "https://www.tiktok.com/@theslickric/video/7607983044716137758",
+          "handle": "theslickric",
+          "plays": 114538,
+          "outlier": 237.38,
+          "desc": "#peppers #ghkcu #peptide "
+        },
+        "thin": false
+      },
+      {
+        "key": "60-180s",
+        "dimension": "duration",
+        "n_posts": 20,
+        "n_creators": 14,
+        "median_outlier": 1.005,
+        "median_plays": 1492,
+        "median_engagement_rate": 5.140000000000001,
+        "median_share_rate": 0.1225,
+        "share_of_breakouts": 0.35,
+        "best": {
+          "url": "https://www.tiktok.com/@therewellnessmomera/video/7641782543515192583",
+          "handle": "therewellnessmomera",
+          "plays": 287079,
+          "outlier": 606.93,
+          "desc": "This weeks contender: NG P & Nuove.co yallill - that #peptideserum overnight mask was ELITE • I can't wait to order their whole line. I beli"
+        },
+        "thin": false
+      }
+    ],
+    "by_format": [
+      {
+        "key": "unclassified",
+        "dimension": "format",
+        "n_posts": 129,
+        "n_creators": 35,
+        "median_outlier": 1.15,
+        "median_plays": 1326,
+        "median_engagement_rate": 3.78,
+        "median_share_rate": 0.111,
+        "share_of_breakouts": 0.36,
+        "best": {
+          "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+          "handle": "fitjourneyem",
+          "plays": 2107637,
+          "outlier": 7193.3,
+          "desc": "And feeling so much better!! @galaglp1 "
+        },
+        "thin": false
+      },
+      {
+        "key": "text-over-b-roll",
+        "dimension": "format",
+        "n_posts": 5,
+        "n_creators": 5,
+        "median_outlier": 1.06,
+        "median_plays": 824,
+        "median_engagement_rate": 4.22,
+        "median_share_rate": 0.212,
+        "share_of_breakouts": 0.4,
+        "best": {
+          "url": "https://www.tiktok.com/@tawnieannie/video/7485192544238832927",
+          "handle": "tawnieannie",
+          "plays": 26657,
+          "outlier": 22.92,
+          "desc": "Changing things up over here! Same industry, different opportunity—65lbs lighter, 100x happier! When you find the right environment, everyth"
+        },
+        "thin": true
+      },
+      {
+        "key": "talking-to-camera",
+        "dimension": "format",
+        "n_posts": 1,
+        "n_creators": 1,
+        "median_outlier": 0.76,
+        "median_plays": 542,
+        "median_engagement_rate": 1.11,
+        "median_share_rate": 0,
+        "share_of_breakouts": 0,
+        "best": {
+          "url": "https://www.tiktok.com/@alyegan/video/7646229804999511327",
+          "handle": "alyegan",
+          "plays": 542,
+          "outlier": 0.76,
+          "desc": "Comment or DM the word BEGIN to get started ❤️‍🔥 Yes, it suppress your appetite, but that doesn’t mean you can just stop eating. Protein is"
+        },
+        "thin": true
+      }
+    ],
+    "by_topic": [
+      {
+        "key": "peptide topic",
+        "dimension": "topic",
+        "n_posts": 135,
+        "n_creators": 36,
+        "median_outlier": 1.14,
+        "median_plays": 1254,
+        "median_engagement_rate": 3.9,
+        "median_share_rate": 0.111,
+        "share_of_breakouts": 0.36,
+        "best": {
+          "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+          "handle": "fitjourneyem",
+          "plays": 2107637,
+          "outlier": 7193.3,
+          "desc": "And feeling so much better!! @galaglp1 "
+        },
+        "thin": false
+      },
+      {
+        "key": "personal life / off topic",
+        "dimension": "topic",
+        "n_posts": 352,
+        "n_creators": 47,
+        "median_outlier": 0.96,
+        "median_plays": 932,
+        "median_engagement_rate": 6.225,
+        "median_share_rate": 0.128,
+        "share_of_breakouts": 0.22,
+        "best": {
+          "url": "https://www.tiktok.com/@gratefullymicah/video/7515933279984569646",
+          "handle": "gratefullymicah",
+          "plays": 994504,
+          "outlier": 2533.77,
+          "desc": "When mom is fighting the entire house bc she thinks someone let me outside but really I was just napping in her pajama d"
+        },
+        "thin": false
+      }
+    ]
+  },
+  "hashtags": [
+    {
+      "tag": "glp1",
+      "n_posts": 12,
+      "n_creators": 6,
+      "median_outlier": 17.565
+    },
+    {
+      "tag": "glp1community",
+      "n_posts": 5,
+      "n_creators": 5,
+      "median_outlier": 3.19
+    },
+    {
+      "tag": "fyp",
+      "n_posts": 6,
+      "n_creators": 4,
+      "median_outlier": 1.55
+    },
+    {
+      "tag": "ratatouille",
+      "n_posts": 14,
+      "n_creators": 4,
+      "median_outlier": 1.4
+    },
+    {
+      "tag": "peppers",
+      "n_posts": 10,
+      "n_creators": 3,
+      "median_outlier": 1.31
+    },
+    {
+      "tag": "galapartner",
+      "n_posts": 8,
+      "n_creators": 1,
+      "median_outlier": 0.955
+    },
+    {
+      "tag": "glp",
+      "n_posts": 9,
+      "n_creators": 2,
+      "median_outlier": 0.72
+    },
+    {
+      "tag": "research",
+      "n_posts": 6,
+      "n_creators": 1,
+      "median_outlier": 0.55
+    }
+  ],
+  "breakouts": [
+    {
+      "handle": "fitjourneyem",
+      "followers": 1542,
+      "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+      "plays": 2107637,
+      "outlier": 7193.3,
+      "hook": "vendor-tagged-journey",
+      "band": "<15s",
+      "duration_sec": 5,
+      "engagement_rate": 0.94,
+      "share_rate": 0.027,
+      "hashtags": [],
+      "desc": "And feeling so much better!! @galaglp1 ",
+      "vendor": "https://galaglp1.com",
+      "code": null
+    },
+    {
+      "handle": "maicyrobison",
+      "followers": 84968,
+      "url": "https://www.tiktok.com/@maicyrobison/video/7479996269893635370",
+      "plays": 4989359,
+      "outlier": 1085.12,
+      "hook": "vendor-tagged-journey",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 3.94,
+      "share_rate": 0.121,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "My GLP-1 journey over the last 6 months! It has truly changed my life! #glp1 #shedrx #glp1forweightloss #glp1community ",
+      "vendor": "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93",
+      "code": null
+    },
+    {
+      "handle": "oliviaraglp1",
+      "followers": 47551,
+      "url": "https://www.tiktok.com/@oliviaraglp1/video/7618350310796446990",
+      "plays": 603430,
+      "outlier": 900.64,
+      "hook": "before-after-reveal",
+      "band": "15-30s",
+      "duration_sec": 27,
+      "engagement_rate": 2.52,
+      "share_rate": 0.528,
+      "hashtags": [],
+      "desc": "GHKCU BEFORE / AFTER",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=1710",
+      "code": "$25 off"
+    },
+    {
+      "handle": "wellness.with.chr",
+      "followers": 10103,
+      "url": "https://www.tiktok.com/@wellness.with.chr/video/7648393497304665374",
+      "plays": 860785,
+      "outlier": 819.8,
+      "hook": "food-or-day-of-eating",
+      "band": "<15s",
+      "duration_sec": 6,
+      "engagement_rate": 2.21,
+      "share_rate": 1.683,
+      "hashtags": [
+        "perimenopause"
+      ],
+      "desc": "Mark my words…in 20 years there will be Netflix documentaries about perimenopause + GLPs … And they’ll go something like this 👇 She goes to her doctor… “I’m exhausted.” “My cravin",
+      "vendor": "wellness-with-christina.com/the-glp-1-optimization-guide",
+      "code": null
+    },
+    {
+      "handle": "therewellnessmomera",
+      "followers": 2766,
+      "url": "https://www.tiktok.com/@therewellnessmomera/video/7641782543515192583",
+      "plays": 287079,
+      "outlier": 606.93,
+      "hook": "dose-or-protocol-talk",
+      "band": "60-180s",
+      "duration_sec": 137,
+      "engagement_rate": 1.8,
+      "share_rate": 0.101,
+      "hashtags": [
+        "peptideserum"
+      ],
+      "desc": "This weeks contender: NG P & Nuove.co yallill - that #peptideserum overnight mask was ELITE • I can't wait to order their whole line. I believe their stuff is releasing in a few we",
+      "vendor": "innerbody.com/beginners-guide-to-peptide-therapy",
+      "code": null
+    },
+    {
+      "handle": "mediocre_mama_3",
+      "followers": 92968,
+      "url": "https://www.tiktok.com/@mediocre_mama_3/video/7493240955684818207",
+      "plays": 2200492,
+      "outlier": 437.65,
+      "hook": "myth-or-regain-defense",
+      "band": "15-30s",
+      "duration_sec": 25,
+      "engagement_rate": 4.9,
+      "share_rate": 0.094,
+      "hashtags": [
+        "bariatriccommunity"
+      ],
+      "desc": "Subway order as I’m working on losing that regain. Always bring your own dressing!!! #bariatriccommunity #subwayorder #weightgain #weightlossmotivation ",
+      "vendor": "kinmeds.com/glp-1",
+      "code": null
+    },
+    {
+      "handle": "theslickric",
+      "followers": 910,
+      "url": "https://www.tiktok.com/@theslickric/video/7607983044716137758",
+      "plays": 114538,
+      "outlier": 237.38,
+      "hook": "alias-tag-only",
+      "band": "30-60s",
+      "duration_sec": 53,
+      "engagement_rate": 7.82,
+      "share_rate": 0.555,
+      "hashtags": [
+        "peppers"
+      ],
+      "desc": "#peppers #ghkcu #peptide ",
+      "vendor": null,
+      "code": "RICO10"
+    },
+    {
+      "handle": "fitjourneyem",
+      "followers": 1542,
+      "url": "https://www.tiktok.com/@fitjourneyem/video/7649131333502995725",
+      "plays": 51949,
+      "outlier": 177.3,
+      "hook": "vendor-tagged-journey",
+      "band": "<15s",
+      "duration_sec": 7,
+      "engagement_rate": 0.5,
+      "share_rate": 0.008,
+      "hashtags": [
+        "galahealth"
+      ],
+      "desc": "Like cmon now 👀 #galahealth #healthylifestyle #wellness @galahealth ",
+      "vendor": "https://galaglp1.com",
+      "code": null
+    },
+    {
+      "handle": "maicyrobison",
+      "followers": 84968,
+      "url": "https://www.tiktok.com/@maicyrobison/video/7495210802069245227",
+      "plays": 669109,
+      "outlier": 145.52,
+      "hook": "vendor-tagged-journey",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 1.71,
+      "share_rate": 0.093,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "This GLP-1 journey has truly been life-changing for me, and I can’t help but want to share why I’d recommend it to anyone who’s been struggling like I was. \t1.\tConfidence – I final",
+      "vendor": "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93",
+      "code": null
+    },
+    {
+      "handle": "angieb127",
+      "followers": 2015,
+      "url": "https://www.tiktok.com/@angieb127/video/7538929527829843214",
+      "plays": 20538,
+      "outlier": 140.19,
+      "hook": "off-topic-personal-life",
+      "band": "30-60s",
+      "duration_sec": 36,
+      "engagement_rate": 7.75,
+      "share_rate": 0.112,
+      "hashtags": [
+        "glp1community"
+      ],
+      "desc": "#glp1community #glp1forweightloss #over50women #over50women ",
+      "vendor": "https://www.instagram.com/angelines_glp1_journey?igsh=MTB0dDJ4YjJsa2tybg%3D%3D&utm_source=qr",
+      "code": null
+    },
+    {
+      "handle": "caylapepz",
+      "followers": 10793,
+      "url": "https://www.tiktok.com/@caylapepz/video/7644352355479178526",
+      "plays": 427020,
+      "outlier": 97.91,
+      "hook": "alias-tag-only",
+      "band": "<15s",
+      "duration_sec": 8,
+      "engagement_rate": 2.54,
+      "share_rate": 0.099,
+      "hashtags": [
+        "ratatouille"
+      ],
+      "desc": "#ratatouille #biohacking #research ",
+      "vendor": "ionpeptide.com?ref=cayla",
+      "code": null
+    },
+    {
+      "handle": "ivonne_ellis",
+      "followers": 2909,
+      "url": "https://www.tiktok.com/@ivonne_ellis/video/7605466986985868557",
+      "plays": 210677,
+      "outlier": 87.71,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 1.5,
+      "share_rate": 0.052,
+      "hashtags": [
+        "glp1community"
+      ],
+      "desc": "#glp1community #wellnessjourney #healthandwellness #postpartum #healthjourney  *my personal experience. Individual results are not guaranteed and may vary. ",
+      "vendor": "portal.tryshed.com/alp?partner=leaddyno&utm_medium=affiliate&infAmt=%2450&medPromo=&afmc=Ivonne&utm_campaign",
+      "code": null
+    },
+    {
+      "handle": "theslickric",
+      "followers": 910,
+      "url": "https://www.tiktok.com/@theslickric/video/7628783524429991199",
+      "plays": 40119,
+      "outlier": 83.15,
+      "hook": "before-after-reveal",
+      "band": "60-180s",
+      "duration_sec": 150,
+      "engagement_rate": 2.61,
+      "share_rate": 0.09,
+      "hashtags": [
+        "ghkcu"
+      ],
+      "desc": "A real ghk-cu before and after #ghkcu #ghk #beforeandafter #skincare #ghkcupeptide ",
+      "vendor": null,
+      "code": "RICO10"
+    },
+    {
+      "handle": "caylapepz",
+      "followers": 10793,
+      "url": "https://www.tiktok.com/@caylapepz/video/7641612536478960927",
+      "plays": 311603,
+      "outlier": 71.44,
+      "hook": "alias-tag-only",
+      "band": "180s+",
+      "duration_sec": 260,
+      "engagement_rate": 3.9,
+      "share_rate": 0.346,
+      "hashtags": [
+        "ratatouille"
+      ],
+      "desc": "#ratatouille #biohacking #research ",
+      "vendor": "ionpeptide.com?ref=cayla",
+      "code": null
+    },
+    {
+      "handle": "teamtirzepy",
+      "followers": 1931,
+      "url": "https://www.tiktok.com/@teamtirzepy/video/7559800375486811447",
+      "plays": 101048,
+      "outlier": 65.55,
+      "hook": "off-topic-personal-life",
+      "band": "<15s",
+      "duration_sec": 7,
+      "engagement_rate": 1.43,
+      "share_rate": 0.02,
+      "hashtags": [
+        "insulinresistance"
+      ],
+      "desc": "Send this to someone who gets it. #insulinresistance #pcos #glp1 ",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=412",
+      "code": null
+    },
+    {
+      "handle": "caylapepz",
+      "followers": 10793,
+      "url": "https://www.tiktok.com/@caylapepz/video/7627252350331211039",
+      "plays": 262678,
+      "outlier": 60.23,
+      "hook": "alias-tag-only",
+      "band": "<15s",
+      "duration_sec": 8,
+      "engagement_rate": 4.12,
+      "share_rate": 0.404,
+      "hashtags": [
+        "ratatouille"
+      ],
+      "desc": "#ratatouille #research #biohacking ",
+      "vendor": "ionpeptide.com?ref=cayla",
+      "code": null
+    },
+    {
+      "handle": "therewellnessmomera",
+      "followers": 2766,
+      "url": "https://www.tiktok.com/@therewellnessmomera/video/7639184921646484757",
+      "plays": 23938,
+      "outlier": 50.61,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 44.07,
+      "share_rate": 0.017,
+      "hashtags": [
+        "fyp"
+      ],
+      "desc": "#fyp  #peptalk ",
+      "vendor": "innerbody.com/beginners-guide-to-peptide-therapy",
+      "code": null
+    },
+    {
+      "handle": "maicyrobison",
+      "followers": 84968,
+      "url": "https://www.tiktok.com/@maicyrobison/video/7469629759711038766",
+      "plays": 212891,
+      "outlier": 46.3,
+      "hook": "vendor-tagged-journey",
+      "band": "180s+",
+      "duration_sec": 256,
+      "engagement_rate": 2.12,
+      "share_rate": 0.237,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "Unbox my GLP-1 together! 🔗 in my bioooo if you want to order!#glp1 #shedrx #glp1community #glp1forweightloss ",
+      "vendor": "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93",
+      "code": null
+    },
+    {
+      "handle": "lgmcpac",
+      "followers": 3868,
+      "url": "https://www.tiktok.com/@lgmcpac/video/7498370323990023454",
+      "plays": 11821,
+      "outlier": 43.7,
+      "hook": "off-topic-personal-life",
+      "band": "<15s",
+      "duration_sec": 6,
+      "engagement_rate": 1.55,
+      "share_rate": 0.11,
+      "hashtags": [
+        "whatsinaname"
+      ],
+      "desc": "Post yours! #whatsinaname #whoami #glp1 #trendingsound ",
+      "vendor": "patients.orderlymeds.com/eligibility?_ef_transaction_id=&uid=14&oid=11&affid=193",
+      "code": null
+    },
+    {
+      "handle": "ivonne_ellis",
+      "followers": 2909,
+      "url": "https://www.tiktok.com/@ivonne_ellis/video/7579878437238656270",
+      "plays": 103887,
+      "outlier": 43.25,
+      "hook": "food-or-day-of-eating",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 3.21,
+      "share_rate": 0.097,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "#glp1 #protein #proteinsnacks #proteinsnack #glp1community ",
+      "vendor": "portal.tryshed.com/alp?partner=leaddyno&utm_medium=affiliate&infAmt=%2450&medPromo=&afmc=Ivonne&utm_campaign",
+      "code": null
+    },
+    {
+      "handle": "oliviaraglp1",
+      "followers": 47551,
+      "url": "https://www.tiktok.com/@oliviaraglp1/video/7588971021986729229",
+      "plays": 27079,
+      "outlier": 40.42,
+      "hook": "off-topic-personal-life",
+      "band": "<15s",
+      "duration_sec": 6,
+      "engagement_rate": 0.71,
+      "share_rate": 0.022,
+      "hashtags": [
+        "glp1update"
+      ],
+      "desc": "Insurance said no? Many insurance companies are canceling coverage for GLP1s as of January 2026. If you’re being affected by this, I can help! Comment HELP and I’ll send you detail",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=1710",
+      "code": "$25 off"
+    },
+    {
+      "handle": "teamtirzepy",
+      "followers": 1931,
+      "url": "https://www.tiktok.com/@teamtirzepy/video/7538944379575143735",
+      "plays": 61630,
+      "outlier": 39.98,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 1.1,
+      "share_rate": 0.029,
+      "hashtags": [],
+      "desc": "I had the gastric sleeve in July 2021. I lost about 120lbs over the course of a year and then slowly regained about 20lbs. I started tirz over one year ago  I am down the 20 pounds",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=412",
+      "code": null
+    },
+    {
+      "handle": "teamtirzepy",
+      "followers": 1931,
+      "url": "https://www.tiktok.com/@teamtirzepy/video/7544888483546942775",
+      "plays": 56081,
+      "outlier": 36.38,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 1.7,
+      "share_rate": 0.036,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "You can eat whatever you want. And you will want a lot less. You will also stay full longer. So thankful, I kept searching even after my insurance denied coverage #glp1 #glp1news #",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=412",
+      "code": null
+    },
+    {
+      "handle": "angieb127",
+      "followers": 2015,
+      "url": "https://www.tiktok.com/@angieb127/video/7528496594052828429",
+      "plays": 4946,
+      "outlier": 33.76,
+      "hook": "off-topic-personal-life",
+      "band": "15-30s",
+      "duration_sec": 15,
+      "engagement_rate": 4.16,
+      "share_rate": 0.04,
+      "hashtags": [
+        "glp1forweightloss"
+      ],
+      "desc": "#glp1forweightloss ",
+      "vendor": "https://www.instagram.com/angelines_glp1_journey?igsh=MTB0dDJ4YjJsa2tybg%3D%3D&utm_source=qr",
+      "code": null
+    },
+    {
+      "handle": "kellystaraminos",
+      "followers": 9607,
+      "url": "https://www.tiktok.com/@kellystaraminos/video/7615673416334560525",
+      "plays": 72196,
+      "outlier": 29.44,
+      "hook": "dose-or-protocol-talk",
+      "band": "30-60s",
+      "duration_sec": 40,
+      "engagement_rate": 4.77,
+      "share_rate": 0.396,
+      "hashtags": [
+        "ghkcu"
+      ],
+      "desc": "What’s yours 🧬🦄 #ghkcu #peptidetherapy #peppers #peptidetreatment ",
+      "vendor": "https://staraminos.com/",
+      "code": "15% off"
+    },
+    {
+      "handle": "rickielo2",
+      "followers": 12258,
+      "url": "https://www.tiktok.com/@rickielo2/video/7640263376748170509",
+      "plays": 23735,
+      "outlier": 27.99,
+      "hook": "dose-or-protocol-talk",
+      "band": "180s+",
+      "duration_sec": 509,
+      "engagement_rate": 7.75,
+      "share_rate": 1.513,
+      "hashtags": [
+        "pepperz"
+      ],
+      "desc": "I break down the different vials, how to find YOUR d0se, how to use the pep calculator, and ml, mg, units, and syringes!  #pepperz #peppers #peps #pep ",
+      "vendor": "omnicalculator.com/health/peptide-dosage",
+      "code": null
+    },
+    {
+      "handle": "desiraesjourney",
+      "followers": 24752,
+      "url": "https://www.tiktok.com/@desiraesjourney/video/7612373602096172318",
+      "plays": 38309,
+      "outlier": 23.21,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 4.17,
+      "share_rate": 0.031,
+      "hashtags": [
+        "glp"
+      ],
+      "desc": "I haven’t seen a TWO at the beginning since high school!!! I couldn’t be more grateful for @Join Amble and the wonderful community it has brought me! 🔗 in byeohhh if you wanna sta",
+      "vendor": "joinamble.com/wl/influencer?referral-campaign=desiraeglp1journey&referral-source=affiliate&promo=AmbleG",
+      "code": null
+    },
+    {
+      "handle": "tawnieannie",
+      "followers": 34119,
+      "url": "https://www.tiktok.com/@tawnieannie/video/7485192544238832927",
+      "plays": 26657,
+      "outlier": 22.92,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 1.63,
+      "share_rate": 0.094,
+      "hashtags": [
+        "weightlossjouney"
+      ],
+      "desc": "Changing things up over here! Same industry, different opportunity—65lbs lighter, 100x happier! When you find the right environment, everything changes. ✨🤟🏼 #weightlossjouney ",
+      "vendor": "elliemd.com/tawnieannie",
+      "code": null
+    },
+    {
+      "handle": "wellnesswithcassie",
+      "followers": 18609,
+      "url": "https://www.tiktok.com/@wellnesswithcassie/video/7585964379615579447",
+      "plays": 10379,
+      "outlier": 22.42,
+      "hook": "off-topic-personal-life",
+      "band": null,
+      "duration_sec": null,
+      "engagement_rate": 4.22,
+      "share_rate": 0.212,
+      "hashtags": [
+        "glp1"
+      ],
+      "desc": "When you finally take your health seriously and start glp1 and your life changes!!!! #glp1 #glp1community #glp1journey #glp1forweightloss #glp1girlies ",
+      "vendor": "seeqsupply.com/ZEPBOUNDWI63796",
+      "code": null
+    },
+    {
+      "handle": "kellystaraminos",
+      "followers": 9607,
+      "url": "https://www.tiktok.com/@kellystaraminos/video/7610639350941961486",
+      "plays": 48456,
+      "outlier": 19.76,
+      "hook": "question-to-audience",
+      "band": "60-180s",
+      "duration_sec": 74,
+      "engagement_rate": 2.73,
+      "share_rate": 0.144,
+      "hashtags": [
+        "peptideliptreatment"
+      ],
+      "desc": "Feel free to share your update below! Or if you have any questions! #peptideliptreatment #peptidetherapy #tirz ",
+      "vendor": "https://staraminos.com/",
+      "code": "15% off"
+    }
+  ],
+  "on_topic_posts": 135,
+  "off_topic_posts": 352,
+  "reference_creators": [
+    {
+      "handle": "thenutritionnarc",
+      "followers": 601395,
+      "bio": "Sacramento\nEkkovision, PEScience code: NARC\nBrands:\nBlake@jakerosenentertainment.com",
+      "bio_link": "https://linktr.ee/thenutritionnarc",
+      "vendor": null,
+      "code": "NARC",
+      "posts_collected": 10,
+      "median_plays": 72082.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@thenutritionnarc/video/7665834228252298527",
+        "plays": 209627,
+        "desc": "The average US woman is 5 foot 3 inches tall and weighs 171 lbs"
+      }
+    },
+    {
+      "handle": "lyvigaill",
+      "followers": 429343,
+      "bio": "MOM OF 2 BEAUTIFUL GIRLS 🫶🏻\n••\ncarolina@influencerxbrand.com\nUse code LYVI26 for $150 off on GLP1⬇️",
+      "bio_link": "https://linktr.ee/lyvigaill",
+      "vendor": null,
+      "code": "LYVI26",
+      "posts_collected": 10,
+      "median_plays": 24431.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@lyvigaill/video/7528073795203058958",
+        "plays": 247275,
+        "desc": "@𝐋 𝐀 𝐋 𝐎™ #MomsofTikTok #stayathomemoms "
+      }
+    },
+    {
+      "handle": "jessigoberr",
+      "followers": 23456,
+      "bio": "Mom to Windsor, Georgia and Duke 🩷🩵\nLink to my weightloss 💉 online provider ⬇️",
+      "bio_link": "https://linktr.ee/JessiMcDaniel",
+      "vendor": "elliemd.com/Jessicamcdaniel",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 14589.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@jessigoberr/video/7610611568912469278",
+        "plays": 6204802,
+        "desc": "It’s not even the fact that he puts it in there it’s HOW MUCH he uses "
+      }
+    },
+    {
+      "handle": "gisselle.giron",
+      "followers": 582340,
+      "bio": "AYBL code GISSELLE\ngisselle.giron40@gmail.com",
+      "bio_link": "https://hoo.be/gissellegiron",
+      "vendor": null,
+      "code": "GISSELLE",
+      "posts_collected": 10,
+      "median_plays": 12291.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@gisselle.giron/video/7662918046024994061",
+        "plays": 29771,
+        "desc": "you know what I’m dope !!!! @AYBL ‘GISSELLE’ #mindsetmotivation #wellness #hotpilates #hotsculpt #gymgirl "
+      }
+    },
+    {
+      "handle": "glp1amieee",
+      "followers": 4264,
+      "bio": "MY BACK-UP ACCT! \nwww.wickedbiopeptides.com",
+      "bio_link": "https://www.wickedbiopeptides.com/",
+      "vendor": "https://www.wickedbiopeptides.com/",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 9524,
+      "best_post": {
+        "url": "https://www.tiktok.com/@glp1amieee/video/7662651018081078559",
+        "plays": 42048,
+        "desc": "Wicked Bio"
+      }
+    },
+    {
+      "handle": "ingridexplainsitall",
+      "followers": 624190,
+      "bio": "THIS IS MY ONLY ACCOUNT\nLove ❤️- Wellness - & Life\n📍NYC | 📩 ingridexplainsitall@gmail.com\nYouTube for 🌶️ how tos\nProduct links 👇",
+      "bio_link": "https://linktr.ee/IngridsWorld",
+      "vendor": "aminoclub.com?utm_source=affiliate_marketing&code=INGRID43",
+      "code": null,
+      "posts_collected": 9,
+      "median_plays": 6736,
+      "best_post": {
+        "url": "https://www.tiktok.com/@ingridexplainsitall/video/7666035274220047646",
+        "plays": 51883,
+        "desc": "You’ll think this would never happen UNTIL it does #datingadviceforwomen #datingadvicefortheladies #cheatersge"
+      }
+    },
+    {
+      "handle": "mediocre_mama_3",
+      "followers": 92968,
+      "bio": "✨Just a girl taking her life back✨\n💌kenziepartnerships@gmail.com\n⬇️GLPCode:KENZIE50",
+      "bio_link": "https://linktr.ee/wardmack96",
+      "vendor": "kinmeds.com/glp-1",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 5028,
+      "best_post": {
+        "url": "https://www.tiktok.com/@mediocre_mama_3/video/7493240955684818207",
+        "plays": 2200492,
+        "desc": "Subway order as I’m working on losing that regain. Always bring your own dressing!!! #bariatriccommunity #subw"
+      }
+    },
+    {
+      "handle": "cales.research",
+      "followers": 10166,
+      "bio": "@cale_unscripted  @Cale xD \n⠀\nYour friendly neighborhood test rat\n⠀\nfull pep guide & where I buy them ↓",
+      "bio_link": "https://linktr.ee/caleunscripted",
+      "vendor": "skool.com/cales-peptide-guide-8578/about",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 4866,
+      "best_post": {
+        "url": "https://www.tiktok.com/@cales.research/video/7647283886178716941",
+        "plays": 249668,
+        "desc": "Let me know if you have any questions! "
+      }
+    },
+    {
+      "handle": "maicyrobison",
+      "followers": 84968,
+      "bio": "just a girl on a health journey🫶🏻 \nsharing my tips & tricks\n🔗 to start the 💉 ⬇️",
+      "bio_link": "https://linktr.ee/maicyr",
+      "vendor": "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 4598,
+      "best_post": {
+        "url": "https://www.tiktok.com/@maicyrobison/video/7479996269893635370",
+        "plays": 4989359,
+        "desc": "My GLP-1 journey over the last 6 months! It has truly changed my life! #glp1 #shedrx #glp1forweightloss #glp1c"
+      }
+    },
+    {
+      "handle": "diaryofemmym",
+      "followers": 44288,
+      "bio": "becoming her again ♡ \niowa city, iowa \nglp-1 • realistic living • 27\n$150 OFF FRIDAYS CODE: EMMA ⬇️\n💌emmamlyon27@gmail.com",
+      "bio_link": "https://linktr.ee/emmamlyon",
+      "vendor": null,
+      "code": "$150 OFF",
+      "posts_collected": 10,
+      "median_plays": 4397.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@diaryofemmym/video/7646541410644102431",
+        "plays": 10341038,
+        "desc": "whose raising these men?  #plussize #fatfriend #datingstorytime #blowthisup "
+      }
+    },
+    {
+      "handle": "caylapepz",
+      "followers": 10793,
+      "bio": "💙 Ion Peptide Affiliate Manager 💙\nCayla.ionaffiliates@gmail.com\nresearch & education only 😘\n@Cayla & @caylapepz2\n⬇️ CODES & DIRECT LINKS BELOW ⬇️",
+      "bio_link": "https://linktr.ee/caylacurry",
+      "vendor": "ionpeptide.com?ref=cayla",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 4361.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@caylapepz/video/7644352355479178526",
+        "plays": 427020,
+        "desc": "#ratatouille #biohacking #research "
+      }
+    },
+    {
+      "handle": "kellystaraminos",
+      "followers": 9607,
+      "bio": "🧬Peppers🦄\n1.5M+ followers on main socials\n👽✨ @Star Aminos🔥 Made In US🇺🇸Multiple Testing Process🧬FarmaceuticaI Grade (15% off Code: friend15)",
+      "bio_link": "https://staraminos.com/",
+      "vendor": "https://staraminos.com/",
+      "code": "15% off",
+      "posts_collected": 10,
+      "median_plays": 2452,
+      "best_post": {
+        "url": "https://www.tiktok.com/@kellystaraminos/video/7615673416334560525",
+        "plays": 72196,
+        "desc": "What’s yours 🧬🦄 #ghkcu #peptidetherapy #peppers #peptidetreatment "
+      }
+    },
+    {
+      "handle": "iamkatheryndanielle",
+      "followers": 13757,
+      "bio": "•Cosmetics & Fashion & Lifestyle•\n💌: Katlipscomb@gmail.com",
+      "bio_link": "https://www.americanpeptides.us/katherynlipscomb",
+      "vendor": "https://www.americanpeptides.us/katherynlipscomb",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 2447.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@iamkatheryndanielle/video/7161956414397746475",
+        "plays": 691886,
+        "desc": "#fup #cheater #sidechick #affair #narcissist #absue #notaflex #trash"
+      }
+    },
+    {
+      "handle": "ivonne_ellis",
+      "followers": 2909,
+      "bio": "Sharing my health & wellness journey\n*not medical advice\n📧: ellis.ivonnec@gmail.com\nYour glp bestie 💉\n🔗 to start ⬇️",
+      "bio_link": "https://linktr.ee/ivonnecristina_",
+      "vendor": "portal.tryshed.com/alp?partner=leaddyno&utm_medium=affiliate&infAmt=%2450&medPromo=&afmc=Ivonne&utm_campaign",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 2402,
+      "best_post": {
+        "url": "https://www.tiktok.com/@ivonne_ellis/video/7605466986985868557",
+        "plays": 210677,
+        "desc": "#glp1community #wellnessjourney #healthandwellness #postpartum #healthjourney  *my personal experience. Indivi"
+      }
+    },
+    {
+      "handle": "lalajohnston",
+      "followers": 124511,
+      "bio": "💌 shortlauren@icloud.com\n\n📫 401 U.S. Hwy 80 East\nDemopolis, Al 36732",
+      "bio_link": "https://linktr.ee/lalajohnston",
+      "vendor": "elliemd.com/lalajohnston",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1685,
+      "best_post": {
+        "url": "https://www.tiktok.com/@lalajohnston/video/7666056797341486349",
+        "plays": 10092,
+        "desc": "Zero chill at this house EVER 😂 #fyp #fypシ #dance #funny #funnymoments "
+      }
+    },
+    {
+      "handle": "desiraesjourney",
+      "followers": 24752,
+      "bio": "glp + wellness + lifestyle \ngirly on a glp journey, showing you the ups and downs of my personal transformation. \n⬇️   BROWSE MY LINKS  ⬇️",
+      "bio_link": "https://linktr.ee/DesiraeTaylor",
+      "vendor": "joinamble.com/wl/influencer?referral-campaign=desiraeglp1journey&referral-source=affiliate&promo=AmbleG",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1650.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@desiraesjourney/video/7647660430931938573",
+        "plays": 39198,
+        "desc": "#onthisday #foryoupage "
+      }
+    },
+    {
+      "handle": "capital.chia",
+      "followers": 4646,
+      "bio": "22  •  my pep journey with BED\nSources MASTER DOC ⬇️ BACKUP •@chia \nFor informative content @Chia  \nReta is nl-3 RT and tirz is nl-2 TZ",
+      "bio_link": "https://linktr.ee/capitalchia",
+      "vendor": "capitalchia.com/index.php/2026/06/23/taketheretasuvery",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1642.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@capital.chia/video/7646902916535569695",
+        "plays": 27928,
+        "desc": "Replying to @🌞  benji  🌀 my neighbor is going yard work sorry about the noise #ascend "
+      }
+    },
+    {
+      "handle": "dliftstok",
+      "followers": 5889,
+      "bio": "",
+      "bio_link": "Stan.store/peptideprice",
+      "vendor": "stan.store/peptideprice",
+      "code": null,
+      "posts_collected": 9,
+      "median_plays": 1572,
+      "best_post": {
+        "url": "https://www.tiktok.com/@dliftstok/video/7663203981677612301",
+        "plays": 8736,
+        "desc": "5-Amino-1MQ bioavailability study revealed: oral capsules show ~38.4% systemic absorption in rodents. Half-lif"
+      }
+    },
+    {
+      "handle": "teamtirzepy",
+      "followers": 1931,
+      "bio": "GLP1 patient | affiliate\n🚫 medical advice 🚫\n⬇️ My go to GLP1 companies ⬇️",
+      "bio_link": "https://linktr.ee/neysajayde",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=412",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1541.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@teamtirzepy/video/7559800375486811447",
+        "plays": 101048,
+        "desc": "Send this to someone who gets it. #insulinresistance #pcos #glp1 "
+      }
+    },
+    {
+      "handle": "mitrifit",
+      "followers": 325057,
+      "bio": "IFBB PRO 🌐\n27 ‼️\nIG: MITRII.FIT‼️‼️ \nCODE MITRI BELOW ⬇️",
+      "bio_link": "https://linktr.ee/Mitriifit",
+      "vendor": "peptira.com",
+      "code": "MITRI",
+      "posts_collected": 10,
+      "median_plays": 1449,
+      "best_post": {
+        "url": "https://www.tiktok.com/@mitrifit/video/7285553559528033578",
+        "plays": 1770261,
+        "desc": "This chicken NEVER fails 🫡"
+      }
+    },
+    {
+      "handle": "chrisriosss",
+      "followers": 2478,
+      "bio": "Back up - @chrisinstyle \n✉️: chrisrioshere@gmail.com\n @LuvionBio GLP-3RT / @Peptide Tracker AI \n  ⬇️",
+      "bio_link": "https://linktr.ee/chrisrioshere",
+      "vendor": "peptrack.co/c/chrisriosss",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1184.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@chrisriosss/video/7627332204338646302",
+        "plays": 329375,
+        "desc": ""
+      }
+    },
+    {
+      "handle": "tawnieannie",
+      "followers": 34119,
+      "bio": "|mid-size girly|\nyour fav live seller 🤟🏼\n|BE THE LIGHT ✨|\nlinks👇🏼 & lives 👆🏼",
+      "bio_link": "https://linktr.ee/tawnieannie",
+      "vendor": "elliemd.com/tawnieannie",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1163,
+      "best_post": {
+        "url": "https://www.tiktok.com/@tawnieannie/video/7485192544238832927",
+        "plays": 26657,
+        "desc": "Changing things up over here! Same industry, different opportunity—65lbs lighter, 100x happier! When you find "
+      }
+    },
+    {
+      "handle": "papi.peptide",
+      "followers": 133846,
+      "bio": "Peptides, no BS 🧬\nRecovery ❤️‍🩹 • Longevity ⏳ • Body recomposition 💪⚙️ • Aesthetics ✨\nWhat works. I’ll guide you. Save money.\nDM “SOURCE” o “MUESTRAME”",
+      "bio_link": "https://linktr.ee/josephpnwbiocompounds",
+      "vendor": "pnwbiocompounds.com",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1141.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@papi.peptide/video/7656249359993982239",
+        "plays": 7661,
+        "desc": "Replying to @papi.peptide DM me SOURCE for high quality peppers. once a week or twice a week? What’s you’re pr"
+      }
+    },
+    {
+      "handle": "thatgeeksofia",
+      "followers": 6993,
+      "bio": "Skincare • Biohacking • Glow Up\nAlmost 40✨\nReal routines. Real results. No gatekeeping.",
+      "bio_link": "https://linktr.ee/thatgeeksofia",
+      "vendor": "peptira.com/?ref=thatgeek",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1104.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@thatgeeksofia/video/7664675343466269965",
+        "plays": 17979,
+        "desc": "Happy B-Day Glow Aminos 55% off🩷🩷 Cod3: ThatGeek #glowaminos #thatgirl #softgirl #GlowUp #wellnessjourney "
+      }
+    },
+    {
+      "handle": "wellness.with.chr",
+      "followers": 10103,
+      "bio": "🫀Board-Certified PA (no med advice)\nWellness Advocate ✨ Down 60🥔\nText 941.218.0033 for personalized options\n⬇️ Click here to start your GLP1 journey ⬇️",
+      "bio_link": "https://linktr.ee/Wellness_with_Christina",
+      "vendor": "wellness-with-christina.com/the-glp-1-optimization-guide",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 1050,
+      "best_post": {
+        "url": "https://www.tiktok.com/@wellness.with.chr/video/7648393497304665374",
+        "plays": 860785,
+        "desc": "Mark my words…in 20 years there will be Netflix documentaries about perimenopause + GLPs … And they’ll go some"
+      }
+    },
+    {
+      "handle": "kplockedin",
+      "followers": 5035,
+      "bio": "Peps & Training Acc\n👇🏼My trusted source👇🏼\n🧪R3ta is Infus RT🧪\n✅Code PAK 10% off✅\n🌎World wide Shipping🌎",
+      "bio_link": "https://www.infuslabs.com/?ref=pak",
+      "vendor": null,
+      "code": "PAK",
+      "posts_collected": 10,
+      "median_plays": 1026.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@kplockedin/video/7647331347098291486",
+        "plays": 2023772,
+        "desc": "I’m on girl dinners now 😭"
+      }
+    },
+    {
+      "handle": "rickielo2",
+      "followers": 12258,
+      "bio": "Main account @RickieLo \nHelping people get their spark back ✨\nDm if you need ANY help 💕",
+      "bio_link": "https://linktr.ee/rickielo",
+      "vendor": "omnicalculator.com/health/peptide-dosage",
+      "code": null,
+      "posts_collected": 9,
+      "median_plays": 848,
+      "best_post": {
+        "url": "https://www.tiktok.com/@rickielo2/video/7640263376748170509",
+        "plays": 23735,
+        "desc": "I break down the different vials, how to find YOUR d0se, how to use the pep calculator, and ml, mg, units, and"
+      }
+    },
+    {
+      "handle": "thee.rochelle.maree",
+      "followers": 12238,
+      "bio": "💌thee.rochelle.maree@gmail.com\nFollow on IG @Thee_Rochelle_Maree",
+      "bio_link": "https://linktr.ee/RochelleMaree",
+      "vendor": "elliemd.com/rochellemaree",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 777,
+      "best_post": {
+        "url": "https://www.tiktok.com/@thee.rochelle.maree/video/7208045995937271086",
+        "plays": 186922,
+        "desc": "Dont let the ugly in others, kill the Beauty in You ♡  #bekind #spreadlove #beauty #fyp "
+      }
+    },
+    {
+      "handle": "alyegan",
+      "followers": 27430,
+      "bio": "mama of 3 including twins ❣️\npept!des, fashion, fitness\nivf, recurrent miscarriage & surrogacy advocate",
+      "bio_link": "https://linktr.ee/alyegan",
+      "vendor": "elliemd.com/product/glp1-gip-b12/?bp=alyegan",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 712,
+      "best_post": {
+        "url": "https://www.tiktok.com/@alyegan/video/7547541992255999263",
+        "plays": 729628,
+        "desc": "It’ll never get old🥹 Years of dreaming of feeling another baby’s kicks but now I get to feel TWO of them in t"
+      }
+    },
+    {
+      "handle": "cehardennn",
+      "followers": 12369,
+      "bio": "Here for the laughs and the glow ✨\n📧: Cameroneharden@icloud.com",
+      "bio_link": "https://linktr.ee/Cameroneharden",
+      "vendor": "elliemd.com/cameroneharden",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 706.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@cehardennn/video/7587563163583859999",
+        "plays": 749575,
+        "desc": "Ready for the new year 🥂✨ #newyear #newme #fyp "
+      }
+    },
+    {
+      "handle": "oliviaraglp1",
+      "followers": 47551,
+      "bio": "DO26 $25 off GLP1 promo code!!! I Michigan | Entrepreneur | Mom 3X | GLP1 & Peptides",
+      "bio_link": "https://linktr.ee/OliviaraGLOW",
+      "vendor": "orderlymeds.com/simplestart/?_ef_transaction_id=&amp;uid=1&amp;oid=2&amp;affid=1710",
+      "code": "$25 off",
+      "posts_collected": 10,
+      "median_plays": 670,
+      "best_post": {
+        "url": "https://www.tiktok.com/@oliviaraglp1/video/7618350310796446990",
+        "plays": 603430,
+        "desc": "GHKCU BEFORE / AFTER"
+      }
+    },
+    {
+      "handle": "suefit333",
+      "followers": 27099,
+      "bio": "Thoughts and vibes of a real woman\nIG Muvasue__ \nRaskol affiliate code: SUEFIT at checkout⬇️",
+      "bio_link": "https://linktr.ee/suefit_",
+      "vendor": null,
+      "code": "SUEFIT",
+      "posts_collected": 10,
+      "median_plays": 589.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@suefit333/video/7642047929984814350",
+        "plays": 70848,
+        "desc": "I was almost 200lbs and still no need for the needles .. let’s stop normalizing poking ourselves when we know "
+      }
+    },
+    {
+      "handle": "kaylee.glow.up",
+      "followers": 1867,
+      "bio": "Real GLP Life\nChronic Illness & ADHD\nAffordable finds \nRomans 12",
+      "bio_link": "https://linktr.ee/kayleeglowup",
+      "vendor": "liferx.md/get-started-on-our-glp1-telehealth-program/?utm_source=iflr&utm_content=kayleeglowup",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 535.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@kaylee.glow.up/video/7614752767390797070",
+        "plays": 9167,
+        "desc": "Anyone else relate? It’s like a whole new world! Idea from: losingitwithrach_ on IG!!! #wellness #wellnessjour"
+      }
+    },
+    {
+      "handle": "lainey.bowmer",
+      "followers": 2807,
+      "bio": "TX 22\nFitness | Fashion | Realtor\nJesus is my savior\nlaineybowmer@gmail.com",
+      "bio_link": "https://linktr.ee/lfbowmer",
+      "vendor": "elliemd.com/product/glp1-gip-b12",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 509.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@lainey.bowmer/video/7633901646598147359",
+        "plays": 15845,
+        "desc": "GRWM + Let me tell you a little bit more about me!! 🫶🏼🫶🏼"
+      }
+    },
+    {
+      "handle": "theslickric",
+      "followers": 910,
+      "bio": "I get my peptides from peptide.partners\n\nUse code RICO10 for a discount\n\nBackup acc: @ricslicc",
+      "bio_link": null,
+      "vendor": null,
+      "code": "RICO10",
+      "posts_collected": 10,
+      "median_plays": 482.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@theslickric/video/7607983044716137758",
+        "plays": 114538,
+        "desc": "#peppers #ghkcu #peptide "
+      }
+    },
+    {
+      "handle": "whitney.pepper_be",
+      "followers": 2243,
+      "bio": "Alpha Omega, Simple Peptide, and Refill pen.com- code ADKISSON save $$\n✉️ whitneycrystal@yahoo.com",
+      "bio_link": "https://linktr.ee/whitneycrystal",
+      "vendor": null,
+      "code": "ADKISSON",
+      "posts_collected": 10,
+      "median_plays": 478,
+      "best_post": {
+        "url": "https://www.tiktok.com/@whitney.pepper_be/video/7558603340091804959",
+        "plays": 952,
+        "desc": "Love peppers and want less pins a day then this is for you!!!  #melts #newproduct #alphaomega #peppyfriends #f"
+      }
+    },
+    {
+      "handle": "therewellnessmomera",
+      "followers": 2766,
+      "bio": "here for the \n🧬hot mom evolution❤️\n    My source 🔬 ↓",
+      "bio_link": "https://linktr.ee/Purelifepeptide",
+      "vendor": "innerbody.com/beginners-guide-to-peptide-therapy",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 473,
+      "best_post": {
+        "url": "https://www.tiktok.com/@therewellnessmomera/video/7641782543515192583",
+        "plays": 287079,
+        "desc": "This weeks contender: NG P & Nuove.co yallill - that #peptideserum overnight mask was ELITE • I can't wait to "
+      }
+    },
+    {
+      "handle": "growwith_melissa",
+      "followers": 5423,
+      "bio": "I help real people lose weight with GLP1s, shift mindset & monetize Tik Tok💫\n⬇️ My favorite tools ⬇️",
+      "bio_link": "https://partners.orderlymeds.com/260V000/Eligibility",
+      "vendor": "https://partners.orderlymeds.com/260V000/Eligibility",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 472,
+      "best_post": {
+        "url": "https://www.tiktok.com/@growwith_melissa/video/7530464765320252686",
+        "plays": 653,
+        "desc": "#GLP1s #glp1community #glp1update #tirzepatide #semaglutide "
+      }
+    },
+    {
+      "handle": "wellnesswithcassie",
+      "followers": 18609,
+      "bio": "Welcome to my wellness journey!❤️ collabswithcassiei@gmail.com \n👇🏻👇🏻👇🏻👇🏻",
+      "bio_link": "Linktr.ee/collabswithcassiei",
+      "vendor": "seeqsupply.com/ZEPBOUNDWI63796",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 463,
+      "best_post": {
+        "url": "https://www.tiktok.com/@wellnesswithcassie/video/7585964379615579447",
+        "plays": 10379,
+        "desc": "When you finally take your health seriously and start glp1 and your life changes!!!! #glp1 #glp1community #glp"
+      }
+    },
+    {
+      "handle": "franklyjacqueline",
+      "followers": 5905,
+      "bio": "🖤 Emo/Alt\n🎃 Spooky mom of 3 🖤Married\n⚡️ –100 lbs 🤍Vitiligo\n👻 Weird is cool 🕷️Halloween obsessed\nCode:JACKIEC for a discount on LabSourced!",
+      "bio_link": "www.labsourced.com",
+      "vendor": null,
+      "code": "JACKIEC",
+      "posts_collected": 10,
+      "median_plays": 407.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@franklyjacqueline/video/7585372183967452471",
+        "plays": 743,
+        "desc": "My weight no longer holds me back. @Zappy Health is who I use and if you use my code:JC150 you will get one hu"
+      }
+    },
+    {
+      "handle": "gratefullymicah",
+      "followers": 2988,
+      "bio": "✨ mom | entrepreneur \n🫶🏻 beauty + wellness routines\n📧 Thegratefulbeautybar@gmail.com\n💉Link: ngpeptide.com/?ref=ypdmlpbr\n10% off peptides code: Micahwheat",
+      "bio_link": "https://tr.ee/ZaluVsYw6i",
+      "vendor": null,
+      "code": "10% off",
+      "posts_collected": 10,
+      "median_plays": 392.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@gratefullymicah/video/7515933279984569646",
+        "plays": 994504,
+        "desc": "When mom is fighting the entire house bc she thinks someone let me outside but really I was just napping in he"
+      }
+    },
+    {
+      "handle": "texaseve",
+      "followers": 1203,
+      "bio": "Mom. BA, AS, NCMA. Working on my Masters in instruction of design and technology",
+      "bio_link": "https://linktr.ee/texaseve78",
+      "vendor": "elliemd.com/EveRecharged",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 353,
+      "best_post": {
+        "url": "https://www.tiktok.com/@texaseve/video/7563762609812458783",
+        "plays": 1034,
+        "desc": "Loving this life!! If you ask me if you should do it I’ll say YES a thousand times!! 4 pounds of extra skin re"
+      }
+    },
+    {
+      "handle": "jessieinherera",
+      "followers": 8195,
+      "bio": "📧 jessieinherera@gmail.com\nGlow Up Diaries 🦋 No Gatekeeping\nWellness • Real Life • Finding me again\n❤️ \"Jessika\" for 5️⃣0️⃣ off \nto start ⬇️",
+      "bio_link": "https://liferx.md/get-started-on-our-glp1-telehealth-program/?utm_source=iflr&utm_content=jessika",
+      "vendor": "https://liferx.md/get-started-on-our-glp1-telehealth-program/?utm_source=iflr&utm_content=jessika",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 344,
+      "best_post": {
+        "url": "https://www.tiktok.com/@jessieinherera/video/7595288792420994334",
+        "plays": 1370,
+        "desc": "My before. My after. My comeback season. I showed up for myself — and I’m proud of that.  #wellnessjourney #gl"
+      }
+    },
+    {
+      "handle": "fitjourneyem",
+      "followers": 1542,
+      "bio": "Feeling my best for me! \n💪💌Sharing my experience ✨❣️",
+      "bio_link": "https://galaglp1.com",
+      "vendor": "https://galaglp1.com",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 293,
+      "best_post": {
+        "url": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958",
+        "plays": 2107637,
+        "desc": "And feeling so much better!! @galaglp1 "
+      }
+    },
+    {
+      "handle": "lgmcpac",
+      "followers": 3868,
+      "bio": "Louisiana PAx17years, \nGL🫛 user and advocate. \n⬇️ resource to get GL🫛 today!\nOr if you're local, come see me!\nPerimenopause, and 40+life stuff!",
+      "bio_link": "https://linktr.ee/lgmcpac",
+      "vendor": "patients.orderlymeds.com/eligibility?_ef_transaction_id=&uid=14&oid=11&affid=193",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 270.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@lgmcpac/video/7519584398757367071",
+        "plays": 84343,
+        "desc": "Please share so that everyone will learn and know the dangers of these vehicles: four wheelers, side by sides,"
+      }
+    },
+    {
+      "handle": "yahairayosoy",
+      "followers": 4387,
+      "bio": "Creating my healthiest self in my next chapter ✨\n🌱 40+ Wellness | ❤️ Confidence | 🧠 Mindset\n👇🏼 Add “Yahaira” 🔗👇🏼",
+      "bio_link": "https://liferx.md/get-started-on-our-glp1-telehealth-program/?utm_source=iflr&utm_content=yahaira",
+      "vendor": "https://liferx.md/get-started-on-our-glp1-telehealth-program/?utm_source=iflr&utm_content=yahaira",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 223,
+      "best_post": {
+        "url": "https://www.tiktok.com/@yahairayosoy/video/7663444662681734430",
+        "plays": 451,
+        "desc": "The \"I'm not telling nobody\" lasted until somebody looked at me and said, \"How did you do it?\" 🤣 #Meme #MemeC"
+      }
+    },
+    {
+      "handle": "angieb127",
+      "followers": 2015,
+      "bio": "50+ GLP1 and HRT Comfort knowledge \n💌chocolatelover96094@gmail.com",
+      "bio_link": "https://www.instagram.com/angelines_glp1_journey?igsh=MTB0dDJ4YjJsa2tybg%3D%3D&utm_source=qr",
+      "vendor": "https://www.instagram.com/angelines_glp1_journey?igsh=MTB0dDJ4YjJsa2tybg%3D%3D&utm_source=qr",
+      "code": null,
+      "posts_collected": 10,
+      "median_plays": 146.5,
+      "best_post": {
+        "url": "https://www.tiktok.com/@angieb127/video/7538929527829843214",
+        "plays": 20538,
+        "desc": "#glp1community #glp1forweightloss #over50women #over50women "
+      }
+    },
+    {
+      "handle": "dailydoseofamberdean",
+      "followers": 3617,
+      "bio": "Daily diary 📔 \nGLP resource• Fitness • Lifestyle \n✨\n| ZAPPY HEALTH code:AMBER150 |\n❤️‍🔥",
+      "bio_link": "https://linktr.ee/amberdeanreads",
+      "vendor": null,
+      "code": "AMBER150",
+      "posts_collected": 10,
+      "median_plays": 92,
+      "best_post": {
+        "url": "https://www.tiktok.com/@dailydoseofamberdean/video/7660015216570240270",
+        "plays": 129,
+        "desc": "This app hates me and keeps restricting my views 😭 I feel like I’m going to need a new acct soon. "
+      }
+    },
+    {
+      "handle": "that_girl_leslie73",
+      "followers": 6772,
+      "bio": "Health|Wellness 💉 TTSHOP 🌸  \nGee-El🫛📎 https://lddy.no/1pqff\nUse Code LeslieR \nNAD+📎https://lddy.no/1pp2p?afmc=LeslieR40\nUse Code LeslieR40",
+      "bio_link": "https://thatgirlleslie.com",
+      "vendor": null,
+      "code": "LeslieR",
+      "posts_collected": 10,
+      "median_plays": 31,
+      "best_post": {
+        "url": "https://www.tiktok.com/@that_girl_leslie73/video/7666004851364580638",
+        "plays": 573,
+        "desc": "@Queen of the Thrones® #castoroilrollerball #rosequartz #messfreecastoroil #dealsforyoudays "
+      }
+    }
+  ],
+  "brief": {
+    "directives": [
+      {
+        "rule": "Lead with the \"food or day of eating\" angle",
+        "evidence": "8 posts across 7 creators, median 6.74x that creator own baseline, 50% of them broke out at 2x or more.",
+        "example": "https://www.tiktok.com/@wellness.with.chr/video/7648393497304665374"
+      },
+      {
+        "rule": "Target 180s+ runtime",
+        "evidence": "9 posts, median 4.35x baseline versus 1.005x for 60-180s.",
+        "example": "https://www.tiktok.com/@caylapepz/video/7641612536478960927"
+      },
+      {
+        "rule": "Tag #glp1",
+        "evidence": "12 posts across 6 creators, median 17.565x baseline.",
+        "example": null
+      },
+      {
+        "rule": "Treat vendor-tagged posts as a high-variance volume play, not a reliable format",
+        "evidence": "Posts that @-tag or hashtag the brand have a median of only 312 plays (1.06x baseline over 13 posts from 2 creators) - most of them go nowhere. But they also hold 5 of the top 30 breakouts in the whole cohort, including the single biggest at 4,989,359 plays. Low floor, highest ceiling in the set.",
+        "directive": "Brief the army to publish vendor-tagged journey posts at volume and expect most to flop. Do not judge a creator on one. Judge on their best of ten.",
+        "example": "https://www.tiktok.com/@fitjourneyem/video/7603344544276466958"
+      },
+      {
+        "rule": "For a dependable floor, use everyday food and day-of-eating posts",
+        "evidence": "8 posts across 7 creators, median 6.74x baseline and median 8458.5 plays - roughly 27x the median of a vendor-tagged post, with far less variance.",
+        "directive": "This is the base-load content. It keeps the account alive between swings.",
+        "example": "https://www.tiktok.com/@wellness.with.chr/video/7648393497304665374"
+      }
+    ],
+    "leads_to_test": [
+      {
+        "angle": "myth or regain defense",
+        "n_posts": 2,
+        "n_creators": 2,
+        "median_outlier": 219.255,
+        "caution": "Only 2 post(s) from 2 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@mediocre_mama_3/video/7493240955684818207"
+      },
+      {
+        "angle": "question to audience",
+        "n_posts": 1,
+        "n_creators": 1,
+        "median_outlier": 19.76,
+        "caution": "Only 1 post(s) from 1 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@kellystaraminos/video/7610639350941961486"
+      },
+      {
+        "angle": "journey milestone",
+        "n_posts": 4,
+        "n_creators": 4,
+        "median_outlier": 6.300000000000001,
+        "caution": "Only 4 post(s) from 4 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@chrisriosss/video/7665719727989329183"
+      },
+      {
+        "angle": "non scale victory",
+        "n_posts": 4,
+        "n_creators": 4,
+        "median_outlier": 4.005,
+        "caution": "Only 4 post(s) from 4 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@kaylee.glow.up/video/7618094601462713613"
+      },
+      {
+        "angle": "before after reveal",
+        "n_posts": 7,
+        "n_creators": 6,
+        "median_outlier": 3.98,
+        "caution": "Only 7 post(s) from 6 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@oliviaraglp1/video/7618350310796446990"
+      },
+      {
+        "angle": "cost or source talk",
+        "n_posts": 3,
+        "n_creators": 2,
+        "median_outlier": 2.17,
+        "caution": "Only 3 post(s) from 2 creator(s). Promising but not yet a pattern.",
+        "example": "https://www.tiktok.com/@papi.peptide/video/7656249359993982239"
+      }
+    ],
+    "coded_aliases_in_live_use": [
+      {
+        "tag": "#ratatouille",
+        "n_posts": 14,
+        "n_creators": 4,
+        "median_outlier": 1.4
+      },
+      {
+        "tag": "#peppers",
+        "n_posts": 10,
+        "n_creators": 3,
+        "median_outlier": 1.31
+      },
+      {
+        "tag": "#research",
+        "n_posts": 6,
+        "n_creators": 1,
+        "median_outlier": 0.55
+      }
+    ],
+    "compliance_flag": "dose-or-protocol-talk and cost-or-source-talk both perform, and both are exactly what a Biologix affiliate must not produce. They are reported for completeness, not as directives."
+  }
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Video census — Biologix / Decision Board</title>
+<link rel="icon" href="data:,"><!-- board has no favicon; stops the browser's automatic 404 probe -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../board.css">
+<link rel="stylesheet" href="./intel.css">
+<link rel="stylesheet" href="./videos.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="page-shell site-header-inner">
+    <div class="internal-mark">Biologix / Decision Board — Internal</div>
+    <nav class="route-tabs" aria-label="Board views">
+      <a href="../index.html">Decision</a>
+      <a href="../deal-structure.html">Deal</a>
+      <a href="../operating-reference.html">Operating</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../venture-model.html">Venture</a>
+      <a href="../affiliate-flywheel.html">Flywheel</a>
+      <a href="../control-tower/index.html">Control Tower</a>
+      <a href="../research/index.html">Research</a>
+      <a href="./index.html">Intel</a>
+      <a class="active" href="./videos.html" aria-current="page">Videos</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <div class="intel-masthead">
+    <p class="view-kicker">View 10</p>
+    <h1>Video census</h1>
+    <p class="lede">
+      Every collected video, with all three text layers it carries — caption, spoken words,
+      burned&#8209;in on&#8209;screen text — and both outlier metrics side by side. Sort and filter to
+      find what an affiliate could actually reproduce. Nothing here is a brief; the compliance
+      column marks the posts that work <em>because</em> of something Biologix affiliates cannot say.
+    </p>
+    <dl class="coverage-strip" id="coverage-strip" aria-label="Census coverage"></dl>
+    <p class="basis-note" id="method-correction"></p>
+    <details class="method-note">
+      <summary>How this file was built, what was trimmed, what is missing</summary>
+      <div class="method-body" id="method-body"></div>
+    </details>
+  </div>
+
+  <section class="intel-section" aria-labelledby="scan-h">
+    <div class="section-head">
+      <h2 id="scan-h">Scan the census</h2>
+      <p class="section-note" id="result-count" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="controls" role="group" aria-label="Sort and filter the video census">
+      <div class="control-row">
+        <span class="control-label" id="lbl-sort">Sort</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-sort" id="sort-set"></div>
+        <button type="button" class="chip chip-dir" id="sort-dir" aria-pressed="false">
+          <span id="sort-dir-label">High → low</span>
+        </button>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-diff">Difficulty</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-diff" id="filter-diff"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-age">Age</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-age" id="filter-age"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-lane">Lane</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-lane" id="filter-lane"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-layer">Layers</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-layer" id="filter-layer"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-signal">Signals</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-signal" id="filter-signal"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="lbl-comp">Compliance</span>
+        <div class="chip-set" role="group" aria-labelledby="lbl-comp" id="filter-comp"></div>
+      </div>
+      <div class="control-row control-row-inline">
+        <label class="control-label" for="q">Search</label>
+        <input type="search" id="q" placeholder="handle, caption, speech, on-screen…" autocomplete="off">
+        <label class="toggle-line"><input type="checkbox" id="ranked-only"> <span id="ranked-only-label">Age-matched only</span></label>
+        <button type="button" class="btn-reset" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="table-wrap census-wrap">
+      <table class="rollup-table census-table">
+        <caption class="sr-only">Video census, one row per collected video</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="num col-rank">#</th>
+            <th scope="col">Creator</th>
+            <th scope="col" class="num col-age"><button type="button" class="th-sort" data-sort="age">Age</button></th>
+            <th scope="col" class="num"><button type="button" class="th-sort" data-sort="plays">Plays</button></th>
+            <th scope="col" class="num"><button type="button" class="th-sort" data-sort="out30">Out30</button></th>
+            <th scope="col" class="num col-raw"><button type="button" class="th-sort" data-sort="out">Raw<span class="thin-flag">age-confounded</span></button></th>
+            <th scope="col" class="num col-er"><button type="button" class="th-sort" data-sort="er">Eng %</button></th>
+            <th scope="col" class="num"><button type="button" class="th-sort" data-sort="diff">Diff</button></th>
+            <th scope="col" class="col-layers">Layers</th>
+            <th scope="col" class="col-sig">Signals</th>
+            <th scope="col">Text</th>
+          </tr>
+        </thead>
+        <tbody id="census-body"></tbody>
+      </table>
+    </div>
+    <p class="empty-state" id="empty-state" hidden>
+      No videos match these filters. <button type="button" class="link-btn" id="empty-reset">Clear all filters</button>
+    </p>
+    <p class="basis-note" id="scan-legend"></p>
+  </section>
+
+  <section class="intel-section" aria-labelledby="findings-h">
+    <div class="section-head">
+      <h2 id="findings-h">What survived verification</h2>
+      <p class="section-note">Every number re-derived from the source files on each build.</p>
+    </div>
+    <div class="findings-list" id="findings-list"></div>
+
+    <h3 class="sub-h">Age buckets on the raw outlier column</h3>
+    <p class="basis-note">The whole method correction in one table: the raw outlier rises monotonically with post age, which is a property of how the sample was drawn, not of the content.</p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Raw outlier by post age</caption>
+        <thead><tr><th scope="col">Age bucket</th><th scope="col" class="num">Videos</th><th scope="col" class="num">Creators</th><th scope="col" class="num">Median raw outlier</th><th scope="col" class="num">Median plays</th></tr></thead>
+        <tbody id="age-body"></tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h">The same buckets on the rebuilt metric</h3>
+    <p class="basis-note">Out30 inside the census window is flat across post age, which is what an age-controlled metric is supposed to look like.</p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Out30 by post age inside the census window</caption>
+        <thead><tr><th scope="col">Age bucket</th><th scope="col" class="num">Videos</th><th scope="col" class="num">Creators</th><th scope="col" class="num">Median out30</th><th scope="col" class="num">Median plays</th></tr></thead>
+        <tbody id="out30-body"></tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h">Where the retatrutide reference actually lives</h3>
+    <p class="basis-note" id="reta-note"></p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Retatrutide mentions by layer</caption>
+        <thead><tr><th scope="col">Layer</th><th scope="col" class="num">Videos</th><th scope="col" class="num">Creators</th></tr></thead>
+        <tbody id="reta-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section lead-section" aria-labelledby="leads-h">
+    <div class="section-head">
+      <h2 id="leads-h">Not a pattern — leads only</h2>
+      <p class="section-note">Failed verification as stated. Test, do not brief.</p>
+    </div>
+    <div id="leads-list"></div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="rollup-h">
+    <div class="section-head">
+      <h2 id="rollup-h">Rollups on the age-matched set</h2>
+      <p class="section-note" id="rollup-basis"></p>
+    </div>
+    <div class="rollup-tabs" role="tablist" aria-label="Rollup dimension" id="rollup-tabs"></div>
+    <p class="basis-note" id="rollup-note"></p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Performance by group</caption>
+        <thead>
+          <tr>
+            <th scope="col">Group</th>
+            <th scope="col" class="num">Videos</th>
+            <th scope="col" class="num">Creators</th>
+            <th scope="col" class="num">Median out30</th>
+            <th scope="col" class="num">Median plays</th>
+            <th scope="col" class="num">Hit rate</th>
+            <th scope="col">Best in group</th>
+          </tr>
+        </thead>
+        <tbody id="rollup-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="coded-h">
+    <div class="section-head">
+      <h2 id="coded-h">Coded vocabulary in live use</h2>
+      <p class="section-note">Matched across caption, speech and on-screen text.</p>
+    </div>
+    <p class="lede" style="margin-bottom:18px">
+      TikTok returns zero search results for the compound names, so the cohort substitutes these.
+      Counts are videos containing the term in any layer; the median is computed on the age-matched
+      subset only, so it is blank where no video in that group has an age-matched baseline.
+    </p>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Coded vocabulary</caption>
+        <thead><tr><th scope="col">Term</th><th scope="col">Reads as</th><th scope="col" class="num">Videos</th><th scope="col" class="num">Creators</th><th scope="col" class="num">Median out30</th><th scope="col" class="num">Age-matched n</th></tr></thead>
+        <tbody id="coded-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="intel-section" aria-labelledby="creators-h">
+    <div class="section-head">
+      <h2 id="creators-h">The 49 creators behind the census</h2>
+      <p class="section-note" id="creator-note"></p>
+    </div>
+    <div class="table-wrap">
+      <table class="rollup-table">
+        <caption class="sr-only">Creators in the census</caption>
+        <thead>
+          <tr>
+            <th scope="col">Creator</th>
+            <th scope="col">Lane</th>
+            <th scope="col" class="num">Followers</th>
+            <th scope="col" class="num">Videos</th>
+            <th scope="col" class="num">In window</th>
+            <th scope="col" class="num">30d median plays</th>
+            <th scope="col" class="num">Best plays</th>
+            <th scope="col" class="num">Reta</th>
+            <th scope="col" class="num">Blocked</th>
+            <th scope="col">Affiliate destination</th>
+          </tr>
+        </thead>
+        <tbody id="creator-body"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<div class="drawer-scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+  <div class="drawer-head">
+    <p class="drawer-kicker" id="drawer-kicker"></p>
+    <button type="button" class="drawer-close" id="drawer-close" aria-label="Close detail">Close</button>
+  </div>
+  <div class="drawer-body" id="drawer-body">
+    <h2 id="drawer-title" class="sr-only">Video detail</h2>
+  </div>
+</aside>
+
+<footer class="site-footer">
+  <div class="page-shell">
+    <p class="footer-label">Biologix / OVO — internal content intelligence</p>
+    <p class="footer-note" id="footer-note"></p>
+  </div>
+</footer>
+
+<script src="./videos-data.js"></script>
+<script src="./videos.js"></script>
+</body>
+</html>

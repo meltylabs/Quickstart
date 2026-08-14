@@ -1,0 +1,2218 @@
+{
+  "cohort": "individual_civilian_affiliate",
+  "spec": "Individual people posting their own peptide/GLP-1 experience who carry an affiliate link. Excludes companies, vendor-run accounts, clinics, credentialed clinicians and coaches.",
+  "reference_example": {
+    "handle": "gretatrutide",
+    "followers": 1361,
+    "bio_link": "https://spartanbiolab.com/?ref=GRETA"
+  },
+  "discovery_note": "TikTok search returns ZERO results for \"retatrutide\" and \"tirzepatide\" (positive-control verified). Discovery must run on journey language, approved brand names, and coded aliases.",
+  "probed": 75,
+  "qualifies": 14,
+  "creators": [
+    {
+      "handle": "maicyrobison",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@maicyrobison",
+      "followers": 85000,
+      "bio": "just a girl on a health journey🫶🏻 \\nsharing my tips & tricks\\n🔗 to start the 💉 ⬇️",
+      "bio_link": "https://linktr.ee/maicyr",
+      "resolves_to": "https://linktr.ee/maicyr",
+      "aggregator_links": [
+        "schema.org/",
+        "lddy.no/1nwxg",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931",
+        "portal.tryshed.com/alp?partner=leaddyno&amp;utm_medium=affiliate&amp;infAmt=%2450&amp;me",
+        "shopltk.com/explore/MAICY%E2%80%99SMUSTS?utm_campaign=creator_shop_share_template",
+        "amazon.com/shop/maicyrobison",
+        "schema.org/ProfilePage",
+        "portal.tryshed.com/alp?partner=leaddyno",
+        "m.media-amazon.com/images/S/influencer-profile-image-prod/logo/maicyrobison_167954886227",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-85",
+        "hellofresh.com/termsandconditions"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "lddy.no/1nwxg",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93",
+        "portal.tryshed.com/alp?partner=leaddyno&amp;utm_medium=affiliate&amp;infAmt=%2450&amp;medPromo=&am",
+        "shopltk.com/explore/MAICY%E2%80%99SMUSTS?utm_campaign=creator_shop_share_template_flow&amp;",
+        "amazon.com/shop/maicyrobison",
+        "portal.tryshed.com/alp?partner=leaddyno",
+        "shopltk.com/explore/MAICY%E2%80%99SMUSTS?utm_campaign=creator_shop_share_template_flow",
+        "m.media-amazon.com/images/S/influencer-profile-image-prod/logo/maicyrobison_1679548862278_original",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1",
+        "equipfoods.com"
+      ],
+      "peptide_vendor_links": [
+        "tryshed.com/lp/glp1-provider-visit?shed_ef_transaction_id=86940b3c01674c9caa55931d3181ad93"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "smoneyyz",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@smoneyyz",
+      "followers": 51800,
+      "bio": "NYC/Philly 📍glow up hacks for the girlies",
+      "bio_link": "https://linktr.ee/monizesam",
+      "resolves_to": "https://linktr.ee/monizesam",
+      "aggregator_links": [
+        "schema.org/",
+        "trueaminolabs.com/?ref=pgxzlhpg",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "truepeptidelabs.com/ref/110/",
+        "calendly.com/monizesam",
+        "discord.gg/BN4rJyqx7",
+        "wa.me/8617816034922?text=Hi%2C%20I%20found%20you%20from%20Vera%2C%20can%20I",
+        "pepai.onelink.me/dczG/SamanthaMonize",
+        "truebeautyapothecary.com/?ref=Glow10",
+        "amazon.com/shop/influencer-480a0d69?ref_=cm_sw_r_mwn_aipsfshop_13A20YR7TXVW5CD9J",
+        "schema.org/ProfilePage",
+        "discord.gg/5s9BGjVVq"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "trueaminolabs.com/?ref=pgxzlhpg",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "truepeptidelabs.com/ref/110/",
+        "wa.me/8617816034922?text=Hi%2C%20I%20found%20you%20from%20Vera%2C%20can%20I%20get%20m",
+        "pepai.onelink.me/dczG/SamanthaMonize",
+        "truebeautyapothecary.com/?ref=Glow10",
+        "amazon.com/shop/influencer-480a0d69?ref_=cm_sw_r_mwn_aipsfshop_13A20YR7TXVW5CD9JMYD_2&amp;",
+        "amazon.com/shop/influencer-480a0d69?ref_=cm_sw_r_mwn_aipsfshop_13A20YR7TXVW5CD9JMYD_2",
+        "is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e8/e0/19/e8e019ac-6a70-006b-1614-7a432897b115/Pl",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1",
+        "equipfoods.com"
+      ],
+      "peptide_vendor_links": [
+        "trueaminolabs.com/?ref=pgxzlhpg",
+        "truepeptidelabs.com/ref/110/"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "jessigoberr",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@jessigoberr",
+      "followers": 23400,
+      "bio": "Mom to Windsor, Georgia and Duke 🩷🩵\\nLink to my weightloss 💉 online provider ⬇️",
+      "bio_link": "https://linktr.ee/JessiMcDaniel",
+      "resolves_to": "https://linktr.ee/JessiMcDaniel",
+      "aggregator_links": [
+        "schema.org/",
+        "elliemd.com/Jessicamcdaniel",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "shopmy.us/shop?Curator_id=864330&amp;Section_id=3427712",
+        "euhomy.com/?aff=26",
+        "elliemd.com/product/glp1-gip-b12/?bp=JESSICAMCDANIEL",
+        "amazon.com/shop/jessigoberr?ref_=cm_sw_r_apin_aipsfshop_aipsfjessigoberr_C56NS34",
+        "liketoknow.it/jessigoberr",
+        "schema.org/ProfilePage",
+        "shopmy.us/shop?Curator_id=864330",
+        "elliemd.com/opengraph-image-1200x630.png",
+        "euhomy.com/cdn/shop/files/Euhomy_best_small_compact_appliances_cca517ea-06e3-4b7"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "elliemd.com/Jessicamcdaniel",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "shopmy.us/shop?Curator_id=864330&amp;Section_id=3427712",
+        "euhomy.com/?aff=26",
+        "elliemd.com/product/glp1-gip-b12/?bp=JESSICAMCDANIEL",
+        "amazon.com/shop/jessigoberr?ref_=cm_sw_r_apin_aipsfshop_aipsfjessigoberr_C56NS344MXFDGMF5R",
+        "liketoknow.it/jessigoberr",
+        "shopmy.us/shop?Curator_id=864330",
+        "elliemd.com/opengraph-image-1200x630.png",
+        "euhomy.com/cdn/shop/files/Euhomy_best_small_compact_appliances_cca517ea-06e3-4b71-8788-85a",
+        "m.media-amazon.com/images/I/C14xcX8kzaL._CR0%2C49%2C3024%2C3024_._US500_SCLZZZZZZZ_.jpg",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms"
+      ],
+      "peptide_vendor_links": [
+        "elliemd.com/product/glp1-gip-b12/?bp=JESSICAMCDANIEL"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "alexisthepeptidegirl",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@alexisthepeptidegirl",
+      "followers": 12300,
+      "bio": "Mom & Wife \\nR3ta is GLP-3Rț 🧪\\n📌Code alexism15 📌\\n 📱512-882-7980 entertainment purposes only - not medical advice",
+      "bio_link": "https://beacons.ai/alexismorris3",
+      "resolves_to": "https://beacons.ai/alexismorris3",
+      "aggregator_links": [],
+      "code_in_bio": "alexism15",
+      "affiliate_evidence": "discount code in bio",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [],
+      "peptide_vendor_links": [],
+      "affiliate_verified": true,
+      "verification": "discount code stated in bio",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "moosejj",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@moosejj",
+      "followers": 1811,
+      "bio": "FITNESS | LIFESTYLE | GROWTH",
+      "bio_link": "https://aminoclub.com?utm_source=affiliate_marketing&code=MOOSEJJ",
+      "resolves_to": "https://www.aminoclub.com/age-verify?return=%2F%3Futm_source%3Daffiliate_marketing%26code%3DMOOSEJJ",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": false,
+      "aggregator_all_outbound": [
+        "https://aminoclub.com?utm_source=affiliate_marketing&code=MOOSEJJ"
+      ],
+      "peptide_vendor_links": [
+        "https://aminoclub.com?utm_source=affiliate_marketing&code=MOOSEJJ"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "glp_tok",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp_tok",
+      "followers": 1740,
+      "bio": "£40 off click link below",
+      "bio_link": "https://refer.boltpharmacy.co.uk/w.pickering",
+      "resolves_to": "boltpharmacy.co.uk",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link carries an affiliate parameter or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "median_views": 741,
+      "max_views": 1200,
+      "outlier_multiple": 1.6,
+      "total_reposts": 28,
+      "on_topic_captions": 8,
+      "posts_seen": 12,
+      "qualifies": true,
+      "aggregator_is_link_hub": false,
+      "aggregator_all_outbound": [
+        "https://refer.boltpharmacy.co.uk/w.pickering"
+      ],
+      "peptide_vendor_links": [
+        "https://refer.boltpharmacy.co.uk/w.pickering"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "glpbabe",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpbabe",
+      "followers": 1396,
+      "bio": "4mg ℛ𝒯 weekly\n♡\n𝓈𝓌:190 𝒸𝓌:160.7 𝑔𝓌:120",
+      "bio_link": "https://pepkits.shop/?aff=30",
+      "resolves_to": "pepkits.shop",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link carries an affiliate parameter or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "median_views": 610,
+      "max_views": 1862,
+      "outlier_multiple": 3.1,
+      "total_reposts": 4,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": true,
+      "aggregator_is_link_hub": false,
+      "aggregator_all_outbound": [
+        "https://pepkits.shop/?aff=30"
+      ],
+      "peptide_vendor_links": [
+        "https://pepkits.shop/?aff=30"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "gretatrutide",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@gretatrutide",
+      "followers": 1361,
+      "bio": "Dm me  :)\nCode \\\"Greta\\\" for 20% off\nhttps://spartanbiolab.com/?ref=GRETA",
+      "bio_link": "https://spartanbiolab.com/?ref=GRETA",
+      "resolves_to": "spartanbiolab.com",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link carries an affiliate parameter or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "median_views": 2123,
+      "max_views": 71900,
+      "outlier_multiple": 33.9,
+      "total_reposts": 241,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": true,
+      "aggregator_is_link_hub": false,
+      "aggregator_all_outbound": [
+        "https://spartanbiolab.com/?ref=GRETA"
+      ],
+      "peptide_vendor_links": [
+        "https://spartanbiolab.com/?ref=GRETA"
+      ],
+      "affiliate_verified": true,
+      "verification": "peptide/GLP-1 vendor link confirmed behind bio link",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "b_faith12",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@b_faith12",
+      "followers": 833200,
+      "bio": "Photographer | Psychology Student | SAHM",
+      "bio_link": "Checkoutthispagefrominfluencer-dd96c3e9https://www.amazon.com/shop/influencer-dd96c3e9?ref_=cm_sw_r_apin_aipsfshop_SSCFG9DPHZ14NTD1SYWF&language=en-US",
+      "resolves_to": "Checkoutthispagefrominfluencer-dd96c3e9https://www.amazon.com/shop/influencer-dd96c3e9?ref_=cm_sw_r_apin_aipsfshop_SSCFG9DPHZ14NTD1SYWF&language=en-US",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "drmindypelz",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@drmindypelz",
+      "followers": 330700,
+      "bio": "📚NYT bestselling author\n💙 Women’s health expert\nPreorder Age Like a Girl 👇",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional"
+      ],
+      "median_views": 2567,
+      "max_views": 8269,
+      "outlier_multiple": 3.2,
+      "total_reposts": 97,
+      "on_topic_captions": 2,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "kendberrymd",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@kendberrymd",
+      "followers": 178300,
+      "bio": "🥩THE PROPER HUMAN DIET™️\n▶️Weekly YouTube Videos\n🔵YT LIVE every Monday 6 CT\n📚 LIES MY DOCTOR TOLD ME 📚",
+      "bio_link": "https://phdhealth.community",
+      "resolves_to": "phdhealth.community",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional"
+      ],
+      "median_views": 9254,
+      "max_views": 45900,
+      "outlier_multiple": 5,
+      "total_reposts": 900,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "healthcoachkait",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@healthcoachkait",
+      "followers": 173400,
+      "bio": "I dive deeper on YouTube (60M views)\n↓↓↓",
+      "bio_link": "https://hckait.com/links",
+      "resolves_to": "hopp.bio",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller"
+      ],
+      "median_views": 529,
+      "max_views": 864,
+      "outlier_multiple": 1.6,
+      "total_reposts": 5,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "chanelica.r",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@chanelica.r",
+      "followers": 115700,
+      "bio": "Health 🫶🏾 Wellness\\nchanelicarobinson@gmail.com\\nATL",
+      "bio_link": "https://linktr.ee/chanelica.r",
+      "resolves_to": "https://linktr.ee/chanelica.r",
+      "aggregator_links": [
+        "schema.org/",
+        "app.joinfridays.com/onboarding/main-info?via=chanelica",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "thewellnessbulletin.beehiiv.com",
+        "chanelicaskitchen.com",
+        "amazon.com/shop/chanelica.r",
+        "shopltk.com/explore/Chaneilca.r",
+        "schema.org/ProfilePage",
+        "media.beehiiv.com/cdn-cgi/image/fit=scale-down,format=auto,onerror=redirect,quality=80/",
+        "m.media-amazon.com/images/I/71PqzYb59lL._CR0%2C0%2C950%2C950_._US500_SCLZZZZZZZ_.jpg",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-85",
+        "hellofresh.com/termsandconditions"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "app.joinfridays.com/onboarding/main-info?via=chanelica",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "chanelicaskitchen.com",
+        "amazon.com/shop/chanelica.r",
+        "shopltk.com/explore/Chaneilca.r",
+        "m.media-amazon.com/images/I/71PqzYb59lL._CR0%2C0%2C950%2C950_._US500_SCLZZZZZZZ_.jpg",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1",
+        "equipfoods.com",
+        "fabletics.sjv.io/c/5163860/951477/12340",
+        "clearstem.com",
+        "purple-carrot.wk5q.net/c/5163860/2060141/9141?u=https%3A%2F%2Fwww.purplecarrot.com%2Fpages%2Fitsgoodfo"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "hopiedopiee1",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@hopiedopiee1",
+      "followers": 112600,
+      "bio": "GLP1 & Weightloss✨💉\\n- 135 lbs✨\\n💌:hg045042@gmail.com\\n📍West Texas \\nSign up for Amble below ⬇️",
+      "bio_link": "https://linktr.ee/hopiedopie",
+      "resolves_to": "https://linktr.ee/hopiedopie",
+      "aggregator_links": [
+        "schema.org/",
+        "joinamble.com/wl/influencer?referral-campaign=hopiedopiee1&referral-source=affiliat",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "joinamble.com/wl/influencer?referral-campaign=hopiedopiee1&amp;referral-source=affi",
+        "boxedwithhope.etsy.com/listing/4517535145",
+        "enroll.joinamble.com/start-online-visit/wl-aa?referral-campaign=hopiedopiee1&amp;referral-",
+        "enroll.joinamble.com/start-online-visit/skin-acne?referral-campaign=hopiedopiee2&amp;refer",
+        "enroll.joinamble.com/start-online-visit/skin-anti-aging?referral-campaign=hopiedopiee2&amp",
+        "enroll.joinamble.com/start-online-visit/antiaging-v2?referral-campaign=hopiedopiee1&amp;re",
+        "takeploom.com/hopiedopiee",
+        "biocarenutrition.com/collections/30-gram-protein-shakes",
+        "biocarenutrition.com/HOPE15"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "vendor domain behind link",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "joinamble.com/wl/influencer?referral-campaign=hopiedopiee1&referral-source=affiliate&promo=Am",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "joinamble.com/wl/influencer?referral-campaign=hopiedopiee1&amp;referral-source=affiliate&amp;",
+        "boxedwithhope.etsy.com/listing/4517535145",
+        "enroll.joinamble.com/start-online-visit/wl-aa?referral-campaign=hopiedopiee1&amp;referral-source=aff",
+        "enroll.joinamble.com/start-online-visit/skin-acne?referral-campaign=hopiedopiee2&amp;referral-source",
+        "enroll.joinamble.com/start-online-visit/skin-anti-aging?referral-campaign=hopiedopiee2&amp;referral-",
+        "enroll.joinamble.com/start-online-visit/antiaging-v2?referral-campaign=hopiedopiee1&amp;referral-sou",
+        "takeploom.com/hopiedopiee",
+        "biocarenutrition.com/collections/30-gram-protein-shakes",
+        "biocarenutrition.com/HOPE15",
+        "joinamble.com/wl/influencer?referral-campaign=hopiedopiee1",
+        "enroll.joinamble.com/start-online-visit/wl-aa?referral-campaign=hopiedopiee1",
+        "enroll.joinamble.com/start-online-visit/skin-acne?referral-campaign=hopiedopiee2",
+        "enroll.joinamble.com/start-online-visit/skin-anti-aging?referral-campaign=hopiedopiee2",
+        "enroll.joinamble.com/start-online-visit/antiaging-v2?referral-campaign=hopiedopiee1",
+        "i.etsystatic.com/66365445/r/il/f7ce12/8105342240/il_1080xN.8105342240_dfk4.jpg",
+        "enroll.joinamble.com/api/og/seo-image?brandTextColor=%23254229",
+        "biocarenutrition.com/cdn/shop/collections/30g_protein_chocolate_biocare_dietary_beverage_500x500_7c7",
+        "biocarenutrition.com/cdn/shop/files/Untitled_design_bbecb1d8-8c6f-491c-a12b-d596f0063496.png?v=17431",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "michellenewyen",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@michellenewyen",
+      "followers": 102500,
+      "bio": "in a silly goofy mood\\n💌michellenewyen@gmail.com",
+      "bio_link": "https://linktr.ee/michellenewyen",
+      "resolves_to": "https://linktr.ee/michellenewyen",
+      "aggregator_links": [
+        "schema.org/",
+        "shopmy.us/shop/michellenewyen?Section_id=1383295&tab=collections",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "shopmy.us/shop/michellenewyen?Section_id=1383295&amp;tab=collections",
+        "sephora.com/creators/michellenewyen",
+        "schema.org/ProfilePage",
+        "shopmy.us/shop/michellenewyen?Section_id=1383295",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-85",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b2",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "vendor domain behind link",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "shopmy.us/shop/michellenewyen?Section_id=1383295&tab=collections",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "shopmy.us/shop/michellenewyen?Section_id=1383295&amp;tab=collections",
+        "sephora.com/creators/michellenewyen",
+        "shopmy.us/shop/michellenewyen?Section_id=1383295",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1",
+        "equipfoods.com",
+        "fabletics.sjv.io/c/5163860/951477/12340",
+        "clearstem.com",
+        "purple-carrot.wk5q.net/c/5163860/2060141/9141?u=https%3A%2F%2Fwww.purplecarrot.com%2Fpages%2Fitsgoodfo",
+        "dailyharvest.pxf.io/c/5163860/2928823/20086"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "countessofshopping",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@countessofshopping",
+      "followers": 73600,
+      "bio": "-113lb GLP1 ❤️ Health Journey Featured Oprah, Good Morning America & 120K YT📺",
+      "bio_link": "https://beacons.ai/countessofshopping",
+      "resolves_to": "beacons.ai",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "median_views": 1179,
+      "max_views": 90200,
+      "outlier_multiple": 76.5,
+      "total_reposts": 201,
+      "on_topic_captions": 2,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "formerlyoutofbreath",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@formerlyoutofbreath",
+      "followers": 61200,
+      "bio": "Documenting 89lbs lost to gain life! \\nSW: 504lbs • CW 415lbs\\nRelatable Weight Loss & Lifestyle\\nAuntie | Author | Reseller \\n📧 formerlyoutofbreath@gmail.com",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "peptidegirl",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@peptidegirl",
+      "followers": 60300,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "median_views": 401,
+      "max_views": 4084,
+      "outlier_multiple": 10.2,
+      "total_reposts": 15,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "kiingkeni",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@kiingkeni",
+      "followers": 51800,
+      "bio": "",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "champagnefart",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@champagnefart",
+      "followers": 39200,
+      "bio": "🇧🇦 💙 🇵🇸",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "coloradomedicalsolutions",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@coloradomedicalsolutions",
+      "followers": 26500,
+      "bio": "Dr. Jones DC ⚕️\nSustainable approach towards GLP-1 medication 🏥",
+      "bio_link": "https://linktr.ee/coloradomedicalsolutions?utm_source=linktree_profile_share&ltsid=d378d4ae-cef2-4dbb-a9c7-65ea24c6cc15",
+      "resolves_to": "linktr.ee",
+      "aggregator_links": [
+        "schema.org/",
+        "drdeanjones.com/tiktok-signup",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb",
+        "w3.org/2000/svg",
+        "drtyna.com/a/2147845291/Pz22ND8y",
+        "amazon.com/Fast-Feast-Flourish-Comprehensive-Successfully-ebook/dp/B0C",
+        "amazon.com/review/create-review/?ie=UTF8&amp;channel=glance-detail&amp",
+        "coloradomedicalsolutions.com/",
+        "schema.org/ProfilePage",
+        "amazon.com/review/create-review/?ie=UTF8",
+        "youtu.be/PhRdzGx5yDQ"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link carries an affiliate parameter or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [
+        "clinician or credentialed professional",
+        "company / vendor-operated account"
+      ],
+      "median_views": 2696,
+      "max_views": 7431,
+      "outlier_multiple": 2.8,
+      "total_reposts": 2038,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "ahleesahhh",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@ahleesahhh",
+      "followers": 23500,
+      "bio": "Just a girly becoming her best version🦋🐅\\nBiohacking Lover 🧬\\nBackup: @Thegirlahleesah\\n📱 IG: Thatgirlahleesah 📞 07377 855422\\n⬇️If you wanna lose 30kg+⬇️",
+      "bio_link": "https://linktr.ee/thatgirlahleesah",
+      "resolves_to": "https://linktr.ee/thatgirlahleesah",
+      "aggregator_links": [
+        "schema.org/",
+        "bit.ly/4bhYpz4",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "machqlabs.com/ref/13",
+        "payhip.com/b/9Kb3U",
+        "schema.org/ProfilePage",
+        "form.typeform.com/to/cFZV9LQI",
+        "public-assets.typeform.com/public/admin/2VWurKeiR4R7.png/image/default",
+        "mychway.co.uk/cdn/shop/files/5-in-1-cavitation-liposuction-machine-6274912.jpg?v=17",
+        "payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jiatssgr1",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-85",
+        "hellofresh.com/termsandconditions"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "bit.ly/4bhYpz4",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "machqlabs.com/ref/13",
+        "payhip.com/b/9Kb3U",
+        "mychway.co.uk/cdn/shop/files/5-in-1-cavitation-liposuction-machine-6274912.jpg?v=1765009334",
+        "payhip.com/cdn-cgi/image/format=auto/https://pe56d.s3.amazonaws.com/o_1jiatssgr16671mq4kkn",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1",
+        "equipfoods.com",
+        "fabletics.sjv.io/c/5163860/951477/12340",
+        "clearstem.com",
+        "purple-carrot.wk5q.net/c/5163860/2060141/9141?u=https%3A%2F%2Fwww.purplecarrot.com%2Fpages%2Fitsgoodfo"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "yourmarketingirlie",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@yourmarketingirlie",
+      "followers": 13400,
+      "bio": "workwithamrdrey@gmail.com",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "mimiii0514",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@mimiii0514",
+      "followers": 11700,
+      "bio": "The only love I truly believe in is a mother's love 4 her children\\n$Mimiiii0514",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "david_padilla86",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@david_padilla86",
+      "followers": 8366,
+      "bio": "California 📍\\nGym, Concerts, Coffee, Peps\\nDpadilla0613@gmail.com",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1life",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1life",
+      "followers": 5301,
+      "bio": "a guy on a wellness kick ✌️\nGLP1 • Lifestyle • lols\n\n💌 mattplifestyle@gmail.com",
+      "bio_link": "https://linktr.ee/mattplifestyle",
+      "resolves_to": "linktr.ee",
+      "aggregator_links": [
+        "schema.org/",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb",
+        "w3.org/2000/svg",
+        "amazon.com/shop/glp1life?tag=matthewpointo-20",
+        "amzn.to/40nHdUb",
+        "dailyharvest.pxf.io/c/5163860/2928823/20086?subId1=8537c7b4-5eda-4bf8-83da-6fea",
+        "schema.org/ProfilePage",
+        "amazon.com/shop/glp1life",
+        "dailyharvest.pxf.io/c/5163860/2928823/20086",
+        "instacart.oloiyb.net/c/5163860/2942062/7412",
+        "instacart.oloiyb.net/c/5163860/3363537/7412"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link resolves to a vendor domain",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "median_views": 5440,
+      "max_views": 17700,
+      "outlier_multiple": 3.3,
+      "total_reposts": 180,
+      "on_topic_captions": 8,
+      "posts_seen": 12,
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "amazon.com/shop/glp1life?tag=matthewpointo-20",
+        "amzn.to/40nHdUb",
+        "dailyharvest.pxf.io/c/5163860/2928823/20086?subId1=8537c7b4-5eda-4bf8-83da-6feaed72957c",
+        "amazon.com/shop/glp1life",
+        "dailyharvest.pxf.io/c/5163860/2928823/20086",
+        "instacart.oloiyb.net/c/5163860/2942062/7412",
+        "instacart.oloiyb.net/c/5163860/3363537/7412",
+        "instacart.oloiyb.net/c/5163860/3363537/7412?subId1=8537c7b4-5eda-4bf8-83da-6feaed72957c",
+        "d2guulkeunn7d8.cloudfront.net/assets/rspack/Instacart_Share_Banner_3-86a003ea47c7e0db-v3.jpg",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": [
+        "amazon.com/shop/glp1life?tag=matthewpointo-20"
+      ]
+    },
+    {
+      "handle": "isabelladefonte",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@isabelladefonte",
+      "followers": 5152,
+      "bio": "@skyhausagency 🤍\\n24\\n🇺🇸✝️\\nSeton Hall Swim Alum\\n@bellabooboo",
+      "bio_link": "https://linktr.ee/Isabelladefonte?utm_source=linktree_profile_share&ltsid=c8908d9b-9e7e-4b2f-b4f1-ed6a8ae8164e",
+      "resolves_to": "https://linktr.ee/Isabelladefonte?utm_source=linktree_profile_share&ltsid=c8908d9b-9e7e-4b2f-b4f1-ed6a8ae8164e",
+      "aggregator_links": [
+        "schema.org/",
+        "snapchat.com/add/isadefonte",
+        "cash.app/$IsabellaDefonte",
+        "culturekings.com/BELLA",
+        "schema.org",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22",
+        "w3.org/2000/svg",
+        "myhummusfit.com/ISABELLADEFONTE",
+        "montanawestsports.com/?ref=ISABELLADEFONTE",
+        "vs.co/a7yb9sh5",
+        "depop.app.link/ER2jNZGRwWb",
+        "venmo.com/u/Isabella-Defonte",
+        "schema.org/ProfilePage",
+        "montanawestsports.com/cdn/shop/files/logo1_3707e189-2339-4df2-8110-7e84abc4e7ac.png?v=17671"
+      ],
+      "code_in_bio": null,
+      "affiliate_evidence": "affiliate param or referral path",
+      "has_affiliate": true,
+      "exclusion_reasons": [],
+      "qualifies": true,
+      "aggregator_is_link_hub": true,
+      "aggregator_all_outbound": [
+        "cash.app/$IsabellaDefonte",
+        "culturekings.com/BELLA",
+        "api.consentjs.datagrail.io/b8f6c3bf-2519-4023-963a-974547789e46/bdebe460-46f3-470f-8bb7-09929c22ee50/conse",
+        "myhummusfit.com/ISABELLADEFONTE",
+        "montanawestsports.com/?ref=ISABELLADEFONTE",
+        "vs.co/a7yb9sh5",
+        "depop.app.link/ER2jNZGRwWb",
+        "montanawestsports.com/cdn/shop/files/logo1_3707e189-2339-4df2-8110-7e84abc4e7ac.png?v=1767171126",
+        "im.vsco.co/aws-us-west-2/98551b/326844402/69fd5b25a0c709c2c7597dcd/vsco_050726.jpg?w=1200",
+        "myhummusfit.com/cdn/shop/files/hummus-fit-seo-slide.jpg?v=1763597714",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_13b2ead4-3743-4a65-8515-0fda7d4",
+        "hellofresh.com/termsandconditions",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_69fdb724-9185-4f25-b27c-ff1815a",
+        "kqzyfj.com/click-101093762-17072556",
+        "armra.com",
+        "omniluxled.com",
+        "ritual.sjv.io/09RK9N",
+        "factor75.com/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_edcd813c-ccc5-492d-bd92-15719cc",
+        "click.linksynergy.com/fs-bin/click?id=5lRxBRhs1h0",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_6815c7b1-69e3-4fea-bc29-20a1ef0",
+        "headspace.pxf.io/c/5163860/2494442/13686",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_9b1ab8ef-fcb3-4c4e-abbb-9f25409",
+        "upside.com/data-and-security/terms",
+        "thanks.is/direct/plat7850a264-716e-4c31-9ac5-16e9f13e/int_411e3a4f-5b48-470a-b849-1c894b1"
+      ],
+      "peptide_vendor_links": [],
+      "affiliate_verified": false,
+      "verification": "bio link exists but NO peptide vendor found behind it - unverified",
+      "amazon_associates_links": []
+    },
+    {
+      "handle": "primalxgains",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@primalxgains",
+      "followers": 4168,
+      "bio": "Unbig your back. \\nGet in shape.\\nLive happy.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "snapoutofitbabe",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@snapoutofitbabe",
+      "followers": 3096,
+      "bio": "Tennessee",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "izzyflosesit",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@izzyflosesit",
+      "followers": 1745,
+      "bio": "📉 GLP-1 weight loss journey\\n1st wegovy jab: 27/8/25 | 1st MJ jab 10/7/26\\nSW: 170.7kg\\nCW: 145.3kg\\nGW: 92kg",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "novalyxresearch",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@novalyxresearch",
+      "followers": 1455,
+      "bio": "🧬 Novalyx Research France\\n🔬 Advanced Research Compounds\\n🧪 Certificats d’analyse (COA) inclus\\n👇 Commander ici / Order here\\n🌐 https://novalyxresearch.com/",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retacoach",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retacoach",
+      "followers": 1401,
+      "bio": "personal page follow my buisness page for enquiries \n\n      ASTHERA LUXURY PEPTIDES\n         @Aesthera Luxury Wellness",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller"
+      ],
+      "median_views": 1289,
+      "max_views": 5059,
+      "outlier_multiple": 3.9,
+      "total_reposts": 13,
+      "on_topic_captions": 0,
+      "posts_seen": 10,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglp1nurse",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglp1nurse",
+      "followers": 1176,
+      "bio": "Where to get affordable GLP1  \nBest online company for GLP1!\n⬇️⬇️⬇️Start GLP1  here ⬇️⬇️⬇️\nGo to -\\u003E OrderlyMeds.com\nThen use code WELCOME for $25 off!",
+      "bio_link": "https://patients.orderlymeds.com/eligibility?_ef_transaction_id=&uid=5&oid=2&affid=938",
+      "resolves_to": "patients.orderlymeds.com",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "discount code or money-off offer stated in bio",
+      "has_affiliate": true,
+      "exclusion_reasons": [
+        "clinician or credentialed professional"
+      ],
+      "median_views": 1194,
+      "max_views": 22100,
+      "outlier_multiple": 18.5,
+      "total_reposts": 31,
+      "on_topic_captions": 5,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "kenisonak",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@kenisonak",
+      "followers": 669,
+      "bio": "I had a marvelous time ruining everything",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "katie2themax",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@katie2themax",
+      "followers": 649,
+      "bio": "Optimizing my body & my life\\n🧬 Peptides\\n🧘🏼‍♀️ Wellness\\n✈️ Travel",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "listedfit",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@listedfit",
+      "followers": 583,
+      "bio": "Honest fitness reviews to help you save time and money. \n\nlinktr.ee/listedfit",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "median_views": 397,
+      "max_views": 3885,
+      "outlier_multiple": 9.8,
+      "total_reposts": 5,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "just_jensine",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@just_jensine",
+      "followers": 455,
+      "bio": "🏳️‍🌈",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglp1rd",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglp1rd",
+      "followers": 412,
+      "bio": "RD, lifelong food addict/food noise survivor, GLP-1 patient and advocate",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional"
+      ],
+      "median_views": 137,
+      "max_views": 480,
+      "outlier_multiple": 3.5,
+      "total_reposts": 3,
+      "on_topic_captions": 3,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "hooppppee",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@hooppppee",
+      "followers": 406,
+      "bio": "Healing with Hope🫶🏼\\nSingle mama to 3 beautiful babies🤍\\nPCOS/ Weight Loss Journey",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1_mom",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1_mom",
+      "followers": 329,
+      "bio": "Down 40lbs \nPhysician Assistant helping you start your GLP-1 journey",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional"
+      ],
+      "median_views": 354,
+      "max_views": 4833,
+      "outlier_multiple": 13.7,
+      "total_reposts": 2,
+      "on_topic_captions": 2,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "chrisinstylee",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@chrisinstylee",
+      "followers": 323,
+      "bio": "Fitness | Lifestyle | Outfits \\nBack up acct @Chris R",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "the.coach.phil",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@the.coach.phil",
+      "followers": 304,
+      "bio": "🧬Peptides and More \n👊🏾Help Millenials Lose 10-50lbs+!\n🙏🏽Regain Your Youth & Happiness!\n✈️USAF Veteran S FL 9\nDM Work With Me!",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller"
+      ],
+      "median_views": 101,
+      "max_views": 313,
+      "outlier_multiple": 3.1,
+      "total_reposts": 0,
+      "on_topic_captions": 1,
+      "posts_seen": 6,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retababe",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retababe",
+      "followers": 301,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "median_views": 117,
+      "max_views": 290,
+      "outlier_multiple": 2.5,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "noelle.chelsea",
+      "sources": [
+        "apify_search_discovery"
+      ],
+      "url": "https://www.tiktok.com/@noelle.chelsea",
+      "followers": 273,
+      "bio": "Boy Mom x 2 💙💚 \\nBreast Cancer + Induced Menopause\\nGLP 1 Journey 💉⬇️ 30lbs\\n🔗 https://elliemd.com/noellechelsea",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [],
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpguide",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpguide",
+      "followers": 241,
+      "bio": "Physician Assistant, GLP prescriber, healthcare advocate. \nWww.waistwellness.com",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional",
+        "only 241 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 124,
+      "max_views": 1130,
+      "outlier_multiple": 9.1,
+      "total_reposts": 4,
+      "on_topic_captions": 3,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1guide",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1guide",
+      "followers": 134,
+      "bio": "Educational content only. Not medical advice. Talk to your provider.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 134 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 10,
+      "max_views": 10,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 1,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retaqueen",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retaqueen",
+      "followers": 115,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 115 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 39,
+      "max_views": 554,
+      "outlier_multiple": 14.2,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglp1club",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglp1club",
+      "followers": 68,
+      "bio": "The GLP-1 club you didn’t know you needed 💜 Jab tips • food • side effects • support• Mounjaro | Wegovy | GLP-1\nNo sugar coating",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 68 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 784,
+      "max_views": 5842,
+      "outlier_multiple": 7.5,
+      "total_reposts": 95,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "dralmerie",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@dralmerie",
+      "followers": 62,
+      "bio": "👨‍⚕️🇬🇧 Weight-Loss Surgeon | 💪 Helping you beat obesity | 🧠💥 Science tips I Not Medical Advice\n\nFull Videos: YouTube: @DrAlmerie",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "clinician or credentialed professional",
+        "only 62 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 152,
+      "max_views": 603,
+      "outlier_multiple": 4,
+      "total_reposts": 7,
+      "on_topic_captions": 2,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1daily",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1daily",
+      "followers": 61,
+      "bio": "Insights for YOUR GLP-1 journey.\n\nPowered by Titra Health - check it out below!",
+      "bio_link": "https://apps.apple.com/app/apple-store/id6760927919?pt=128341063&ct=Tiktok%20GLP-1%20Daily&mt=8",
+      "resolves_to": "apps.apple.com",
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "bio link resolves to a vendor domain",
+      "has_affiliate": true,
+      "exclusion_reasons": [
+        "only 61 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 282,
+      "max_views": 838,
+      "outlier_multiple": 3,
+      "total_reposts": 2,
+      "on_topic_captions": 10,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "reta_king",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@reta_king",
+      "followers": 40,
+      "bio": "same day shipping \nfree BAC\nLow prices\nlab verified",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "company / vendor-operated account",
+        "only 40 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 434,
+      "max_views": 753,
+      "outlier_multiple": 1.7,
+      "total_reposts": 25,
+      "on_topic_captions": 0,
+      "posts_seen": 10,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "tirz_mom",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@tirz_mom",
+      "followers": 30,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 30 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 203,
+      "max_views": 239,
+      "outlier_multiple": 1.2,
+      "total_reposts": 1,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glptok",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glptok",
+      "followers": 26,
+      "bio": "Green Leaf Plays now has a Tik Tok. Why? I'm still figuring that one out! :D",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 26 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 701,
+      "max_views": 1818,
+      "outlier_multiple": 2.6,
+      "total_reposts": 3,
+      "on_topic_captions": 0,
+      "posts_seen": 4,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "tirzbabe",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@tirzbabe",
+      "followers": 17,
+      "bio": "Party Rock🤘",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 17 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 304,
+      "max_views": 304,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1_coach",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1_coach",
+      "followers": 12,
+      "bio": "Hunger's gone. Not your needs.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller",
+        "only 12 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 924,
+      "max_views": 1081,
+      "outlier_multiple": 1.2,
+      "total_reposts": 4,
+      "on_topic_captions": 1,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglp1life",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglp1life",
+      "followers": 12,
+      "bio": "📖 Easy GLP-1 tips, reminders and useful information daily",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 12 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 336,
+      "max_views": 514,
+      "outlier_multiple": 1.5,
+      "total_reposts": 2,
+      "on_topic_captions": 6,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglpguy",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglpguy",
+      "followers": 9,
+      "bio": "GLP-1 success starts beyond the scale\n👇Get my Free GLP-1 Support Foundation Guide + Founder updates +  20% off.\nESNTLingredients.com",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "discount code or money-off offer stated in bio",
+      "has_affiliate": true,
+      "exclusion_reasons": [
+        "only 9 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 236,
+      "max_views": 672,
+      "outlier_multiple": 2.8,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "reta_lab",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@reta_lab",
+      "followers": 7,
+      "bio": "💉 Reta et GHK-CU \n💯 Produits authentiques + certificat\n🤝 Main propre IDF / 📦 Envoi\n📩 DM pour prix & stock\n📞 0764250392",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "company / vendor-operated account",
+        "only 7 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 2359,
+      "max_views": 2359,
+      "outlier_multiple": 1,
+      "total_reposts": 2,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1mom",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1mom",
+      "followers": 7,
+      "bio": "Just a middle aged Gen X mom of 3 on my forever journey to lose weight and keep it off and help others do the same!",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 7 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 145,
+      "max_views": 146,
+      "outlier_multiple": 1,
+      "total_reposts": 1,
+      "on_topic_captions": 2,
+      "posts_seen": 4,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "trutide",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@trutide",
+      "followers": 5,
+      "bio": "Premium UK research supply. Tested stock. Fast dispatch.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "company / vendor-operated account",
+        "only 5 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 5703,
+      "max_views": 78800,
+      "outlier_multiple": 13.8,
+      "total_reposts": 1,
+      "on_topic_captions": 0,
+      "posts_seen": 10,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retatrutide",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retatrutide",
+      "followers": 5,
+      "bio": "🔬Reta \n ✨Testés en laboratoire pour une        pureté optimale COA + LOT\n‼️À titre informatif uniquement‼️\n📨Contactez nous en Mp pour + d'infos",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 5 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 916,
+      "max_views": 2273,
+      "outlier_multiple": 2.5,
+      "total_reposts": 1,
+      "on_topic_captions": 1,
+      "posts_seen": 3,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theglp1coach",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theglp1coach",
+      "followers": 5,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller",
+        "only 5 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 3,
+      "max_views": 6,
+      "outlier_multiple": 2,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 4,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpking",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpking",
+      "followers": 4,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 4 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 214,
+      "max_views": 214,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retadaily",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retadaily",
+      "followers": 2,
+      "bio": "🧬 Order here:\nhttps://peptora.co.uk",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": "vendor domain named in captions",
+      "has_affiliate": true,
+      "exclusion_reasons": [
+        "only 2 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 11,
+      "max_views": 2002,
+      "outlier_multiple": 182,
+      "total_reposts": 0,
+      "on_topic_captions": 12,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retadiary",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retadiary",
+      "followers": 1,
+      "bio": "📉 332.8 ➜ 293.0\nMonth 4\nPhase 3 Retatrutide Trial\nWeekly updates.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 1 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 600,
+      "max_views": 600,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 1,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "trutidejourney",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@trutidejourney",
+      "followers": 1,
+      "bio": "Here to elevate yourself",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 1 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 99,
+      "max_views": 121,
+      "outlier_multiple": 1.2,
+      "total_reposts": 1,
+      "on_topic_captions": 0,
+      "posts_seen": 3,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "theretalife",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@theretalife",
+      "followers": 0,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 1076,
+      "max_views": 2170,
+      "outlier_multiple": 2,
+      "total_reposts": 0,
+      "on_topic_captions": 1,
+      "posts_seen": 4,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1talk",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1talk",
+      "followers": 0,
+      "bio": "Find your fit here!👇🏼",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 779,
+      "max_views": 779,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "tirztok",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@tirztok",
+      "followers": 0,
+      "bio": "your glow up starts here ✨\nreal results • real confidence 🤍\nDM to order 📩",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "company / vendor-operated account",
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 234,
+      "max_views": 234,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpcoach",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpcoach",
+      "followers": 0,
+      "bio": "All-in-one weight loss coach in your pocket\n👇 GLPCoach\n\nhttps://apps.apple.com/us/app/glpcoach-glp-1-weight-tracker/id6762613269",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "coach / consultant / program seller",
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 78,
+      "max_views": 108,
+      "outlier_multiple": 1.4,
+      "total_reposts": 0,
+      "on_topic_captions": 8,
+      "posts_seen": 12,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpgal",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpgal",
+      "followers": 0,
+      "bio": "Lost 50lbs on glp1s. Here to share!\n\nTryGLP1s.com/Brello",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 100,
+      "max_views": 100,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 2,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "retagirlie",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@retagirlie",
+      "followers": 0,
+      "bio": null,
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 92,
+      "max_views": 92,
+      "outlier_multiple": 1,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpandme",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpandme",
+      "followers": 0,
+      "bio": "GLP1  Weightloss & Meals✨\nInches over pounds✨ \nJust a mama finding her pink again post partum✨\nWeek 5 ⬇⬇⬇ 17.5 lbs",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 6,
+      "max_views": 6,
+      "outlier_multiple": 1,
+      "total_reposts": 2,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glpgirl",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glpgirl",
+      "followers": 0,
+      "bio": "I talk about peptides, skincare, beauty.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 1,
+      "max_views": 3,
+      "outlier_multiple": 3,
+      "total_reposts": 0,
+      "on_topic_captions": 1,
+      "posts_seen": 3,
+      "qualifies": false,
+      "affiliate_verified": false
+    },
+    {
+      "handle": "glp1_king",
+      "sources": [
+        "handle_pattern_discovery"
+      ],
+      "url": "https://www.tiktok.com/@glp1_king",
+      "followers": 0,
+      "bio": "👑티르제파타이드다이어트킹|🇰🇷한국다이어터가인정한정품|✈️해외직송세관클리어|📉운동없이도체중확확빠짐|💌문의는DM주세요.",
+      "bio_link": null,
+      "resolves_to": null,
+      "aggregator_links": [],
+      "code_in_bio": null,
+      "affiliate_evidence": null,
+      "has_affiliate": false,
+      "exclusion_reasons": [
+        "only 0 followers - below the 250 floor, which is the signature of a vendor-run posting account rather than a person"
+      ],
+      "median_views": 0,
+      "max_views": 0,
+      "outlier_multiple": null,
+      "total_reposts": 0,
+      "on_topic_captions": 0,
+      "posts_seen": 1,
+      "qualifies": false,
+      "affiliate_verified": false
+    }
+  ],
+  "verified_affiliate": 8
+}

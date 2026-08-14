@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="$if(description)$$description$$else$Biologix public market research and operating analysis.$endif$">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./research.css">
+  <title>$if(title)$$title$$else$Biologix Research Room$endif$</title>
+</head>
+<body class="$if(bodyclass)$$bodyclass$$endif$">
+  <header class="research-header">
+    <div class="research-header-inner">
+      <a class="research-brand" href="../index.html">Biologix / Decision Board</a>
+      <nav class="research-nav" aria-label="Research views">
+        <a href="./index.html">TLDR</a>
+        <a href="./supplier-reference.html">Suppliers</a>
+        <a href="./full-funnel.html">Full funnel</a>
+        <a href="./brand-comparison.html">18 brands</a>
+        <a href="./evidence.html">Evidence</a>
+        <a href="./start-here.html">Start here</a>
+      </nav>
+    </div>
+  </header>
+  <div class="doc-shell">
+    $if(title)$
+    <header id="title-block-header">
+      <p class="eyebrow">Public market intelligence · Updated July 23, 2026</p>
+      <h1>$title$</h1>
+    </header>
+    $endif$
+    <p class="reading-note">Use the navigation above to switch documents. Tables scroll horizontally on narrow screens.</p>
+    <div class="doc-layout $if(toc)$$else$no-toc$endif$">
+$if(toc)$      <aside class="toc" aria-label="Document contents">$toc$</aside>
+$endif$
+      <main class="document">$body$</main>
+    </div>
+  </div>
+</body>
+</html>

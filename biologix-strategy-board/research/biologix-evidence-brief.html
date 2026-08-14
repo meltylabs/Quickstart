@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Biologix Market &amp; Operating Evidence Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f5f1;
+      --ink: #171513;
+      --muted: #625e58;
+      --line: #d7d2ca;
+      --green: #1f3d2b;
+      --green-soft: #e4ece6;
+      --white: #fffefa;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Manrope, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.58;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--green); overflow-wrap: anywhere; }
+    .document {
+      width: min(900px, calc(100% - 44px));
+      margin: 0 auto;
+      padding: 70px 0 84px;
+    }
+    .cover {
+      min-height: 880px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px;
+      color: #fff;
+      background: var(--green);
+    }
+    .kicker,
+    .section-label,
+    .evidence-tag,
+    .footer-line {
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .cover h1 {
+      max-width: 680px;
+      margin: 0;
+      font-size: 66px;
+      letter-spacing: -.055em;
+      line-height: .96;
+    }
+    .cover .subtitle {
+      max-width: 620px;
+      margin: 26px 0 0;
+      color: rgba(255,255,255,.77);
+      font-size: 21px;
+      line-height: 1.45;
+    }
+    .cover-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.7);
+    }
+    .page {
+      padding: 52px 0 14px;
+    }
+    .page-break { break-before: page; }
+    .section-label { margin: 0 0 15px; color: var(--green); }
+    h2 {
+      max-width: 760px;
+      margin: 0 0 22px;
+      font-size: 36px;
+      letter-spacing: -.035em;
+      line-height: 1.08;
+    }
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    p { margin: 0 0 16px; }
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.52;
+    }
+    .verdict {
+      margin: 30px 0;
+      padding: 24px 26px;
+      border-left: 4px solid var(--green);
+      background: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      break-inside: avoid;
+    }
+    .card p:last-child,
+    .card ul:last-child { margin-bottom: 0; }
+    .metric {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green);
+      font-size: 31px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .evidence-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 5px 7px;
+      color: var(--green);
+      background: var(--green-soft);
+    }
+    ul, ol { margin: 12px 0 18px; padding-left: 20px; }
+    li { margin: 0 0 8px; }
+    table {
+      width: 100%;
+      margin: 22px 0;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 11px;
+      break-inside: auto;
+    }
+    th {
+      padding: 10px;
+      color: #fff;
+      background: var(--green);
+      text-align: left;
+      font-size: 9px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    tr { break-inside: avoid; }
+    .source-list {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: sources;
+    }
+    .source-list li {
+      counter-increment: sources;
+      padding: 11px 0 11px 30px;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .source-list li::before {
+      content: counter(sources);
+      position: absolute;
+      left: 0;
+      top: 12px;
+      color: var(--green);
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: 10px;
+    }
+    .note {
+      padding: 18px 20px;
+      background: var(--green-soft);
+      color: #26382c;
+    }
+    .footer-line {
+      margin-top: 38px;
+      padding-top: 16px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 720px) {
+      .cover { min-height: 760px; padding: 32px 26px; }
+      .cover h1 { font-size: 47px; }
+      .grid, .grid.three { grid-template-columns: 1fr; }
+    }
+    @page {
+      size: Letter;
+      margin: .52in .6in;
+    }
+    @media print {
+      body { font-size: 10.5px; background: #fff; }
+      .document { width: auto; padding: 0; }
+      .cover {
+        min-height: 9.45in;
+        margin: -.52in -.6in;
+        padding: .78in .68in;
+        break-after: page;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .cover h1 { font-size: 54px; }
+      .cover .subtitle { font-size: 17px; }
+      .page { padding: 0; }
+      .page-break { break-before: page; }
+      h2 { font-size: 28px; }
+      h3 { font-size: 14px; }
+      .lead, .verdict { font-size: 13px; }
+      .card { padding: 15px; }
+      .metric { font-size: 24px; }
+      a { color: var(--green); text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="document">
+    <section class="cover">
+      <div class="kicker">Biologix × OVO · Research brief</div>
+      <div>
+        <h1>Market &amp; Operating Evidence</h1>
+        <p class="subtitle">A sourced view of the public peptide market, creator distribution, Biologix signals, operating gaps, and the systems required to convert demand into a durable company.</p>
+      </div>
+      <div class="cover-meta">
+        <span>Prepared for Braden Lowder</span>
+        <span>Research cutoff · July 2026</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <p class="section-label">Executive finding</p>
+      <h2>The demand is real. The durable advantage is the company built around it.</h2>
+      <p class="lead">The public market is active, creator-led, operationally uneven, and far more dependent on distribution than custom technology. Biologix already appears to possess the scarce ingredients: founder authority, customer demand, supplier knowledge, creator access, and a recognizable brand. The remaining opportunity is to connect those assets through professional management, creator operations, lifecycle, finance visibility, fulfillment discipline, and reliable data.</p>
+      <div class="verdict">The strongest commercial thesis is not “build another store.” It is to build an operating and distribution system around a brand that has already demonstrated unusual pull.</div>
+      <div class="grid three">
+        <article class="card">
+          <span class="metric">Thirty</span>
+          <h3>Current seller candidates</h3>
+          <p>Public research identified a broad U.S.-facing cohort with current retatrutide-labelled or clearly mapped offers.</p>
+        </article>
+        <article class="card">
+          <span class="metric">Eighteen</span>
+          <h3>Brands compared deeply</h3>
+          <p>Offer structure, acquisition, access controls, proof, retention, affiliate pathways, and public contradictions were compared.</p>
+        </article>
+        <article class="card">
+          <span class="metric">Sixteen</span>
+          <h3>Creator evidence rows</h3>
+          <p>The verified register includes creators, tracked links, codes, public guides, communities, and other visible routing evidence.</p>
+        </article>
+      </div>
+      <p class="note"><strong>Method boundary:</strong> No account was created, no purchase was made, and no private catalog or community was entered. Public storefront observations prove what was visible at a point in time—not product authenticity, customer outcomes, internal records, or regulatory clearance.</p>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">How the market actually works</p>
+      <h2>Distribution and trust do more work than the website.</h2>
+      <p class="lead">The strongest observed operators use ordinary commerce infrastructure. Their sophistication comes from how they create trust, attribute demand, reduce purchase friction, retain customers, and restart the acquisition loop.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="evidence-tag">Observed acquisition pattern</span>
+          <h3>Attention becomes trust before it becomes a transaction</h3>
+          <ul>
+            <li>Search, social, podcasts, communities, and referrals create attention.</li>
+            <li>Creator education, guides, articles, reviews, and founder identity create trust.</li>
+            <li>Tracked links, personalized pages, and codes create attributable handoffs.</li>
+            <li>Batch reports, support, shipping language, and visible policies reduce uncertainty.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="evidence-tag">Observed retention pattern</span>
+          <h3>The transaction restarts the loop</h3>
+          <ul>
+            <li>Email, SMS, account history, alerts, and replenishment offers support repeat purchasing.</li>
+            <li>Membership, points, bundles, and broader catalogs deepen the relationship.</li>
+            <li>Creator portals and partner management turn existing relationships into new acquisition.</li>
+            <li>Wholesale and manager layers expand reach without routing every decision through a founder.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="verdict">Creators often own the trust. The seller owns the transaction. The company that connects attribution, lifecycle, service, and management owns the durable relationship.</div>
+      <h3>Observed funnel sequence</h3>
+      <p class="note">Attention → trust bridge → attributed handoff → product discovery → proof → access layer → transaction → fulfillment reassurance → retention → advocacy → expansion</p>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">Creator distribution evidence</p>
+      <h2>The creator layer is already large enough to function as infrastructure.</h2>
+      <p class="lead">Public evidence shows a mature creator-to-seller pattern: large audiences, education or community bridges, tracked links, codes, and portfolio relationships across multiple sellers. A link or code proves attributable routing—not payment, sales, exclusivity, or ownership.</p>
+      <table>
+        <thead>
+          <tr><th>Creator</th><th>Public reach snapshot</th><th>Observed routing evidence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Clavicular / Braden Peters</td><td>Audience above one million on Instagram and near one million on TikTok at capture</td><td>Live creator-controlled route to Arcane; separate public reporting documented source promotion.</td></tr>
+          <tr><td>Connor Sinann</td><td>Large YouTube and TikTok audiences</td><td>Tracked vendor link, public code, public guide, and paid community funnel.</td></tr>
+          <tr><td>Zaytovenfit</td><td>Large TikTok audience</td><td>Live retatrutide-labelled creator route and separate tracked seller relationship.</td></tr>
+          <tr><td>Jesse Marji</td><td>Large TikTok audience</td><td>Live retatrutide-labelled source link and code, plus a second seller code.</td></tr>
+          <tr><td>Dymitri</td><td>Large TikTok audience</td><td>Current multi-vendor code portfolio, demonstrating that creators can operate across several relationships.</td></tr>
+          <tr><td>Sarah Westall</td><td>Established newsletter audience</td><td>Tracked links, personalized seller page, code, and a public partner program.</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><strong>Identity caution:</strong> Public Connor Sinann must be confirmed as the same Connor discussed in the calls. Public Braden Peters is not Biologix founder Braden Lowder.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>What the evidence supports</h3>
+          <p>Creators can supply trust, explanation, attributable traffic, community, and repeat exposure at meaningful scale.</p>
+        </article>
+        <article class="card">
+          <h3>What it does not support</h3>
+          <p>Public links do not prove private sales, relationship terms, exclusivity, conversion, or customer quality.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">Biologix evidence</p>
+      <h2>Public signals and founder-reported signals point to a company whose demand arrived before its infrastructure.</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="evidence-tag">Publicly observed</span>
+          <h3>GLP-3R led the public popularity snapshot</h3>
+          <p>The timestamped Biologix WooCommerce Store API snapshot returned GLP-3R / retatrutide first in popularity order. That order is sales-informed, but it does not disclose units, dollars, customers, or the represented period.</p>
+        </article>
+        <article class="card">
+          <span class="evidence-tag">Publicly observed</span>
+          <h3>Visible storefront allocation was substantial</h3>
+          <p>A timestamped public snapshot recorded 1,397 visible numeric units and approximately $86,657 in displayed retail inventory across sellable entries. This is storefront allocation—not proof of total warehouse inventory, cost, ownership, or historical sales.</p>
+        </article>
+        <article class="card">
+          <span class="evidence-tag">Founder-reported · not reconciled</span>
+          <h3>A single dashboard view showed unusually high activity</h3>
+          <p>During the recorded strategy call, Braden showed a dashboard amount of $53,540.86 and 216 reported orders while explaining that analytics were incomplete and omitted Apple Pay. The screenshot is a strong operating signal, but it remains a founder-reported snapshot until matched to orders and settlements.</p>
+        </article>
+        <article class="card">
+          <span class="evidence-tag">Founder-reported · transcript</span>
+          <h3>Founder dependence is visible across functions</h3>
+          <p>The calls describe founder-led fulfillment, a small active affiliate group, incomplete analytics, family-carried finance, and multiple growth initiatives waiting for a management layer.</p>
+        </article>
+      </div>
+      <h3>Operating opportunities repeatedly identified in the calls</h3>
+      <ul>
+        <li>Move finance knowledge from a family-carried process into independent professional coverage.</li>
+        <li>Turn isolated creator relationships into a managed creator and affiliate system.</li>
+        <li>Connect membership, subscription, email, SMS, referral, and retention into one lifecycle.</li>
+        <li>Build managers who manage relationships and people without routing everything through Braden.</li>
+        <li>Use retreats and creator experiences as recruiting, retention, content, and partnership infrastructure.</li>
+        <li>Integrate PeptidePal as a strategic category asset rather than leaving it disconnected.</li>
+      </ul>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">Competitor evidence</p>
+      <h2>The market persists, but no single operating pattern proves durability.</h2>
+      <table>
+        <thead>
+          <tr><th>Observed pattern</th><th>Public examples</th><th>What the evidence means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Open direct store</td><td>American Peptides, Modern Peptides, Prime Peptides</td><td>Low-friction discovery and purchase; public claims and surrounding context are also easier to evaluate.</td></tr>
+          <tr><td>Qualified-access store</td><td>Skye, Xcel, Loti, Ion, Mile High</td><td>Access gates can collect purchaser representations and reduce public catalog exposure; they do not independently establish legal clearance.</td></tr>
+          <tr><td>Creator-to-coded offer</td><td>Connor → V&amp;L, Clavicular → Arcane, Jesse → Peptira</td><td>The creator supplies meaning and trust while the seller closes the transaction.</td></tr>
+          <tr><td>Lifecycle-led commerce</td><td>Modern, American, Gentleman, Loti</td><td>Accounts, alerts, email, SMS, points, and replenishment mechanisms support repeat behavior.</td></tr>
+          <tr><td>Post-agency change</td><td>Several cited sellers</td><td>Observed responses include gating, renaming, copy changes, product removal, domain migration, continued public retail, and closure.</td></tr>
+        </tbody>
+      </table>
+      <div class="verdict">“Still online” is evidence of market persistence, not evidence that a disclaimer, access gate, code name, or creator separation has been accepted as a safe harbor.</div>
+      <p>Official records documented research-use-only sellers whose wider labeling and marketing led FDA to treat the products as drugs. Other official records documented sellers that later gated catalogs, removed cited products, migrated, continued publicly, or disappeared. A warning letter records FDA’s concerns and an opportunity to respond; it is not a judicial finding.</p>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">What the evidence means operationally</p>
+      <h2>Biologix does not need more disconnected tactics. It needs one accountable operating layer.</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Creator operations</h3>
+          <p>Recruiting, qualification, onboarding, content standards, attribution, communication, reporting, retention, and expansion should run through one system.</p>
+        </article>
+        <article class="card">
+          <h3>Management leverage</h3>
+          <p>Managers should own portfolios and develop additional managers so growth creates leverage instead of more founder messages.</p>
+        </article>
+        <article class="card">
+          <h3>Lifecycle</h3>
+          <p>Creator acquisition, membership, subscription, email, SMS, support, referral, and retention should share one customer view.</p>
+        </article>
+        <article class="card">
+          <h3>Finance visibility</h3>
+          <p>Independent professionals should reconcile records and produce reliable reporting while the founders use that information to prioritize the company.</p>
+        </article>
+        <article class="card">
+          <h3>Quality and fulfillment</h3>
+          <p>Product records, inventory movement, supplier documentation, complaints, and fulfillment performance require traceable owners and escalation paths.</p>
+        </article>
+        <article class="card">
+          <h3>Executive cadence</h3>
+          <p>Every priority needs an owner, a status, a decision path, and a regular review so the company stops running through memory.</p>
+        </article>
+      </div>
+      <p class="note"><strong>Partnership implication:</strong> Braden’s highest-value work is founder vision, product authority, sourcing, brand, and relationships. Alex and OVO’s highest-value contribution is building and managing the operating system around those strengths.</p>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">Required verification</p>
+      <h2>The evidence is strong enough to justify action—and disciplined enough to show what still needs proof.</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Commercial records</h3>
+          <ul>
+            <li>Order exports and product-level sales records</li>
+            <li>Processor activity and bank settlements</li>
+            <li>Refunds, disputes, and chargebacks</li>
+            <li>Customer cohorts and repeat behavior</li>
+            <li>Affiliate attribution and payout ledger</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Company records</h3>
+          <ul>
+            <li>Entity documents and ownership records</li>
+            <li>Accounting close and tax records</li>
+            <li>Material contracts and commitments</li>
+            <li>Insurance and claims history</li>
+            <li>Processor and platform agreements</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Product and supply records</h3>
+          <ul>
+            <li>Supplier and import documentation</li>
+            <li>Inventory roll-forward and custody records</li>
+            <li>Testing records and chain of custody</li>
+            <li>Complaint and adverse-event records</li>
+            <li>Fulfillment performance and exception logs</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Operating records</h3>
+          <ul>
+            <li>Current team and responsibility map</li>
+            <li>Creator agreements and active roster</li>
+            <li>Marketing and claims approval process</li>
+            <li>Technology, data, and access inventory</li>
+            <li>Current professional legal and regulatory advice</li>
+          </ul>
+        </article>
+      </div>
+      <p class="verdict">The purpose of diligence is not to slow the partnership down. It is to replace assumptions with a shared source of truth so both founders can move faster from the same facts.</p>
+    </section>
+
+    <section class="page page-break">
+      <p class="section-label">Selected source register</p>
+      <h2>Primary records and reproducible public snapshots.</h2>
+      <ol class="source-list">
+        <li><strong>Biologix public popularity snapshot:</strong> <a href="https://biologixlabsresearch.com/wp-json/wc/store/v1/products?per_page=100&amp;orderby=popularity&amp;order=desc">WooCommerce Store API, popularity descending</a>.</li>
+        <li><strong>FDA guidance on warning-letter status:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/about-warning-and-close-out-letters">About Warning and Close-Out Letters</a>.</li>
+        <li><strong>FDA, Xcel Research:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/xcel-research-llc-694608-12102024">Warning Letter, December 2024</a>.</li>
+        <li><strong>FDA, Summit Research Peptides:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/summit-research-peptides-695607-12102024">Warning Letter, December 2024</a>.</li>
+        <li><strong>FDA, Prime Peptides:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/prime-vitality-inc-dba-prime-peptides-695156-12102024">Warning Letter, December 2024</a>.</li>
+        <li><strong>FDA, Gram Peptides:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/gram-peptides-721806-03312026">Warning Letter, March 2026</a>.</li>
+        <li><strong>FDA, Mile High Compounds:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/mile-high-compounds-llc-721600-03312026">Warning Letter, March 2026</a>.</li>
+        <li><strong>FDA, Prime Sciences:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/prime-sciences-721805-03312026">Warning Letter, March 2026</a>.</li>
+        <li><strong>FDA, PekCura Labs:</strong> <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/pekcura-labs-721709-03312026">Warning Letter, March 2026</a>.</li>
+        <li><strong>Internal call record:</strong> speaker-attributed transcripts from the three Braden–Alex calls, with founder-reported facts labeled separately from public observations.</li>
+      </ol>
+      <p class="note">Research cutoff: July 2026. Public pages, availability, policies, and agency records can change. This brief is business research, not legal, medical, regulatory, tax, accounting, or investment advice.</p>
+      <p class="footer-line">Biologix × OVO · Market &amp; Operating Evidence · Prepared for Braden Lowder</p>
+    </section>
+  </main>
+</body>
+</html>
