@@ -30,6 +30,7 @@ Conductor runs the same commands through `.conductor/settings.toml`. Vite serves
 - `GET /api/health`
 - `GET /api/provenance`
 - `GET /api/cohort`
+- `GET /api/biology`
 - `GET /api/sweep`
 - `GET /api/transfer?frac=&seed=`
 - `GET /api/maps`

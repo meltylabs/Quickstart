@@ -138,6 +138,8 @@ def missing_items() -> list[str]:
         zip_rel = store.get("zip_path")
         if zip_rel and not generated_path(zip_rel).exists():
             missing.append(f"public/data/generated/{zip_rel}")
+    if not generated_path("biology.json").exists():
+        missing.append("public/data/generated/biology.json")
     return missing
 
 
@@ -173,6 +175,14 @@ def load_results() -> list[dict[str, Any]]:
     if not path.exists():
         raise DataUnavailable("Missing results_v5.jsonl. Run ./scripts/sync_xtb_data.sh.")
     return read_jsonl(path)
+
+
+@lru_cache(maxsize=1)
+def load_biology() -> dict[str, Any]:
+    path = generated_path("biology.json")
+    if not path.exists():
+        raise DataUnavailable("Missing biology.json. Run ./scripts/build_portal_data.py.")
+    return read_json(path)
 
 
 def health_report() -> dict[str, Any]:
@@ -233,6 +243,18 @@ def cohort() -> dict[str, Any]:
             "zarr_stores": manifest.get("zarr_stores", []),
         }
     )
+
+
+def biology() -> dict[str, Any]:
+    payload = load_biology()
+    meta = load_meta()
+    required = {"dataset", "annotations", "samples", "marker_groups", "story"}
+    missing = sorted(required - set(payload))
+    if missing:
+        raise DataUnavailable(f"biology.json missing required sections: {missing}")
+    if int(payload.get("dataset", {}).get("source_rows", 0)) != int(meta.get("n_cells_in_atlas", 0)):
+        raise DataUnavailable("biology.json source row count does not match prep_meta.json")
+    return sanitize(payload)
 
 
 def row_metric(row: dict[str, Any], names: tuple[str, ...]) -> float | None:

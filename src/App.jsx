@@ -9,10 +9,12 @@ import React, {
 import {
   Activity,
   AlertTriangle,
+  BookOpen,
   Database,
   FileCheck2,
   FlaskConical,
   Gauge,
+  Microscope,
   Pause,
   Play,
   RefreshCcw,
@@ -457,6 +459,89 @@ function MetricTile({ icon: Icon, label, value, detail }) {
   );
 }
 
+function PercentBar({ item }) {
+  const width = `${Math.max(2, Math.min(100, Number(item.fraction || 0) * 100))}%`;
+  return (
+    <div className="percent-bar">
+      <div className="percent-row">
+        <span>{item.label}</span>
+        <b>{formatNumber(Number(item.fraction || 0) * 100, 1)}%</b>
+      </div>
+      <div className="bar-track" aria-hidden="true">
+        <i style={{ width }} />
+      </div>
+    </div>
+  );
+}
+
+function BiologyStory({ biology, cohort, sample }) {
+  const selectedSample = biology?.samples?.find((item) => item.sample === sample) || biology?.samples?.[0];
+  const labelL1 = biology?.annotations?.label_l1 || [];
+  const markerGroups = biology?.marker_groups || [];
+
+  return (
+    <section className="biology-story">
+      <div className="story-lede">
+        <p className="eyebrow">Biological substrate</p>
+        <h2>Normal marrow as spatial proteomics, not a synthetic map</h2>
+        <p>{biology?.story?.biological_material}</p>
+        <div className="story-facts">
+          <span><Microscope size={15} /> {biology?.dataset?.modality}</span>
+          <span><Database size={15} /> {formatNumber(biology?.dataset?.source_rows, 0)} source cells</span>
+          <span><BookOpen size={15} /> label_l1 / label_l2 / label_coarse</span>
+        </div>
+      </div>
+
+      <div className="story-card question-card">
+        <span>Benchmark question</span>
+        <strong>{biology?.story?.question}</strong>
+        <p>{biology?.story?.benchmark_reading}</p>
+      </div>
+
+      <div className="story-card donor-card">
+        <span>Selected donor</span>
+        <strong>{selectedSample ? shortSample(selectedSample.sample) : 'n/a'}</strong>
+        <p>
+          {selectedSample
+            ? `${selectedSample.sex}, age ${selectedSample.age}; ${formatNumber(selectedSample.cell_count, 0)} cells in the source atlas, ${formatNumber(cohort?.nsub, 0)} shown per seed.`
+            : 'Select a donor to inspect its real subsample.'}
+        </p>
+      </div>
+
+      <div className="annotation-panel">
+        <div className="panel-head">
+          <div>
+            <h2>label_l1 Composition</h2>
+            <p>Top publisher-derived annotations across the full synced atlas.</p>
+          </div>
+        </div>
+        <div className="bar-list">
+          {labelL1.slice(0, 10).map((item) => (
+            <PercentBar key={item.label} item={item} />
+          ))}
+        </div>
+      </div>
+
+      <div className="marker-panel">
+        <div className="panel-head">
+          <div>
+            <h2>Marker Families</h2>
+            <p>Grouped by recognizable protein-marker use; all names come from the CSV header.</p>
+          </div>
+        </div>
+        <div className="marker-groups">
+          {markerGroups.map((group) => (
+            <div className="marker-group" key={group.name}>
+              <b>{group.name}</b>
+              <span>{group.markers.join(', ')}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TransferMatrix({ transfer }) {
   const [active, setActive] = useState(null);
   const samples = transfer?.samples || [];
@@ -626,6 +711,7 @@ function App() {
   const [cohort, setCohort] = useState(null);
   const [sweep, setSweep] = useState(null);
   const [maps, setMaps] = useState(null);
+  const [biology, setBiology] = useState(null);
   const [provenance, setProvenance] = useState(null);
   const [transfer, setTransfer] = useState(null);
   const [weight, setWeight] = useState(0.02);
@@ -642,16 +728,18 @@ function App() {
         if (ignore) return;
         setHealth(nextHealth);
         if (nextHealth.status !== 'ok') return;
-        const [nextCohort, nextSweep, nextMaps, nextProvenance] = await Promise.all([
+        const [nextCohort, nextSweep, nextMaps, nextBiology, nextProvenance] = await Promise.all([
           api('/api/cohort'),
           api('/api/sweep'),
           api('/api/maps'),
+          api('/api/biology'),
           api('/api/provenance'),
         ]);
         if (ignore) return;
         setCohort(nextCohort);
         setSweep(nextSweep);
         setMaps(nextMaps);
+        setBiology(nextBiology);
         setProvenance(nextProvenance);
         setSample(nextCohort.representative_donor || REPRESENTATIVE);
         setMarker(nextCohort.markers?.[0] || 'CD19');
@@ -734,6 +822,8 @@ function App() {
           <span><FileCheck2 size={15} /> real synced artifacts</span>
         </div>
       </header>
+
+      <BiologyStory biology={biology} cohort={cohort} sample={sample} />
 
       <section className="workbench">
         <div className="animation-panel">

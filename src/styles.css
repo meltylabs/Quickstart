@@ -116,7 +116,8 @@ p {
 }
 
 .workbench,
-.lower-grid {
+.lower-grid,
+.biology-story {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(310px, 0.7fr);
   gap: 16px;
@@ -125,6 +126,9 @@ p {
 
 .animation-panel,
 .summary-panel,
+.story-card,
+.annotation-panel,
+.marker-panel,
 .panel,
 .viewer-section,
 .provenance-panel,
@@ -138,6 +142,155 @@ p {
 .animation-panel {
   min-width: 0;
   padding: 14px;
+}
+
+.biology-story {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.52fr) minmax(260px, 0.52fr);
+  margin-bottom: 16px;
+}
+
+.story-lede {
+  min-width: 0;
+  border-left: 5px solid var(--marrow);
+  padding: 8px 18px 8px 12px;
+}
+
+.story-lede h2 {
+  max-width: 780px;
+  margin-bottom: 8px;
+  font-size: clamp(22px, 3vw, 38px);
+  line-height: 1.04;
+}
+
+.story-lede p {
+  max-width: 760px;
+  margin-bottom: 13px;
+  color: #4e463c;
+  font-size: 15px;
+}
+
+.story-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.story-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fffaf1;
+  padding: 7px 9px;
+  color: #3c372f;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.story-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+}
+
+.story-card span {
+  color: var(--marrow);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.story-card strong {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.18;
+}
+
+.story-card p {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.annotation-panel,
+.marker-panel {
+  min-width: 0;
+  padding: 14px;
+}
+
+.annotation-panel {
+  grid-column: 1 / 2;
+}
+
+.marker-panel {
+  grid-column: 2 / 4;
+}
+
+.bar-list {
+  display: grid;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.percent-bar {
+  display: grid;
+  gap: 5px;
+}
+
+.percent-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #3c372f;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.percent-row b {
+  color: var(--marrow);
+}
+
+.bar-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eadfce;
+}
+
+.bar-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--marrow), var(--ochre));
+}
+
+.marker-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.marker-group {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #e2d7c7;
+  border-radius: 7px;
+  background: #fbf7ef;
+  padding: 10px;
+}
+
+.marker-group b {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.marker-group span {
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .panel-head,
@@ -488,8 +641,14 @@ select {
 
 @media (max-width: 1020px) {
   .workbench,
-  .lower-grid {
+  .lower-grid,
+  .biology-story {
     grid-template-columns: 1fr;
+  }
+
+  .annotation-panel,
+  .marker-panel {
+    grid-column: auto;
   }
 
   .summary-panel {
@@ -520,6 +679,16 @@ select {
 
   .status-strip {
     justify-content: stretch;
+  }
+
+  .story-lede {
+    border-left-width: 0;
+    border-top: 5px solid var(--marrow);
+    padding: 12px 0 0;
+  }
+
+  .marker-groups {
+    grid-template-columns: 1fr;
   }
 
   .status-strip span {

@@ -279,6 +279,89 @@ def build_zarrs(df: pd.DataFrame, meta: dict[str, Any], force: bool) -> list[dic
     return zarr_stores
 
 
+def top_counts(series: pd.Series, limit: int = 12) -> list[dict[str, Any]]:
+    counts = series.astype(str).value_counts(dropna=False).head(limit)
+    total = int(len(series))
+    return [
+        {
+            "label": str(label),
+            "count": int(count),
+            "fraction": float(count / total) if total else 0.0,
+        }
+        for label, count in counts.items()
+    ]
+
+
+def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any]) -> dict[str, Any]:
+    marker_groups = [
+        {
+            "name": "Hematopoietic progenitor and stem-associated",
+            "markers": ["CD34", "CD117", "SPINK2", "CD38", "CD90", "CD49F"],
+        },
+        {
+            "name": "Myeloid, monocyte, and macrophage",
+            "markers": ["MPO", "CD33", "CD15", "CD11B", "CD11C", "CD14", "CD68", "CD163", "HLA-DR"],
+        },
+        {
+            "name": "B, plasma, and T lymphoid",
+            "markers": ["CD19", "CD79A", "PAX5", "CD10", "CD138", "CD3e", "CD4", "CD8"],
+        },
+        {
+            "name": "Erythroid and megakaryocytic",
+            "markers": ["GATA1", "GYPC", "CD71", "CD61"],
+        },
+        {
+            "name": "Stromal, vascular, and niche",
+            "markers": ["ASMA", "VIM", "FOXC1", "VCAM1", "CD146", "VECAD", "PDPN", "CXCL12", "TGFB1", "CD271"],
+        },
+        {
+            "name": "Other measured proteins",
+            "markers": ["PLP1", "BCL2", "HIF1A", "OXPHOS", "CD44", "CD45", "CD45RA", "CD123", "CD141", "BCAT", "CXCR4", "MastCellTryptase"],
+        },
+    ]
+    markers = set(meta["markers"])
+    sample_counts = df.groupby("sample", sort=True).size()
+    sample_meta = df.groupby("sample", sort=True)[["Sex", "Age"]].first()
+    samples = []
+    for sample, count in sample_counts.items():
+        subset = df[df["sample"] == sample]
+        samples.append(
+            {
+                "sample": str(sample),
+                "cell_count": int(count),
+                "sex": str(sample_meta.loc[sample, "Sex"]),
+                "age": int(sample_meta.loc[sample, "Age"]),
+                "top_label_l1": top_counts(subset["label_l1"], limit=5),
+            }
+        )
+
+    return {
+        "dataset": {
+            "title": "Processed CODEX Data (Seurat Objects)",
+            "doi": "10.25452/figshare.plus.25127657.v1",
+            "license": "CC0 1.0 Universal",
+            "modality": "CODEX spatial proteomic imaging",
+            "source_rows": int(len(df)),
+            "subsampled_cells_per_donor": int(meta["nsub"]),
+        },
+        "annotations": {
+            "label_l1": top_counts(df["label_l1"], limit=18),
+            "label_l2": top_counts(df["label_l2"], limit=18),
+            "label_coarse": top_counts(df["label_coarse"], limit=18),
+        },
+        "samples": samples,
+        "marker_groups": [
+            {**group, "markers": [marker for marker in group["markers"] if marker in markers]}
+            for group in marker_groups
+        ],
+        "story": {
+            "question": "How do protein-defined marrow cell states and tissue position affect clustering reproducibility across donors?",
+            "biological_material": "Each cell carries multiplexed antibody intensity, x/y tissue position, and publisher-derived marrow annotations.",
+            "benchmark_reading": "The transfer score is a method-stability readout across donors; it is not a clinical or causal biology claim.",
+        },
+    }
+
+
 def code_receipts() -> list[dict[str, str]]:
     receipts = []
     for path in sorted((DATA_DIR / "code").glob("*.py")):
@@ -314,6 +397,7 @@ def build(force: bool) -> None:
         raise RuntimeError("CSV sample IDs do not match prep_meta.json")
 
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
+    biology = build_biology_summary(df, meta)
     zarr_stores = build_zarrs(df, meta, force=force)
     shutil.copy2(maps_path, GENERATED_DIR / "maps.json")
 
@@ -344,11 +428,13 @@ def build(force: bool) -> None:
             "n_cells_in_atlas": int(meta["n_cells_in_atlas"]),
             "nsub": int(meta["nsub"]),
         },
+        "biology": biology,
         "zarr_stores": zarr_stores,
         "code_receipts": code_receipts(),
     }
     write_json(GENERATED_DIR / "manifest.json", manifest)
     write_json(GENERATED_DIR / "cohort.json", manifest["cohort"])
+    write_json(GENERATED_DIR / "biology.json", biology)
     print(f"Built portal data in {GENERATED_DIR}")
 
 

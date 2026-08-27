@@ -32,6 +32,18 @@ def test_cohort_contract_when_ready() -> None:
     assert "SB67_NBM37_H35_CODEX_Mesmer" in payload["samples"]
 
 
+def test_biology_contract_when_ready() -> None:
+    require_ready()
+    payload = client.get("/api/biology").json()
+    assert payload["dataset"]["modality"] == "CODEX spatial proteomic imaging"
+    assert payload["dataset"]["source_rows"] == 886525
+    assert payload["dataset"]["doi"] == "10.25452/figshare.plus.25127657.v1"
+    assert len(payload["samples"]) == 12
+    assert len(payload["annotations"]["label_l1"]) >= 10
+    assert payload["annotations"]["label_l1"][0]["label"] == "Myeloid"
+    assert any(group["name"].startswith("Stromal") for group in payload["marker_groups"])
+
+
 def test_sweep_contract_when_ready() -> None:
     require_ready()
     payload = client.get("/api/sweep").json()

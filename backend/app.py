@@ -59,6 +59,14 @@ def cohort() -> dict:
         raise unavailable(exc) from exc
 
 
+@app.get("/api/biology")
+def biology() -> dict:
+    try:
+        return store.biology()
+    except store.DataUnavailable as exc:
+        raise unavailable(exc) from exc
+
+
 @app.get("/api/sweep")
 def sweep() -> dict:
     try:

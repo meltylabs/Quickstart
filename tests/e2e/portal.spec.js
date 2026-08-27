@@ -33,6 +33,11 @@ test('portal renders real-data dashboard without empty canvas', async ({ page })
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'XTB CODEX Bone-Marrow Portal' })).toBeVisible();
   await page.waitForSelector('[data-ready="true"]', { timeout: 30_000 });
+  await expect(page.getByRole('heading', { name: 'Normal marrow as spatial proteomics, not a synthetic map' })).toBeVisible();
+  await expect(page.getByText('CODEX spatial proteomic imaging')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'label_l1 Composition' })).toBeVisible();
+  await expect(page.getByText('Myeloid').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Marker Families' })).toBeVisible();
 
   const canvas = page.getByTestId('moving-floor-canvas');
   await expect(canvas).toBeVisible();
