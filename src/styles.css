@@ -127,6 +127,9 @@ p {
 .animation-panel,
 .summary-panel,
 .story-card,
+.paper-panel,
+.design-panel,
+.definition-panel,
 .annotation-panel,
 .marker-panel,
 .panel,
@@ -214,9 +217,24 @@ p {
 }
 
 .annotation-panel,
+.paper-panel,
+.design-panel,
+.definition-panel,
 .marker-panel {
   min-width: 0;
   padding: 14px;
+}
+
+.paper-panel {
+  grid-column: 1 / -1;
+}
+
+.design-panel {
+  grid-column: 1 / 3;
+}
+
+.definition-panel {
+  grid-column: 3 / 4;
 }
 
 .annotation-panel {
@@ -291,6 +309,153 @@ p {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 11px;
   line-height: 1.45;
+}
+
+.marker-evidence {
+  margin-top: 15px;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+}
+
+.marker-evidence h3 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.marker-evidence p,
+.artifact-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.evidence-grid article {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #e2d7c7;
+  border-radius: 7px;
+  background: #fffaf1;
+  padding: 10px;
+}
+
+.evidence-grid b {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.evidence-grid small {
+  color: var(--marrow);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.evidence-grid span {
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.paper-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.paper-grid article {
+  display: grid;
+  gap: 6px;
+  border: 1px solid #e2d7c7;
+  border-radius: 7px;
+  background: #fbf7ef;
+  padding: 11px;
+}
+
+.paper-grid span {
+  color: var(--marrow);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.paper-grid strong {
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.paper-grid p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+
+.donor-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.donor-labels span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fbf7ef;
+  padding: 5px 7px;
+  color: #3c372f;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: none;
+}
+
+.design-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.design-steps article,
+.definition-list article {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #e2d7c7;
+  border-radius: 7px;
+  background: #fbf7ef;
+  padding: 10px;
+}
+
+.design-steps span {
+  color: var(--marrow);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.design-steps p,
+.definition-list p {
+  margin-bottom: 0;
+  color: #51483e;
+  font-size: 12px;
+}
+
+.definition-list {
+  display: grid;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.definition-list b {
+  color: var(--ink);
+  font-size: 12px;
 }
 
 .panel-head,
@@ -408,7 +573,7 @@ select {
 
 .summary-panel {
   display: grid;
-  grid-template-rows: repeat(3, minmax(104px, auto)) 1fr;
+  grid-template-rows: repeat(3, minmax(104px, auto)) auto 1fr;
   gap: 10px;
   padding: 14px;
 }
@@ -445,6 +610,21 @@ select {
   grid-column: 1 / -1;
   color: var(--blue);
   font-weight: 750;
+}
+
+.map-metrics {
+  display: grid;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fbf7ef;
+  padding: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.map-metrics b {
+  color: var(--ink);
 }
 
 .summary-copy {
@@ -647,8 +827,19 @@ select {
   }
 
   .annotation-panel,
+  .paper-panel,
+  .design-panel,
+  .definition-panel,
   .marker-panel {
     grid-column: auto;
+  }
+
+  .paper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .summary-panel {
@@ -688,6 +879,14 @@ select {
   }
 
   .marker-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .design-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-grid {
     grid-template-columns: 1fr;
   }
 

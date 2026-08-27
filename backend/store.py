@@ -20,6 +20,7 @@ EXPECTED_RDS_MD5 = {
     "AML_NSM_RefMap_Seurat.rds": "b8aed7d26accdce4072b1d5f5046a58d",
 }
 EXPECTED_FRACS = [0.02, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9]
+EXPECTED_FRAC_KEYS = {format(frac, ".2f").rstrip("0").rstrip(".") for frac in EXPECTED_FRACS}
 REPRESENTATIVE_DONOR = "SB67_NBM37_H35_CODEX_Mesmer"
 
 REQUIRED_SOURCE_FILES = (
@@ -223,6 +224,7 @@ def provenance() -> dict[str, Any]:
             "markdown": text,
             "receipts": manifest.get("checks", {}),
             "code_receipts": manifest.get("code_receipts", []),
+            "analysis_method": manifest.get("analysis_method", {}),
         }
     )
 
@@ -248,7 +250,19 @@ def cohort() -> dict[str, Any]:
 def biology() -> dict[str, Any]:
     payload = load_biology()
     meta = load_meta()
-    required = {"dataset", "annotations", "samples", "marker_groups", "story"}
+    required = {
+        "dataset",
+        "paper",
+        "annotations",
+        "annotation_evidence",
+        "artifact_summary",
+        "samples",
+        "marker_groups",
+        "pipeline",
+        "metric_definitions",
+        "transfer_floor",
+        "story",
+    }
     missing = sorted(required - set(payload))
     if missing:
         raise DataUnavailable(f"biology.json missing required sections: {missing}")
@@ -348,6 +362,9 @@ def sweep_summary() -> dict[str, Any]:
 
 
 def transfer(frac: float, seed: int) -> dict[str, Any]:
+    requested = format_weight(frac)
+    if requested not in EXPECTED_FRAC_KEYS:
+        raise ValueError(f"Unsupported spatial weight: {frac}. Expected one of {sorted(EXPECTED_FRAC_KEYS, key=float)}")
     rows = [
         r
         for r in load_results()

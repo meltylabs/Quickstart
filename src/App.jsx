@@ -242,7 +242,7 @@ function drawTransferPath(ctx, samples, rows, rect, tick) {
 
 function drawMetricBars(ctx, metric, rect) {
   const items = [
-    ['native vs author', metric?.acc],
+    ['native vs label_l1', metric?.acc],
     ['stochastic floor', metric?.floor],
     ['map BSI', metric?.bsi],
   ];
@@ -254,7 +254,7 @@ function drawMetricBars(ctx, metric, rect) {
   ctx.roundRect(rect.x, rect.y, rect.w, rect.h, 8);
   ctx.fill();
   ctx.stroke();
-  drawLabel(ctx, 'Map BSI: spatial-only share', rect.x + 14, rect.y + 23);
+  drawLabel(ctx, 'Map BSI: spatial support share', rect.x + 14, rect.y + 23);
   items.forEach(([label, value], index) => {
     const top = rect.y + 52 + index * 44;
     const numeric = Math.max(0, Math.min(1, Number(value || 0)));
@@ -312,7 +312,7 @@ function MovingFloorCanvas({ maps, weight, stage, transferRows, samples, reduced
       const key = formatWeight(weight);
       const metric = maps.metrics?.[key] || {};
       const mainLabels = maps.labels?.[`m${key}`];
-      const expressionLabels = maps.labels?.[`e${key}`];
+      const markerOnlyLabels = maps.labels?.[`e${key}`];
       const spatialLabels = maps.labels?.[`s${key}`];
       const floorA = maps.labels?.[`a${key}`];
       const floorB = maps.labels?.[`b${key}`];
@@ -330,7 +330,7 @@ function MovingFloorCanvas({ maps, weight, stage, transferRows, samples, reduced
         const topH = Math.max(125, h * 0.32);
         drawMetricBars(ctx, metric, { x: 28, y: 28, w: w - 56, h: topH });
         drawMap(ctx, maps, spatialLabels, { x: 28, y: topH + 48, w: (w - 74) / 2, h: h - topH - 72 }, `spatial-only labels, w=${key}`, pulse);
-        drawMap(ctx, maps, expressionLabels, { x: 46 + (w - 74) / 2, y: topH + 48, w: (w - 74) / 2, h: h - topH - 72 }, `expression-only labels, w=${key}`, 1 - pulse);
+        drawMap(ctx, maps, markerOnlyLabels, { x: 46 + (w - 74) / 2, y: topH + 48, w: (w - 74) / 2, h: h - topH - 72 }, `protein-marker-only labels, w=${key}`, 1 - pulse);
       } else {
         drawDonorStrip(ctx, samples, { x: 36, y: 26, w: w - 72, h: 66 }, samples.indexOf(REPRESENTATIVE));
         drawMap(ctx, maps, mainLabels, { x: 28, y: 108, w: w - 56, h: h - 138 }, `Representative clustered map, w=${key}`, pulse);
@@ -478,16 +478,19 @@ function BiologyStory({ biology, cohort, sample }) {
   const selectedSample = biology?.samples?.find((item) => item.sample === sample) || biology?.samples?.[0];
   const labelL1 = biology?.annotations?.label_l1 || [];
   const markerGroups = biology?.marker_groups || [];
+  const markerEvidence = biology?.annotation_evidence?.label_l1 || [];
+  const artifact = biology?.artifact_summary;
 
   return (
     <section className="biology-story">
       <div className="story-lede">
         <p className="eyebrow">Biological substrate</p>
         <h2>Normal marrow as spatial proteomics, not a synthetic map</h2>
-        <p>{biology?.story?.biological_material}</p>
+        <p>{biology?.story?.atlas_context || biology?.story?.biological_material}</p>
         <div className="story-facts">
           <span><Microscope size={15} /> {biology?.dataset?.modality}</span>
           <span><Database size={15} /> {formatNumber(biology?.dataset?.source_rows, 0)} source cells</span>
+          <span><FlaskConical size={15} /> {biology?.dataset?.markers_used || cohort?.n_markers} protein markers used</span>
           <span><BookOpen size={15} /> label_l1 / label_l2 / label_coarse</span>
         </div>
       </div>
@@ -498,6 +501,12 @@ function BiologyStory({ biology, cohort, sample }) {
         <p>{biology?.story?.benchmark_reading}</p>
       </div>
 
+      <div className="story-card result-card">
+        <span>Main result</span>
+        <strong>Transfer stays below the same-donor floor</strong>
+        <p>{biology?.story?.main_result}</p>
+      </div>
+
       <div className="story-card donor-card">
         <span>Selected donor</span>
         <strong>{selectedSample ? shortSample(selectedSample.sample) : 'n/a'}</strong>
@@ -506,6 +515,73 @@ function BiologyStory({ biology, cohort, sample }) {
             ? `${selectedSample.sex}, age ${selectedSample.age}; ${formatNumber(selectedSample.cell_count, 0)} cells in the source atlas, ${formatNumber(cohort?.nsub, 0)} shown per seed.`
             : 'Select a donor to inspect its real subsample.'}
         </p>
+        {selectedSample?.top_label_l1?.length ? (
+          <div className="donor-labels">
+            {selectedSample.top_label_l1.slice(0, 3).map((item) => (
+              <span key={item.label}>{item.label} {formatNumber(Number(item.fraction || 0) * 100, 1)}%</span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="paper-panel">
+        <div className="panel-head">
+          <div>
+            <h2>Paper And Dataset Context</h2>
+            <p>The benchmark is a local slice of the published atlas resources, not a reanalysis of every paper result.</p>
+          </div>
+        </div>
+        <div className="paper-grid">
+          <article>
+            <span>Primary paper</span>
+            <strong>{biology?.paper?.title}</strong>
+            <p>{biology?.paper?.journal} {biology?.paper?.year}; DOI {biology?.paper?.doi}; PMID {biology?.paper?.pubmed}</p>
+          </article>
+          <article>
+            <span>Dataset used here</span>
+            <strong>{biology?.dataset?.title}</strong>
+            <p>Posted {biology?.dataset?.posted}; dataset DOI {biology?.dataset?.doi}; collection DOI {biology?.dataset?.collection_doi}; licence {biology?.dataset?.license}</p>
+          </article>
+          <article>
+            <span>Scope boundary</span>
+            <strong>Normal marrow CODEX benchmark only</strong>
+            <p>{biology?.story?.portal_scope}</p>
+          </article>
+        </div>
+      </div>
+
+      <div className="design-panel">
+        <div className="panel-head">
+          <div>
+            <h2>Experiment Design</h2>
+            <p>Custom benchmark pipeline used for this portal's method-stability readout.</p>
+          </div>
+        </div>
+        <div className="design-steps">
+          {Object.entries(biology?.pipeline || {}).map(([key, value]) => (
+            <article key={key}>
+              <span>{key}</span>
+              <p>{value}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="definition-panel">
+        <div className="panel-head">
+          <div>
+            <h2>Metric Definitions</h2>
+            <p>These numbers compare partitions; they are not diagnostic labels.</p>
+          </div>
+        </div>
+        <div className="definition-list">
+          {Object.entries(biology?.metric_definitions || {}).map(([key, value]) => (
+            <article key={key}>
+              <b>{key.replaceAll('_', '-')}</b>
+              <p>{value}</p>
+            </article>
+          ))}
+        </div>
       </div>
 
       <div className="annotation-panel">
@@ -520,6 +596,13 @@ function BiologyStory({ biology, cohort, sample }) {
             <PercentBar key={item.label} item={item} />
           ))}
         </div>
+        <p className="artifact-note">
+          Artifact/QC labels are retained for benchmarking against deposited metadata:
+          {' '}
+          {formatNumber(Number(artifact?.label_l1_fraction || 0) * 100, 1)}% of label_l1 rows and
+          {' '}
+          {formatNumber(Number(artifact?.label_coarse_fraction || 0) * 100, 1)}% of label_coarse rows.
+        </p>
       </div>
 
       <div className="marker-panel">
@@ -536,6 +619,19 @@ function BiologyStory({ biology, cohort, sample }) {
               <span>{group.markers.join(', ')}</span>
             </div>
           ))}
+        </div>
+        <div className="marker-evidence">
+          <h3>Annotation Marker Evidence</h3>
+          <p>Top positive protein-marker deltas versus one-vs-rest background, computed from the synced CSV.</p>
+          <div className="evidence-grid">
+            {markerEvidence.slice(0, 6).map((item) => (
+              <article key={item.label}>
+                <b>{item.label}</b>
+                <small>{formatNumber(item.count, 0)} cells, {item.donor_count} donors{item.is_artifact_or_qc ? ', artifact/QC label' : ''}</small>
+                <span>{item.top_positive_markers.slice(0, 5).map((marker) => marker.marker).join(', ')}</span>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -595,7 +691,7 @@ function TransferMatrix({ transfer }) {
           <>
             <b>{shortSample(active.src)} {'->'} {shortSample(active.dst)}</b>
             <span>stability ARI {formatNumber(metricValue(active, ['stability_ari']))}</span>
-            <span>author ARI {formatNumber(metricValue(active, ['ari_vs_author']))}</span>
+            <span>label_l1 ARI {formatNumber(metricValue(active, ['ari_vs_author']))}</span>
           </>
         ) : (
           <span>Hover or focus a cell for the real ordered donor transfer result.</span>
@@ -808,6 +904,7 @@ function App() {
   const selectedSummary = sweep?.weights?.find((item) => Number(item.frac) === Number(weight));
   const selectedMetric = selectedSummary?.map_metrics || maps?.metrics?.[formatWeight(weight)] || {};
   const counts = sweep?.counts || {};
+  const analysisMethod = provenance?.analysis_method || {};
 
   return (
     <main className="portal" data-ready={maps && transfer ? 'true' : 'false'}>
@@ -859,27 +956,36 @@ function App() {
         <aside className="summary-panel">
           <MetricTile
             icon={Gauge}
-            label="Native vs author ARI"
-            value={formatNumber(selectedMetric.acc ?? selectedSummary?.native_mean)}
-            detail={`k=${selectedMetric.k ?? 'n/a'}`}
+            label="Cohort native vs label_l1 ARI"
+            value={formatNumber(selectedSummary?.native_mean)}
+            detail={`${selectedSummary?.native_rows || 0} native rows`}
           />
           <MetricTile
             icon={RefreshCcw}
-            label="Transfer stability"
+            label="Cohort transfer stability"
             value={formatNumber(selectedSummary?.transfer_stability_mean)}
             detail={`${transfer?.count || 0} ordered pairs`}
           />
           <MetricTile
             icon={Activity}
-            label="Stochastic floor"
-            value={formatNumber(selectedMetric.floor ?? selectedSummary?.stochastic_floor_mean)}
-            detail={`map BSI ${formatNumber(selectedMetric.bsi)}`}
+            label="Cohort stochastic floor"
+            value={formatNumber(selectedSummary?.stochastic_floor_mean)}
+            detail={`${selectedSummary?.floor_rows || 0} floor rows`}
           />
+          <div className="map-metrics">
+            <b>Representative donor map metrics</b>
+            <span>Donor {shortSample(REPRESENTATIVE)}, source `maps.json`</span>
+            <span>Native vs label_l1 ARI {formatNumber(selectedMetric.acc)}</span>
+            <span>Same-donor seed floor {formatNumber(selectedMetric.floor)}</span>
+            <span>Realised spatial variance share {formatNumber(selectedMetric.realised_share)}</span>
+            <span>BSI support share {formatNumber(selectedMetric.bsi)}</span>
+          </div>
           <div className="summary-copy">
             <b>Data contract</b>
             <span>{counts.transfer || 0} transfer rows, {counts.native || 0} native rows, {counts.floor || 0} floor rows.</span>
-            <span>Transfer-minus-floor is {formatNumber(selectedSummary?.transfer_minus_floor)} for this weight summary.</span>
-            <span>Map BSI is the spatial-only share reported by export_maps.py.</span>
+            <span>Transfer-minus-floor is {formatNumber(selectedSummary?.transfer_minus_floor)} for this weight summary; all seven weights are below the same-donor floor.</span>
+            <span>Publisher annotations are reference labels from deposited atlas metadata; ARI is partition agreement, not cell-type truth.</span>
+            <span>{biology?.metric_definitions?.bsi}</span>
             <span>No cell-wise malignancy, causal signaling, clinical, or cross-tissue generalization claim is made here.</span>
           </div>
         </aside>
@@ -924,8 +1030,22 @@ function App() {
           <p>{provenance?.source}</p>
         </div>
         <div className="receipt-grid">
+          <span>Primary paper DOI</span>
+          <code>{biology?.paper?.doi}</code>
+          <span>Dataset DOI</span>
+          <code>{biology?.dataset?.doi}</code>
+          <span>Figshare posted</span>
+          <code>{biology?.dataset?.posted}</code>
           <span>CSV SHA-256</span>
           <code>{provenance?.receipts?.csv_sha256?.actual}</code>
+          <span>Results SHA-256</span>
+          <code>{analysisMethod.results_sha256}</code>
+          <span>Maps SHA-256</span>
+          <code>{analysisMethod.maps_sha256}</code>
+          <span>Method</span>
+          <code>label={analysisMethod.label}; npc={analysisMethod.npc}; Leiden resolution={analysisMethod.fixed_resolution}; n_neighbors={analysisMethod.neighbors?.n_neighbors}</code>
+          <span>Third deposit file</span>
+          <code>NBM_Manual_Osteo_Fibro_MSC_CODEX_Seurat.rds not used</code>
           <span>RDS MD5 receipts</span>
           <code>
             {Object.values(provenance?.receipts?.rds_md5 || {})

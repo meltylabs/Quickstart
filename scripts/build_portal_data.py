@@ -287,12 +287,145 @@ def top_counts(series: pd.Series, limit: int = 12) -> list[dict[str, Any]]:
             "label": str(label),
             "count": int(count),
             "fraction": float(count / total) if total else 0.0,
+            "is_artifact_or_qc": is_artifact_or_qc_label(str(label)),
         }
         for label, count in counts.items()
     ]
 
 
-def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any]) -> dict[str, Any]:
+def is_artifact_or_qc_label(label: str) -> bool:
+    lowered = label.lower()
+    return any(token in lowered for token in ("artifact", "autofluorescent", "undetermined"))
+
+
+def marker_evidence(df: pd.DataFrame, meta: dict[str, Any], label_column: str) -> list[dict[str, Any]]:
+    markers = list(meta["markers"])
+    marker_values = df[markers]
+    counts = df[label_column].astype(str).value_counts(dropna=False)
+    donor_counts = df.groupby(label_column, sort=True)["sample"].nunique()
+    grouped = df.groupby(label_column, sort=True)[markers]
+    sums = grouped.sum()
+    medians = grouped.median()
+    q1 = grouped.quantile(0.25)
+    q3 = grouped.quantile(0.75)
+    total_sums = marker_values.sum()
+    total_count = len(df)
+    evidence = []
+
+    for label, count in counts.items():
+        count = int(count)
+        label_sums = sums.loc[label]
+        rest_count = total_count - count
+        if rest_count <= 0:
+            continue
+        label_mean = label_sums / count
+        rest_mean = (total_sums - label_sums) / rest_count
+        delta = label_mean - rest_mean
+        top_markers = []
+        for marker in delta.sort_values(ascending=False).head(8).index:
+            top_markers.append(
+                {
+                    "marker": marker,
+                    "mean_delta_vs_rest": float(delta[marker]),
+                    "label_median": float(medians.loc[label, marker]),
+                    "label_iqr": [float(q1.loc[label, marker]), float(q3.loc[label, marker])],
+                    "rest_mean": float(rest_mean[marker]),
+                }
+            )
+        evidence.append(
+            {
+                "label": str(label),
+                "count": count,
+                "fraction": float(count / total_count),
+                "donor_count": int(donor_counts.loc[label]),
+                "is_artifact_or_qc": is_artifact_or_qc_label(str(label)),
+                "top_positive_markers": top_markers,
+            }
+        )
+    return evidence
+
+
+def analysis_method(results: list[dict[str, Any]], maps_path: Path) -> dict[str, Any]:
+    run_meta = next((row for row in results if row.get("kind") == "run_meta"), {})
+    return {
+        "label": "label_l1",
+        "npc": int(run_meta.get("npc", 20)),
+        "fixed_resolution": float(run_meta.get("fixed_resolution", 0.5)),
+        "neighbors": {
+            "n_neighbors": 15,
+            "use_rep": "X",
+        },
+        "leiden": {
+            "resolution": float(run_meta.get("fixed_resolution", 0.5)),
+            "flavor": "igraph",
+            "n_iterations": 2,
+            "directed": False,
+        },
+        "fractions": run_meta.get("fractions", EXPECTED_FRACS),
+        "sweep_seeds": run_meta.get("sweep_seeds", [0, 1]),
+        "floor_pairs": run_meta.get("floor_pairs", [[101, 202], [303, 404], [505, 606]]),
+        "kmeans": {
+            "n_init": 4,
+            "random_state": "seed",
+            "role": "spatial-only and marker-only proxy partitions for diagnostics",
+        },
+        "results_sha256": sha256(DATA_DIR / "results" / "results_v5.jsonl"),
+        "maps_sha256": sha256(maps_path),
+        "input_sha256": run_meta.get("input_sha256", EXPECTED_CSV_SHA256),
+        "software_versions": run_meta.get("versions", {}),
+        "source_command": "xtb_pilot_v5.py writes results_v5.jsonl; export_maps.py writes maps.json; build_portal_data.py verifies and packages portal artifacts.",
+    }
+
+
+def artifact_summary(df: pd.DataFrame) -> dict[str, Any]:
+    label_l1 = top_counts(df["label_l1"], limit=50)
+    label_coarse = top_counts(df["label_coarse"], limit=50)
+    l1_count = sum(item["count"] for item in label_l1 if item["is_artifact_or_qc"])
+    coarse_count = sum(item["count"] for item in label_coarse if item["is_artifact_or_qc"])
+    total = len(df)
+    return {
+        "retained_in_benchmark": True,
+        "reason": "Artifact/QC annotations are retained because the benchmark compares partitions against the deposited atlas metadata as-is.",
+        "label_l1_count": int(l1_count),
+        "label_l1_fraction": float(l1_count / total),
+        "label_coarse_count": int(coarse_count),
+        "label_coarse_fraction": float(coarse_count / total),
+    }
+
+
+def transfer_floor_deltas(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    deltas = []
+    for frac in EXPECTED_FRACS:
+        transfer_values = [
+            float(row["stability_ari"])
+            for row in results
+            if row.get("kind") == "transfer"
+            and row.get("frac") is not None
+            and math.isclose(float(row.get("frac")), frac)
+        ]
+        floor_values = [
+            float(row["ari_self"])
+            for row in results
+            if row.get("kind") == "floor"
+            and row.get("frac") is not None
+            and math.isclose(float(row.get("frac")), frac)
+        ]
+        if not transfer_values or not floor_values:
+            raise RuntimeError(f"Missing transfer/floor values for frac={frac}")
+        transfer_mean = float(np.mean(transfer_values))
+        floor_mean = float(np.mean(floor_values))
+        deltas.append(
+            {
+                "frac": frac,
+                "transfer_mean": transfer_mean,
+                "floor_mean": floor_mean,
+                "transfer_minus_floor": transfer_mean - floor_mean,
+            }
+        )
+    return deltas
+
+
+def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
     marker_groups = [
         {
             "name": "Hematopoietic progenitor and stem-associated",
@@ -335,29 +468,67 @@ def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any]) -> dict[str, A
             }
         )
 
+    deltas = transfer_floor_deltas(results)
     return {
         "dataset": {
             "title": "Processed CODEX Data (Seurat Objects)",
             "doi": "10.25452/figshare.plus.25127657.v1",
+            "collection_doi": "10.25452/figshare.plus.c.7174914",
             "license": "CC0 1.0 Universal",
+            "posted": "2024-04-12T20:19:57Z",
             "modality": "CODEX spatial proteomic imaging",
             "source_rows": int(len(df)),
             "subsampled_cells_per_donor": int(meta["nsub"]),
+            "markers_used": int(len(meta["markers"])),
+        },
+        "paper": {
+            "title": "Mapping the cellular biogeography of human bone marrow niches using single-cell transcriptomics and proteomic imaging",
+            "journal": "Cell",
+            "year": 2024,
+            "doi": "10.1016/j.cell.2024.04.013",
+            "pubmed": "38714197",
+            "reported_scope": "The paper describes a spatially resolved multiomic human bone-marrow atlas combining scRNA-seq and CODEX proteomic imaging.",
         },
         "annotations": {
             "label_l1": top_counts(df["label_l1"], limit=18),
             "label_l2": top_counts(df["label_l2"], limit=18),
             "label_coarse": top_counts(df["label_coarse"], limit=18),
         },
+        "annotation_evidence": {
+            "label_l1": marker_evidence(df, meta, "label_l1"),
+        },
+        "artifact_summary": artifact_summary(df),
         "samples": samples,
         "marker_groups": [
             {**group, "markers": [marker for marker in group["markers"] if marker in markers]}
             for group in marker_groups
         ],
+        "pipeline": {
+            "subsample": "Two independent 12,000-cell subsamples are used per donor, for seeds 0 and 1.",
+            "features": "The clustering feature matrix starts from the 49 synced CODEX protein-marker intensity columns.",
+            "embedding": "Marker intensities are standardized, reduced to 20 principal components, then concatenated with standardized x/y coordinates scaled to the target spatial variance share.",
+            "clustering": "Leiden clustering is run at fixed resolution 0.5.",
+            "native": "Native ARI compares each donor's partition with publisher label_l1 annotations from the deposited atlas metadata.",
+            "transfer": "Transfer ARI compares a destination donor's native partition with the partition produced on that destination using a source donor's frozen marker scaler and PCA.",
+            "floor": "The stochastic floor reclusters the same donor embedding under paired random seeds and compares those partitions by adjusted Rand index.",
+        },
+        "metric_definitions": {
+            "ari": "Adjusted Rand index measures partition agreement; it is not a cell-type truth score or diagnostic accuracy.",
+            "bsi": "Map BSI is a representative-donor diagnostic: ARI(spatial-only proxy, mixed partition) divided by the sum of spatial-only and marker-only proxy ARIs after clipping negative proxy ARIs to zero.",
+            "transfer_minus_floor": "Mean transfer ARI minus mean same-donor stochastic-floor ARI at the same spatial weight.",
+        },
+        "transfer_floor": {
+            "deltas": deltas,
+            "all_transfer_below_floor": all(item["transfer_minus_floor"] < 0 for item in deltas),
+        },
         "story": {
             "question": "How do protein-defined marrow cell states and tissue position affect clustering reproducibility across donors?",
             "biological_material": "Each cell carries multiplexed antibody intensity, x/y tissue position, and publisher-derived marrow annotations.",
             "benchmark_reading": "The transfer score is a method-stability readout across donors; it is not a clinical or causal biology claim.",
+            "portal_scope": "This portal uses the normal bone-marrow CODEX-derived tabular export only; it does not rerun the paper's scRNA-seq integration, signaling, AML, or neighborhood analyses.",
+            "atlas_context": "This benchmark uses the normal-bone-marrow CODEX-derived tabular export from the Bandyopadhyay et al. human bone-marrow atlas. The paper combines single-cell transcriptomics with CODEX proteomic imaging, but this portal analyzes only the CODEX protein-marker table, cell coordinates, and publisher annotations.",
+            "main_result": "Across this normal-marrow CODEX case study, donor-transfer agreement remains below the same-donor stochastic floor at all seven spatial weights. Treat this as a stability audit, not evidence of a general transferable biological model.",
+            "marker_scope": "The portal uses the 49 marker columns present in the synced tabular export after preprocessing, not every antibody/channel described across the full atlas resources.",
         },
     }
 
@@ -397,7 +568,7 @@ def build(force: bool) -> None:
         raise RuntimeError("CSV sample IDs do not match prep_meta.json")
 
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
-    biology = build_biology_summary(df, meta)
+    biology = build_biology_summary(df, meta, results)
     zarr_stores = build_zarrs(df, meta, force=force)
     shutil.copy2(maps_path, GENERATED_DIR / "maps.json")
 
@@ -406,6 +577,7 @@ def build(force: bool) -> None:
         "data_dir": str(DATA_DIR),
         "generated_dir": str(GENERATED_DIR),
         "representative_donor": EXPECTED_REPRESENTATIVE,
+        "analysis_method": analysis_method(results, maps_path),
         "checks": {
             "csv_sha256": {
                 "expected": EXPECTED_CSV_SHA256,

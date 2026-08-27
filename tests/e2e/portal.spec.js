@@ -35,9 +35,20 @@ test('portal renders real-data dashboard without empty canvas', async ({ page })
   await page.waitForSelector('[data-ready="true"]', { timeout: 30_000 });
   await expect(page.getByRole('heading', { name: 'Normal marrow as spatial proteomics, not a synthetic map' })).toBeVisible();
   await expect(page.getByText('CODEX spatial proteomic imaging')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Paper And Dataset Context' })).toBeVisible();
+  await expect(page.getByText('10.1016/j.cell.2024.04.013', { exact: true })).toBeVisible();
+  await expect(page.getByText(/normal bone-marrow CODEX-derived tabular export only/)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Experiment Design' })).toBeVisible();
+  await expect(page.getByText(/49 synced CODEX protein-marker intensity columns/)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Metric Definitions' })).toBeVisible();
+  await expect(page.getByText(/Transfer stays below the same-donor floor/)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'label_l1 Composition' })).toBeVisible();
   await expect(page.getByText('Myeloid').first()).toBeVisible();
+  await expect(page.getByText(/Artifact\/QC labels are retained/)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Marker Families' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Annotation Marker Evidence' })).toBeVisible();
+  await expect(page.getByText(/protein-marker-only labels/)).not.toBeVisible();
+  await expect(page.getByText(/expression-only/)).not.toBeVisible();
 
   const canvas = page.getByTestId('moving-floor-canvas');
   await expect(canvas).toBeVisible();

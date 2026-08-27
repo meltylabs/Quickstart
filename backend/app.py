@@ -84,6 +84,8 @@ def transfer(
         return store.transfer(frac=frac, seed=seed)
     except store.DataUnavailable as exc:
         raise unavailable(exc) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/api/maps")
