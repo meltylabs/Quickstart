@@ -425,6 +425,60 @@ def transfer_floor_deltas(results: list[dict[str, Any]]) -> list[dict[str, Any]]
     return deltas
 
 
+def paper_tool_parity() -> dict[str, Any]:
+    return {
+        "source": "Scanned from the public spatial-bonemarrow-atlas repository README and analysis scripts; portal status is limited to this local benchmark.",
+        "groups": [
+            {
+                "status": "Used directly by portal",
+                "summary": "Packages and file formats imported by the local API/build or front-end runtime.",
+                "tools": [
+                    {"name": "CODEX", "role": "Protein-marker imaging modality for the synced normal-bone-marrow table."},
+                    {"name": "AnnData/Zarr", "role": "Generated per-donor stores consumed by Vitessce."},
+                    {"name": "Vitessce", "role": "Interactive spatial viewer for donor subsamples."},
+                    {"name": "numpy/pandas", "role": "CSV, NPZ, and metric artifact verification and packaging."},
+                    {"name": "FastAPI/React/Vite", "role": "Local portal API and front-end shell; not part of the paper analysis."},
+                ],
+            },
+            {
+                "status": "Synced benchmark receipt",
+                "summary": "Tools used by the benchmark code that produced synced results_v5.jsonl and maps.json artifacts.",
+                "tools": [
+                    {"name": "scikit-learn", "role": "StandardScaler, PCA, KMeans, and adjusted Rand index in the benchmark receipt code."},
+                    {"name": "scanpy/Leiden", "role": "Neighbor graph construction and Leiden clustering in the benchmark receipt code."},
+                    {"name": "igraph/leidenalg", "role": "Leiden backend used by the benchmark receipt code."},
+                ],
+            },
+            {
+                "status": "Upstream/source artifact",
+                "summary": "Paper tools represented through the deposited Seurat-derived CODEX artifacts and publisher annotations, but not rerun by this portal.",
+                "tools": [
+                    {"name": "Seurat", "role": "Original processed CODEX data are deposited as Seurat objects; this portal consumes the derived tabular export."},
+                    {"name": "tidyverse/readr/dplyr/tidyr/tibble", "role": "Used throughout the paper repository's R analysis and preprocessing scripts."},
+                    {"name": "ggplot2/patchwork/ComplexHeatmap/pheatmap", "role": "Paper plotting and heatmap generation; portal redraws summaries in React."},
+                    {"name": "DeepCell/Mesmer", "role": "Cell segmentation context in the paper source; the portal consumes already segmented cell rows."},
+                    {"name": "MCMICRO-style quantification outputs", "role": "Paper scripts reference segmentation/quantification outputs; this portal consumes their downstream cell table."},
+                ],
+            },
+            {
+                "status": "Out of scope for this portal",
+                "summary": "Broader atlas analyses from the paper that are listed for transparency but intentionally not claimed by the benchmark UI.",
+                "tools": [
+                    {"name": "scRNA-seq atlas generation", "role": "The portal is CODEX-only and does not rebuild the transcriptomic atlas."},
+                    {"name": "QuPath", "role": "Mask and annotation workflows from the source analyses are not rerun locally."},
+                    {"name": "wsireg", "role": "Whole-slide registration utility found in paper CODEX support scripts; not rerun locally."},
+                    {"name": "spatstat/sf/nngeo/imcRtools/SingleCellExperiment", "role": "Spatial geometry, distance, and ligand-receptor distance workflows are not rerun for this benchmark."},
+                    {"name": "CytoTRACE", "role": "Paper scRNA differentiation analysis; no CytoTRACE result is displayed or recomputed."},
+                    {"name": "CellChat", "role": "Paper ligand-receptor signaling analysis; no signaling or causal niche claim is made here."},
+                    {"name": "RPCA/reference mapping", "role": "Paper AML/NSM mapping workflow; this portal stays on normal-marrow CODEX benchmark artifacts."},
+                    {"name": "AML/NSM neighborhood analysis", "role": "Disease and neighborhood paper analyses are not included in this normal benchmark portal."},
+                    {"name": "RNA/protein correlation and ligand-receptor CODEX distance analysis", "role": "Integrated atlas analyses are not part of the local stability benchmark."},
+                ],
+            },
+        ],
+    }
+
+
 def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
     marker_groups = [
         {
@@ -471,7 +525,8 @@ def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any], results: list[
     deltas = transfer_floor_deltas(results)
     return {
         "dataset": {
-            "title": "Processed CODEX Data (Seurat Objects)",
+            "title": "Derived tabular export from Processed CODEX Data (Seurat Objects)",
+            "deposited_title": "Processed CODEX Data (Seurat Objects)",
             "doi": "10.25452/figshare.plus.25127657.v1",
             "collection_doi": "10.25452/figshare.plus.c.7174914",
             "license": "CC0 1.0 Universal",
@@ -521,6 +576,7 @@ def build_biology_summary(df: pd.DataFrame, meta: dict[str, Any], results: list[
             "deltas": deltas,
             "all_transfer_below_floor": all(item["transfer_minus_floor"] < 0 for item in deltas),
         },
+        "paper_tool_parity": paper_tool_parity(),
         "story": {
             "question": "How do protein-defined marrow cell states and tissue position affect clustering reproducibility across donors?",
             "biological_material": "Each cell carries multiplexed antibody intensity, x/y tissue position, and publisher-derived marrow annotations.",

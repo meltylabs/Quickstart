@@ -16,6 +16,19 @@ XTB_GENERATED_DIR=public/data/generated
 
 `scripts/build_portal_data.py` verifies the expected CSV SHA-256, checks benchmark counts, rebuilds sample row identities from the CSV, writes real AnnData Zarr stores for the 12,000-cell donor subsamples, and emits `public/data/generated/manifest.json`.
 
+## Paper Tool Parity
+
+The portal inventory separates tools from the paper/source repository by how they are used here:
+
+| Status | Tools |
+| --- | --- |
+| Used directly by portal | CODEX table artifacts, AnnData/Zarr, Vitessce, numpy/pandas, FastAPI/React/Vite |
+| Synced benchmark receipt | scikit-learn, scanpy/Leiden, igraph/leidenalg |
+| Upstream/source artifact | Seurat, tidyverse/readr/dplyr/tidyr/tibble, ggplot2/patchwork/ComplexHeatmap/pheatmap, DeepCell/Mesmer, MCMICRO-style quantification outputs |
+| Out of scope for this portal | scRNA-seq atlas generation, QuPath, wsireg, spatstat/sf/nngeo/imcRtools/SingleCellExperiment, CytoTRACE, CellChat, RPCA/reference mapping, AML/NSM neighborhood analysis, RNA/protein correlation and ligand-receptor CODEX distance analysis |
+
+This portal does not rerun the full paper. It uses the normal-marrow CODEX-derived tabular export, synced benchmark outputs, and generated Vitessce stores. Broader transcriptomic, signaling, reference-mapping, disease, and neighborhood analyses remain visible as scope boundaries rather than implied results.
+
 ## Run
 
 ```sh

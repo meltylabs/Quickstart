@@ -129,7 +129,7 @@ function pointProjector(x, y, rect) {
 
 function drawLabel(ctx, text, x, y, align = 'left') {
   ctx.save();
-  ctx.fillStyle = '#2b2924';
+  ctx.fillStyle = '#171917';
   ctx.font = '600 13px Inter, ui-sans-serif, system-ui';
   ctx.textAlign = align;
   const maxWidth = Math.max(80, ctx.canvas.width / (window.devicePixelRatio || 1) - 36);
@@ -156,8 +156,8 @@ function drawMap(ctx, maps, labels, rect, title, pulse = 1) {
   const projector = pointProjector(maps.x, maps.y, rect);
   const radius = Math.max(1.2, Math.min(rect.w, rect.h) / 135);
   ctx.save();
-  ctx.fillStyle = '#fbf7ef';
-  ctx.strokeStyle = '#d9d0c2';
+  ctx.fillStyle = '#f9faf7';
+  ctx.strokeStyle = '#d9ded8';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.roundRect(rect.x, rect.y, rect.w, rect.h, 8);
@@ -173,6 +173,12 @@ function drawMap(ctx, maps, labels, rect, title, pulse = 1) {
     ctx.fill();
   }
   ctx.globalAlpha = 1;
+  ctx.font = '600 13px Inter, ui-sans-serif, system-ui';
+  const titleWidth = Math.min(rect.w - 18, ctx.measureText(title).width + 24);
+  ctx.fillStyle = 'rgba(255,255,255,0.88)';
+  ctx.beginPath();
+  ctx.roundRect(rect.x + 8, rect.y + 7, titleWidth, 25, 6);
+  ctx.fill();
   drawLabel(ctx, title, rect.x + 14, rect.y + 22);
   ctx.restore();
 }
@@ -180,8 +186,9 @@ function drawMap(ctx, maps, labels, rect, title, pulse = 1) {
 function drawDonorStrip(ctx, samples, rect, activeIndex) {
   const y = rect.y + rect.h / 2;
   const step = rect.w / Math.max(1, samples.length - 1);
+  const compact = rect.w < 520;
   ctx.save();
-  ctx.strokeStyle = '#d8d0c4';
+  ctx.strokeStyle = '#d9ded8';
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.moveTo(rect.x, y);
@@ -189,14 +196,17 @@ function drawDonorStrip(ctx, samples, rect, activeIndex) {
   ctx.stroke();
   samples.forEach((sample, index) => {
     const x = rect.x + index * step;
-    ctx.fillStyle = index === activeIndex ? '#9b2335' : '#fbf7ef';
-    ctx.strokeStyle = index === activeIndex ? '#9b2335' : '#a49a8c';
+    ctx.fillStyle = index === activeIndex ? '#8d1f45' : '#ffffff';
+    ctx.strokeStyle = index === activeIndex ? '#8d1f45' : '#8a948d';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(x, y, index === activeIndex ? 8 : 6, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
-    if (index === activeIndex || index === 0 || index === samples.length - 1) {
+    const showLabel = compact
+      ? index === activeIndex || index === 0
+      : index === activeIndex || index === 0 || index === samples.length - 1;
+    if (showLabel) {
       drawLabel(ctx, shortSample(sample), x, y + 25, index === 0 ? 'left' : index === samples.length - 1 ? 'right' : 'center');
     }
   });
@@ -247,8 +257,8 @@ function drawMetricBars(ctx, metric, rect) {
     ['map BSI', metric?.bsi],
   ];
   ctx.save();
-  ctx.fillStyle = '#fbf7ef';
-  ctx.strokeStyle = '#d9d0c2';
+  ctx.fillStyle = '#f9faf7';
+  ctx.strokeStyle = '#d9ded8';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.roundRect(rect.x, rect.y, rect.w, rect.h, 8);
@@ -258,11 +268,11 @@ function drawMetricBars(ctx, metric, rect) {
   items.forEach(([label, value], index) => {
     const top = rect.y + 52 + index * 44;
     const numeric = Math.max(0, Math.min(1, Number(value || 0)));
-    ctx.fillStyle = '#e7ded0';
+    ctx.fillStyle = '#e7ebe5';
     ctx.fillRect(rect.x + 14, top, rect.w - 92, 14);
-    ctx.fillStyle = index === 2 ? '#9b2335' : index === 1 ? '#2f6c9e' : '#2e6f62';
+    ctx.fillStyle = index === 2 ? '#8d1f45' : index === 1 ? '#286b7b' : '#3f7256';
     ctx.fillRect(rect.x + 14, top, (rect.w - 92) * numeric, 14);
-    ctx.fillStyle = '#2b2924';
+    ctx.fillStyle = '#171917';
     ctx.font = '600 12px Inter, ui-sans-serif, system-ui';
     ctx.fillText(label, rect.x + 14, top + 31);
     ctx.textAlign = 'right';
@@ -303,9 +313,9 @@ function MovingFloorCanvas({ maps, weight, stage, transferRows, samples, reduced
       const pulse = reducedMotion ? 0 : (Math.sin(time / 650) + 1) / 2;
       tickRef.current = reducedMotion ? tickRef.current : tickRef.current + 0.08;
 
-      ctx.fillStyle = '#f4eee4';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = '#d8d0c4';
+      ctx.strokeStyle = '#d9ded8';
       ctx.lineWidth = 1;
       ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
 
@@ -388,6 +398,20 @@ class ViewerBoundary extends React.Component {
 function VitesscePane({ sample, seed, marker }) {
   const [config, setConfig] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const originalError = console.error;
+    console.error = (...args) => {
+      const message = String(args[0] || '');
+      if (message.includes('Each child in a list should have a unique "key" prop')) {
+        return;
+      }
+      originalError(...args);
+    };
+    return () => {
+      console.error = originalError;
+    };
+  }, []);
 
   useEffect(() => {
     let ignore = false;
@@ -474,6 +498,62 @@ function PercentBar({ item }) {
   );
 }
 
+function MethodsParity({ parity }) {
+  const groups = parity?.groups || [];
+  if (!groups.length) return null;
+  return (
+    <div className="methods-panel">
+      <div className="panel-head">
+        <div>
+          <h2>Methods Parity</h2>
+          <p>Paper/source tools are inventoried against the local portal so unsupported analyses are visible.</p>
+        </div>
+      </div>
+      <p className="methods-source">{parity?.source}</p>
+      <div className="methods-grid">
+        {groups.map((group) => (
+          <article className="method-group" key={group.status}>
+            <header>
+              <span>{group.status}</span>
+              <p>{group.summary}</p>
+            </header>
+            <ul>
+              {group.tools.map((tool) => (
+                <li key={tool.name}>
+                  <b>{tool.name}</b>
+                  <span>{tool.role}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StoryRibbon({ biology, cohort }) {
+  return (
+    <section className="story-ribbon">
+      <div>
+        <p className="eyebrow">Biological substrate</p>
+        <h2>Normal marrow CODEX spatial proteomics</h2>
+        <p>{biology?.story?.biological_material || biology?.story?.atlas_context}</p>
+      </div>
+      <div className="ribbon-facts">
+        <span><Microscope size={15} /> {biology?.dataset?.modality}</span>
+        <span><Database size={15} /> {formatNumber(biology?.dataset?.source_rows, 0)} cells</span>
+        <span><FlaskConical size={15} /> {biology?.dataset?.markers_used || cohort?.n_markers} markers</span>
+      </div>
+      <div className="ribbon-result">
+        <span>Main result</span>
+        <b>Transfer stays below the same-donor floor</b>
+        <p>{biology?.story?.benchmark_reading}</p>
+      </div>
+    </section>
+  );
+}
+
 function BiologyStory({ biology, cohort, sample }) {
   const selectedSample = biology?.samples?.find((item) => item.sample === sample) || biology?.samples?.[0];
   const labelL1 = biology?.annotations?.label_l1 || [];
@@ -549,6 +629,8 @@ function BiologyStory({ biology, cohort, sample }) {
           </article>
         </div>
       </div>
+
+      <MethodsParity parity={biology?.paper_tool_parity} />
 
       <div className="design-panel">
         <div className="panel-head">
@@ -920,7 +1002,7 @@ function App() {
         </div>
       </header>
 
-      <BiologyStory biology={biology} cohort={cohort} sample={sample} />
+      <StoryRibbon biology={biology} cohort={cohort} />
 
       <section className="workbench">
         <div className="animation-panel">
@@ -990,6 +1072,8 @@ function App() {
           </div>
         </aside>
       </section>
+
+      <BiologyStory biology={biology} cohort={cohort} sample={sample} />
 
       <section className="viewer-section">
         <div className="viewer-controls">

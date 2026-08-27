@@ -261,6 +261,7 @@ def biology() -> dict[str, Any]:
         "pipeline",
         "metric_definitions",
         "transfer_floor",
+        "paper_tool_parity",
         "story",
     }
     missing = sorted(required - set(payload))
@@ -465,6 +466,7 @@ def vitessce_config(sample: str | None, seed: int) -> dict[str, Any]:
             },
             "layout": [
                 {
+                    "uid": "spatial",
                     "component": "scatterplot",
                     "coordinationScopes": {
                         "dataset": "A",
@@ -477,6 +479,7 @@ def vitessce_config(sample: str | None, seed: int) -> dict[str, Any]:
                     "h": 12,
                 },
                 {
+                    "uid": "labels",
                     "component": "obsSets",
                     "coordinationScopes": {"dataset": "A"},
                     "x": 8,
@@ -485,6 +488,7 @@ def vitessce_config(sample: str | None, seed: int) -> dict[str, Any]:
                     "h": 6,
                 },
                 {
+                    "uid": "markers",
                     "component": "featureList",
                     "coordinationScopes": {
                         "dataset": "A",

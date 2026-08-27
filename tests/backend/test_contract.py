@@ -60,6 +60,23 @@ def test_biology_contract_when_ready() -> None:
     assert any(group["name"].startswith("Stromal") for group in payload["marker_groups"])
     assert payload["pipeline"]["features"].startswith("The clustering feature matrix starts from the 49 synced CODEX protein-marker")
     assert "Adjusted Rand index measures partition agreement" in payload["metric_definitions"]["ari"]
+    parity = payload["paper_tool_parity"]["groups"]
+    assert [group["status"] for group in parity] == [
+        "Used directly by portal",
+        "Synced benchmark receipt",
+        "Upstream/source artifact",
+        "Out of scope for this portal",
+    ]
+    parity_tools = {
+        tool["name"]: group["status"]
+        for group in parity
+        for tool in group["tools"]
+    }
+    assert parity_tools["Vitessce"] == "Used directly by portal"
+    assert parity_tools["scanpy/Leiden"] == "Synced benchmark receipt"
+    assert parity_tools["Seurat"] == "Upstream/source artifact"
+    assert parity_tools["CellChat"] == "Out of scope for this portal"
+    assert parity_tools["CytoTRACE"] == "Out of scope for this portal"
 
 
 def test_sweep_contract_when_ready() -> None:
