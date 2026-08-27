@@ -13,6 +13,15 @@ dist-ssr
 *.local
 .conductor/settings.local.toml
 .conductor/settings.local.json
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+coverage
+playwright-report
+test-results
+.context/xtb-data
+public/data/generated
 
 # Editor directories and files
 .vscode/*
