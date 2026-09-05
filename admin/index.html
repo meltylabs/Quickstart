@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · S & M 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F3F4F6;
+      --white: #FFFFFF;
+      --sage: #6B7E5E;
+      --sage-light: #EDF0EA;
+      --gold: #B8933E;
+      --gold-light: #F5EDD8;
+      --red: #DC3545;
+      --red-light: #FDECEA;
+      --blue: #3B82F6;
+      --blue-light: #EFF6FF;
+      --amber: #D97706;
+      --amber-light: #FEF3C7;
+      --gray: #6B7280;
+      --gray-light: #F9FAFB;
+      --border: #E5E7EB;
+      --text: #111827;
+      --text-soft: #6B7280;
+      --font: 'Inter', system-ui, sans-serif;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== PASSWORD GATE ===== */
+    #gate {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a2535 0%, #2d3e2a 100%);
+      z-index: 1000;
+    }
+    .gate-box {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      width: min(320px, 90vw);
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .gate-logo { font-size: 28px; font-weight: 700; margin-bottom: 4px; letter-spacing: -.5px; }
+    .gate-logo span { color: var(--sage); }
+    .gate-sub { color: var(--gray); font-size: 13px; margin-bottom: 28px; }
+    .gate-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color .2s;
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: .1em;
+    }
+    .gate-input:focus { border-color: var(--sage); }
+    .gate-input.error { border-color: var(--red); animation: shake .3s; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    .gate-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--sage);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background .15s;
+    }
+    .gate-btn:hover { background: #5a6d4e; }
+
+    /* ===== LAYOUT ===== */
+    #app { display: none; flex-direction: column; min-height: 100vh; }
+    #app.visible { display: flex; }
+
+    .topbar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow);
+    }
+    .topbar-title { font-weight: 700; font-size: 16px; letter-spacing: -.3px; }
+    .topbar-title span { color: var(--sage); }
+    .topbar-right { display: flex; gap: 8px; align-items: center; }
+
+    .btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: white;
+      font-family: var(--font);
+      transition: background .15s;
+      line-height: 1;
+    }
+    .btn:hover { background: var(--gray-light); }
+    .btn.primary { background: var(--sage); color: white; border-color: var(--sage); }
+    .btn.primary:hover { background: #5a6d4e; }
+    .btn.danger { background: var(--red); color: white; border-color: var(--red); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    .main { padding: 24px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+    /* ===== URL CONFIG BAR ===== */
+    .url-bar {
+      background: var(--gold-light);
+      border: 1px solid #e8c97b;
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .url-bar label { font-weight: 600; white-space: nowrap; color: var(--amber); }
+    .url-bar input {
+      flex: 1;
+      padding: 5px 10px;
+      border: 1px solid #e8c97b;
+      border-radius: 5px;
+      font-size: 13px;
+      font-family: var(--font);
+      background: white;
+      outline: none;
+      min-width: 0;
+    }
+    .url-bar input:focus { border-color: var(--sage); }
+    .url-hint { font-size: 11px; color: var(--amber); white-space: nowrap; }
+
+    /* ===== STATS ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--border);
+      cursor: pointer;
+      transition: box-shadow .15s, transform .1s;
+    }
+    .stat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12); transform: translateY(-1px); }
+    .stat-card.confirmed { border-left-color: var(--sage); }
+    .stat-card.declined { border-left-color: var(--red); }
+    .stat-card.pending { border-left-color: var(--amber); }
+    .stat-card.sent { border-left-color: var(--blue); }
+    .stat-num { font-size: 30px; font-weight: 700; line-height: 1; }
+    .stat-card.confirmed .stat-num { color: var(--sage); }
+    .stat-card.declined .stat-num { color: var(--red); }
+    .stat-card.pending .stat-num { color: var(--amber); }
+    .stat-card.sent .stat-num { color: var(--blue); }
+    .stat-label { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+
+    /* ===== ADD PANEL ===== */
+    .add-panel {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .add-header {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s;
+    }
+    .add-header:hover { background: var(--gray-light); }
+    .add-header h3 { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .add-icon { font-size: 18px; color: var(--gray); transition: transform .2s; line-height: 1; }
+    .add-panel.open .add-icon { transform: rotate(45deg); }
+    .add-body {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .add-panel.open .add-body { display: block; }
+    .form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-soft);
+    }
+    .form-group input, .form-group select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: var(--font);
+      outline: none;
+      background: white;
+      transition: border-color .15s;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--sage); }
+    .add-actions { margin-top: 14px; display: flex; align-items: center; gap: 10px; }
+    #add-status { font-size: 13px; color: var(--text-soft); }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      background: white;
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: white;
+      transition: all .15s;
+      font-family: var(--font);
+      line-height: 1.4;
+    }
+    .filter-tab:hover { background: var(--gray-light); }
+    .filter-tab.active { background: var(--sage); color: white; border-color: var(--sage); }
+    .search-wrap { margin-left: auto; }
+    .search-input {
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: var(--font);
+      outline: none;
+      width: 200px;
+      transition: border-color .15s;
+      background: var(--gray-light);
+    }
+    .search-input:focus { border-color: var(--sage); background: white; }
+
+    /* ===== TABLE ===== */
+    .table-wrap {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .table-meta {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--gray-light); }
+    th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-soft);
+      white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:hover td { background: #FAFAFA; }
+
+    .guest-name { font-weight: 600; font-size: 14px; line-height: 1.3; }
+    .guest-group { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .badge.confirmed { background: var(--sage-light); color: var(--sage); }
+    .badge.declined { background: var(--red-light); color: var(--red); }
+    .badge.pending { background: var(--amber-light); color: var(--amber); }
+
+    /* Sent toggle */
+    .sent-cell { display: flex; align-items: center; gap: 6px; }
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #D1D5DB;
+      border-radius: 10px;
+      transition: background .2s;
+    }
+    .toggle-slider::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      top: 3px; left: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform .2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    .toggle input:checked + .toggle-slider { background: var(--blue); }
+    .toggle input:checked + .toggle-slider::after { transform: translateX(16px); }
+    .sent-date { font-size: 11px; color: var(--text-soft); white-space: nowrap; }
+
+    /* Copy button */
+    .copy-btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: white;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: var(--gray-light); }
+    .copy-btn.copied { background: var(--sage-light); color: var(--sage); border-color: var(--sage); }
+
+    /* Contact cells */
+    .contact-text {
+      font-size: 13px;
+      color: var(--text-soft);
+      white-space: nowrap;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+    .contact-text a { color: inherit; text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; color: var(--sage); }
+
+    /* Notes */
+    .notes-row td {
+      padding: 4px 14px 10px 32px;
+      font-size: 12px;
+      color: var(--gray);
+      font-style: italic;
+      background: #FAFAFA;
+      border-top: none;
+    }
+
+    /* Empty / loading */
+    .empty-state, .loading-state {
+      padding: 56px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 15px;
+    }
+
+    /* New guest flash */
+    @keyframes flash {
+      0% { background: var(--sage-light); }
+      100% { background: transparent; }
+    }
+    .new-row td { animation: flash 2s ease-out; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 700px) {
+      .main { padding: 12px; }
+      .topbar { padding: 0 12px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-card { padding: 12px 14px; }
+      .stat-num { font-size: 24px; }
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .url-bar { flex-wrap: wrap; gap: 6px; }
+      .url-hint { display: none; }
+      th.hide-m, td.hide-m { display: none; }
+      .search-wrap { width: 100%; }
+      .search-input { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">S <span>&</span> M</div>
+    <div class="gate-sub">Panel de administración · 2027</div>
+    <input type="password" id="gate-input" class="gate-input" placeholder="Contraseña" autocomplete="current-password">
+    <button class="gate-btn" onclick="checkPassword()">Entrar →</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-title">S <span>&</span> M · Admin</div>
+    <div class="topbar-right">
+      <button class="btn" onclick="exportCSV()" title="Descargar CSV">↓ CSV</button>
+      <button class="btn" onclick="loadGuests()" title="Recargar">↻</button>
+      <button class="btn" onclick="logout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- URL BAR -->
+    <div class="url-bar">
+      <label>🔗 URL del sitio:</label>
+      <input type="text" id="site-url" value="https://sara-y-mauricio.com" placeholder="https://tu-dominio.com" oninput="saveSiteUrl()">
+      <span class="url-hint">Actualizá esto cuando el sitio esté publicado</span>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card confirmed" onclick="setFilterById('confirmed')" title="Ver confirmados">
+        <div class="stat-num" id="stat-confirmed">—</div>
+        <div class="stat-label">✅ Confirmados</div>
+      </div>
+      <div class="stat-card declined" onclick="setFilterById('declined')" title="Ver que no van">
+        <div class="stat-num" id="stat-declined">—</div>
+        <div class="stat-label">❌ No van</div>
+      </div>
+      <div class="stat-card pending" onclick="setFilterById('pending')" title="Ver sin respuesta">
+        <div class="stat-num" id="stat-pending">—</div>
+        <div class="stat-label">⏳ Sin respuesta</div>
+      </div>
+      <div class="stat-card sent" onclick="setFilterById('not-sent')" title="Ver sin link enviado">
+        <div class="stat-num" id="stat-sent">—</div>
+        <div class="stat-label">📤 Links enviados</div>
+      </div>
+    </div>
+
+    <!-- ADD GUEST -->
+    <div class="add-panel" id="add-panel">
+      <div class="add-header" onclick="toggleAdd()">
+        <h3><span style="color:var(--sage)">＋</span> Agregar invitado</h3>
+        <span class="add-icon">＋</span>
+      </div>
+      <div class="add-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="add-name" placeholder="Ej: Gonzalo & Camila">
+          </div>
+          <div class="form-group">
+            <label>Grupo</label>
+            <input type="text" id="add-group" placeholder="Amigos Argentina">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" id="add-phone" placeholder="+54 11 ...">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="add-email" placeholder="email@ejemplo.com">
+          </div>
+        </div>
+        <div class="add-actions">
+          <button class="btn primary" id="add-btn" onclick="addGuest()">Agregar</button>
+          <button class="btn" onclick="toggleAdd()">Cancelar</button>
+          <span id="add-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTERS + SEARCH -->
+    <div class="controls">
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-f="all" onclick="setFilter('all', this)">Todos</button>
+        <button class="filter-tab" data-f="confirmed" onclick="setFilter('confirmed', this)">✅ Confirmados</button>
+        <button class="filter-tab" data-f="declined" onclick="setFilter('declined', this)">❌ No van</button>
+        <button class="filter-tab" data-f="pending" onclick="setFilter('pending', this)">⏳ Sin respuesta</button>
+        <button class="filter-tab" data-f="not-sent" onclick="setFilter('not-sent', this)">📤 No enviados</button>
+      </div>
+      <div class="search-wrap">
+        <input type="search" class="search-input" id="search" placeholder="🔍 Buscar..." oninput="renderTable()">
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <div class="table-meta">
+        <span id="table-count">Cargando...</span>
+        <span id="table-time" style="font-size:11px;"></span>
+      </div>
+      <div class="table-scroll">
+        <div id="table-body">
+          <div class="loading-state">Cargando invitados...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="config.js" onerror="window.__configMissing=true"></script>
+<script>
+  const SUPABASE_URL = 'https://ljtugpmazxzdxpzhtlyd.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqdHVncG1henh6ZHhwemh0bHlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcwMDUxMjIsImV4cCI6MjEwMjU4MTEyMn0.tk_Jk5g4Bay0Mq5ibJG9W0AeUcW3rrSnS4brGK8AXts';
+
+  let guests = [];
+  let currentFilter = 'all';
+  let newIds = new Set();
+
+  // ===== AUTH =====
+  function checkPassword() {
+    if (window.__configMissing || !window.ADMIN_PASSWORD) {
+      alert('Falta admin/config.js. Copiá config.example.js → config.js y establecé tu contraseña.');
+      return;
+    }
+    const val = document.getElementById('gate-input').value;
+    if (val === window.ADMIN_PASSWORD) {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      loadGuests();
+    } else {
+      const inp = document.getElementById('gate-input');
+      inp.classList.add('error');
+      setTimeout(() => inp.classList.remove('error'), 400);
+      inp.value = '';
+      inp.focus();
+    }
+  }
+
+  document.getElementById('gate-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  function logout() {
+    document.getElementById('gate').style.display = 'flex';
+    document.getElementById('app').classList.remove('visible');
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-input').focus();
+  }
+
+  // ===== SITE URL =====
+  function getSiteUrl() {
+    return (document.getElementById('site-url').value || 'https://sara-y-mauricio.com').replace(/\/$/, '');
+  }
+
+  function saveSiteUrl() {
+    try { localStorage.setItem('sm_site_url', getSiteUrl()); } catch(e) {}
+  }
+
+  // Load saved URL
+  try {
+    const saved = localStorage.getItem('sm_site_url');
+    if (saved) document.getElementById('site-url').value = saved;
+  } catch(e) {}
+
+  // ===== SUPABASE =====
+  function dbHeaders() {
+    return {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json',
+    };
+  }
+
+  async function loadGuests() {
+    document.getElementById('table-body').innerHTML = '<div class="loading-state">Cargando...</div>';
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/guests?select=*&order=name`,
+        { headers: dbHeaders() }
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      guests = await res.json();
+      updateStats();
+      renderTable();
+      document.getElementById('table-time').textContent =
+        `Actualizado ${new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}`;
+    } catch (err) {
+      document.getElementById('table-body').innerHTML =
+        `<div class="loading-state">Error cargando datos: ${err.message}</div>`;
+    }
+  }
+
+  async function patchGuest(id, data) {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/guests?id=eq.${id}`,
+      {
+        method: 'PATCH',
+        headers: { ...dbHeaders(), 'Prefer': 'return=minimal' },
+        body: JSON.stringify(data),
+      }
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  }
+
+  async function insertGuest(data) {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/guests`,
+      {
+        method: 'POST',
+        headers: { ...dbHeaders(), 'Prefer': 'return=representation' },
+        body: JSON.stringify(data),
+      }
+    );
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+    return (await res.json())[0];
+  }
+
+  // ===== STATS =====
+  function updateStats() {
+    document.getElementById('stat-confirmed').textContent =
+      guests.filter(g => g.is_attending === true).length;
+    document.getElementById('stat-declined').textContent =
+      guests.filter(g => g.is_attending === false).length;
+    document.getElementById('stat-pending').textContent =
+      guests.filter(g => g.is_attending === null).length;
+    document.getElementById('stat-sent').textContent =
+      guests.filter(g => g.link_sent_at).length;
+  }
+
+  // ===== FILTER =====
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderTable();
+  }
+
+  function setFilterById(filter) {
+    const btn = document.querySelector(`.filter-tab[data-f="${filter}"]`);
+    setFilter(filter, btn);
+  }
+
+  function getFiltered() {
+    const q = (document.getElementById('search').value || '').toLowerCase();
+    return guests.filter(g => {
+      const matchQ = !q ||
+        (g.name || '').toLowerCase().includes(q) ||
+        (g.phone || '').includes(q) ||
+        (g.email || '').toLowerCase().includes(q) ||
+        (g.group_name || '').toLowerCase().includes(q);
+
+      let matchF = true;
+      if (currentFilter === 'confirmed') matchF = g.is_attending === true;
+      else if (currentFilter === 'declined') matchF = g.is_attending === false;
+      else if (currentFilter === 'pending') matchF = g.is_attending === null;
+      else if (currentFilter === 'not-sent') matchF = !g.link_sent_at;
+
+      return matchQ && matchF;
+    });
+  }
+
+  // ===== RENDER TABLE =====
+  function renderTable() {
+    const list = getFiltered();
+    document.getElementById('table-count').textContent =
+      `${list.length} invitado${list.length !== 1 ? 's' : ''}`;
+
+    if (list.length === 0) {
+      document.getElementById('table-body').innerHTML =
+        '<div class="empty-state">No hay invitados con este filtro.</div>';
+      return;
+    }
+
+    const rows = list.map(g => {
+      const badge = g.is_attending === true
+        ? '<span class="badge confirmed">✅ Confirma</span>'
+        : g.is_attending === false
+        ? '<span class="badge declined">❌ No va</span>'
+        : '<span class="badge pending">⏳ Sin resp.</span>';
+
+      const arrival = g.arrival_day
+        ? (() => {
+            const d = new Date(g.arrival_day + 'T12:00:00');
+            return d.toLocaleDateString('es-AR', { month: 'short', day: 'numeric' });
+          })()
+        : '—';
+
+      const sentChecked = g.link_sent_at ? 'checked' : '';
+      const sentDate = g.link_sent_at
+        ? new Date(g.link_sent_at).toLocaleDateString('es-AR', { month: 'short', day: 'numeric' })
+        : '';
+
+      const isNew = newIds.has(g.id) ? 'new-row' : '';
+
+      const notesRow = g.notes
+        ? `<tr class="${isNew}"><td colspan="7" class="notes-row">💬 ${escHtml(g.notes)}</td></tr>`
+        : '';
+
+      const phoneHtml = g.phone
+        ? `<a href="https://wa.me/${g.phone.replace(/[^0-9]/g, '')}" target="_blank" title="WhatsApp">${escHtml(g.phone)}</a>`
+        : '—';
+
+      const emailHtml = g.email
+        ? `<a href="mailto:${escHtml(g.email)}">${escHtml(g.email)}</a>`
+        : '—';
+
+      return `
+        <tr class="${isNew}" id="row-${g.id}">
+          <td>
+            <div class="guest-name">${escHtml(g.name)}</div>
+            ${g.group_name ? `<div class="guest-group">${escHtml(g.group_name)}</div>` : ''}
+          </td>
+          <td>${badge}</td>
+          <td class="hide-m"><span class="contact-text">${phoneHtml}</span></td>
+          <td class="hide-m"><span class="contact-text">${emailHtml}</span></td>
+          <td class="hide-m"><span style="font-size:13px;color:var(--text-soft)">${arrival}</span></td>
+          <td>
+            <div class="sent-cell">
+              <label class="toggle" title="${g.link_sent_at ? 'Marcar como no enviado' : 'Marcar como enviado'}">
+                <input type="checkbox" ${sentChecked} onchange="toggleSent('${g.id}', this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="sent-date" id="sent-date-${g.id}">${sentDate}</span>
+            </div>
+          </td>
+          <td>
+            <button class="copy-btn" id="copy-${g.id}" onclick="copyLink('${g.id}', '${g.token}')">
+              📋 Link
+            </button>
+          </td>
+        </tr>
+        ${notesRow}
+      `;
+    }).join('');
+
+    document.getElementById('table-body').innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th class="hide-m">Teléfono</th>
+            <th class="hide-m">Email</th>
+            <th class="hide-m">Llegada</th>
+            <th>Enviado</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ===== COPY LINK =====
+  async function copyLink(id, token) {
+    const url = `${getSiteUrl()}/?t=${token}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      const btn = document.getElementById(`copy-${id}`);
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Link';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch {
+      prompt('Copiá el link:', url);
+    }
+  }
+
+  // ===== TOGGLE SENT =====
+  async function toggleSent(id, checked) {
+    const data = { link_sent_at: checked ? new Date().toISOString() : null };
+    try {
+      await patchGuest(id, data);
+      const g = guests.find(x => x.id === id);
+      if (g) g.link_sent_at = data.link_sent_at;
+      updateStats();
+      const dateSpan = document.getElementById(`sent-date-${id}`);
+      if (dateSpan) {
+        dateSpan.textContent = checked
+          ? new Date().toLocaleDateString('es-AR', { month: 'short', day: 'numeric' })
+          : '';
+      }
+    } catch (err) {
+      alert(`Error: ${err.message}\n\nSi el toggle no funciona, corré:\nALTER TABLE guests ADD COLUMN IF NOT EXISTS link_sent_at TIMESTAMPTZ;`);
+    }
+  }
+
+  // ===== ADD GUEST =====
+  function toggleAdd() {
+    document.getElementById('add-panel').classList.toggle('open');
+  }
+
+  async function addGuest() {
+    const name = document.getElementById('add-name').value.trim();
+    if (!name) {
+      document.getElementById('add-name').focus();
+      return;
+    }
+
+    const btn = document.getElementById('add-btn');
+    const statusEl = document.getElementById('add-status');
+    btn.disabled = true;
+    btn.textContent = 'Guardando...';
+    statusEl.textContent = '';
+
+    try {
+      const newGuest = await insertGuest({
+        name,
+        group_name: document.getElementById('add-group').value.trim() || null,
+        phone: document.getElementById('add-phone').value.trim() || null,
+        email: document.getElementById('add-email').value.trim() || null,
+      });
+
+      newIds.add(newGuest.id);
+      guests.unshift(newGuest);
+      updateStats();
+
+      setFilter('all', document.querySelector('.filter-tab[data-f="all"]'));
+
+      const url = `${getSiteUrl()}/?t=${newGuest.token}`;
+      statusEl.innerHTML = `✅ Listo · <a href="${url}" target="_blank" style="color:var(--sage); text-decoration:underline;">${url}</a>`;
+
+      ['add-name', 'add-group', 'add-phone', 'add-email'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+
+      setTimeout(() => newIds.delete(newGuest.id), 4000);
+    } catch (err) {
+      statusEl.textContent = `❌ Error: ${err.message}`;
+      if (err.message.includes('42501') || err.message.includes('permission')) {
+        statusEl.textContent += ' — corré GRANT INSERT ON public.guests TO anon; en Supabase';
+      }
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Agregar';
+    }
+  }
+
+  // Submit on Enter in last field
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.id === 'add-email') addGuest();
+  });
+
+  // ===== EXPORT CSV =====
+  function exportCSV() {
+    const base = getSiteUrl();
+    const now = new Date().toISOString().slice(0, 10);
+    const rows = [['Nombre', 'Grupo', 'Estado', 'Teléfono', 'Email', 'Llegada', 'Link enviado', 'Personalized link']];
+
+    guests.forEach(g => {
+      const status = g.is_attending === true ? 'Confirma'
+        : g.is_attending === false ? 'No va' : 'Sin respuesta';
+      const arrival = g.arrival_day || '';
+      const sent = g.link_sent_at
+        ? new Date(g.link_sent_at).toLocaleDateString('es-AR')
+        : '';
+      rows.push([
+        g.name,
+        g.group_name || '',
+        status,
+        g.phone || '',
+        g.email || '',
+        arrival,
+        sent,
+        `${base}/?t=${g.token}`,
+      ]);
+    });
+
+    const csv = rows
+      .map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `invitados-sara-mauricio-${now}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+</script>
+</body>
+</html>

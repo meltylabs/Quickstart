@@ -14,6 +14,11 @@ dist-ssr
 .conductor/settings.local.toml
 .conductor/settings.local.json
 
+# Admin data (personal guest info — never commit)
+admin/*.csv
+# Admin password — set locally, never commit
+admin/config.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

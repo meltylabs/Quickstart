@@ -1,421 +1,409 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta
-      name="description"
-      content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
-    />
-    <meta property="og:title" content="welcome to conductor" />
-    <meta property="og:description" content="Click anywhere to dispatch a train." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/png" href="./public/favicon.png" />
-    <title>welcome to conductor</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --ink: #151515;
-        --muted: #7a7a7a;
-        --faint: #d9d9d9;
-        --paper: #fbfbfa;
-        --panel: rgba(255, 255, 255, 0.72);
-        --accent: #111;
-      }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sara Van Velkinburgh & Mauricio Kremer · 27 de Marzo 2027 · Leadville, Colorado">
+  <title>Sara & Mauricio · 27·03·2027</title>
+  <link rel="icon" href="public/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
-      * {
-        box-sizing: border-box;
-      }
+  <!-- ===================== NAV ===================== -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">S &amp; M</a>
+      <div class="nav-links">
+        <a href="#agenda" data-i18n="nav_agenda">Agenda</a>
+        <a href="#info" data-i18n="nav_info">Info</a>
+        <a href="#rsvp" data-i18n="nav_rsvp">RSVP</a>
+        <a href="#faq" data-i18n="nav_faq">Preguntas</a>
+      </div>
+      <div class="nav-right">
+        <button id="lang-toggle" class="lang-toggle" aria-label="Cambiar idioma / Switch language">
+          <span class="l-es lang-active">ES</span>
+          <span class="lang-sep">/</span>
+          <span class="l-en lang-inactive">EN</span>
+        </button>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu hidden">
+      <a href="#agenda" data-i18n="nav_agenda">Agenda</a>
+      <a href="#info" data-i18n="nav_info">Info</a>
+      <a href="#rsvp" data-i18n="nav_rsvp">RSVP</a>
+      <a href="#faq" data-i18n="nav_faq">Preguntas</a>
+    </div>
+  </nav>
 
-      html,
-      body {
-        min-height: 100%;
-      }
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <!-- Mountain silhouette SVG -->
+    <svg class="hero-mountains" viewBox="0 0 1440 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,220 L0,155 L90,85 L180,130 L310,35 L430,110 L540,55 L620,100 L740,12 L860,75 L970,22 L1090,85 L1210,42 L1340,95 L1440,55 L1440,220 Z" fill="rgba(13,27,42,0.55)"/>
+      <path d="M0,220 L0,175 L130,108 L260,148 L380,75 L500,128 L620,88 L740,140 L860,65 L980,118 L1100,75 L1220,118 L1340,82 L1440,108 L1440,220 Z" fill="rgba(10,21,32,0.75)"/>
+      <path d="M0,220 L0,200 L180,168 L360,195 L540,172 L720,200 L900,170 L1080,195 L1260,175 L1440,195 L1440,220 Z" fill="rgba(10,21,32,0.92)"/>
+    </svg>
+    <div class="hero-content">
+      <p class="hero-eyebrow">27 · III · 2027</p>
+      <h1 class="hero-names">Sara <span class="hero-amp">&</span> Mauricio</h1>
+      <p class="hero-location" data-i18n="hero_location">Leadville, Colorado · 3.000 msnm</p>
+      <blockquote class="hero-tagline" data-i18n="hero_tagline">
+        "Los trajimos desde todos lados de las Américas… para congelarse juntos a 3.000 metros. De nada."
+      </blockquote>
+      <a href="#rsvp" class="btn-primary" data-i18n="hero_cta">Confirmar asistencia</a>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">↓</div>
+  </section>
 
-      body {
-        margin: 0;
-        overflow: hidden;
-        background: var(--paper);
-        color: var(--ink);
-        font-family:
-          ui-sans-serif,
-          -apple-system,
-          BlinkMacSystemFont,
-          "SF Pro Text",
-          "Helvetica Neue",
-          Helvetica,
-          Arial,
-          sans-serif;
-        font-feature-settings: "kern";
-      }
+  <!-- ===================== PHOTO STRIP ===================== -->
+  <div class="photo-strip" aria-hidden="true">
+    <div class="photo-strip-track">
+      <img src="public/photos/photo-1.jpg" alt="">
+      <img src="public/photos/photo-2.jpg" alt="">
+      <img src="public/photos/photo-3.jpg" alt="">
+      <img src="public/photos/photo-4.jpg" alt="">
+      <img src="public/photos/photo-5.jpg" alt="">
+      <img src="public/photos/photo-6.jpg" alt="">
+      <img src="public/photos/photo-7.jpg" alt="">
+      <img src="public/photos/photo-8.jpg" alt="">
+      <!-- Duplicated for seamless loop -->
+      <img src="public/photos/photo-1.jpg" alt="">
+      <img src="public/photos/photo-2.jpg" alt="">
+      <img src="public/photos/photo-3.jpg" alt="">
+      <img src="public/photos/photo-4.jpg" alt="">
+      <img src="public/photos/photo-5.jpg" alt="">
+      <img src="public/photos/photo-6.jpg" alt="">
+      <img src="public/photos/photo-7.jpg" alt="">
+      <img src="public/photos/photo-8.jpg" alt="">
+    </div>
+  </div>
 
-      main {
-        position: relative;
-        display: block;
-        width: 100vw;
-        min-height: 100svh;
-        overflow: hidden;
-        cursor: pointer;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
+  <!-- ===================== AGENDA ===================== -->
+  <section id="agenda" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="agenda_title">La semana</h2>
+        <p data-i18n="agenda_subtitle">Lunes 22 al lunes 29 de marzo, 2027</p>
+      </div>
+      <div id="agenda-grid" class="agenda-grid">
+        <!-- Rendered by agenda.js + main.js -->
+      </div>
+    </div>
+  </section>
 
-      .hero {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        gap: 18px;
-        padding: 32px;
-        text-align: center;
-        transition: opacity 600ms ease;
-        pointer-events: none;
-      }
+  <!-- ===================== INFO ===================== -->
+  <section id="info" class="section section-alt">
+    <div class="container-narrow">
+      <div class="section-header">
+        <h2 data-i18n="info_title">Info práctica</h2>
+      </div>
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="travel" data-i18n="info_tab_travel">Cómo llegar</button>
+        <button class="tab-btn" data-tab="altitude" data-i18n="info_tab_altitude">La altura</button>
+        <button class="tab-btn" data-tab="packing" data-i18n="info_tab_packing">Qué traer</button>
+        <button class="tab-btn" data-tab="dress" data-i18n="info_tab_dress">Vestimenta</button>
+      </div>
 
-      .hero.dispatched {
-        opacity: 0;
-      }
-
-      .hero-inner {
-        display: grid;
-        gap: 18px;
-        place-items: center;
-      }
-
-      .train-emoji {
-        display: inline-block;
-        font-size: clamp(56px, 10vw, 96px);
-        line-height: 1;
-        transform-origin: 50% 60%;
-        pointer-events: auto;
-      }
-
-      .train-emoji:hover {
-        animation: wiggle 600ms ease-in-out;
-      }
-
-      .tagline {
-        max-width: 28ch;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 450;
-        letter-spacing: 0;
-        line-height: 1.5;
-      }
-
-      .train {
-        position: fixed;
-        left: 0;
-        z-index: 1;
-        font-size: clamp(38px, 6vw, 56px);
-        line-height: 1;
-        pointer-events: none;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
-        will-change: transform;
-      }
-
-      .train.ltr {
-        animation-name: train-ltr;
-      }
-
-      .train.rtl {
-        animation-name: train-rtl;
-      }
-
-      .steam {
-        position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
-        font-size: 18px;
-        pointer-events: none;
-        animation: puff 1400ms ease-out forwards;
-        will-change: transform, opacity;
-      }
-
-      .mute-toggle {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        z-index: 10;
-        display: inline-flex;
-        width: 38px;
-        height: 38px;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--faint);
-        border-radius: 999px;
-        background: var(--panel);
-        color: var(--ink);
-        cursor: pointer;
-        font-size: 16px;
-        backdrop-filter: blur(14px);
-        transition:
-          border-color 150ms ease,
-          background 150ms ease,
-          transform 150ms ease;
-      }
-
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
-        transform: translateY(-1px);
-      }
-
-      .mute-toggle:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-      }
-
-      .counter {
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        z-index: 10;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 450;
-        letter-spacing: 0;
-        pointer-events: none;
-      }
-
-      @keyframes wiggle {
-        0%,
-        100% {
-          transform: rotate(0);
-        }
-
-        25% {
-          transform: translateY(-4px) rotate(-6deg);
-        }
-
-        75% {
-          transform: translateY(-4px) rotate(6deg);
-        }
-      }
-
-      @keyframes train-ltr {
-        from {
-          transform: translateX(-15vw) scaleX(-1);
-        }
-
-        to {
-          transform: translateX(115vw) scaleX(-1);
-        }
-      }
-
-      @keyframes train-rtl {
-        from {
-          transform: translateX(115vw);
-        }
-
-        to {
-          transform: translateX(-15vw);
-        }
-      }
-
-      @keyframes puff {
-        0% {
-          opacity: 0.7;
-          transform: translate(0, 0) scale(0.8);
-        }
-
-        100% {
-          opacity: 0;
-          transform: translate(0, -40px) scale(1.4);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .hero,
-        .train-emoji:hover {
-          animation: none;
-          transition: none;
-        }
-
-        .steam {
-          display: none;
-        }
-
-        .train.ltr,
-        .train.rtl {
-          left: 50%;
-          animation: fade-blip 1500ms ease both !important;
-        }
-
-        @keyframes fade-blip {
-          0% {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.85);
-          }
-
-          20%,
-          80% {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateX(-50%) scale(1);
-          }
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main id="dispatcher">
-      <div class="hero" id="hero">
-        <div class="hero-inner">
-          <span class="train-emoji" role="img" aria-label="train">🚂</span>
-          <span class="tagline">Click anywhere to dispatch a train.</span>
+      <!-- TRAVEL -->
+      <div id="tab-travel" class="tab-panel active">
+        <div class="info-section lang-es">
+          <h3>Cómo llegar</h3>
+          <p>Leadville está a unas <strong>2 horas de Denver</strong> por la autopista I-70 Oeste y luego la Ruta 91 o US-24. No hay transporte público, por lo que <strong>alquilar un auto es muy recomendable</strong>.</p>
+          <ul class="info-list">
+            <li><strong>Aeropuerto más cercano:</strong> Denver International (DEN) — la mayoría de los vuelos llegan acá</li>
+            <li><strong>Alternativa más cercana:</strong> Eagle County Regional (EGE) — más chico, a ~45 min de Leadville</li>
+            <li><strong>Ruta recomendada desde Denver:</strong> I-70 W → Exit 195 → Ruta 91 Sur → Leadville</li>
+            <li><strong>Consejo de invierno:</strong> Revisá las condiciones de nieve antes de salir. Llevar cadenas o ruedas de nieve es una buena idea para marzo.</li>
+            <li><strong>Carpooling:</strong> Si vienen varios del mismo lugar, coordinen un auto compartido. Hay estacionamiento de sobra en Leadville.</li>
+          </ul>
+          <p style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted);">Organizaremos traslados grupales para algunos eventos de la semana. Más info próximamente.</p>
+        </div>
+        <div class="info-section lang-en hidden">
+          <h3>Getting There</h3>
+          <p>Leadville is about <strong>2 hours from Denver</strong> via I-70 West and then Route 91 or US-24. There's no public transport, so <strong>renting a car is strongly recommended</strong>.</p>
+          <ul class="info-list">
+            <li><strong>Main airport:</strong> Denver International (DEN) — most flights land here</li>
+            <li><strong>Closest airport:</strong> Eagle County Regional (EGE) — smaller, ~45 min from Leadville</li>
+            <li><strong>Recommended route from Denver:</strong> I-70 W → Exit 195 → Route 91 South → Leadville</li>
+            <li><strong>Winter tip:</strong> Check road conditions before you leave. Snow chains or all-weather tires are a smart call for March.</li>
+            <li><strong>Carpooling:</strong> Coordinate with fellow guests coming from the same city — parking in Leadville is easy.</li>
+          </ul>
+          <p style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted);">We'll organize group transfers for some week events — more info coming soon.</p>
         </div>
       </div>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <!-- ALTITUDE -->
+      <div id="tab-altitude" class="tab-panel">
+        <div class="info-section lang-es">
+          <h3>La altura</h3>
+          <p>Leadville está a <strong>3.094 metros sobre el nivel del mar</strong> (10.152 ft) — la ciudad más alta de los Estados Unidos. La mayoría de los invitados van a sentir algo.</p>
+          <p><strong>¿Qué es normal?</strong> El primer día es posible sentir cansancio, leve dolor de cabeza, sed o dificultad para dormir. Es completamente normal y suele mejorar en 24–48 horas.</p>
+          <ul class="info-list">
+            <li><strong>Llegá antes:</strong> Si podés, llegá el 22 o 23 para aclimatarte con tranquilidad</li>
+            <li><strong>Hidratate mucho:</strong> El doble de lo que tomás normalmente. El aire seco y la altura lo requieren</li>
+            <li><strong>Primer día sin alcohol:</strong> El alcohol se siente el doble a esta altura</li>
+            <li><strong>Descansá:</strong> No te exijas físicamente el primer día</li>
+            <li><strong>Llevá ibuprofeno:</strong> Ayuda con los dolores de cabeza por altura</li>
+            <li><strong>Consultá a tu médico</strong> si tenés condiciones cardíacas, respiratorias, o estás embarazada</li>
+          </ul>
+        </div>
+        <div class="info-section lang-en hidden">
+          <h3>The Altitude</h3>
+          <p>Leadville sits at <strong>10,152 ft (3,094m)</strong> above sea level — the highest city in the United States. Most guests will feel something.</p>
+          <p><strong>What's normal?</strong> Fatigue, mild headache, thirst, or trouble sleeping on day one are completely expected. It usually improves within 24–48 hours.</p>
+          <ul class="info-list">
+            <li><strong>Arrive early:</strong> If you can, arrive on the 22nd or 23rd to acclimatize gradually</li>
+            <li><strong>Drink lots of water:</strong> Double your usual intake — dry air and altitude demand it</li>
+            <li><strong>Skip alcohol day one:</strong> It hits twice as hard at altitude</li>
+            <li><strong>Rest:</strong> Don't push yourself physically your first day</li>
+            <li><strong>Bring ibuprofen:</strong> It helps with altitude headaches</li>
+            <li><strong>Consult your doctor</strong> if you have heart, lung, or other conditions — or if you're pregnant</li>
+          </ul>
+        </div>
+      </div>
 
-      <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
-    </main>
+      <!-- PACKING -->
+      <div id="tab-packing" class="tab-panel">
+        <div class="info-section lang-es">
+          <h3>Qué llevar</h3>
+          <p>Marzo en Leadville significa nieve y temperaturas bajo cero por la noche. La clave es el sistema de capas.</p>
+          <ul class="info-list">
+            <li><strong>Capas interiores térmicas</strong> — base de lana merino o sintética</li>
+            <li><strong>Sweaters y polar</strong> — para el día a día</li>
+            <li><strong>Campera/parka impermeable</strong> — obligatoria</li>
+            <li><strong>Botas impermeables con suela antideslizante</strong> — para los eventos de nieve y el día a día</li>
+            <li><strong>Ropa formal para la boda</strong> — con plan de abrigo (ver Vestimenta)</li>
+            <li><strong>Guantes, gorro y bufanda</strong> — no es opcional</li>
+            <li><strong>Protector solar SPF 50+</strong> — la radiación a 3.000m es fuerte, incluso con nieve</li>
+            <li><strong>Lentes de sol</strong> — el reflejo de la nieve es muy intenso</li>
+            <li><strong>Medicamentos para la altura</strong> — ibuprofeno, hidratación oral</li>
+          </ul>
+        </div>
+        <div class="info-section lang-en hidden">
+          <h3>What to Pack</h3>
+          <p>March in Leadville means snow and below-freezing nights. Layering is everything.</p>
+          <ul class="info-list">
+            <li><strong>Thermal base layers</strong> — merino wool or synthetic</li>
+            <li><strong>Sweaters and fleece</strong> — for everyday wear</li>
+            <li><strong>Waterproof parka or jacket</strong> — non-negotiable</li>
+            <li><strong>Waterproof boots with grip</strong> — for snow activities and general use</li>
+            <li><strong>Formal outfit for the wedding</strong> — with a warm layer plan (see Dress Code)</li>
+            <li><strong>Gloves, beanie, scarf</strong> — bring all three</li>
+            <li><strong>Sunscreen SPF 50+</strong> — UV radiation at 10,000 ft is intense, even in snow</li>
+            <li><strong>Sunglasses</strong> — snow glare is real</li>
+            <li><strong>Altitude meds</strong> — ibuprofen, oral rehydration salts</li>
+          </ul>
+        </div>
+      </div>
 
-    <script>
-      const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
-      const PUFF_CHARS = ["·", "°", "・", "∘"];
-      const LANE_COUNT = 5;
-      const DISPATCH_THROTTLE_MS = 120;
-      const PUFF_COUNT = 4;
-      const MIN_DURATION_MS = 4500;
-      const MAX_DURATION_MS = 7500;
+      <!-- DRESS CODE -->
+      <div id="tab-dress" class="tab-panel">
+        <div class="info-section lang-es">
+          <h3>Vestimenta de la boda</h3>
+          <div class="info-card">
+            <div class="dress-name">Alpine Patagonian Chic</div>
+            <p>El look perfecto para una boda a 3.000 metros en marzo: <strong>elegante pero realmente abrigado</strong>. La idea es que estés cómodo/a en la ceremonia, el cocktail y la fiesta — con frío afuera y calor adentro.</p>
+            <p>Pensá en <strong>capas sofisticadas</strong>: blazer sobre sweater de cashmere, vestido con medias gruesas y botas con estilo, parka elegante que podés sacar adentro. El énfasis es en texturas ricas y tonos del entorno — blancos, grises, verdes musgo, marrones cálidos, negros.</p>
+            <div class="dress-examples">
+              <div class="dress-example">
+                <div class="de-icon">✅</div>
+                <div class="de-label">Sí</div>
+                <div class="de-text">Vestido + medias gruesas + botas impermeables con estilo · Blazer + pantalón + botas · Capas de cashmere · Colores neutros y tierras</div>
+              </div>
+              <div class="dress-example">
+                <div class="de-icon">❌</div>
+                <div class="de-label">No</div>
+                <div class="de-text">Tacos altos (nieve) · Sandalias · Telas finas sin capa de abrigo · Nada que te haga miserable en el frío</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="info-section lang-en hidden">
+          <h3>Wedding Dress Code</h3>
+          <div class="info-card">
+            <div class="dress-name">Alpine Patagonian Chic</div>
+            <p>The perfect look for a 10,000 ft wedding in March: <strong>elegant but actually warm</strong>. The goal is to be comfortable from the ceremony to the reception — cold outside, warm inside.</p>
+            <p>Think <strong>sophisticated layers</strong>: blazer over cashmere sweater, dress with thick tights and stylish boots, elegant parka you can shed indoors. Rich textures and mountain tones — whites, greys, mossy greens, warm browns, black.</p>
+            <div class="dress-examples">
+              <div class="dress-example">
+                <div class="de-icon">✅</div>
+                <div class="de-label">Yes</div>
+                <div class="de-text">Dress + thick tights + stylish waterproof boots · Blazer + trousers + boots · Cashmere layers · Neutral and earth tones</div>
+              </div>
+              <div class="dress-example">
+                <div class="de-icon">❌</div>
+                <div class="de-label">No</div>
+                <div class="de-text">Stilettos (snow) · Sandals · Thin fabrics with no warm layer · Anything that'll make you miserable in the cold</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      const dispatcher = document.querySelector("#dispatcher");
-      const hero = document.querySelector("#hero");
-      const muteButton = document.querySelector("#mute");
-      const counter = document.querySelector("#counter");
-      const choo = new Audio("./public/choo-choo.mp3");
-      choo.preload = "auto";
+    </div>
+  </section>
 
-      let count = 0;
-      let nextId = 1;
-      let lastDispatch = 0;
-      let lastLane = -1;
-      let lastDirection = "rtl";
-      let muted = localStorage.getItem("wtc:muted") === "1";
+  <!-- ===================== RSVP ===================== -->
+  <section id="rsvp" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="rsvp_title">¿Venís?</h2>
+        <p data-i18n="rsvp_subtitle">Confirmá tu asistencia antes del 15 de febrero de 2027</p>
+      </div>
+      <div class="rsvp-center">
 
-      function pick(items) {
-        return items[Math.floor(Math.random() * items.length)];
-      }
+        <!-- Loading -->
+        <div id="rsvp-loading" class="rsvp-state hidden">
+          <div class="spinner"></div>
+          <p data-i18n="rsvp_loading">Cargando tu información…</p>
+        </div>
 
-      function syncMuteButton() {
-        muteButton.textContent = muted ? "🔇" : "🔊";
-        muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
-        muteButton.setAttribute("aria-pressed", String(muted));
-        localStorage.setItem("wtc:muted", muted ? "1" : "0");
-      }
+        <!-- No token / not found -->
+        <div id="rsvp-no-token" class="rsvp-state hidden">
+          <div class="rsvp-state-icon">🔗</div>
+          <h3 data-i18n="rsvp_no_token_title">Necesitás tu link personal</h3>
+          <p data-i18n="rsvp_no_token_msg">Para confirmar tu asistencia usá el link que Sara o Mauricio te enviaron. Si no lo tenés, escribinos.</p>
+        </div>
 
-      function updateCounter() {
-        const noun = count === 1 ? "train" : "trains";
-        counter.textContent = `${count} ${noun} dispatched`;
-        document.title =
-          count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
-      }
+        <!-- Success: attending -->
+        <div id="rsvp-success" class="rsvp-state hidden">
+          <div class="rsvp-state-icon">🎉</div>
+          <h3 data-i18n="rsvp_success_title">¡Gracias!</h3>
+          <p data-i18n="rsvp_success_msg">Tu confirmación fue registrada. ¡Nos vemos en Leadville!</p>
+          <p data-i18n="rsvp_success_update" style="font-size:0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Podés actualizar tu respuesta en cualquier momento usando tu link personal.</p>
+          <button id="rsvp-edit-btn" class="btn-edit" data-i18n="rsvp_edit">Editar mi respuesta</button>
+        </div>
 
-      function playChoo() {
-        if (muted) return;
-        const node = choo.cloneNode(true);
-        node.volume = 0.28;
-        node.play().catch(() => {});
-      }
+        <!-- Success: declined -->
+        <div id="rsvp-declined" class="rsvp-state hidden">
+          <div class="rsvp-state-icon">💙</div>
+          <h3 data-i18n="rsvp_declined_title">Gracias por avisarnos</h3>
+          <p data-i18n="rsvp_declined_msg">Lamentamos que no puedas venir. ¡Te vamos a extrañar!</p>
+          <button id="rsvp-edit-btn-dec" class="btn-edit" onclick="document.getElementById('rsvp-declined').classList.add('hidden'); document.getElementById('rsvp-form-wrap').classList.remove('hidden');" data-i18n="rsvp_edit">Editar mi respuesta</button>
+        </div>
 
-      function removeNode(event) {
-        event.currentTarget.remove();
-      }
+        <!-- Form -->
+        <div id="rsvp-form-wrap" class="hidden">
+          <p id="rsvp-greeting" class="rsvp-greeting">
+            Hola, <span>...</span> 👋
+          </p>
+          <form id="rsvp-form" class="rsvp-form" novalidate>
 
-      function createSteam(train, delay) {
-        window.setTimeout(() => {
-          const elapsed = performance.now() - train.startedAt;
-          const progress = Math.min(elapsed / train.durationMs, 1);
-          const puff = document.createElement("span");
-          const x =
-            train.direction === "ltr"
-              ? -15 + 130 * progress
-              : 115 - 130 * progress;
+            <!-- Attending -->
+            <div class="form-group">
+              <label class="form-label" data-i18n="rsvp_attending_label">¿Vas a la boda?</label>
+              <div class="radio-group">
+                <label class="radio-opt" data-group="attending" data-value="yes">
+                  <input type="radio" name="attending" value="yes">
+                  <span data-i18n="rsvp_yes">¡Sí, voy! 🎉</span>
+                </label>
+                <label class="radio-opt" data-group="attending" data-value="no">
+                  <input type="radio" name="attending" value="no">
+                  <span data-i18n="rsvp_no">No puedo ir</span>
+                </label>
+              </div>
+            </div>
 
-          puff.className = "steam";
-          puff.textContent = pick(PUFF_CHARS);
-          puff.style.left = `${x}vw`;
-          puff.style.top = `${10 + train.lane * 16}vh`;
-          puff.addEventListener("animationend", removeNode, { once: true });
-          dispatcher.append(puff);
-        }, delay);
-      }
+            <hr class="form-divider">
 
-      function dispatchTrain() {
-        const now = performance.now();
-        if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
-        lastDispatch = now;
+            <!-- +1 section (hidden until attending=yes) -->
+            <div id="plus-one-section" class="hidden">
+              <div class="form-group">
+                <label class="form-label" data-i18n="rsvp_plus_one_label">¿Llevás acompañante?</label>
+                <div class="radio-group">
+                  <label class="radio-opt" data-group="plus_one" data-value="yes">
+                    <input type="radio" name="plus_one" value="yes">
+                    <span data-i18n="rsvp_plus_one_yes">Sí</span>
+                  </label>
+                  <label class="radio-opt" data-group="plus_one" data-value="no">
+                    <input type="radio" name="plus_one" value="no">
+                    <span data-i18n="rsvp_plus_one_no">No</span>
+                  </label>
+                </div>
+              </div>
 
-        let lane = Math.floor(Math.random() * LANE_COUNT);
-        if (lane === lastLane) lane = (lane + 1) % LANE_COUNT;
-        lastLane = lane;
+              <!-- +1 name (hidden until plus_one=yes) -->
+              <div id="plus-one-name-section" class="form-group hidden" style="margin-top: 1rem;">
+                <label class="form-label" for="rsvp-plus-one-name" data-i18n="rsvp_plus_one_name_label">Nombre del/la acompañante</label>
+                <input id="rsvp-plus-one-name" class="form-input" type="text" autocomplete="name"
+                  data-i18n-ph="rsvp_plus_one_name_ph" placeholder="Nombre completo">
+              </div>
+            </div>
 
-        const direction = lastDirection === "ltr" ? "rtl" : "ltr";
-        lastDirection = direction;
+            <hr class="form-divider">
 
-        const durationMs =
-          MIN_DURATION_MS + Math.random() * (MAX_DURATION_MS - MIN_DURATION_MS);
-        const train = {
-          id: nextId++,
-          lane,
-          direction,
-          durationMs,
-          startedAt: now,
-        };
+            <!-- Phone -->
+            <div class="form-group">
+              <label class="form-label" for="rsvp-phone" data-i18n="rsvp_phone_label">Celular</label>
+              <input id="rsvp-phone" class="form-input" type="tel" autocomplete="tel"
+                data-i18n-ph="rsvp_phone_ph" placeholder="+54 11 xxxx-xxxx">
+            </div>
 
-        const trainNode = document.createElement("span");
-        trainNode.className = `train ${direction}`;
-        trainNode.textContent = pick(TRAIN_EMOJIS);
-        trainNode.style.top = `${10 + lane * 16}vh`;
-        trainNode.style.animationDuration = `${durationMs}ms`;
-        trainNode.addEventListener("animationend", removeNode, { once: true });
-        dispatcher.append(trainNode);
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label" for="rsvp-email" data-i18n="rsvp_email_label">Email</label>
+              <input id="rsvp-email" class="form-input" type="email" autocomplete="email"
+                data-i18n-ph="rsvp_email_ph" placeholder="vos@email.com">
+            </div>
 
-        count += 1;
-        hero.classList.add("dispatched");
-        updateCounter();
-        playChoo();
+            <!-- Arrival day -->
+            <div class="form-group">
+              <label class="form-label" for="rsvp-arrival" data-i18n="rsvp_arrival_label">Día aproximado de llegada</label>
+              <select id="rsvp-arrival" class="form-input form-select">
+                <option value="" data-i18n="rsvp_arrival_ph">Seleccioná un día...</option>
+                <option value="2027-03-22" data-i18n="rsvp_arrival_mar22">Lunes 22 de marzo</option>
+                <option value="2027-03-23" data-i18n="rsvp_arrival_mar23">Martes 23 de marzo</option>
+                <option value="2027-03-24" data-i18n="rsvp_arrival_mar24">Miércoles 24 de marzo</option>
+                <option value="2027-03-25" data-i18n="rsvp_arrival_mar25">Jueves 25 de marzo</option>
+                <option value="2027-03-26" data-i18n="rsvp_arrival_mar26">Viernes 26 de marzo</option>
+              </select>
+            </div>
 
-        for (let i = 0; i < PUFF_COUNT; i += 1) {
-          createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
-        }
-      }
+            <!-- Notes -->
+            <div class="form-group">
+              <label class="form-label" for="rsvp-notes" data-i18n="rsvp_notes_label">Restricciones alimentarias u otras notas</label>
+              <textarea id="rsvp-notes" class="form-input form-textarea"
+                data-i18n-ph="rsvp_notes_ph" placeholder="Celíaco, vegetariano, alergias... (opcional)"></textarea>
+            </div>
 
-      dispatcher.addEventListener("click", dispatchTrain);
-      muteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        muted = !muted;
-        syncMuteButton();
-      });
+            <button id="rsvp-submit-btn" type="submit" class="btn-submit" data-i18n="rsvp_submit">Confirmar</button>
+          </form>
+        </div>
 
-      window.addEventListener("keydown", (event) => {
-        if (event.code === "Space" || event.code === "Enter") {
-          event.preventDefault();
-          dispatchTrain();
-        } else if (event.key === "m" || event.key === "M") {
-          muted = !muted;
-          syncMuteButton();
-        }
-      });
+      </div>
+    </div>
+  </section>
 
-      syncMuteButton();
-      updateCounter();
-    </script>
-  </body>
+  <!-- ===================== FAQ ===================== -->
+  <section id="faq" class="section section-alt">
+    <div class="container-narrow">
+      <div class="section-header">
+        <h2 data-i18n="faq_title">Preguntas frecuentes</h2>
+      </div>
+      <div id="faq-list" class="faq-list">
+        <!-- Rendered by main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <p class="footer-names">Sara &amp; Mauricio</p>
+    <p>Leadville, Colorado · 27 · 03 · 2027</p>
+  </footer>
+
+  <!-- Scripts (order matters: i18n → agenda → rsvp → main) -->
+  <script src="js/i18n.js"></script>
+  <script src="js/agenda.js"></script>
+  <script src="js/rsvp.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
