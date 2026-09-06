@@ -359,7 +359,6 @@ function MovingFloorCanvas({ maps, weight, stage, transferRows, samples, reduced
 
     render();
     if (reducedMotion) return undefined;
-    animationRef.current = requestAnimationFrame(render);
     return () => cancelAnimationFrame(animationRef.current);
   }, [maps, weight, stage, transferRows, samples, reducedMotion]);
 
