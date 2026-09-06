@@ -1,5 +1,14 @@
 "$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
 
 [scripts]
-setup = "true"
-run = "open index.html"
+setup = "./scripts/setup.sh"
+run_mode = "concurrent"
+
+[scripts.run.portal]
+command = "./scripts/dev.sh"
+default = true
+icon = "microscope"
+
+[scripts.run.test]
+command = "./scripts/test.sh"
+icon = "test-tube"

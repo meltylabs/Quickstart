@@ -1,40 +1,61 @@
-# Welcome to Conductor
+# XTB CODEX Bone-Marrow Portal
 
-This is the starter project for Conductor, a macOS app for running multiple coding agents in parallel in isolated git worktree workspaces.
+This workspace is a local FastAPI + Vite/React portal for the CODEX normal bone-marrow benchmark. It uses only synced analysis artifacts from `ohsu-ec2:/data/xtb_pilot_2026-08-25`; generated Zarr stores and source data stay out of git.
 
-The app is intentionally tiny: one dependency-free `index.html` file plus a few static assets in `public/`. There is no install step, build step, package manager, framework, or dev server.
+## Data
 
-## How Conductor Uses This Project
-
-Conductor creates each workspace as its own git worktree and branch. The checked-in `.conductor/settings.toml` tells Conductor how to prepare and run this starter app:
-
-```toml
-"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
-
-[scripts]
-setup = "true"
-run = "open index.html"
-```
-
-When you create a workspace, setup succeeds immediately. When you click Run on macOS, Conductor opens the HTML file in your default browser.
-
-## Local Development
-
-Open the app directly:
+Defaults:
 
 ```sh
-open index.html
+XTB_REMOTE=ohsu-ec2:/data/xtb_pilot_2026-08-25
+XTB_DATA_DIR=.context/xtb-data
+XTB_GENERATED_DIR=public/data/generated
 ```
 
-Edit `index.html`, then refresh the browser.
+`scripts/sync_xtb_data.sh` copies the required CSV, NPZ subsamples, provenance, benchmark outputs, map export, and code receipts. RDS files are not copied by default; their expected MD5 receipts are verified from `NBM.md5`. Use `--with-rds` only when local RDS copies are needed.
 
-## Project Structure
+`scripts/build_portal_data.py` verifies the expected CSV SHA-256, checks benchmark counts, rebuilds sample row identities from the CSV, writes real AnnData Zarr stores for the 12,000-cell donor subsamples, and emits `public/data/generated/manifest.json`.
 
-- `index.html` contains the UI, styling, and interaction logic.
-- `public/` contains static assets used by the page.
-- `.conductor/settings.toml` contains the shared Conductor workspace scripts.
-- `.context/` is available in Conductor workspaces for gitignored notes and handoff files between agents.
+## Paper Tool Parity
 
-## Learn More
+The portal inventory separates tools from the paper/source repository by how they are used here:
 
-- [Conductor docs](https://conductor.build/docs)
+| Status | Tools |
+| --- | --- |
+| Used directly by portal | CODEX table artifacts, AnnData/Zarr, Vitessce, numpy/pandas, FastAPI/React/Vite |
+| Synced benchmark receipt | scikit-learn, scanpy/Leiden, igraph/leidenalg |
+| Upstream/source artifact | Seurat, tidyverse/readr/dplyr/tidyr/tibble, ggplot2/patchwork/ComplexHeatmap/pheatmap, DeepCell/Mesmer, MCMICRO-style quantification outputs |
+| Out of scope for this portal | scRNA-seq atlas generation, QuPath, wsireg, spatstat/sf/nngeo/imcRtools/SingleCellExperiment, CytoTRACE, CellChat, RPCA/reference mapping, AML/NSM neighborhood analysis, RNA/protein correlation and ligand-receptor CODEX distance analysis |
+
+This portal does not rerun the full paper. It uses the normal-marrow CODEX-derived tabular export, synced benchmark outputs, and generated Vitessce stores. Broader transcriptomic, signaling, reference-mapping, disease, and neighborhood analyses remain visible as scope boundaries rather than implied results.
+
+## Run
+
+```sh
+./scripts/setup.sh
+./scripts/dev.sh
+```
+
+Conductor runs the same commands through `.conductor/settings.toml`. Vite serves the portal at `http://127.0.0.1:${CONDUCTOR_PORT:-8912}` and proxies API calls to FastAPI on `CONDUCTOR_PORT + 1`.
+
+## API
+
+- `GET /api/health`
+- `GET /api/provenance`
+- `GET /api/cohort`
+- `GET /api/biology`
+- `GET /api/sweep`
+- `GET /api/transfer?frac=&seed=`
+- `GET /api/maps`
+- `GET /vitessce/config?sample=&seed=`
+- Static generated assets under `/data/generated/*`
+
+Missing data is reported as a hard portal state. The app does not synthesize donors, cells, marker values, transfer results, or provenance.
+
+## Tests
+
+```sh
+./scripts/test.sh
+```
+
+The test script verifies source artifacts, backend contracts, a production frontend build, and Playwright smoke checks against the local portal.
